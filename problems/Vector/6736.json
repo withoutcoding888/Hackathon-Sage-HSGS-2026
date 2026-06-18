@@ -1,0 +1,16 @@
+[
+  {
+    "id": "v_ortho_1",
+    "type": "mcq",
+    "level": "easy",
+    "question": "Hai vector vuông góc khi nào?",
+    "options": [
+      "$u+v=0$",
+      "$u\\cdot v=0$",
+      "$u=v$",
+      "$u-v=0$"
+    ],
+    "answer": 1,
+    "explain": "$u\\cdot v=0$."
+  }
+]

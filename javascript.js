@@ -111,145 +111,41 @@ const THEORY = [
 // =========================
 // 2. CÂU HỎI CÓ SẴN
 // =========================
-const QUESTION_BANK = [
-  {
-    id: "q1",
-    type: "mcq",
-    topic: "Vector",
-    level: "easy",
-    question: "Cho u=(1,2), v=(3,4). Tính u+v.",
-    options: ["(2,6)", "(4,6)", "(3,8)", "(4,2)"],
-    answer: 1,
-    explain: "u+v=(1+3,2+4)=(4,6)."
-  },
-  {
-    id: "q2",
-    type: "mcq",
-    topic: "Vector",
-    level: "easy",
-    question: "Hai vector u và v vuông góc khi điều kiện nào đúng?",
-    options: ["u+v=0", "u·v=0", "u=v", "u-v=0"],
-    answer: 1,
-    explain: "Hai vector vuông góc khi tích vô hướng bằng 0."
-  },
-  {
-    id: "q3",
-    type: "mcq",
-    topic: "Vector",
-    level: "easy",
-    question: "Quan sát hình. Vector màu xanh có tọa độ nào?",
-    image: { kind: "vector", vector: [3, 2], label: "v" },
-    options: ["(2,3)", "(3,2)", "(-3,2)", "(3,-2)"],
-    answer: 1,
-    explain: "Điểm cuối của vector là (3,2), nên vector có tọa độ (3,2)."
-  },
-  {
-    id: "q4",
-    type: "mcq",
-    topic: "Ma trận",
-    level: "easy",
-    question: "Cho A=[[1,2],[3,4]], I là ma trận đơn vị. A·I bằng gì?",
-    options: ["I", "A", "0", "A²"],
-    answer: 1,
-    explain: "Nhân với ma trận đơn vị không làm thay đổi ma trận."
-  },
-  {
-    id: "q5",
-    type: "mcq",
-    topic: "Định thức",
-    level: "easy",
-    question: "det([[1,2],[3,4]]) bằng bao nhiêu?",
-    options: ["-2", "2", "10", "0"],
-    answer: 0,
-    explain: "det=1·4-2·3=-2."
-  },
-  {
-    id: "q6",
-    type: "mcq",
-    topic: "Định thức",
-    level: "medium",
-    question: "Quan sát hình bình hành tạo bởi hai vector cột. Diện tích bằng bao nhiêu?",
-    image: { kind: "parallelogram", a: [2, 1], b: [1, 3] },
-    options: ["3", "4", "5", "6"],
-    answer: 2,
-    explain: "Diện tích bằng |det([[2,1],[1,3]])| = |2·3 - 1·1| = 5."
-  },
-  {
-    id: "q7",
-    type: "mcq",
-    topic: "Hệ phương trình",
-    level: "medium",
-    question: "Hệ Ax=b có nghiệm duy nhất khi A vuông và điều kiện nào đúng?",
-    options: ["det(A)=0", "det(A)≠0", "rank(A)=0", "A=0"],
-    answer: 1,
-    explain: "Nếu det(A) khác 0 thì A khả nghịch, hệ có nghiệm duy nhất."
-  },
-  {
-    id: "q8",
-    type: "fill",
-    topic: "Vector",
-    level: "easy",
-    question: "Tính u+v với u=(2,5), v=(1,-3).",
-    answers: ["(3,2)", "3,2", "3 2", "(3, 2)"],
-    explain: "u+v=(2+1,5-3)=(3,2)."
-  },
-  {
-    id: "q9",
-    type: "fill",
-    topic: "Vector",
-    level: "easy",
-    question: "Quan sát hình. Nhập tọa độ của vector v.",
-    image: { kind: "vector", vector: [4, -2], label: "v" },
-    answers: ["(4,-2)", "4,-2", "4 -2", "(4, -2)"],
-    explain: "Vector đi từ gốc tọa độ đến điểm (4,-2)."
-  },
-  {
-    id: "q10",
-    type: "fill",
-    topic: "Định thức",
-    level: "easy",
-    question: "Tính det([[2,5],[1,3]]).",
-    answers: ["1"],
-    explain: "det=2·3-5·1=1."
-  },
-  {
-    id: "q11",
-    type: "fill",
-    topic: "Hệ phương trình",
-    level: "medium",
-    question: "Giải hệ x+2y=5, 3x+4y=11. Nhập nghiệm dạng (x,y).",
-    answers: ["(1,2)", "1,2", "1 2", "(1, 2)"],
-    explain: "Nghiệm là x=1, y=2."
-  },
-  {
-    id: "q12",
-    type: "fill",
-    topic: "Không gian vector",
-    level: "medium",
-    question: "Tìm rank của A=[[1,2],[2,4]].",
-    answers: ["1"],
-    explain: "Hàng 2 = 2 lần hàng 1 nên rank(A)=1."
-  },
-  {
-    id: "q13",
-    type: "fill",
-    topic: "Eigen",
-    level: "medium",
-    question: "Tìm các giá trị riêng của A=[[2,0],[0,3]]. Nhập dạng 2,3.",
-    answers: ["2,3", "3,2", "2 3", "3 2"],
-    explain: "Ma trận chéo có giá trị riêng là 2 và 3."
-  },
-  {
-    id: "q14",
-    type: "mcq",
-    topic: "Định thức",
-    level: "hard",
-    question: "Nếu det(A)=5 và A là ma trận 2×2, det(2A) bằng bao nhiêu?",
-    options: ["5", "10", "20", "25"],
-    answer: 2,
-    explain: "Với ma trận 2×2, det(kA)=k²det(A)=4·5=20."
-  }
-];
+
+let QUESTION_BANK = [];
+async function loadQuestions() {
+    const index = await fetch("./problems/index.json")
+        .then(r => r.json());
+
+    const promises = [];
+
+    for (const topic in index) {
+        for (const file of index[topic]) {
+          promises.push(
+              fetch(`./problems/${topic}/${file}.json`)
+                  .then(r => r.json())
+                  .then(questions =>
+                      questions.map(q => ({
+                          ...q,
+                          topic
+                      }))
+                  )
+          );
+        }
+    }
+
+    const data = await Promise.all(promises);
+    
+
+    QUESTION_BANK = data.flat();
+}
+
+async function init() {
+    await loadQuestions();
+}
+
+init();
+
 
 // =========================
 // 3. BIẾN TRẠNG THÁI
