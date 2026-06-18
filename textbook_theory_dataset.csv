@@ -1,0 +1,4 @@
+﻿chapter_file,type,text
+sage-reference.xml,Core-Theory,"The QR factorization of A is
+		A.QR() provided that A is defined using
+		RDF."
