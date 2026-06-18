@@ -1159,6 +1159,11 @@ function renderTakingTest() {
   `;
 
   restoreAnswersToForm();
+if (window.MathJax) {
+    MathJax.typesetPromise()
+      .then(() => console.log("Math rendered"))
+      .catch(err => console.error(err));
+}
 }
 
 function fillGuideHTML() {
@@ -1176,18 +1181,28 @@ function fillGuideHTML() {
 }
 
 function renderQuestion(q, idx) {
+  const question = q.question || "";
+
   if (q.type === "mcq") {
     return `
       <div class="question-card">
         <div class="q-meta">
           <span class="badge">Câu ${idx + 1}</span>
         </div>
-        <div class="q-title">${q.question}</div>
+
+        <div class="q-title">${question}</div>
+
         ${renderQuestionImage(q.image)}
+
         <div class="option-list">
           ${q.options.map((opt, i) => `
             <label class="option-label">
-              <input type="radio" name="q_${idx}" value="${i}" onchange="saveAnswer(${idx}, '${i}')">
+              <input
+                type="radio"
+                name="q_${idx}"
+                value="${i}"
+                onchange="saveAnswer(${idx}, '${i}')"
+              >
               <span>${String.fromCharCode(65 + i)}. ${opt}</span>
             </label>
           `).join("")}
@@ -1201,10 +1216,19 @@ function renderQuestion(q, idx) {
       <div class="q-meta">
         <span class="badge">Câu ${idx + 1}</span>
       </div>
-      <div class="q-title">${q.question}</div>
+
+      <div class="q-title">${question}</div>
+
       ${renderQuestionImage(q.image)}
+
       ${fillGuideHTML()}
-      <input class="answer-input" id="fill_${idx}" placeholder="Ví dụ: -2 hoặc (3,2) hoặc 3,2" oninput="saveAnswer(${idx}, this.value)">
+
+      <input
+        class="answer-input"
+        id="fill_${idx}"
+        placeholder="Ví dụ: -2 hoặc (3,2) hoặc 3,2"
+        oninput="saveAnswer(${idx}, this.value)"
+      >
     </div>
   `;
 }
@@ -1345,6 +1369,9 @@ function renderTestResult(record) {
       </div>
     `).join("")}
   `;
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
 }
 
 // =========================
