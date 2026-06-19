@@ -1,0 +1,25 @@
+[
+  {
+    "id": "m1",
+    "type": "mcq",
+    "level": "easy",
+    "question": "Nếu $A$ là ma trận bất kỳ và $I$ là ma trận đơn vị thì $AI=$?",
+    "options": ["0", "A", "I", "A²"],
+    "answer": 1,
+    "explain": "Ma trận đơn vị là phần tử đơn vị của phép nhân."
+  },
+  {
+    "id": "m2",
+    "type": "mcq",
+    "level": "medium",
+    "question": "Cho $A=\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}$ và $B=\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}$. Tính $AB$.",
+    "options": [
+      "$A$",
+      "$B$",
+      "$0$",
+      "$A+B$"
+    ],
+    "answer": 0,
+    "explain": "$AB=A$."
+  }
+]

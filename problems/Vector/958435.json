@@ -1,0 +1,30 @@
+[
+  {
+    "id": "v_dot_1",
+    "type": "mcq",
+    "level": "easy",
+    "question": "Tích vô hướng của $(1,2)$ và $(3,4)$ là bao nhiêu?",
+    "options": [
+      "8",
+      "10",
+      "11",
+      "12"
+    ],
+    "answer": 2,
+    "explain": "$1\\cdot3+2\\cdot4=11$."
+  },
+  {
+    "id": "v_dot_2",
+    "type": "mcq",
+    "level": "easy",
+    "question": "Hai vector vuông góc khi nào?",
+    "options": [
+      "$u=v$",
+      "$u+v=0$",
+      "$u\\cdot v=0$",
+      "$u-v=0$"
+    ],
+    "answer": 2,
+    "explain": "Hai vector vuông góc khi tích vô hướng bằng $0$."
+  }
+]
