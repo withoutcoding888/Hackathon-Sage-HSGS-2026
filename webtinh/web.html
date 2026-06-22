@@ -1,0 +1,3024 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SageLA Math - Đại Số Tuyến Tính</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --soft: #f1f5f9;
+      --dark: #0f172a;
+      --blue: #2563eb;
+      --green: #10b981;
+      --red: #f43f5e;
+      --purple: #8b5cf6;
+      --shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    /* HIỆU ỨNG CHUYỂN TRANG MƯỢT MÀ */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* TOPBAR BANNER */
+    .topbar {
+      height: 66px;
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 18px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .menu-btn {
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+    }
+
+    .menu-btn:hover {
+      background: var(--soft);
+    }
+
+    .brand {
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .brand small {
+      font-size: 11px;
+      color: var(--muted);
+      align-self: flex-end;
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-box {
+      width: min(500px, 100%);
+      height: 40px;
+      display: flex;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      background: white;
+      transition: var(--transition);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      padding: 0 18px;
+      font-size: 14px;
+    }
+
+    .search-box button {
+      width: 60px;
+      border: none;
+      border-left: 1px solid #cbd5e1;
+      background: var(--soft);
+      font-weight: 700;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-pill {
+      border: none;
+      height: 38px;
+      border-radius: 999px;
+      padding: 0 16px;
+      background: var(--soft);
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* SIDEBAR NAVIGATION */
+    .sidebar {
+      position: fixed;
+      top: 66px;
+      bottom: 0;
+      left: 0;
+      width: 260px;
+      z-index: 80;
+      overflow-y: auto;
+      background: white;
+      border-right: 1px solid rgba(226, 232, 240, 0.8);
+      padding: 16px 14px;
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar.collapsed {
+      width: 78px;
+    }
+
+    .side-block {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .side-block:last-child {
+      border-bottom: none;
+    }
+
+    .side-title {
+      padding: 12px 15px 8px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .side-item {
+      height: 46px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 14px;
+      margin: 2px 0;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+      user-select: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .side-item:hover,
+    .side-item.active {
+      background: var(--soft);
+      color: var(--blue);
+    }
+
+    .side-item.active {
+      background: #eff6ff;
+      color: var(--blue);
+    }
+
+    .side-icon {
+      width: 24px;
+      text-align: center;
+      font-size: 18px;
+      flex: none;
+    }
+
+    .sidebar.collapsed .side-text,
+    .sidebar.collapsed .side-title {
+      display: none;
+    }
+
+    .sidebar.collapsed .side-item {
+      justify-content: center;
+      padding: 0;
+      gap: 0;
+    }
+
+    /* MAIN DASHBOARD */
+    main {
+      margin-left: 260px;
+      margin-top: 66px;
+      padding: 24px 28px 60px;
+      transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    main.expanded {
+      margin-left: 78px;
+    }
+
+    /* CHIPS NAVIGATION */
+    .chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 14px;
+      position: sticky;
+      top: 66px;
+      z-index: 60;
+      background: var(--bg);
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-weight: 700;
+      font-size: 13px;
+      white-space: nowrap;
+      color: #475569;
+    }
+
+    .chip.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    /* HERO BANNER */
+    .hero {
+      border-radius: 24px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 28px;
+      align-items: center;
+      color: white;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.25), transparent 45%),
+        radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.2), transparent 45%),
+        linear-gradient(135deg, #0f172a, #1e3a8a);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.15;
+      font-weight: 850;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      margin: 14px 0 20px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-weight: 700;
+      background: white;
+      color: #0f172a;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
+    .hero-btn.ghost {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      box-shadow: none;
+    }
+
+    .hero-panel {
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .big-formula {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 28px 0 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* GRID SYSTEM */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-top {
+      min-height: 110px;
+      padding: 16px;
+      color: white;
+      background: linear-gradient(135deg, var(--c1), var(--c2));
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-top::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .tag {
+      width: fit-content;
+      border-radius: 999px;
+      padding: 4px 8px;
+      background: rgba(255, 255, 255, 0.18);
+      font-size: 12px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .formula {
+      position: relative;
+      z-index: 1;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 13px;
+      flex: 1;
+      margin-bottom: 12px;
+    }
+
+    /* MA TRẬN TOÁN HỌC VẠN NĂNG (Hỗ trợ mọi chiều n x m) */
+    .math-matrix {
+      display: inline-flex;
+      align-items: center;
+      margin: 4px 6px;
+      position: relative;
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-style: normal;
+      font-size: 1.15em;
+      vertical-align: middle;
+    }
+
+    .math-matrix::before,
+    .math-matrix::after {
+      content: "";
+      width: 6px;
+      align-self: stretch;
+      border: 2px solid var(--text);
+    }
+
+    .math-matrix::before {
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .math-matrix::after {
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .math-matrix-grid {
+      display: grid;
+      grid-gap: 4px 12px;
+      padding: 4px 6px;
+      text-align: center;
+    }
+
+    /* BUTTONS */
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .primary,
+    .secondary,
+    .danger {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .primary {
+      background: var(--dark);
+      color: white;
+    }
+
+    .primary:hover {
+      background: #1e293b;
+    }
+
+    .secondary {
+      background: var(--soft);
+      color: var(--text);
+    }
+
+    .secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .danger:hover {
+      background: #fca5a5;
+    }
+
+    /* PANELS */
+    .panel {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+      margin-bottom: 18px;
+    }
+
+    .panel h3 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .test-shell {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .test-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .test-head {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      color: white;
+      padding: 18px;
+    }
+
+    .test-head.ai {
+      background: linear-gradient(135deg, #581c87, #1d4ed8);
+    }
+
+    .test-head h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+
+    .test-body {
+      padding: 20px;
+    }
+
+    /* SYSTEM FORMS */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 0 10px;
+      outline: none;
+      background: white;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--blue);
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .check-card {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .check-card input {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* QUESTION CARD */
+    .question-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: var(--transition);
+    }
+
+    .q-title {
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .q-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .option-label:hover {
+      background: #eff6ff;
+      border-color: var(--blue);
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 3px;
+    }
+
+    .answer-input {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px;
+      outline: none;
+      font-size: 14px;
+      margin: 10px 0;
+      transition: var(--transition);
+    }
+
+    .answer-input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+    }
+
+    .image-box {
+      margin: 12px 0 14px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #f8fafc;
+      overflow: auto;
+    }
+
+    .image-box svg {
+      width: 100%;
+      max-width: 420px;
+      display: block;
+      margin: auto;
+    }
+
+    /* STATS BOXES */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .stats.four {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 2px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* RESULT & PERFORMANCE */
+    .score-big {
+      text-align: center;
+      padding: 24px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .score-big .num {
+      font-size: clamp(40px, 8vw, 80px);
+      font-weight: 900;
+      letter-spacing: -3px;
+      color: var(--blue);
+      line-height: 1;
+    }
+
+    .score-big .label {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .review-ok {
+      border-color: #a7f3d0;
+      background: #f0fdf4;
+    }
+
+    .review-bad {
+      border-color: #fecdd3;
+      background: #fff5f5;
+    }
+
+    .answer-line {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+      color: #334155;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    /* LAYOUTS FOR THEORY & PRACTICE */
+    .lesson-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 20px;
+    }
+
+    .lesson-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    /* Scrollbar customized */
+    .lesson-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .lesson-list::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 4px;
+    }
+
+    .lesson-category {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 12px 0 6px 4px;
+    }
+
+    .lesson-item {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .lesson-item.active {
+      border-color: var(--blue);
+      background: #eff6ff;
+    }
+
+    .lesson-item h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .lesson-view {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .lesson-view::-webkit-scrollbar {
+      width: 4px;
+    }
+    .lesson-view::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 4px;
+    }
+
+    .lesson-view h2 {
+      margin-top: 8px;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .math-box {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin: 12px 0;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sub-section {
+      background: #fdfdfd;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+
+    .sub-section h4 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sub-section-desc {
+      font-size: 13.5px;
+      color: #334155;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .sub-section-desc ul {
+      margin-top: 6px;
+      padding-left: 18px;
+    }
+
+    .sub-section-desc li {
+      margin-bottom: 4px;
+    }
+
+    .example-solution {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+
+    .example-solution h3 {
+      margin-top: 0;
+      font-size: 15px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 12px 0;
+    }
+
+    /* SCORE TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: var(--soft);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 11px;
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .badge.ok {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.bad {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .empty {
+      background: white;
+      border: 1px dashed #cbd5e1;
+      border-radius: 18px;
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .test-shell,
+      .lesson-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        width: 260px;
+      }
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      main, main.expanded {
+        margin-left: 0;
+        padding: 16px;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+      .top-actions {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid, .stats {
+        grid-template-columns: 1fr;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- TOPBAR BANNER -->
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="brand">
+      <div class="logo">Σ</div>
+      <span>SageLA Math</span>
+      <small>Hackathon Pro</small>
+    </div>
+    <div class="search">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm bài lý thuyết toán..." />
+        <button id="searchBtn">🔍</button>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="top-pill">🇻🇳 Tiếng Việt</div>
+    </div>
+  </header>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="sidebar" id="sidebar">
+    <div class="side-block">
+      <div class="side-item active" data-view="home">
+        <div class="side-icon">⌂</div>
+        <div class="side-text">Trang chủ</div>
+      </div>
+      <div class="side-item" data-view="theory">
+        <div class="side-icon">📘</div>
+        <div class="side-text">Lý thuyết toán</div>
+      </div>
+      <div class="side-item" data-view="testSetup">
+        <div class="side-icon">📝</div>
+        <div class="side-text">Tạo bài kiểm tra</div>
+      </div>
+      <div class="side-item" data-view="aiSetup">
+        <div class="side-icon">✨</div>
+        <div class="side-text">Bài luyện tập</div>
+      </div>
+      <div class="side-item" data-view="scores">
+        <div class="side-icon">🏆</div>
+        <div class="side-text">Xem điểm</div>
+      </div>
+    </div>
+
+    <div class="side-block">
+      <div class="side-title">Chủ đề toán</div>
+      <div class="side-item" data-topic="all">
+        <div class="side-icon">📂</div>
+        <div class="side-text">Tất cả chủ đề</div>
+      </div>
+      <div class="side-item" data-topic="Hệ phương trình">
+        <div class="side-icon">≡</div>
+        <div class="side-text">Hệ phương trình</div>
+      </div>
+      <div class="side-item" data-topic="Vector">
+        <div class="side-icon">➜</div>
+        <div class="side-text">Vector</div>
+      </div>
+      <div class="side-item" data-topic="Ma trận">
+        <div class="side-icon">▦</div>
+        <div class="side-text">Ma trận & Phép nhân</div>
+      </div>
+      <div class="side-item" data-topic="Định thức">
+        <div class="side-icon">Δ</div>
+        <div class="side-text">Định thức</div>
+      </div>
+      <div class="side-item" data-topic="Không gian vector">
+        <div class="side-icon">◇</div>
+        <div class="side-text">Không gian & Sinh</div>
+      </div>
+      <div class="side-item" data-topic="Biến đổi hình học">
+        <div class="side-icon">⧉</div>
+        <div class="side-text">Biến đổi hình học</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN DASHBOARD -->
+  <main id="main">
+    <nav class="chips">
+      <button class="chip active" data-view="home">Tổng quan</button>
+      <button class="chip" data-view="theory">Lý thuyết toán</button>
+      <button class="chip" data-view="testSetup">Tạo bài kiểm tra</button>
+      <button class="chip" data-view="aiSetup">Bài luyện tập</button>
+      <button class="chip" data-view="scores">Xem điểm</button>
+    </nav>
+
+    <!-- Content mount node -->
+    <div id="app" class="animate-fade-in"></div>
+  </main>
+
+  <!-- SYSTEM ENGINE SCRIPT -->
+  <script>
+    // ==========================================
+    // 1. DATA: LÝ THUYẾT & BỘ CÂU HỎI (Tối ưu hóa phân rã sâu mục nhỏ dựa trên 3 tệp tin nguồn)
+    // ==========================================
+    const THEORY = [
+      {
+        id: "linear-system-concept",
+        topic: "Hệ phương trình",
+        category: "Chương 1: Hệ phương trình & Thực hành",
+        title: "Khái niệm và sự tồn tại nghiệm",
+        formula: "A · x = b",
+        summary: "Nghiên cứu bản chất của hệ phương trình tuyến tính, câu hỏi về sự tồn tại (sự tương thích) và tính duy nhất của nghiệm.",
+        sections: [
+          {
+            title: "Khái niệm Hệ phương trình tuyến tính",
+            desc: "Một phương trình tuyến tính có dạng $a_1x_1 + a_2x_2 + \\dots + a_nx_n = b$. Một hệ phương trình tuyến tính (hệ tuyến tính) là một tập hợp gồm nhiều phương trình tuyến tính cùng chung một tập biến."
+          },
+          {
+            title: "Đại số và Hình học trực quan",
+            desc: "Về hình học, nghiệm của một phương trình 2 ẩn tạo thành một đường thẳng, trong khi 3 ẩn tạo thành một mặt phẳng. Giao điểm của các đối tượng này chính là tập nghiệm của hệ."
+          },
+          {
+            title: "Câu hỏi nền tảng (Sự tồn tại & Tính duy nhất)",
+            desc: "<ul><li><b>Sự tồn tại (Tương thích):</b> Có nghiệm nào thỏa mãn hệ không? Hệ có ít nhất một nghiệm gọi là hệ tương thích, ngược lại gọi là hệ mâu thuẫn.</li><li><b>Tính duy nhất:</b> Nếu hệ có nghiệm, nghiệm đó là duy nhất hay có vô số nghiệm?</li></ul>"
+          }
+        ],
+        example: "Giải hệ phương trình hai ẩn đơn giản: $x + 2y = 5$ và $3x + 4y = 11$.",
+        solution: "Từ phương trình thứ nhất rút ra $x = 5 - 2y$. Thế vào phương trình thứ hai ta được $3(5 - 2y) + 4y = 11 \\Rightarrow 15 - 6y + 4y = 11 \\Rightarrow y = 2$. Thế ngược lại được $x = 1$. Nghiệm duy nhất của hệ là $(1,2)$."
+      },
+      {
+        id: "gaussian-elimination-algo",
+        topic: "Hệ phương trình",
+        category: "Chương 1: Hệ phương trình & Thực hành",
+        title: "Phương pháp khử Gauss và Ma trận mở rộng",
+        formula: "[[a, b], [c, d]]",
+        summary: "Tìm hiểu cách chuyển đổi hệ phương trình đại số sang dạng Ma trận mở rộng và áp dụng thuật toán khử Gauss để đưa về dạng bậc thang rút gọn.",
+        sections: [
+          {
+            title: "Ba phép toán hàng sơ cấp (Row Operations)",
+            desc: "Để biến đổi hệ phương trình mà không thay đổi tập nghiệm, ta dùng:<ul><li><b>Nhân vô hướng:</b> Nhân một phương trình với một số khác 0.</li><li><b>Hoán vị:</b> Đổi chỗ hai phương trình cho nhau.</li><li><b>Thay thế:</b> Nhân một phương trình với một số rồi cộng vào phương trình khác.</li></ul>"
+          },
+          {
+            title: "Khái niệm Ma trận mở rộng",
+            desc: "Ghi lại dữ liệu số của hệ tuyến tính vào mảng chữ nhật, bỏ qua tên biến. Đường thẳng đứng phân cách biểu thị cho dấu bằng của hệ. Hai ma trận liên hệ với nhau bởi các phép toán hàng sơ cấp gọi là tương đương hàng."
+          },
+          {
+            title: "Dạng bậc thang rút gọn theo hàng (RREF)",
+            desc: "Ma trận ở dạng RREF thỏa mãn:<ul><li>Các hàng toàn 0 nằm dưới cùng.</li><li>Phần tử khác 0 đầu tiên của một hàng (từ trái qua) là số 1 (gọi là phần tử dẫn đầu).</li><li>Phần tử dẫn đầu hàng dưới luôn nằm lệch bên phải so với hàng trên.</li><li>Cột chứa phần tử dẫn đầu thì các phần tử khác đều bằng 0.</li></ul>"
+          }
+        ],
+        example: "Thiết lập ma trận mở rộng cho hệ $x + 2y = 4$ và $2x + y = 5$.",
+        solution: "Ma trận mở rộng tương ứng là: $[[1, 2, 4], [2, 1, 5]]$. Nhân hàng 1 với $-2$ rồi cộng vào hàng 2 ta được: $[[1, 2, 4], [0, -3, -3]]$. Nhân hàng 2 với $-1/3$ được $[[1, 2, 4], [0, 1, 1]]$. Tiếp tục nhân hàng 2 với $-2$ cộng vào hàng 1 được $[[1, 0, 2], [0, 1, 1]]$. Nghiệm duy nhất thu được là $x=2, y=1$."
+      },
+      {
+        id: "sage-and-computation",
+        topic: "Hệ phương trình",
+        category: "Chương 1: Hệ phương trình & Thực hành",
+        title: "Phần mềm Sage và Hiệu năng tính toán",
+        formula: "A.rref()",
+        summary: "Ứng dụng máy tính kỹ thuật và hệ thống CAS (Sage) để tính toán ma trận RREF cũng như phân tích mức độ phức tạp tính toán thực tế.",
+        sections: [
+          {
+            title: "Khai báo và xử lý Ma trận trong Sage",
+            desc: "Trong Sage, ta định nghĩa một ma trận bằng lệnh <code>matrix(row, col, [elements])</code> hoặc danh sách hàng <code>matrix([[row1], [row2]])</code>. Gọi hàm <code>A.rref()</code> để tìm dạng bậc thang rút gọn nhanh chóng."
+          },
+          {
+            title: "Nguyên lý mở rộng (Augmentation Principle)",
+            desc: "Nếu ma trận $B$ là một ma trận mở rộng của ma trận $A$ (thêm cột vế phải), thì dạng bậc thang rút gọn của $B$ cũng chính là ma trận mở rộng của dạng bậc thang rút gọn của $A$."
+          },
+          {
+            title: "Nỗ lực tính toán của thuật toán",
+            desc: "Số phép toán số học sơ cấp cần thiết để tìm dạng RREF của một ma trận kích thước $n \\times n$ xấp xỉ tỉ lệ với $n^3$. Khi kích thước ma trận tăng lên 10 lần, nỗ lực tính toán sẽ tăng lên $10^3 = 1000$ lần!"
+          }
+        ],
+        example: "Định nghĩa ma trận $A = [[1, 2], [-3, 0]]$ và tìm RREF trong Sage.",
+        solution: "Lệnh Sage thực hiện: <br><code>A = matrix([[1, 2], [-3, 0]])</code><br><code>print(A.rref())</code><br>Kết quả trả về là ma trận đơn vị $I_2$: $[[1, 0], [0, 1]]$."
+      },
+      {
+        id: "pivots-and-solspace",
+        topic: "Hệ phương trình",
+        category: "Chương 1: Hệ phương trình & Thực hành",
+        title: "Các phần tử chốt (Pivots) và tính chất nghiệm",
+        formula: "rank(A)",
+        summary: "Định vị trí chốt để kết luận trực tiếp về tính tương thích, số lượng ẩn tự do và tìm dạng nghiệm tham số của hệ phương trình.",
+        sections: [
+          {
+            title: "Vị trí chốt (Pivot Position)",
+            desc: "Là vị trí của một phần tử dẫn đầu (số 1) trong ma trận dạng bậc thang rút gọn (RREF) của ma trận ban đầu."
+          },
+          {
+            title: "Quy tắc kiểm tra Sự tồn tại nghiệm",
+            desc: "Một hệ tuyến tính vô nghiệm (mâu thuẫn) <b>khi và chỉ khi</b> xuất hiện một vị trí chốt ở cột ngoài cùng bên phải của ma trận mở rộng (tương ứng với một hàng có dạng $0x_1 + 0x_2 + \\dots = 1$)."
+          },
+          {
+            title: "Quy tắc kiểm tra Tính duy nhất",
+            desc: "Giả sử hệ tuyến tính tương thích (có nghiệm):<ul><li><b>Nghiệm duy nhất:</b> Nếu mọi cột của ma trận hệ số đều chứa một vị trí chốt.</li><li><b>Vô số nghiệm:</b> Nếu tồn tại ít nhất một cột của ma trận hệ số không chứa vị trí chốt. Cột không chốt này tương ứng với <b>biến tự do (free variable)</b>.</li></ul>"
+          }
+        ],
+        example: "Tìm số nghiệm của hệ có ma trận RREF sau: $[[1, 0, 2, 3], [0, 1, -1, 0], [0, 0, 0, 0]]$.",
+        solution: "Cột vế phải không chứa chốt, hệ này tương thích. Ma trận hệ số có 3 cột tương ứng 3 biến nhưng chỉ có 2 vị trí chốt (ở cột 1 và cột 2). Cột 3 không chứa chốt, tương ứng ẩn tự do $z$. Hệ có vô số nghiệm dạng tham số: $x = 3 - 2z$, $y = z$."
+      },
+      {
+        id: "vector-r2-r3",
+        topic: "Vector",
+        category: "Chương 2: Vector, Ma trận & Phép biến đổi hình học",
+        title: "Vector trong phẳng và không gian nhiều chiều",
+        formula: "u + v",
+        summary: "Nghiên cứu vector dưới hai góc nhìn đại số (mảng số cột) và hình học (mũi tên hướng), thực hiện các phép toán cơ bản.",
+        sections: [
+          {
+            title: "Khái niệm Vector & Không gian $\\mathbb{R}^m$",
+            desc: "Một vector cột $\\mathbf{v}$ là một ma trận kích thước $m \\times 1$. Các phần tử của nó được gọi là thành phần. Tập hợp toàn bộ các vector có $m$ thành phần số thực được ký hiệu là không gian $\\mathbb{R}^m$."
+          },
+          {
+            title: "Hình học hóa của Vector",
+            desc: "Một vector hai chiều $\\mathbf{v} = (x, y)^T$ có thể được vẽ bằng một mũi tên xuất phát từ gốc tọa độ đến điểm $(x, y)$ trong mặt phẳng. Nhân một số vô hướng $c$ với vector sẽ làm co giãn, hoặc đảo hướng mũi tên nếu $c < 0$."
+          },
+          {
+            title: "Các tính chất đại số cơ bản",
+            desc: "Phép cộng vector và nhân vô hướng thỏa mãn các tính chất quen thuộc như: Giao hoán, kết hợp, phân phối theo phép cộng vector, phân phối theo phép cộng vô hướng, và sự tồn tại của vector không $\\mathbf{0}$."
+          }
+        ],
+        example: "Vẽ vector $\\mathbf{v} = (3, 2)^T$ trên lưới tọa độ phẳng.",
+        solution: "Vector đi từ điểm gốc $O(0,0)$ tới điểm cuối có tọa độ $x = 3$ và $y = 2$."
+      },
+      {
+        id: "linear-combs-concept",
+        topic: "Không gian vector",
+        category: "Chương 2: Vector, Ma trận & Phép biến đổi hình học",
+        title: "Tổ hợp tuyến tính và Không gian sinh (Span)",
+        formula: "c_1v_1 + c_2v_2",
+        summary: "Kết nối vector với hệ phương trình thông qua phép biểu diễn tổ hợp tuyến tính và mô hình hóa hình học của không gian sinh.",
+        sections: [
+          {
+            title: "Tổ hợp tuyến tính (Linear Combinations)",
+            desc: "Cho các vector $\\mathbf{v}_1, \\mathbf{v}_2, \\dots, \\mathbf{v}_n$ và các số vô hướng $c_1, c_2, \\dots, c_n$. Vector có dạng $c_1\\mathbf{v}_1 + c_2\\mathbf{v}_2 + \\dots + c_n\\mathbf{v}_n$ được gọi là một tổ hợp tuyến tính của các vector đó."
+          },
+          {
+            title: "Không gian sinh (Span)",
+            desc: "Không gian sinh $\\text{span}\\{\\mathbf{v}_1, \\mathbf{v}_2, \\dots, \\mathbf{v}_n\\}$ là tập hợp tất cả các tổ hợp tuyến tính có thể tạo ra từ các vector đó. Về mặt hình học, span của 1 vector khác không tạo ra một đường thẳng; span của 2 vector không cùng phương tạo ra một mặt phẳng đi qua gốc tọa độ."
+          },
+          {
+            title: "Liên hệ trực tiếp với Hệ tuyến tính",
+            desc: "Một vector $\\mathbf{b}$ thuộc $\\text{span}\\{\\mathbf{v}_1, \\mathbf{v}_2, \\dots, \\mathbf{v}_n\\}$ <b>khi và chỉ khi</b> hệ phương trình tuyến tính có ma trận mở rộng $[\\mathbf{v}_1, \\mathbf{v}_2, \\dots, \\mathbf{v}_n | \\mathbf{b}]$ là một hệ tương thích."
+          }
+        ],
+        example: "Xác định xem $\\mathbf{b} = (-11, -18)^T$ có thuộc không gian sinh của $\\mathbf{v} = (3, -1)^T$ và $\\mathbf{w} = (4, 3)^T$ hay không.",
+        solution: "Ta lập hệ tuyến tính với ma trận mở rộng và biến đổi RREF: $[[3, 4, -11], [-1, 3, -18]] \\sim [[1, 0, 3], [0, 1, -5]]$. Hệ tương thích, suy ra $\\mathbf{b}$ thuộc không gian sinh của hai vector trên với các trọng số duy nhất là $c = 3$ và $d = -5$."
+      },
+      {
+        id: "matrix-vector-mult-linear",
+        topic: "Ma trận",
+        category: "Chương 2: Vector, Ma trận & Phép biến đổi hình học",
+        title: "Phép nhân Ma trận - Vector và Hệ phương trình",
+        formula: "A · x",
+        summary: "Định nghĩa phép nhân ma trận với một vector dưới dạng tổ hợp tuyến tính của các cột ma trận và cách viết gọn hệ phương trình đại số.",
+        sections: [
+          {
+            title: "Phép nhân Ma trận với Vector",
+            desc: "Tích của một ma trận $A$ kích thước $m \\times n$ với một vector $\\mathbf{x}$ thuộc $\\mathbb{R}^n$ được định nghĩa chính xác là tổ hợp tuyến tính của các cột của $A$ lấy các thành phần tương ứng của $\\mathbf{x}$ làm trọng số."
+          },
+          {
+            title: "Phương pháp tính nhanh theo hàng",
+            desc: "Để tìm thành phần thứ $i$ của vector tích $A\\mathbf{x}$, ta lấy hàng thứ $i$ của ma trận $A$ nhân vô hướng với vector $\\mathbf{x}$ (nhân từng phần tử tương ứng rồi cộng dồn lại)."
+          },
+          {
+            title: "Tính chất tuyến tính của Ma trận",
+            desc: "Phép nhân ma trận bảo toàn cấu trúc tuyến tính:<ul><li>$A\\mathbf{0} = \\mathbf{0}$</li><li>$A(c\\mathbf{v}) = cA\\mathbf{v}$</li><li>$A(\\mathbf{v} + \\mathbf{w}) = A\\mathbf{v} + A\\mathbf{w}$</li></ul>"
+          }
+        ],
+        example: "Cho ma trận $A = [[-2, 3], [0, 2], [3, 1]]$ và vector $\\mathbf{x} = (2, 3)^T$. Tính tích $A\\mathbf{x}$.",
+        solution: "Áp dụng định nghĩa tổ hợp cột: $2 \\cdot (-2, 0, 3)^T + 3 \\cdot (3, 2, 1)^T = (-4, 0, 6)^T + (9, 6, 3)^T = (5, 6, 9)^T$. Tính theo hàng cũng cho kết quả tương tự."
+      },
+      {
+        id: "matrix-multiplication-theory",
+        topic: "Ma trận",
+        category: "Chương 2: Vector, Ma trận & Phép biến đổi hình học",
+        title: "Tích hai Ma trận và các Tính chất đặc thù",
+        formula: "A · B",
+        summary: "Phép nhân hai ma trận, phân tích tính hợp lệ về kích thước hình học và những điều lưu ý cực kỳ quan trọng so với đại số số thực.",
+        sections: [
+          {
+            title: "Định nghĩa Tích hai Ma trận",
+            desc: "Cho ma trận $A$ kích thước $m \\times n$ và ma trận $B = [\\mathbf{v}_1, \\mathbf{v}_2, \\dots, \\mathbf{v}_p]$ kích thước $n \\times p$. Tích $AB$ là một ma trận kích thước $m \\times p$ có các cột tương ứng là tích của $A$ với từng cột của $B$: $AB = [A\\mathbf{v}_1, A\\mathbf{v}_2, \\dots, A\\mathbf{v}_p]$."
+          },
+          {
+            title: "Các tính chất đại số",
+            desc: "Phép nhân ma trận có tính kết hợp: $A(BC) = (AB)C$ và tính chất phân phối qua phép cộng: $A(B + C) = AB + AC$."
+          },
+          {
+            title: "Những lưu ý cốt lõi (Khác biệt so với số thực)",
+            desc: "<ul><li><b>Không giao hoán:</b> Thông thường $AB \\neq BA$.</li><li><b>Không được tự tiện triệt tiêu:</b> Từ $AB = AC$ không thể suy ra $B = C$ khi $A \\neq 0$.</li><li><b>Ước của không:</b> Có thể có trường hợp $AB = 0$ dù cả $A$ và $B$ đều khác 0.</li></ul>"
+          }
+        ],
+        example: "Nhân ma trận $A = [[4, 2], [0, 1]]$ với $B = [[-2, 3], [1, 2]]$.",
+        solution: "Cột 1 của tích là $A \\cdot (-2, 1)^T = (-6, 1)^T$. Cột 2 của tích là $A \\cdot (3, 2)^T = (16, 2)^T$. Kết quả $AB = [[-6, 16], [1, 2]]$."
+      },
+      {
+        id: "linear-independence-span",
+        topic: "Không gian vector",
+        category: "Chương 2: Vector, Ma trận & Phép biến đổi hình học",
+        title: "Độc lập tuyến tính và Phụ thuộc tuyến tính",
+        formula: "c_1v_1 + c_2v_2 = 0",
+        summary: "Nghiên cứu sự trùng lặp thông tin giữa các vector và liên hệ với các vị trí chốt của ma trận.",
+        sections: [
+          {
+            title: "Khái niệm Phụ thuộc tuyến tính",
+            desc: "Một tập vector được gọi là phụ thuộc tuyến tính nếu tồn tại ít nhất một vector trong tập có thể biểu diễn thành tổ hợp tuyến tính của các vector còn lại (thêm vector này không làm tăng không gian sinh Span)."
+          },
+          {
+            title: "Khái niệm Độc lập tuyến tính",
+            desc: "Nếu không có bất kỳ vector nào trong tập viết được dưới dạng tổ hợp tuyến tính của các vector còn lại. Khi đó, mỗi một vector đều đại diện cho một hướng đi hoàn toàn độc lập."
+          },
+          {
+            title: "Quy tắc Pivot để nhận biết Độc lập tuyến tính",
+            desc: "Các cột của một ma trận độc lập tuyến tính <b>khi và chỉ khi</b> ma trận hệ số tương ứng có vị trí chốt ở <b>mọi cột</b>. Điều này có nghĩa là một tập độc lập tuyến tính trong không gian $\\mathbb{R}^m$ chứa tối đa $m$ vector."
+          }
+        ],
+        example: "Kiểm tra xem tập vector $\\mathbf{w}_1 = (2, 2)^T, \\mathbf{w}_2 = (1, 1)^T$ có phụ thuộc tuyến tính không.",
+        solution: "Vì $\\mathbf{w}_1 = 2\\mathbf{w}_2$, một vector rõ ràng là bội của vector còn lại. Hai vector này cùng nằm trên một đường thẳng, tập này phụ thuộc tuyến tính."
+      },
+      {
+        id: "matrix-transformation-intro",
+        topic: "Biến đổi hình học",
+        category: "Chương 2: Vector, Ma trận & Phép biến đổi hình học",
+        title: "Khái niệm Phép biến đổi ma trận",
+        formula: "T(x) = A · x",
+        summary: "Hiểu ma trận như một hàm số biến đổi không gian, nhận vector đầu vào và cho ra một sản phẩm vector đầu ra.",
+        sections: [
+          {
+            title: "Định nghĩa Phép biến đổi Ma trận",
+            desc: "Phép biến đổi ma trận tương ứng với ma trận $A$ kích thước $m \\times n$ là một hàm số $T: \\mathbb{R}^n \\to \\mathbb{R}^m$ được xác định bằng công thức nhân ma trận-vector: $T(\\mathbf{x}) = A\\mathbf{x}$."
+          },
+          {
+            title: "Xác định ma trận từ các vector cơ sở chuẩn",
+            desc: "Mọi phép biến đổi ma trận $T$ đều được xác định duy nhất bằng cách xem xét ảnh của các vector cơ sở đơn vị chuẩn $\\mathbf{e}_j$. Các cột của ma trận $A$ chính là các vector kết quả $T(\\mathbf{e}_j)$."
+          },
+          {
+            title: "Hợp thành các phép biến đổi (Composition)",
+            desc: "Thực hiện phép biến đổi $T$ rồi đến phép biến đổi $S$ tương ứng với hợp thành hàm $S(T(\\mathbf{x})) = BA\\mathbf{x}$. Ma trận của phép biến đổi hợp thành chính là tích hai ma trận $BA$."
+          }
+        ],
+        example: "Tìm ma trận biểu diễn phép quay ngược chiều kim đồng hồ góc $90^\\circ$ trong mặt phẳng.",
+        solution: "Vector cơ sở $\\mathbf{e}_1 = (1,0)^T$ quay $90^\\circ$ được $\\mathbf{e}_2 = (0,1)^T$. Vector $\\mathbf{e}_2 = (0,1)^T$ quay được $(-1,0)^T$. Ghép các cột lại ta thu được ma trận biểu diễn: $[[0, -1], [1, 0]]$."
+      },
+      {
+        id: "geometry-and-animation",
+        topic: "Biến đổi hình học",
+        category: "Chương 2: Vector, Ma trận & Phép biến đổi hình học",
+        title: "Hình học không gian và Hoạt hình máy tính",
+        formula: "[a, b, c; d, e, f]",
+        summary: "Khám phá thế giới hình học 2D/3D của phép quay, phản xạ, co giãn và kỹ thuật tọa độ thuần nhất để tịnh tiến đối tượng đồ họa.",
+        sections: [
+          {
+            title: "Các biến đổi hình học cơ bản",
+            desc: "<ul><li><b>Phép phản xạ (Reflection):</b> Lật đối tượng qua trục tọa độ hoặc đường thẳng bất kỳ.</li><li><b>Phép co giãn (Scaling):</b> Nhân các thành phần tọa độ với hệ số co giãn.</li><li><b>Phép trượt (Shearing):</b> Dịch chuyển một thành phần theo tỉ lệ của thành phần kia.</li></ul>"
+          },
+          {
+            title: "Vấn đề của phép tịnh tiến (Translation)",
+            desc: "Phép tịnh tiến dịch chuyển gốc tọa độ nên không thể biểu diễn trực tiếp bằng ma trận $2 \\times 2$ thông thường (vì mọi phép nhân ma trận đều giữ nguyên điểm gốc $\\mathbf{0}$)."
+          },
+          {
+            title: "Giải pháp: Tọa độ thuần nhất (Homogeneous Coordinates)",
+            desc: "Nhúng không gian 2D vào không gian 3D như một mặt phẳng $z = 1$. Biểu diễn một điểm dưới dạng $(x, y, 1)^T$. Khi đó, một ma trận $3 \\times 3$ dạng $[[1, 0, h], [0, 1, k], [0, 0, 1]]$ sẽ thực hiện hoàn hảo phép tịnh tiến đối tượng đi một khoảng $h$ và $k$."
+          }
+        ],
+        example: "Viết ma trận tọa độ thuần nhất tịnh tiến điểm đi 2 đơn vị theo chiều ngang và 1 đơn vị theo chiều dọc.",
+        solution: "Ma trận $3 \\times 3$ tương ứng là: $[[1, 0, 2], [0, 1, 1], [0, 0, 1]]$."
+      }
+    ];
+
+    const QUESTION_BANK = [
+      {
+        id: "q1",
+        type: "mcq",
+        topic: "Vector",
+        level: "easy",
+        question: "Cho u=(1,2), v=(3,4). Tính u+v.",
+        options: ["(2,6)", "(4,6)", "(3,8)", "(4,2)"],
+        answer: 1,
+        explain: "u+v=(1+3,2+4)=(4,6)."
+      },
+      {
+        id: "q2",
+        type: "mcq",
+        topic: "Vector",
+        level: "easy",
+        question: "Hai vector u và v vuông góc khi điều kiện nào đúng?",
+        options: ["u+v=0", "u·v=0", "u=v", "u-v=0"],
+        answer: 1,
+        explain: "Hai vector vuông góc khi tích vô hướng bằng 0."
+      },
+      {
+        id: "q3",
+        type: "mcq",
+        topic: "Vector",
+        level: "easy",
+        question: "Quan sát hình. Vector màu xanh có tọa độ nào?",
+        image: { kind: "vector", vector: [3, 2], label: "v" },
+        options: ["(2,3)", "(3,2)", "(-3,2)", "(3,-2)"],
+        answer: 1,
+        explain: "Điểm cuối của vector là (3,2), nên vector có tọa độ (3,2)."
+      },
+      {
+        id: "q4",
+        type: "mcq",
+        topic: "Ma trận",
+        level: "easy",
+        question: "Cho A=[[1,2],[3,4]], I là ma trận đơn vị. A·I bằng gì?",
+        options: ["I", "A", "0", "A²"],
+        answer: 1,
+        explain: "Nhân với ma trận đơn vị không làm thay đổi ma trận."
+      },
+      {
+        id: "q5",
+        type: "mcq",
+        topic: "Định thức",
+        level: "easy",
+        question: "det([[1,2],[3,4]]) bằng bao nhiêu?",
+        options: ["-2", "2", "10", "0"],
+        answer: 0,
+        explain: "det=1·4-2·3=-2."
+      },
+      {
+        id: "q6",
+        type: "mcq",
+        topic: "Định thức",
+        level: "medium",
+        question: "Quan sát hình bình hành tạo bởi hai vector cột. Diện tích bằng bao nhiêu?",
+        image: { kind: "parallelogram", a: [2, 1], b: [1, 3] },
+        options: ["3", "4", "5", "6"],
+        answer: 2,
+        explain: "Diện tích bằng |det([[2,1],[1,3]])| = |2·3 - 1·1| = 5."
+      },
+      {
+        id: "q7",
+        type: "mcq",
+        topic: "Hệ phương trình",
+        level: "medium",
+        question: "Hệ Ax=b có nghiệm duy nhất khi A vuông và điều kiện nào đúng?",
+        options: ["det(A)=0", "det(A)≠0", "rank(A)=0", "A=0"],
+        answer: 1,
+        explain: "Nếu det(A) khác 0 thì A khả nghịch, hệ có nghiệm duy nhất."
+      },
+      {
+        id: "q8",
+        type: "fill",
+        topic: "Vector",
+        level: "easy",
+        question: "Tính u+v với u=(2,5), v=(1,-3).",
+        answers: ["(3,2)", "3,2", "3 2", "(3, 2)"],
+        explain: "u+v=(2+1,5-3)=(3,2)."
+      },
+      {
+        id: "q9",
+        type: "fill",
+        topic: "Vector",
+        level: "easy",
+        question: "Quan sát hình. Nhập tọa độ của vector v.",
+        image: { kind: "vector", vector: [4, -2], label: "v" },
+        answers: ["(4,-2)", "4,-2", "4 -2", "(4, -2)"],
+        explain: "Vector đi từ gốc tọa độ đến điểm (4,-2)."
+      },
+      {
+        id: "q10",
+        type: "fill",
+        topic: "Định thức",
+        level: "easy",
+        question: "Tính det([[2,5],[1,3]]).",
+        answers: ["1"],
+        explain: "det=2·3-5·1=1."
+      },
+      {
+        id: "q11",
+        type: "fill",
+        topic: "Hệ phương trình",
+        level: "medium",
+        question: "Giải hệ x+2y=5, 3x+4y=11. Nhập nghiệm dạng (x,y).",
+        answers: ["(1,2)", "1,2", "1 2", "(1, 2)"],
+        explain: "Nghiệm là x=1, y=2."
+      },
+      {
+        id: "q12",
+        type: "fill",
+        topic: "Không gian vector",
+        level: "medium",
+        question: "Tìm rank của A=[[1,2],[2,4]].",
+        answers: ["1"],
+        explain: "Hàng 2 = 2 lần hàng 1 nên rank(A)=1."
+      },
+      {
+        id: "q13",
+        type: "fill",
+        topic: "Eigen",
+        level: "medium",
+        question: "Tìm các giá trị riêng của A=[[2,0],[0,3]]. Nhập dạng 2,3.",
+        answers: ["2,3", "3,2", "2 3", "3 2"],
+        explain: "Ma trận chéo có giá trị riêng là 2 và 3."
+      },
+      {
+        id: "q14",
+        type: "mcq",
+        topic: "Định thức",
+        level: "hard",
+        question: "Nếu det(A)=5 và A là ma trận 2×2, det(2A) bằng bao nhiêu?",
+        options: ["5", "10", "20", "25"],
+        answer: 2,
+        explain: "Với ma trận 2×2, det(kA)=k²det(A)=4·5=20."
+      }
+    ];
+
+    // ==========================================
+    // 2. STATE MANAGEMENT
+    // ==========================================
+    let currentView = "home";
+    let currentTopic = "all";
+    let selectedLessonId = THEORY[0].id;
+    let currentTest = null;
+    let currentTestSource = "normal";
+    let lastTestSetup = null;
+    let lastAISetup = null;
+
+    const app = document.getElementById("app");
+    const sidebar = document.getElementById("sidebar");
+    const main = document.getElementById("main");
+
+    // ==========================================
+    // 3. UTILITY & MATH RENDER ENGINE (Parser vạn năng tối ưu)
+    // ==========================================
+    function getScores() {
+      try {
+        return JSON.parse(localStorage.getItem("sagela_scores_clean") || "[]");
+      } catch (e) {
+        console.error("Lỗi parse localStorage:", e);
+        return [];
+      }
+    }
+
+    function setScores(data) {
+      try {
+        localStorage.setItem("sagela_scores_clean", JSON.stringify(data));
+      } catch (e) {
+        console.error("Lỗi set localStorage:", e);
+      }
+    }
+
+    // Đệ quy phân tích sâu chuỗi ma trận và vector bất kỳ (n x m) để render chuẩn xác
+    function parseMathBeauty(text) {
+      if (!text) return "";
+      
+      // Khử định dạng ma trận dạng mảng sâu [[a,b,c],[d,e,f],...]
+      let result = text.replace(/\[\[(.*?)\]\]/g, function(match, innerContent) {
+        try {
+          const rows = innerContent.split(/\],\[/);
+          const matrixData = rows.map(r => r.split(','));
+          const rowCount = matrixData.length;
+          const colCount = Math.max(...matrixData.map(r => r.length));
+          
+          let gridItems = "";
+          matrixData.forEach(row => {
+            row.forEach(val => {
+              gridItems += `<span>${val.trim()}</span>`;
+            });
+          });
+
+          return `
+            <span class="math-matrix">
+              <span class="math-matrix-grid" style="grid-template-columns: repeat(${colCount}, 1fr)">
+                ${gridItems}
+              </span>
+            </span>
+          `;
+        } catch (e) {
+          return match;
+        }
+      });
+
+      // Render vector dạng (x, y) hoặc (x, y, z)
+      result = result.replace(/\((-?\w+),(-?\w+)(,(-?\w+))?\)/g, function(match, x, y, dummy, z) {
+        const coords = z ? [x, y, z] : [x, y];
+        return `
+          <span class="math-matrix">
+            <span class="math-matrix-grid" style="grid-template-columns: 1fr;">
+              ${coords.map(c => `<span>${c}</span>`).join('')}
+            </span>
+          </span>
+        `;
+      });
+      
+      // Thêm quy tắc định dạng LaTeX cho các biểu thức đô-la cơ bản
+      result = result.replace(/\$(.*?)\$/g, function(match, inner) {
+        return `<code style="background: var(--soft); padding: 2px 6px; border-radius: 4px; font-family: Cambria, serif;">${inner}</code>`;
+      });
+
+      return result;
+    }
+
+    function cleanAnswer(text) {
+      return String(text)
+        .toLowerCase()
+        .trim()
+        .replaceAll(";", ",")
+        .replace(/[()\[\]{}]/g, "")
+        .replace(/\s+/g, ",")
+        .replace(/,+/g, ",")
+        .replace(/^,|,$/g, "");
+    }
+
+    function shuffle(array) {
+      const a = [...array];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function randNonZero(min, max) {
+      let x = 0;
+      while (x === 0) x = randInt(min, max);
+      return x;
+    }
+
+    function vecStr(v) {
+      return "(" + v.join(",") + ")";
+    }
+
+    function matStr(A) {
+      return "[[" + A[0].join(",") + "],[" + A[1].join(",") + "]]";
+    }
+
+    function det2(A) {
+      return A[0][0] * A[1][1] - A[0][1] * A[1][0];
+    }
+
+    function setActive(key) {
+      document.querySelectorAll(".side-item").forEach((el) => {
+        const value = el.dataset.view || el.dataset.topic;
+        el.classList.toggle("active", value === key);
+      });
+
+      document.querySelectorAll(".chip").forEach((el) => {
+        el.classList.toggle("active", el.dataset.view === key);
+      });
+    }
+
+    function triggerViewAnimation() {
+      app.classList.remove("animate-fade-in");
+      void app.offsetWidth;
+      app.classList.add("animate-fade-in");
+    }
+
+    function showView(view) {
+      currentView = view;
+      setActive(view);
+      triggerViewAnimation();
+
+      if (window.innerWidth <= 768) {
+        sidebar.classList.remove("mobile-open");
+      }
+
+      if (view === "home") renderHome();
+      if (view === "theory") renderTheory();
+      if (view === "testSetup") renderTestSetup();
+      if (view === "aiSetup") renderAISetup();
+      if (view === "scores") renderScores();
+    }
+
+    function goBack() {
+      if (currentView === "takingTest") {
+        if (confirm("Quay lại sẽ hủy bài đang làm. Bạn chắc chắn?")) {
+          currentTest = null;
+          showView(currentTestSource === "ai" ? "aiSetup" : "testSetup");
+        }
+        return;
+      }
+
+      if (currentView === "testResult") {
+        showView(currentTestSource === "ai" ? "aiSetup" : "testSetup");
+        return;
+      }
+
+      showView("home");
+    }
+
+    function renderBackButton(label = "Quay lại") {
+      return `<button class="secondary" onclick="goBack()">← ${label}</button>`;
+    }
+
+    function scoreStats() {
+      const scores = getScores();
+      const tests = scores.length;
+      let total = 0;
+      let correct = 0;
+
+      scores.forEach((record) => {
+        total += record.total;
+        correct += record.correct;
+      });
+
+      const percent = total ? Math.round((correct / total) * 100) : 0;
+      return { tests, percent };
+    }
+
+    // ==========================================
+    // 4. GEOMETRY VISUALIZATION ENGINE (SVG Generators)
+    // ==========================================
+    function renderQuestionImage(image) {
+      if (!image) return "";
+
+      if (image.kind === "vector") {
+        return `
+          <div class="image-box">
+            ${svgVector(image.vector, image.label || "v")}
+          </div>
+        `;
+      }
+
+      if (image.kind === "parallelogram") {
+        return `
+          <div class="image-box">
+            ${svgParallelogram(image.a, image.b)}
+          </div>
+        `;
+      }
+
+      return "";
+    }
+
+    function svgVector(v, label) {
+      const W = 420;
+      const H = 260;
+      const scale = 25;
+      const cx = W / 2;
+      const cy = H / 2;
+      const x = cx + v[0] * scale;
+      const y = cy - v[1] * scale;
+
+      return `
+        <svg viewBox="0 0 ${W} ${H}" style="background:#fff; border-radius:12px;">
+          ${svgGrid(W, H, scale, cx, cy)}
+          <defs>
+            <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"></path>
+            </marker>
+          </defs>
+          <line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"></line>
+          <text x="${x + 8}" y="${y - 8}" fill="#2563eb" font-size="14" font-weight="900">${label}</text>
+        </svg>
+      `;
+    }
+
+    function svgParallelogram(a, b) {
+      const W = 420;
+      const H = 260;
+      const scale = 25;
+      const cx = W / 2;
+      const cy = H / 2;
+
+      const p0 = [cx, cy];
+      const p1 = [cx + a[0] * scale, cy - a[1] * scale];
+      const p2 = [cx + b[0] * scale, cy - b[1] * scale];
+      const p3 = [p1[0] + b[0] * scale, p1[1] - b[1] * scale];
+
+      return `
+        <svg viewBox="0 0 ${W} ${H}" style="background:#fff; border-radius:12px;">
+          ${svgGrid(W, H, scale, cx, cy)}
+          <polygon
+            points="${p0.join(",")} ${p1.join(",")} ${p3.join(",")} ${p2.join(",")}"
+            fill="rgba(37,99,235,0.12)"
+            stroke="#2563eb"
+            stroke-width="2">
+          </polygon>
+          <line x1="${p0[0]}" y1="${p0[1]}" x2="${p1[0]}" y2="${p1[1]}" stroke="#ef4444" stroke-width="3"></line>
+          <line x1="${p0[0]}" y1="${p0[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#16a34a" stroke-width="3"></line>
+          <text x="${p1[0] + 8}" y="${p1[1] - 8}" fill="#ef4444" font-size="13" font-weight="900">a</text>
+          <text x="${p2[0] + 8}" y="${p2[1] - 8}" fill="#16a34a" font-size="13" font-weight="900">b</text>
+        </svg>
+      `;
+    }
+
+    function svgGrid(W, H, scale, cx, cy) {
+      let lines = "";
+
+      for (let x = cx % scale; x < W; x += scale) {
+        lines += `<line x1="${x}" y1="0" x2="${x}" y2="${H}" stroke="#f1f5f9" stroke-width="1"></line>`;
+      }
+
+      for (let y = cy % scale; y < H; y += scale) {
+        lines += `<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#f1f5f9" stroke-width="1"></line>`;
+      }
+
+      lines += `<line x1="0" y1="${cy}" x2="${W}" y2="${cy}" stroke="#94a3b8" stroke-width="1.5"></line>`;
+      lines += `<line x1="${cx}" y1="0" x2="${cx}" y2="${H}" stroke="#94a3b8" stroke-width="1.5"></line>`;
+      lines += `<text x="${cx + 5}" y="${cy - 5}" fill="#64748b" font-size="11" font-weight="700">O</text>`;
+
+      return lines;
+    }
+
+    // ==========================================
+    // 5. RENDERING CORE PAGES
+    // ==========================================
+    function renderHome() {
+      const stats = scoreStats();
+
+      app.innerHTML = `
+        <section class="hero">
+          <div>
+            <h1>Đại số tuyến tính dễ học hơn bao giờ hết</h1>
+            <p>
+              Hệ thống ôn luyện lý thuyết tương tác trực quan phân chia mục lục rõ ràng, kết hợp công cụ sinh đề tự động bằng thuật toán toán học. Giúp bạn nắm chắc mọi khái niệm cốt lõi.
+            </p>
+            <div class="hero-actions">
+              <button class="hero-btn" onclick="showView('testSetup')">Làm kiểm tra</button>
+              <button class="hero-btn ghost" onclick="showView('aiSetup')">Tự tạo đề luyện tập</button>
+              <button class="hero-btn ghost" onclick="showView('theory')">Ôn lý thuyết</button>
+            </div>
+          </div>
+
+          <div class="hero-panel">
+            <div>
+              <div class="big-formula">A · x = b</div>
+              <div style="font-size: 13px; opacity:0.9;">Hệ phương trình, Vector, Ma trận, Định thức, Trị riêng...</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>${THEORY.length}</strong>
+            <span>Bài lý thuyết phân rã</span>
+          </div>
+          <div class="stat">
+            <strong>${stats.tests}</strong>
+            <span>Bài đã hoàn thành</span>
+          </div>
+          <div class="stat">
+            <strong>${stats.percent}%</strong>
+            <span>Tỉ lệ đúng</span>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div>
+            <h2>Tính năng hệ thống</h2>
+            <div class="muted">Khám phá phương pháp học tập tối ưu, trực quan bằng hình học.</div>
+          </div>
+        </div>
+
+        <section class="grid">
+          ${featureCard("📘", "Lý thuyết phân chia mục lục", "Hệ thống bài học tóm tắt theo chương, phân chia từng phần khái niệm, công thức và ví dụ giải.", "#2563eb", "#06b6d4", "showView('theory')")}
+          ${featureCard("📝", "Đề kiểm tra sẵn có", "Bộ câu hỏi chất lượng cao đa dạng các mức độ từ cơ bản đến nâng cao.", "#8b5cf6", "#ec4899", "showView('testSetup')")}
+          ${featureCard("✨", "Sinh câu hỏi tự động", "Thuật toán tự động sinh số ngẫu nhiên theo công thức chuẩn hóa để tự luyện tập, không lo trùng lặp.", "#581c87", "#1d4ed8", "showView('aiSetup')")}
+        </section>
+      `;
+    }
+
+    function featureCard(icon, title, desc, c1, c2, action) {
+      return `
+        <article class="card">
+          <div class="card-top" style="--c1:${c1};--c2:${c2};">
+            <div class="tag">${icon}</div>
+            <div class="formula">${title}</div>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">${desc}</div>
+            <div class="btn-row">
+              <button class="primary" onclick="${action}">Khám phá</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // ==========================================
+    // 6. THEORY SECTION (Phân chia mục lục nhỏ tối ưu)
+    // ==========================================
+    function filteredTheory() {
+      const searchInput = document.getElementById("searchInput");
+      const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+      return THEORY.filter((item) => {
+        const byTopic = currentTopic === "all" || item.topic === currentTopic;
+        const bySearch =
+          !keyword ||
+          item.title.toLowerCase().includes(keyword) ||
+          item.topic.toLowerCase().includes(keyword) ||
+          item.summary.toLowerCase().includes(keyword);
+
+        return byTopic && bySearch;
+      });
+    }
+
+    function renderTheory() {
+      const list = filteredTheory();
+      const selected = THEORY.find((x) => x.id === selectedLessonId) || list[0] || THEORY[0];
+
+      // Tổ chức nhóm danh sách bài học theo Chương/Danh mục (Category)
+      const categories = {};
+      list.forEach(item => {
+        if (!categories[item.category]) {
+          categories[item.category] = [];
+        }
+        categories[item.category].push(item);
+      });
+
+      app.innerHTML = `
+        <div class="section-head">
+          <div>
+            <h2>📘 Lý thuyết toán học trực quan (Phân mục nhỏ)</h2>
+            <div class="muted">Nhấn chọn một bài học trong mục lục chi tiết bên trái để ôn tập tương tác.</div>
+          </div>
+          ${renderBackButton()}
+        </div>
+
+        <div class="lesson-layout">
+          <div class="lesson-list">
+            ${
+              Object.keys(categories).map(catName => `
+                <div class="lesson-category">${catName}</div>
+                ${categories[catName].map(item => `
+                  <div class="lesson-item ${item.id === selected.id ? "active" : ""}" onclick="selectLesson('${item.id}')">
+                    <h4>${item.title}</h4>
+                    <div class="muted">${item.topic} • ${item.formula}</div>
+                  </div>
+                `).join("")}
+              `).join("") ||
+              `<div class="empty"><h3>Không tìm thấy lý thuyết tương ứng</h3></div>`
+            }
+          </div>
+
+          <div class="lesson-view">
+            <span class="badge" style="background: var(--blue); color: white;">${selected.category}</span>
+            <span class="badge" style="margin-left: 6px;">${selected.topic}</span>
+            <h2>${selected.title}</h2>
+            
+            <div class="math-box">${parseMathBeauty(selected.formula)}</div>
+            <p class="muted" style="margin-bottom: 20px;">${selected.summary}</p>
+
+            <!-- Mục nhỏ phân rã sâu -->
+            <h3 style="font-size:16px; font-weight:800; margin-top:20px; color: var(--dark);">Phần nội dung phân nhỏ:</h3>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              ${selected.sections ? selected.sections.map((sec, sIdx) => `
+                <div class="sub-section">
+                  <h4>💡 Mục ${sIdx + 1}: ${sec.title}</h4>
+                  <p class="sub-section-desc">${parseMathBeauty(sec.desc)}</p>
+                </div>
+              `).join("") : ""}
+            </div>
+
+            <div class="example-solution" style="margin-top: 24px;">
+              <h3 style="font-size: 14px; color: var(--blue); font-weight:800;">📚 Bài toán thực tế ví dụ:</h3>
+              <p style="font-size:14px; margin: 6px 0 10px; line-height: 1.6;">${parseMathBeauty(selected.example)}</p>
+              <div class="divider"></div>
+              <h3 style="font-size: 14px; color: var(--green); font-weight:800;">🔑 Giải thích chi tiết & Đáp án:</h3>
+              <p style="font-size:14px; margin: 6px 0 0; line-height: 1.6;">${parseMathBeauty(selected.solution)}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectLesson(id) {
+      selectedLessonId = id;
+      renderTheory();
+    }
+
+    // ==========================================
+    // 7. SETUP GENERATING TEST
+    // ==========================================
+    function getTopics() {
+      return ["Hệ phương trình", "Vector", "Ma trận", "Định thức", "Không gian vector", "Biến đổi hình học"];
+    }
+
+    function renderTestSetup() {
+      renderSetupPage({
+        source: "normal",
+        title: "📝 Tạo bài kiểm tra",
+        subtitle: "Sinh đề thi ngẫu nhiên dựa trên kho câu hỏi có sẵn.",
+        headClass: "",
+        note: "Chọn số lượng câu và cấu hình mong muốn để hệ thống tự động lọc đề toán."
+      });
+    }
+
+    function renderAISetup() {
+      renderSetupPage({
+        source: "ai",
+        title: "✨ Tạo bài luyện tập tự động",
+        subtitle: "Công nghệ sinh số ngẫu nhiên theo thuật toán ma trận.",
+        headClass: "ai",
+        note: "Mỗi lượt tạo mới sẽ cho ra đời các số liệu hoàn toàn khác biệt, rèn luyện kỹ năng tính toán bài tập."
+      });
+    }
+
+    function renderSetupPage(config) {
+      const setup = config.source === "ai" ? lastAISetup : lastTestSetup;
+      const topics = getTopics();
+
+      app.innerHTML = `
+        <div class="section-head">
+          <div>
+            <h2>${config.title}</h2>
+            <div class="muted">${config.subtitle}</div>
+          </div>
+          ${renderBackButton()}
+        </div>
+
+        <div class="test-shell">
+          <div class="panel">
+            <h3>Cấu hình bộ đề</h3>
+
+            <div class="form-grid">
+              <div class="field">
+                <label>Số lượng câu</label>
+                <select id="numQuestions">
+                  ${[10, 20, 30, 40].map((n) => `
+                    <option value="${n}" ${setup?.numQuestions === n ? "selected" : ""}>${n} câu</option>
+                  `).join("")}
+                </select>
+              </div>
+
+              <div class="field">
+                <label>Dạng câu hỏi</label>
+                <select id="questionType">
+                  <option value="mixed" ${setup?.questionType === "mixed" ? "selected" : ""}>Hỗn hợp</option>
+                  <option value="mcq" ${setup?.questionType === "mcq" ? "selected" : ""}>Trắc nghiệm</option>
+                  <option value="fill" ${setup?.questionType === "fill" ? "selected" : ""}>Điền đáp án</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label>Độ khó</label>
+                <select id="levelSelect">
+                  <option value="easy" ${setup?.level === "easy" ? "selected" : ""}>Cơ bản</option>
+                  <option value="medium" ${setup?.level === "medium" ? "selected" : ""}>Trung bình</option>
+                  <option value="hard" ${setup?.level === "hard" ? "selected" : ""}>Nâng cao</option>
+                </select>
+              </div>
+            </div>
+
+            <h3 style="margin-top:18px;">Chọn nội dung kiểm tra</h3>
+
+            <div class="check-grid">
+              ${topics.map((topic) => `
+                <label class="check-card">
+                  <input type="checkbox" class="topic-check" value="${topic}" ${!setup || setup.topics.includes(topic) ? "checked" : ""}>
+                  <span>${topic}</span>
+                </label>
+              `).join("")}
+            </div>
+
+            <div class="btn-row" style="margin-top:20px;">
+              <button class="primary" onclick="createTest('${config.source}')">Bắt đầu làm bài</button>
+              <button class="secondary" onclick="selectAllTopics(true)">Chọn tất cả</button>
+              <button class="secondary" onclick="selectAllTopics(false)">Bỏ chọn</button>
+            </div>
+
+            <div id="setupResult" style="margin-top: 10px; font-weight:700;"></div>
+          </div>
+
+          <div class="test-box">
+            <div class="test-head ${config.headClass}">
+              <h3>Chế độ thi: ${config.source === "ai" ? "Sinh đề luyện tập tự động" : "Kho đề cố định"}</h3>
+              <div>${config.note}</div>
+            </div>
+
+            <div class="test-body">
+              <div class="stats four" style="margin-bottom:14px;">
+                <div class="stat"><strong>10-40</strong><span>Số câu</span></div>
+                <div class="stat"><strong>3</strong><span>Cấp độ</span></div>
+                <div class="stat"><strong>6</strong><span>Chủ đề</span></div>
+                <div class="stat"><strong>Có</strong><span>SVG đồ họa</span></div>
+              </div>
+
+              <h4 style="margin: 0 0 4px; font-size:14px;">Quy chế làm bài:</h4>
+              <p class="muted" style="margin-bottom:12px;">
+                Hệ thống tự động ghi nhận điểm và đáp án chi tiết ngay sau khi nộp.
+              </p>
+              
+              <h4 style="margin: 0 0 4px; font-size:14px;">Trực quan hóa đồ họa:</h4>
+              <p class="muted">
+                Các câu hỏi vector hay hình bình hành sẽ hiển thị bản vẽ lưới tọa độ hỗ trợ tư duy tính toán.
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectAllTopics(checked) {
+      document.querySelectorAll(".topic-check").forEach((cb) => {
+        cb.checked = checked;
+      });
+    }
+
+    function createTest(source) {
+      const numQuestions = Number(document.getElementById("numQuestions").value);
+      const questionType = document.getElementById("questionType").value;
+      const level = document.getElementById("levelSelect").value;
+      const topics = [...document.querySelectorAll(".topic-check:checked")].map((cb) => cb.value);
+      const box = document.getElementById("setupResult");
+
+      if (topics.length === 0) {
+        box.style.color = "var(--red)";
+        box.innerText = "⚠️ Lỗi: Bạn cần chọn ít nhất một nội dung kiểm tra.";
+        return;
+      }
+
+      const setup = { numQuestions, questionType, level, topics };
+
+      if (source === "ai") {
+        lastAISetup = setup;
+      } else {
+        lastTestSetup = setup;
+      }
+
+      const questions =
+        source === "ai"
+          ? generateAIQuestions(numQuestions, questionType, level, topics)
+          : generateNormalQuestions(numQuestions, questionType, level, topics);
+
+      if (questions.length === 0) {
+        box.style.color = "var(--red)";
+        box.innerText = "⚠️ Không tìm thấy câu hỏi phù hợp với bộ lọc.";
+        return;
+      }
+
+      currentTestSource = source;
+      currentTest = questions.map((q, index) => ({
+        ...q,
+        testIndex: index,
+        userAnswer: null
+      }));
+
+      currentView = "takingTest";
+      setActive(source === "ai" ? "aiSetup" : "testSetup");
+      renderTakingTest();
+    }
+
+    function generateNormalQuestions(n, questionType, level, topics) {
+      let pool = QUESTION_BANK.filter((q) => topics.includes(q.topic));
+
+      if (questionType === "mcq") {
+        pool = pool.filter((q) => q.type === "mcq");
+      }
+
+      if (questionType === "fill") {
+        pool = pool.filter((q) => q.type === "fill");
+      }
+
+      if (level === "easy") {
+        pool = [...pool.filter((q) => q.level === "easy"), ...pool.filter((q) => q.level !== "easy")];
+      } else if (level === "medium") {
+        pool = [...pool.filter((q) => q.level === "medium" || q.level === "easy"), ...pool.filter((q) => q.level === "hard")];
+      } else {
+        pool = [...pool.filter((q) => q.level === "hard" || q.level === "medium"), ...pool.filter((q) => q.level === "easy")];
+      }
+
+      if (pool.length === 0) return [];
+
+      const result = [];
+      let source = shuffle(pool);
+
+      while (result.length < n) {
+        if (source.length === 0) source = shuffle(pool);
+        const q = source.pop();
+        result.push({ ...q, id: q.id + "_" + result.length });
+      }
+
+      return result;
+    }
+
+    // ==========================================
+    // 8. AI ENGINE: THUẬT TOÁN SINH ĐỀ TOÁN HỌC NGẪU NHIÊN
+    // ==========================================
+    function generateAIQuestions(n, questionType, level, topics) {
+      const generators = [];
+
+      if (topics.includes("Vector")) {
+        generators.push(genVectorAdd, genDotProduct, genVectorLength, genVectorImage);
+      }
+
+      if (topics.includes("Ma trận")) {
+        generators.push(genMatrixVector);
+      }
+
+      if (topics.includes("Định thức")) {
+        generators.push(genDeterminant, genDetImage);
+      }
+
+      if (topics.includes("Hệ phương trình")) {
+        generators.push(genLinearSystem);
+      }
+
+      if (topics.includes("Không gian vector")) {
+        generators.push(genRank);
+      }
+
+      if (topics.includes("Biến đổi hình học")) {
+        generators.push(genEigen);
+      }
+
+      if (generators.length === 0) return [];
+
+      const result = [];
+      let guard = 0;
+
+      while (result.length < n && guard < n * 50) {
+        guard++;
+        const gen = generators[randInt(0, generators.length - 1)];
+        const q = gen(level, questionType);
+
+        if (questionType === "mcq" && q.type !== "mcq") continue;
+        if (questionType === "fill" && q.type !== "fill") continue;
+
+        result.push({
+          ...q,
+          id: "ai_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7) + "_" + result.length
+        });
+      }
+
+      return result;
+    }
+
+    function rangeByLevel(level) {
+      if (level === "easy") return 5;
+      if (level === "medium") return 9;
+      return 15;
+    }
+
+    function chooseType(questionType) {
+      if (questionType === "mixed") {
+        return Math.random() < 0.5 ? "mcq" : "fill";
+      }
+      return questionType;
+    }
+
+    function makeMCQ(correct, wrongs) {
+      const options = shuffle([String(correct), ...wrongs.map(String)]).slice(0, 4);
+      return {
+        options,
+        answer: options.indexOf(String(correct))
+      };
+    }
+
+    function genVectorAdd(level, questionType) {
+      const r = rangeByLevel(level);
+      const u = [randInt(-r, r), randInt(-r, r)];
+      const v = [randInt(-r, r), randInt(-r, r)];
+      const ans = [u[0] + v[0], u[1] + v[1]];
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Vector",
+          level,
+          question: `Cho u=${vecStr(u)}, v=${vecStr(v)}. Tính u+v.`,
+          ...makeMCQ(vecStr(ans), [
+            vecStr([ans[0] + 1, ans[1]]),
+            vecStr([ans[0], ans[1] + 1]),
+            vecStr([u[0] - v[0], u[1] - v[1]])
+          ]),
+          explain: `Cộng tương ứng từng cặp tọa độ: ${vecStr(ans)}.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Vector",
+        level,
+        question: `Cho u=${vecStr(u)}, v=${vecStr(v)}. Tính u+v.`,
+        answers: [vecStr(ans), ans.join(","), ans.join(" ")],
+        explain: `Cộng tương ứng từng cặp tọa độ: ${vecStr(ans)}.`
+      };
+    }
+
+    function genVectorImage(level, questionType) {
+      const r = level === "easy" ? 4 : level === "medium" ? 6 : 8;
+      const v = [randNonZero(-r, r), randNonZero(-r, r)];
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Vector",
+          level,
+          question: "Quan sát bản vẽ hình học. Vector v có tọa độ nào?",
+          image: { kind: "vector", vector: v, label: "v" },
+          ...makeMCQ(vecStr(v), [
+            vecStr([v[1], v[0]]),
+            vecStr([-v[0], v[1]]),
+            vecStr([v[0], -v[1]])
+          ]),
+          explain: `Đầu mút của vector nằm tại tọa độ ${vecStr(v)} trên lưới ô vuông.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Vector",
+        level,
+        question: "Quan sát bản vẽ hình học. Nhập tọa độ của vector v.",
+        image: { kind: "vector", vector: v, label: "v" },
+        answers: [vecStr(v), v.join(","), v.join(" ")],
+        explain: `Đầu mút của vector nằm tại tọa độ ${vecStr(v)} trên lưới ô vuông.`
+      };
+    }
+
+    function genDotProduct(level, questionType) {
+      const r = rangeByLevel(level);
+      const u = [randInt(-r, r), randInt(-r, r), randInt(-r, r)];
+      const v = [randInt(-r, r), randInt(-r, r), randInt(-r, r)];
+      const ans = u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Vector",
+          level,
+          question: `Tính tích vô hướng ${vecStr(u)} · ${vecStr(v)}.`,
+          ...makeMCQ(ans, [ans + 1, ans - 1, -ans]),
+          explain: `Tính tổng tích các phần tử tương ứng: ${u[0]}·${v[0]} + ${u[1]}·${v[1]} + ${u[2]}·${v[2]} = ${ans}.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Vector",
+        level,
+        question: `Tính tích vô hướng ${vecStr(u)} · ${vecStr(v)}.`,
+        answers: [String(ans)],
+        explain: `Tính tổng tích các phần tử tương ứng: ${u[0]}·${v[0]} + ${u[1]}·${v[1]} + ${u[2]}·${v[2]} = ${ans}.`
+      };
+    }
+
+    function genVectorLength(level, questionType) {
+      const triples = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17]];
+      const t = triples[randInt(0, triples.length - 1)];
+      const v = [t[0], t[1]];
+      const ans = t[2];
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Vector",
+          level,
+          question: `Tính độ dài chuẩn hóa Euclidean của vector ${vecStr(v)}.`,
+          ...makeMCQ(ans, [ans + 1, ans - 1, t[0] + t[1]]),
+          explain: `Độ dài ||v|| = √(${v[0]}² + ${v[1]}²) = √(${v[0] * v[0] + v[1] * v[1]}) = ${ans}.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Vector",
+        level,
+        question: `Tính độ dài chuẩn hóa Euclidean của vector ${vecStr(v)}.`,
+        answers: [String(ans)],
+        explain: `Độ dài ||v|| = √(${v[0]}² + ${v[1]}²) = √(${v[0] * v[0] + v[1] * v[1]}) = ${ans}.`
+      };
+    }
+
+    function genMatrixVector(level, questionType) {
+      const r = level === "easy" ? 4 : level === "medium" ? 6 : 9;
+      const A = [[randInt(-r, r), randInt(-r, r)], [randInt(-r, r), randInt(-r, r)]];
+      const v = [randInt(-r, r), randInt(-r, r)];
+      const ans = [A[0][0] * v[0] + A[0][1] * v[1], A[1][0] * v[0] + A[1][1] * v[1]];
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Ma trận",
+          level,
+          question: `Cho ma trận A=${matStr(A)} và vector v=${vecStr(v)}. Tính phép nhân Av.`,
+          ...makeMCQ(vecStr(ans), [
+            vecStr([ans[0] + 1, ans[1]]),
+            vecStr([ans[0], ans[1] + 1]),
+            vecStr(v)
+          ]),
+          explain: `Lấy hàng của A nhân cột v: [${A[0][0]}·${v[0]} + ${A[0][1]}·${v[1]}, ${A[1][0]}·${v[0]} + ${A[1][1]}·${v[1]}] = ${vecStr(ans)}.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Ma trận",
+        level,
+        question: `Cho ma trận A=${matStr(A)} và vector v=${vecStr(v)}. Tính phép nhân Av.`,
+        answers: [vecStr(ans), ans.join(","), ans.join(" ")],
+        explain: `Lấy hàng của A nhân cột v: [${A[0][0]}·${v[0]} + ${A[0][1]}·${v[1]}, ${A[1][0]}·${v[0]} + ${A[1][1]}·${v[1]}] = ${vecStr(ans)}.`
+      };
+    }
+
+    function genDeterminant(level, questionType) {
+      const r = level === "easy" ? 5 : level === "medium" ? 8 : 12;
+      const A = [[randInt(-r, r), randInt(-r, r)], [randInt(-r, r), randInt(-r, r)]];
+      const ans = det2(A);
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Định thức",
+          level,
+          question: `Tính định thức det(A) của ma trận A=${matStr(A)}.`,
+          ...makeMCQ(ans, [ans + 1, ans - 1, -ans]),
+          explain: `det(A) = ad - bc = ${A[0][0]}·${A[1][1]} - ${A[0][1]}·${A[1][0]} = ${ans}.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Định thức",
+        level,
+        question: `Tính định thức det(A) của ma trận A=${matStr(A)}.`,
+        answers: [String(ans)],
+        explain: `det(A) = ad - bc = ${A[0][0]}·${A[1][1]} - ${A[0][1]}·${A[1][0]} = ${ans}.`
+      };
+    }
+
+    function genDetImage(level, questionType) {
+      const a = [randInt(1, 4), randInt(0, 3)];
+      const b = [randInt(0, 3), randInt(1, 4)];
+      const ans = Math.abs(a[0] * b[1] - a[1] * b[0]);
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Định thức",
+          level,
+          question: "Quan sát hình bình hành tạo bởi hai vector a và b. Diện tích hình bình hành bằng bao nhiêu?",
+          image: { kind: "parallelogram", a, b },
+          ...makeMCQ(ans, [ans + 1, Math.max(0, ans - 1), ans + 2]),
+          explain: `Diện tích bằng giá trị tuyệt đối định thức tạo bởi hai vector cột: |det([[${a[0]},${b[0]}],[${a[1]},${b[1]}]])| = |${a[0]}·${b[1]} - ${a[1]}·${b[0]}| = ${ans}.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Định thức",
+        level,
+        question: "Quan sát hình bình hành tạo bởi hai vector a và b. Tính diện tích.",
+        image: { kind: "parallelogram", a, b },
+        answers: [String(ans)],
+        explain: `Diện tích bằng giá trị tuyệt đối định thức tạo bởi hai vector cột: |det([[${a[0]},${b[0]}],[${a[1]},${b[1]}]])| = |${a[0]}·${b[1]} - ${a[1]}·${b[0]}| = ${ans}.`
+      };
+    }
+
+    function genLinearSystem(level, questionType) {
+      const r = level === "easy" ? 4 : level === "medium" ? 7 : 10;
+      let A, d;
+
+      do {
+        A = [[randInt(-r, r), randInt(-r, r)], [randInt(-r, r), randInt(-r, r)]];
+        d = det2(A);
+      } while (d === 0);
+
+      const x = [randInt(-r, r), randInt(-r, r)];
+      const b = [A[0][0] * x[0] + A[0][1] * x[1], A[1][0] * x[0] + A[1][1] * x[1]];
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Hệ phương trình",
+          level,
+          question: `Giải hệ phương trình Ax=b với A=${matStr(A)}, b=${vecStr(b)}. Tìm ẩn x.`,
+          ...makeMCQ(vecStr(x), [
+            vecStr([x[0] + 1, x[1]]),
+            vecStr([x[0], x[1] + 1]),
+            vecStr([-x[0], x[1]])
+          ]),
+          explain: `Giải hệ, ta tìm được duy nhất nghiệm đúng là x=${vecStr(x)}.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Hệ phương trình",
+        level,
+        question: `Giải hệ phương trình Ax=b với A=${matStr(A)}, b=${vecStr(b)}. Nhập nghiệm dạng (x,y).`,
+        answers: [vecStr(x), x.join(","), x.join(" ")],
+        explain: `Giải hệ, ta tìm được duy nhất nghiệm đúng là x=${vecStr(x)}.`
+      };
+    }
+
+    function genRank(level, questionType) {
+      const r = level === "easy" ? 4 : level === "medium" ? 7 : 10;
+      const mode = randInt(0, 2);
+      let A, ans;
+
+      if (mode === 0) {
+        A = [[0, 0], [0, 0]];
+        ans = 0;
+      } else if (mode === 1) {
+        const row = [randNonZero(-r, r), randInt(-r, r)];
+        const k = randNonZero(-3, 3);
+        A = [row, [k * row[0], k * row[1]]];
+        ans = 1;
+      } else {
+        do {
+          A = [[randInt(-r, r), randInt(-r, r)], [randInt(-r, r), randInt(-r, r)]];
+        } while (det2(A) === 0);
+        ans = 2;
+      }
+
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Không gian vector",
+          level,
+          question: `Tìm thứ hạng rank(A) của ma trận A=${matStr(A)}.`,
+          options: ["0", "1", "2", "Không xác định"],
+          answer: ans,
+          explain: `rank(A) bằng số lượng các hàng/cột độc lập tuyến tính tối đa. Đáp số: rank(A) = ${ans}.`
+        };
+      }
+
+      return {
+        type,
+        topic: "Không gian vector",
+        level,
+        question: `Tìm thứ hạng rank(A) của ma trận A=${matStr(A)}.`,
+        answers: [String(ans)],
+        explain: `rank(A) bằng số lượng các hàng/cột độc lập tuyến tính tối đa. Đáp số: rank(A) = ${ans}.`
+      };
+    }
+
+    function genEigen(level, questionType) {
+      const r = level === "easy" ? 5 : level === "medium" ? 9 : 15;
+      const a = randInt(-r, r);
+      const b = randInt(-r, r);
+      const type = chooseType(questionType);
+
+      if (type === "mcq") {
+        return {
+          type,
+          topic: "Biến đổi hình học",
+          level,
+          question: `Tìm ảnh của điểm T(1,0) qua phép quay ngược chiều kim đồng hồ góc 90 độ.`,
+          options: ["(1,0)", "(0,1)", "(-1,0)", "(0,-1)"],
+          answer: 1,
+          explain: `Quay điểm (1,0) góc 90 độ ngược chiều kim đồng hồ quanh gốc tọa độ thu được điểm (0,1).`
+        };
+      }
+
+      return {
+        type,
+        topic: "Biến đổi hình học",
+        level,
+        question: `Tính ảnh của vector T(x,y) qua phép phản xạ qua trục hoành.`,
+        answers: ["(x,-y)", "x,-y", "x, -y"],
+        explain: `Phép phản xạ qua trục hoành đổi chiều thành phần y thành -y, giữ nguyên x.`
+      };
+    }
+
+    // ==========================================
+    // 9. TAKING THE TEST UI & FUNCTIONALITY
+    // ==========================================
+    function renderTakingTest() {
+      if (!currentTest) {
+        showView(currentTestSource === "ai" ? "aiSetup" : "testSetup");
+        return;
+      }
+
+      app.innerHTML = `
+        <div class="section-head">
+          <div>
+            <h2>${currentTestSource === "ai" ? "✨ Bài luyện tập tự động" : "📝 Bài kiểm tra tổng hợp"}</h2>
+            <div class="muted">Đang làm bài: ${currentTest.length} câu hỏi toán học</div>
+          </div>
+          <div class="btn-row">
+            ${renderBackButton("Hủy bài")}
+            <button class="primary" onclick="submitTest()">Nộp bài thi</button>
+          </div>
+        </div>
+
+        <div id="testQuestions">
+          ${currentTest.map((q, idx) => renderQuestion(q, idx)).join("")}
+        </div>
+
+        <div class="panel" style="margin-top: 24px;">
+          <div class="btn-row" style="justify-content: space-between;">
+            ${renderBackButton("Hủy bài")}
+            <button class="primary" style="padding:12px 24px;" onclick="submitTest()">Nộp bài & Chấm điểm</button>
+          </div>
+        </div>
+      `;
+
+      restoreAnswersToForm();
+    }
+
+    function renderQuestion(q, idx) {
+      if (q.type === "mcq") {
+        return `
+          <div class="question-card">
+            <div class="q-meta">
+              <span class="badge">Câu ${idx + 1}</span>
+              <span class="badge" style="background:#f1f5f9; color:#475569;">${q.topic}</span>
+            </div>
+            <div class="q-title">${parseMathBeauty(q.question)}</div>
+            ${renderQuestionImage(q.image)}
+            <div class="option-list">
+              ${q.options.map((opt, i) => `
+                <label class="option-label">
+                  <input type="radio" name="q_${idx}" value="${i}" onchange="saveAnswer(${idx}, '${i}')">
+                  <span>${String.fromCharCode(65 + i)}. ${parseMathBeauty(opt)}</span>
+                </label>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="question-card">
+          <div class="q-meta">
+            <span class="badge">Câu ${idx + 1}</span>
+            <span class="badge" style="background:#f1f5f9; color:#475569;">${q.topic}</span>
+          </div>
+          <div class="q-title">${parseMathBeauty(q.question)}</div>
+          ${renderQuestionImage(q.image)}
+          
+          <div style="font-size: 11px; font-weight:800; color:var(--muted); margin-top:8px;">HƯỚNG DẪN NHẬP ĐÁP ÁN:</div>
+          <ul style="margin:4px 0 10px; padding-left:16px; font-size:12px; color:var(--muted);">
+            <li>Số nguyên: Ví dụ: <code>-5</code> hoặc <code>2</code>.</li>
+            <li>Tọa độ vector hoặc nghiệm: Ví dụ: <code>(3,2)</code> hoặc viết liền <code>3,2</code>.</li>
+          </ul>
+
+          <input class="answer-input" id="fill_${idx}" 
+                 autocorrect="off" autocapitalize="off" spellcheck="false"
+                 placeholder="Nhập đáp án của bạn tại đây..." oninput="saveAnswer(${idx}, this.value)">
+        </div>
+      `;
+    }
+
+    function saveAnswer(idx, value) {
+      if (!currentTest || !currentTest[idx]) return;
+      currentTest[idx].userAnswer = value;
+    }
+
+    function restoreAnswersToForm() {
+      currentTest.forEach((q, idx) => {
+        if (q.userAnswer === null) return;
+
+        if (q.type === "mcq") {
+          const input = document.querySelector(`input[name="q_${idx}"][value="${q.userAnswer}"]`);
+          if (input) input.checked = true;
+        }
+
+        if (q.type === "fill") {
+          const input = document.getElementById("fill_" + idx);
+          if (input) input.value = q.userAnswer;
+        }
+      });
+    }
+
+    function questionScore(q) {
+      if (q.type === "mcq") {
+        return Number(q.userAnswer) === q.answer ? 1 : 0;
+      }
+
+      if (q.type === "fill") {
+        return q.answers.map(cleanAnswer).includes(cleanAnswer(q.userAnswer || "")) ? 1 : 0;
+      }
+      return 0;
+    }
+
+    function getCorrectAnswerText(q) {
+      if (q.type === "mcq") {
+        return `${String.fromCharCode(65 + q.answer)}. ${q.options[q.answer]}`;
+      }
+      return q.answers[0];
+    }
+
+    // ==========================================
+    // 10. SUBMIT TEST & DISPLAY PERFORMANCE RESULT
+    // ==========================================
+    function submitTest() {
+      if (!currentTest) return;
+
+      const unanswered = currentTest.filter((q) => q.userAnswer === null || q.userAnswer === "").length;
+
+      if (unanswered > 0) {
+        const ok = confirm(`Bạn còn ${unanswered} câu chưa làm. Vẫn muốn nộp bài chứ?`);
+        if (!ok) return;
+      }
+
+      const total = currentTest.length;
+      const correct = currentTest.reduce((sum, q) => sum + questionScore(q), 0);
+      const percent = Math.round((correct / total) * 100);
+
+      const record = {
+        id: String(Date.now()) + "_" + Math.random().toString(16).slice(2),
+        source: currentTestSource,
+        time: new Date().toLocaleString("vi-VN"),
+        total,
+        correct,
+        percent,
+        topics: [...new Set(currentTest.map((q) => q.topic))],
+        questions: currentTest.map((q) => ({
+          id: q.id,
+          type: q.type,
+          topic: q.topic,
+          question: q.question,
+          image: q.image || null,
+          userAnswer: q.userAnswer,
+          correct: questionScore(q) === 1,
+          correctAnswer: getCorrectAnswerText(q),
+          explain: q.explain || ""
+        }))
+      };
+
+      const scores = getScores();
+      scores.push(record);
+      setScores(scores);
+
+      currentView = "testResult";
+      renderTestResult(record);
+    }
+
+    function formatUserAnswer(q) {
+      if (q.userAnswer === null || q.userAnswer === "") return "<i>(Chưa hoàn thành)</i>";
+      if (q.type === "mcq") return String.fromCharCode(65 + Number(q.userAnswer));
+      return q.userAnswer;
+    }
+
+    function renderTestResult(record) {
+      app.innerHTML = `
+        <div class="section-head">
+          <div>
+            <h2>🏆 Đánh giá kết quả làm bài</h2>
+            <div class="muted">${record.time} • ${record.source === "ai" ? "Đề luyện tập tự động" : "Bộ đề cố định"}</div>
+          </div>
+          <div class="btn-row">
+            <button class="secondary" onclick="showView('${record.source === "ai" ? "aiSetup" : "testSetup"}')">← Quay lại cấu hình</button>
+            <button class="primary" onclick="showView('scores')">Xem bảng điểm tích lũy</button>
+          </div>
+        </div>
+
+        <div class="score-big">
+          <div class="num">${record.correct}/${record.total}</div>
+          <div class="label">Tổng điểm quy đổi: <b style="color:var(--blue); font-size:20px;">${record.percent}%</b></div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><strong>${record.total}</strong><span>Tổng số câu hỏi</span></div>
+          <div class="stat" style="border-color:#bbf7d0;"><strong>${record.correct}</strong><span style="color:var(--green)">Số câu chính xác</span></div>
+          <div class="stat" style="border-color:#fecaca;"><strong>${record.total - record.correct}</strong><span style="color:var(--red)">Số câu chưa đúng</span></div>
+        </div>
+
+        <div class="section-head">
+          <h2>Báo cáo chi tiết từng câu hỏi</h2>
+        </div>
+
+        ${record.questions.map((q, idx) => `
+          <div class="question-card ${q.correct ? "review-ok" : "review-bad"}">
+            <div class="q-meta">
+              <span class="badge ${q.correct ? "ok" : "bad"}">Câu ${idx + 1}: ${q.correct ? "Chính xác" : "Chưa chính xác"}</span>
+              <span class="badge" style="background:rgba(0,0,0,0.05); color:var(--text);">${q.topic}</span>
+            </div>
+            <div class="q-title">${parseMathBeauty(q.question)}</div>
+            ${renderQuestionImage(q.image)}
+            <div class="answer-line">
+              <b>Câu trả lời của bạn:</b> ${parseMathBeauty(formatUserAnswer(q))}<br>
+              <b>Đáp án chuẩn:</b> <span style="color:var(--green);">${parseMathBeauty(q.correctAnswer)}</span><br>
+              <div class="divider"></div>
+              <b>Giải thích chi tiết:</b> ${parseMathBeauty(q.explain) || "Không có giải thích tự động."}
+            </div>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    // ==========================================
+    // 11. CUMULATIVE BOARD (BẢNG ĐIỂM TÍCH LŨY)
+    // ==========================================
+    function renderScores() {
+      const scores = getScores();
+      const tests = scores.length;
+      const avg = tests ? Math.round(scores.reduce((sum, x) => sum + x.percent, 0) / tests) : 0;
+      const best = tests ? Math.max(...scores.map((x) => x.percent)) : 0;
+
+      app.innerHTML = `
+        <div class="section-head">
+          <div>
+            <h2>🏆 Nhật ký học tập & Bảng điểm</h2>
+            <div class="muted">Nơi lưu trữ lịch sử và tiến trình tự học đại số tuyến tính của bạn.</div>
+          </div>
+          <div class="btn-row">
+            ${renderBackButton()}
+            <button class="danger" onclick="clearScores()">Xóa toàn bộ dữ liệu lịch sử</button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><strong>${tests}</strong><span>Số đề đã hoàn thành</span></div>
+          <div class="stat"><strong>${avg}%</strong><span>Điểm số trung bình</span></div>
+          <div class="stat"><strong>${best}%</strong><span>Thành tích cao nhất</span></div>
+        </div>
+
+        ${
+          scores.length
+            ? `
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Thời gian</th>
+                      <th>Dạng đề</th>
+                      <th>Nội dung</th>
+                      <th>Điểm</th>
+                      <th>Tỉ lệ</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${scores.slice().reverse().map((item) => `
+                      <tr>
+                        <td>${item.time}</td>
+                        <td>${item.source === "ai" ? "🌟 Tự luyện tập" : "📁 Có sẵn"}</td>
+                        <td><span style="font-size:12px; font-weight:600;">${item.topics.join(", ")}</span></td>
+                        <td><span class="badge ${item.percent >= 70 ? "ok" : item.percent >= 40 ? "" : "bad"}">${item.percent}%</span></td>
+                        <td><b>${item.correct}/${item.total}</b> câu đúng</td>
+                        <td>
+                          <div class="btn-row">
+                            <button class="secondary" style="padding: 4px 10px; font-size:12px;" onclick="viewScore('${item.id}')">Xem lại</button>
+                            <button class="danger" style="padding: 4px 10px; font-size:12px; background:transparent; border:1px solid #fee2e2;" onclick="deleteScore('${item.id}')">Xóa</button>
+                          </div>
+                        </td>
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            `
+            : `
+              <div class="empty">
+                <h3>Chưa có bất kỳ dữ liệu điểm số nào</h3>
+                <p>Hãy hoàn thành bài kiểm tra đầu tiên để lưu thành tích vào đây!</p>
+              </div>
+            `
+        }
+      `;
+    }
+
+    function viewScore(id) {
+      const record = getScores().find((x) => x.id === id);
+      if (!record) return;
+
+      currentView = "testResult";
+      currentTestSource = record.source || "normal";
+      renderTestResult(record);
+    }
+
+    function clearScores() {
+      if (!confirm("Hành động này sẽ xóa vĩnh viễn toàn bộ lịch sử điểm số. Bạn chắc chắn?")) return;
+      localStorage.removeItem("sagela_scores_clean");
+      renderScores();
+    }
+
+    function deleteScore(id) {
+      setScores(getScores().filter((x) => x.id !== id));
+      renderScores();
+    }
+
+    // ==========================================
+    // 12. ROUTING EVENTS & SYNCHRONIZATION
+    // ==========================================
+    function setTopic(topic) {
+      currentTopic = topic;
+      showView("theory");
+    }
+
+    const menuBtn = document.getElementById("menuBtn");
+    if (menuBtn) {
+      menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (window.innerWidth <= 768) {
+          sidebar.classList.toggle("mobile-open");
+        } else {
+          sidebar.classList.toggle("collapsed");
+          main.classList.toggle("expanded");
+        }
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth <= 768 && !sidebar.contains(e.target) && e.target !== menuBtn) {
+        sidebar.classList.remove("mobile-open");
+      }
+    });
+
+    document.querySelectorAll("[data-view]").forEach((el) => {
+      el.addEventListener("click", () => showView(el.dataset.view));
+    });
+
+    document.querySelectorAll("[data-topic]").forEach((el) => {
+      el.addEventListener("click", () => setTopic(el.dataset.topic));
+    });
+
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        if (currentView !== "theory") {
+          showView("theory");
+        } else {
+          renderTheory();
+        }
+      });
+    }
+
+    if (searchBtn) {
+      searchBtn.addEventListener("click", () => {
+        showView("theory");
+      });
+    }
+
+    showView("home");
+  </script>
+</body>
+</html>
