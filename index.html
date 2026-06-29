@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SageLA Math - Đại Số Tuyến Tính</title>
+  <link rel="stylesheet" href="design.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <div class="brand">
+      <div class="logo">Σ</div>
+      <span>SageLA Math</span>
+      <small>Hackathon Pro</small>
+    </div>
+
+    <div class="search">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm bài lý thuyết toán..." />
+        <button id="searchBtn">🔍</button>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <div class="top-pill">🇻🇳 Tiếng Việt</div>
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="side-block">
+      <div class="side-item active" data-view="home">
+        <div class="side-icon">⌂</div>
+        <div class="side-text">Trang chủ</div>
+      </div>
+
+      <div class="side-item" data-view="theory">
+        <div class="side-icon">📘</div>
+        <div class="side-text">Lý thuyết toán</div>
+      </div>
+
+      <div class="side-item" data-view="testSetup">
+        <div class="side-icon">📝</div>
+        <div class="side-text">Tạo bài kiểm tra</div>
+      </div>
+
+      <div class="side-item" data-view="practice">
+        <div class="side-icon">✨</div>
+        <div class="side-text">Bài luyện tập</div>
+      </div>
+
+      <div class="side-item" data-view="scores">
+        <div class="side-icon">🏆</div>
+        <div class="side-text">Xem điểm</div>
+      </div>
+    </div>
+
+    <div class="side-block">
+      <div class="side-title">Chủ đề toán</div>
+
+      <div class="side-item" data-topic="all">
+        <div class="side-icon">📂</div>
+        <div class="side-text">Tất cả chủ đề</div>
+      </div>
+
+      <div class="side-item" data-topic="Hệ phương trình">
+        <div class="side-icon">≡</div>
+        <div class="side-text">Hệ phương trình</div>
+      </div>
+
+      <div class="side-item" data-topic="Vector">
+        <div class="side-icon">➜</div>
+        <div class="side-text">Vector</div>
+      </div>
+
+      <div class="side-item" data-topic="Ma trận">
+        <div class="side-icon">▦</div>
+        <div class="side-text">Ma trận & Phép nhân</div>
+      </div>
+
+      <div class="side-item" data-topic="Định thức">
+        <div class="side-icon">Δ</div>
+        <div class="side-text">Định thức</div>
+      </div>
+
+      <div class="side-item" data-topic="Không gian vector">
+        <div class="side-icon">◇</div>
+        <div class="side-text">Không gian & Sinh</div>
+      </div>
+
+      <div class="side-item" data-topic="Biến đổi hình học">
+        <div class="side-icon">⧉</div>
+        <div class="side-text">Biến đổi hình học</div>
+      </div>
+    </div>
+  </aside>
+
+  <main id="main">
+    <nav class="chips">
+      <button class="chip active" data-view="home">Tổng quan</button>
+      <button class="chip" data-view="theory">Lý thuyết toán</button>
+      <button class="chip" data-view="testSetup">Tạo bài kiểm tra</button>
+      <button class="chip" data-view="practice">Bài luyện tập</button>
+      <button class="chip" data-view="scores">Xem điểm</button>
+    </nav>
+
+    <div id="app" class="animate-fade-in"></div>
+  </main>
+
+  <script src="javascript.js"></script>
+</body>
+</html>
