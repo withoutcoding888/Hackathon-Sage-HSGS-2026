@@ -1,0 +1,1200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+  Tệp tin này chứa bản dịch mã nguồn cấu trúc và các phần mở đầu, chương 1 của tài liệu "Understanding Linear Algebra" 
+  được viết bằng ngôn ngữ PreTeXt XML dành cho việc xuất bản sách toán học trực tuyến và in ấn.
+-->
+<pretext xmlns:xi="http://www.w3.org/2001/XInclude" xml:lang="vi-VN">
+  <book xml:id="hieu-ve-dai-so-tuyen-tinh">
+    <docinfo>
+      <brandlogo url="http://gvsu.edu/s/0Ck" source="logo.png" />
+      <initials>ULA</initials>
+      <macros>
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\va}{\mathbf{a}}
+        \newcommand{\vb}{\mathbf{b}}
+        \newcommand{\vc}{\mathbf{c}}
+        \newcommand{\vx}{\mathbf{x}}
+        \newcommand{\vy}{\mathbf{y}}
+        \newcommand{\vv}{\mathbf{v}}
+        \newcommand{\vw}{\mathbf{w}}
+        \newcommand{\vu}{\mathbf{u}}
+        \newcommand{\vz}{\mathbf{z}}
+      </macros>
+
+      <latex-image-preamble>
+\usepackage{graphicx}
+\usepackage{tikz}
+      </latex-image-preamble>
+    </docinfo>
+
+    <frontmatter xml:id="frontmatter">
+      <titlepage>
+        <title>Hiểu về Đại số Tuyến tính</title>
+        <author>
+          <personname>David Austin</personname>
+          <department>Khoa Toán học</department>
+          <institution>Đại học Thung lũng Grand (Grand Valley State University)</institution>
+        </author>
+        <date>Ngày 11 tháng 12 năm 2023</date>
+        <edition>Phiên bản cập nhật 2023</edition>
+        <website url="http://gvsu.edu/s/0Ck">gvsu.edu/s/0Ck</website>
+      </titlepage>
+
+      <acknowledgement xml:id="acknowledgements">
+        <title>Lời cảm ơn</title>
+        <p>Nhiều người đã hỗ trợ và định hình dự án này. Trước hết là đồng nghiệp của tôi, Matt Boelkins, người có cuốn <em>Active Calculus</em> là một hình mẫu về cách một cuốn sách giáo khoa mở có thể khuyến khích và tạo điều kiện cho các phương pháp sư phạm tốt. Sự mắc nợ mà cuốn sách này hướng về Matt không thể bị phóng đại. Ngoài ra, anh ấy đã cung cấp rất nhiều phản hồi biên tập cho văn bản này và cải thiện nó theo vô số cách. Qua nhiều, rất nhiều năm, tôi đã trân trọng tình bạn và lời khuyên khôn ngoan của Matt.</p>
+        <p>Tôi không thể tưởng tượng một môi trường hỗ trợ nào tốt hơn khoa toán học tại Đại học Thung lũng Grand. Ảnh hưởng của các đồng nghiệp và cam kết sâu sắc của họ đối với sự phát triển của sinh viên được lồng ghép vào từng trang của cuốn sách này. Các cuộc trò chuyện về việc giảng dạy đại số tuyến tính với Paul Fishback đã đặc biệt hữu ích, cũng như phản hồi biên tập từ Lauren Keough và Lora Bailey. Tôi cũng biết ơn kỳ nghỉ phép năm 2017 khi tôi bắt đầu dự án này.</p>
+        <p>Ngoài các đồng nghiệp của mình, tôi biết ơn nhiều sinh viên đã giúp tôi trưởng thành với tư cách là một giáo viên. Cảm ơn các bạn đã sẵn lòng tham gia vào nghệ thuật học tập rất nhân văn này và đã chia sẻ những trải nghiệm, nỗi thất vọng và thành công của các bạn với tôi.</p>
+        <p>Cộng đồng sách giáo khoa mở phát triển xung quanh hệ thống tác giả và xuất bản PreTeXt là nguồn hỗ trợ và cảm hứng liên tục. Mục tiêu cung cấp cho tất cả sinh viên những cuốn sách giáo khoa chất lượng cao, giá cả phải chăng là đầy tham vọng, nhưng cam kết của nhóm đầy nhiệt huyết và tận tâm này cho thấy rõ ràng rằng điều đó là khả thi. Là một phần của cộng đồng đó, Mitch Keller và Kathy Yoshiwara đã đọc phần lớn cuốn sách này và cung cấp phản hồi biên tập chi tiết và sâu sắc.</p>
+        <p>Không thể có đối tác nào tốt hơn Candice Price, Miloš Savić, và đội ngũ của họ tại Nhà xuất bản 619 Wreath. Cảm ơn sự hỗ trợ của các bạn cho dự án này và cho mọi thứ các bạn làm để thúc đẩy sứ mệnh của mình nhằm "nuôi dưỡng sự sáng tạo, sự công bằng và học thuật."</p>
+        <p>Cuối cùng, một cuốn sách sẽ không là gì nếu không có người đọc, và tôi vô cùng biết ơn tất cả các giảng viên, sinh viên và những người tự học đã liên hệ với các đề xuất, nhận xét và câu hỏi. Nghe phản hồi từ những người đang sử dụng cuốn sách mang lại ý nghĩa cho dự án này, vì vậy xin vui lòng biết rằng tiếng nói của bạn luôn được chào đón.</p>
+      </acknowledgement>
+
+      <preface xml:id="our-goals">
+        <title>Mục tiêu của chúng tôi</title>
+        <p>Đây là một cuốn sách giáo khoa cho khóa học năm thứ nhất về đại số tuyến tính. Tất nhiên, hiện tại đã có rất nhiều sách giáo khoa đại số tuyến tính chất lượng tốt. Ngay cả khi bạn đang đọc cuốn sách này trực tuyến miễn phí, bạn nên biết rằng cũng có những cuốn sách giáo khoa đại số tuyến tính miễn phí khác trực tuyến. Bạn có nhiều lựa chọn! Vậy tại sao bạn lại chọn cuốn sách này?</p>
+        <p>Cuốn sách này bắt nguồn từ niềm tin của tôi rằng đại số tuyến tính, như được trình bày trong chương trình giảng dạy đại học truyền thống, đã sống quá lâu dưới bóng của giải tích. Nhiều chương trình toán học hiện nay yêu cầu sinh viên của họ hoàn thành ít nhất ba học kỳ giải tích, nhưng chỉ một học kỳ đại số tuyến tính, học kỳ này thường có hai học kỳ giải tích làm điều kiện tiên quyết.</p>
+        <p>Ngoài ra, những gì sinh viên đại số tuyến tính gặp phải thường được trình bày theo một cách quá chính thức, không đại diện đầy đủ cho phạm vi tư duy đại số tuyến tính. Thật vậy, nhiều chương trình sử dụng khóa học đầu tiên về đại số tuyến tính như một khóa học "giới thiệu về chứng minh". Mặc dù đại số tuyến tính cung cấp một sự giới thiệu tuyệt vời về lập luận toán học, nhưng việc chỉ nhấn mạnh khía cạnh này của chủ đề sẽ bỏ qua một số nhu cầu quan trọng của sinh viên.</p>
+        <p>Tất nhiên, đại số tuyến tính dựa trên một tập hợp các nguyên lý trừu tượng. Tuy nhiên, các nguyên lý này là nền tảng cho một phạm vi công nghệ rộng lớn đáng kinh ngạc đang định hình xã hội của chúng ta theo những cách sâu sắc. Sự tương tác giữa các nguyên lý này và các ứng dụng của chúng cung cấp một cơ hội duy nhất để làm việc với sinh viên. Đầu tiên, việc xem xét các vấn đề thực tế quan trọng làm nền tảng cho tư duy toán học trừu tượng theo cách làm sâu sắc thêm sự hiểu biết của sinh viên. Đồng thời, sự đa dạng của các cách mà các nguyên lý trừu tượng này có thể được áp dụng chứng minh rõ ràng cho sinh viên thấy sức mạnh của sự trừu tượng toán học. Đại số tuyến tính trao quyền cho sinh viên trải nghiệm những gì nhà vật lý Eugene Wigner gọi là "hiệu quả không hợp lý của toán học trong các khoa học tự nhiên", một khía cạnh của toán học vừa cơ bản vừa bí ẩn.</p>
+        <p>Bỏ qua trải nghiệm này không phục vụ tốt cho sinh viên của chúng ta. Ví dụ, chỉ có khoảng 15% chuyên ngành toán học hiện tại sẽ tiếp tục học cao học. Phần còn lại hướng tới các nghề nghiệp đòi hỏi họ sử dụng kiến thức toán học của mình trong kinh doanh, công nghiệp và chính phủ. Những nghề nghiệp này trông như thế nào? Hiện tại, đó là phân tích dữ liệu và khai phá dữ liệu, đồ họa máy tính, phát triển phần mềm, tài chính và nghiên cứu vận hành. Các nghề nghiệp này phụ thuộc nhiều vào đại số tuyến tính hơn là giải tích. Ngoài việc giúp sinh viên đánh giá cao những thay đổi sâu sắc mà toán học mang lại cho xã hội chúng ta, việc đào tạo nhiều hơn về đại số tuyến tính sẽ giúp sinh viên của chúng ta tham gia vào những phát triển tất yếu sắp tới.</p>
+        <p>Những suy nghĩ này không phải của riêng tôi và cũng không phải là đặc biệt mới. Nhóm Nghiên cứu Chương trình Giảng dạy Đại số Tuyến tính (Linear Algebra Curriculum Study Group), một nhóm rộng lớn gồm các nhà toán học và nhà giáo dục toán học được tài trợ bởi Quỹ Khoa học Quốc gia (NSF), đã được thành lập để cải thiện việc giảng dạy đại số tuyến tính. Trong báo cáo cuối cùng của họ, họ đã viết:</p>
+        <blockquote>
+          <p>"Có một mối lo ngại ngày càng tăng rằng chương trình giảng dạy đại số tuyến tính tại nhiều trường học không giải quyết thỏa đáng nhu cầu của sinh viên mà nó cố gắng phục vụ. Trong những năm gần đây, nhu cầu đào tạo đại số tuyến tính đã tăng lên trong các ngành khách hàng như kỹ thuật, khoa học máy tính, nghiên cứu vận hành, kinh tế và thống kê. Đồng thời, các cải tiến về phần cứng và phần mềm trong khoa học máy tính đã nâng cao sức mạnh của đại số tuyến tính để giải quyết các vấn đề có quy mô lớn hơn nhiều bậc so với những gì người ta mơ ước cách đây vài thập kỷ. Tuy nhiên, trong nhiều khóa học, tầm quan trọng của đại số tuyến tính trong các lĩnh vực ứng dụng không được truyền đạt cho sinh viên, và ảnh hưởng của máy tính không được cảm nhận trong lớp học, trong việc lựa chọn các chủ đề được đề cập hoặc trong phương thức trình bày. Hơn nữa, việc quá nhấn mạnh vào sự trừu tượng có thể làm cho sinh viên mới bắt đầu cảm thấy choáng ngợp đến mức họ rời khỏi khóa học với rất ít sự hiểu biết hoặc thành thạo về các khái niệm cơ bản mà họ có thể cần trong các khóa học sau này và nghề nghiệp của họ."</p>
+        </blockquote>
+        <p>Hơn nữa, trong số các khuyến nghị của họ có điều này:</p>
+        <blockquote>
+          <p>"Chúng tôi tin rằng khóa học đầu tiên về đại số tuyến tính nên được giảng dạy theo cách phản ánh vai trò mới của nó như một công cụ khoa học. Điều này có nghĩa là bớt nhấn mạnh vào sự trừu tượng và nhấn mạnh nhiều hơn vào việc giải quyết vấn đề cũng như các ứng dụng tạo động lực."</p>
+        </blockquote>
+        <p>Điều có thể gây ngạc nhiên là điều này được viết vào năm 1993; nghĩa là trước khi thuật toán PageRank của Google được giới thiệu, trước bộ phim Toy Story của Pixar, và trước khi sự trỗi dậy của cái thường được gọi là khoa học dữ liệu hoặc học máy làm cho những tuyên bố này chỉ trở nên phù hợp hơn. Với những suy nghĩ này, mục tiêu của cuốn sách này là tạo điều kiện cho trải nghiệm đầy đủ hơn, phong phú hơn về đại số tuyến tính cho tất cả sinh viên, điều này định hình các quyết định sau đây:</p>
+        <ul>
+          <li>
+            <p><strong>Không yêu cầu Giải tích:</strong> Cuốn sách này được viết mà không có giả định rằng sinh viên đã học một khóa học giải tích. Khi đưa ra quyết định này, tôi hy vọng rằng sinh viên sẽ có được trải nghiệm chân thực hơn về toán học thông qua đại số tuyến tính ở giai đoạn sớm hơn trong sự nghiệp học tập của họ. Ngược lại với tháp điều kiện tiên quyết phức tạp của giải tích, đại số tuyến tính bắt đầu với những giả định đơn giản hơn nhiều: các biểu thức được nghiên cứu là tuyến tính nên có thể được thao tác chỉ bằng bốn phép toán số học cơ bản.</p>
+          </li>
+          <li>
+            <p><strong>Ứng dụng thực tế phong phú:</strong> Văn bản bao gồm một số ứng dụng quan trọng của các khái niệm đại số tuyến tính, chẳng hạn như hoạt hình máy tính, thuật toán nén JPEG và thuật toán PageRank của Google. Sinh viên thấy các ứng dụng này chân thực và hấp dẫn hơn các ứng dụng điển hình được trình bày trong lớp học giải tích.</p>
+          </li>
+          <li>
+            <p><strong>Học tập chủ động (Active Learning):</strong> Mỗi phần bắt đầu với một hoạt động xem trước và bao gồm một số hoạt động có thể được sử dụng để tạo điều kiện cho việc học tập tích cực trong lớp học. Các hoạt động ở đây được thiết kế để củng cố các ý tưởng đã gặp, thúc đẩy nhu cầu cho các ý tưởng sắp tới.</p>
+          </li>
+          <li>
+            <p><strong>Tư duy Toán học Đa dạng:</strong> Thay vì cung cấp chu kỳ truyền thống Định nghĩa-Định lý-Chứng minh, cuốn sách nhằm mục đích phát triển sự đánh giá cao các ý tưởng như phát sinh để đáp ứng với một nhu cầu thực tế.</p>
+          </li>
+          <li>
+            <p><strong>Tích hợp công cụ tính toán Sage:</strong> Có các ô Sage được nhúng thường xuyên giúp phát triển thành thạo tính toán của sinh viên. Một sự hiểu biết về đại số tuyến tính ngày nay là không đầy đủ nếu không có sự trợ giúp của máy tính.</p>
+          </li>
+          <li>
+            <p><strong>Tận dụng trực giác hình học:</strong> Văn bản nhằm mục đích tận dụng trực giác hình học để nâng cao tư duy đại số trong không gian 2 chiều hoặc 3 chiều và mở rộng cho nhiều chiều hơn.</p>
+          </li>
+        </ul>
+      </preface>
+
+      <note xml:id="print-version-note">
+        <title>Ghi chú về phiên bản in</title>
+        <p>Cuốn sách này nhằm phát triển khả năng của người đọc trong việc lập luận về các khái niệm đại số tuyến tính và áp dụng lập luận đó trong môi trường tính toán. Đặc biệt, Sage được giới thiệu như một nền tảng để thực hiện nhiều tính toán đại số tuyến tính vì nó có sẵn miễn phí và cú pháp của nó phản ánh ký hiệu toán học phổ biến.</p>
+      </note>
+    </frontmatter>
+
+    <!-- CHƯƠNG 1 -->
+    <chapter xml:id="chapter-1-systems-of-equations">
+      <title>Hệ phương trình</title>
+      
+      
+      <section xml:id="section-1-1-what-can-we-expect">
+        <title>Chúng ta có thể kỳ vọng điều gì?</title>
+        <introduction>
+          <p>Về cốt lõi, đại số tuyến tính nghiên cứu các phương trình tuyến tính, và cụ thể hơn là các tập hợp gồm hai hay nhiều phương trình tuyến tính. Google thường xuyên xử lý những hệ gồm hàng nghìn tỷ phương trình, trong đó mỗi phương trình lại có hàng nghìn tỷ ẩn. Cuối cùng, chúng ta sẽ hiểu cách xử lý mức độ phức tạp như vậy. Tuy nhiên, để bắt đầu, ta sẽ xét một tình huống quen thuộc hơn, trong đó chỉ có một số ít phương trình và một số ít ẩn. Dù tương đối đơn giản, tình huống này vẫn đủ phong phú để thể hiện một số khái niệm nền tảng, những khái niệm sẽ thúc đẩy phần lớn quá trình khám phá của chúng ta.</p>
+        </introduction>
+
+        <subsection xml:id="subsection-1-1-1-some-simple-examples">
+          <title>Một số ví dụ đơn giản</title>
+
+          <activity xml:id="activity-1-1-1">
+            <statement>
+              <p>Trong hoạt động này, ta xét các tập hợp phương trình tuyến tính chỉ có hai ẩn. Trong trường hợp này, ta có thể vẽ đồ thị các tập nghiệm của các phương trình, nhờ đó hình dung được những kiểu hành vi khác nhau.</p>
+              <ol marker="a">
+                <li>
+                  <p>Hãy vẽ đồ thị các đường thẳng</p>
+                  <me>y = x + 1</me>
+                  <me>y = 2x - 1.</me>
+                  <p>Các đường thẳng cắt nhau tại điểm hoặc những điểm <m>(x,y)</m> nào? Có bao nhiêu điểm <m>(x,y)</m> thỏa mãn cả hai phương trình?</p>
+                </li>
+                <li>
+                  <p>Hãy vẽ đồ thị các đường thẳng</p>
+                  <me>y = x + 1</me>
+                  <me>y = x - 1.</me>
+                  <p>Các đường thẳng cắt nhau tại điểm hoặc những điểm <m>(x,y)</m> nào? Có bao nhiêu điểm <m>(x,y)</m> thỏa mãn cả hai phương trình?</p>
+                </li>
+                <li>
+                  <p>Hãy vẽ đồ thị đường thẳng</p>
+                  <me>y = x + 1.</me>
+                  <p>Có bao nhiêu điểm <m>(x,y)</m> thỏa mãn phương trình này?</p>
+                </li>
+                <li>
+                  <p>Hãy vẽ đồ thị các đường thẳng</p>
+                  <me>y = x + 1</me>
+                  <me>y = 2x - 1</me>
+                  <me>y = -x.</me>
+                  <p>Các đường thẳng cắt nhau tại điểm hoặc những điểm <m>(x,y)</m> nào? Có bao nhiêu điểm <m>(x,y)</m> thỏa mãn cả ba phương trình?</p>
+                </li>
+              </ol>
+            </statement>
+          </activity>
+
+          <p>Các ví dụ trong hoạt động mở đầu này cho thấy một vài khả năng có thể xảy ra đối với nghiệm của một tập hợp phương trình tuyến tính. Hãy chú ý rằng ta quan tâm đến các điểm thỏa mãn từng phương trình trong tập hợp; về mặt hình học, những điểm đó được xem là các giao điểm của các đường thẳng.</p>
+
+          <p>Ba kiểu kết quả có thể xảy ra đối với các tập hợp phương trình tuyến tính hai ẩn là: có vô số nghiệm, có đúng một nghiệm, hoặc không có nghiệm.</p>
+          <p>Cụ thể, ta thấy rằng:</p>
+          <ul>
+            <li><p>Với một phương trình duy nhất, có vô số điểm <m>(x,y)</m> thỏa mãn phương trình đó.</p></li>
+            <li><p>Khi thêm phương trình thứ hai, ta thêm một điều kiện nữa lên các điểm <m>(x,y)</m>, dẫn đến một điểm duy nhất thỏa mãn cả hai phương trình.</p></li>
+            <li><p>Khi thêm phương trình thứ ba, ta thêm điều kiện thứ ba lên các điểm <m>(x,y)</m>, và không có điểm nào thỏa mãn đồng thời cả ba phương trình.</p></li>
+          </ul>
+
+          <p>Nói chung, một phương trình đơn lẻ sẽ có nhiều nghiệm, thật ra là vô số nghiệm. Khi thêm các phương trình, ta thêm các điều kiện, và điều đó dẫn, theo một nghĩa mà sau này ta sẽ làm chính xác, đến một số lượng nghiệm nhỏ hơn. Cuối cùng, khi có quá nhiều phương trình, ta nhận thấy không còn điểm nào thỏa mãn tất cả các phương trình.</p>
+
+          <principle xml:id="principle-1-1-solutions-to-linear-systems">
+            <title>Nghiệm của các tập hợp phương trình tuyến tính</title>
+            <statement>
+              <p>Cho một tập hợp các phương trình tuyến tính, có một trong ba khả năng sau:</p>
+              <ul>
+                <li><p>có vô số điểm,</p></li>
+                <li><p>có đúng một điểm, hoặc</p></li>
+                <li><p>không có điểm nào</p></li>
+              </ul>
+              <p>thỏa mãn mọi phương trình trong tập hợp đó.</p>
+            </statement>
+          </principle>
+
+          <p>Ta còn có thể thấy thêm một chút nữa. Khi xét các phương trình có hai ẩn, ta thấy rằng:</p>
+          <ul>
+            <li><p>Một phương trình có vô số nghiệm.</p></li>
+            <li><p>Hai phương trình có đúng một nghiệm.</p></li>
+            <li><p>Ba phương trình không có nghiệm.</p></li>
+          </ul>
+
+          <p>Vì vậy, có vẻ hợp lý khi tự hỏi liệu số nghiệm có phụ thuộc vào việc số phương trình nhỏ hơn, bằng, hay lớn hơn số ẩn hay không. Tất nhiên, một trong các ví dụ ở hoạt động trên cho thấy có những ngoại lệ đối với quy tắc đơn giản này. Chẳng hạn, hai phương trình hai ẩn có thể tương ứng với hai đường thẳng song song, nên tập phương trình không có nghiệm. Cũng có thể xảy ra trường hợp một tập gồm ba phương trình hai ẩn lại có một nghiệm duy nhất. Tuy nhiên, có vẻ an toàn khi nghĩ rằng càng có nhiều phương trình thì tập nghiệm càng nhỏ.</p>
+
+          <p>Bây giờ ta cũng xét một số ví dụ về các phương trình có ba ẩn, gọi là <m>x</m>, <m>y</m>, và <m>z</m>. Cũng như nghiệm của phương trình tuyến tính hai ẩn tạo thành đường thẳng, nghiệm của phương trình tuyến tính ba ẩn tạo thành mặt phẳng.</p>
+
+          <p>Khi xét một phương trình ba ẩn bằng hình học, ta cần thêm một trục tọa độ thứ ba. Một phương trình tuyến tính hai ẩn, chẳng hạn <m>y = 0</m>, là một đường thẳng; còn một phương trình tuyến tính ba ẩn, chẳng hạn <m>z = 0</m>, là một mặt phẳng.</p>
+
+          <p>Trong ba ẩn, tập nghiệm của một phương trình tuyến tính tạo thành một mặt phẳng. Tập nghiệm của một cặp phương trình tuyến tính được nhìn về mặt hình học như giao tuyến của hai mặt phẳng. Thông thường ta kỳ vọng giao tuyến này là một đường thẳng.</p>
+
+          <p>Khi thêm phương trình thứ ba, ta tìm giao của ba mặt phẳng, và thường kỳ vọng giao đó là một điểm. Tuy nhiên, trong một số trường hợp đặc biệt, có thể xảy ra việc hệ không có nghiệm.</p>
+
+          <activity xml:id="activity-1-1-2">
+            <statement>
+              <p>Hoạt động này xét các tập hợp phương trình có ba ẩn. Trong trường hợp này, ta biết rằng nghiệm của một phương trình đơn lẻ tạo thành một mặt phẳng. Nếu cần hỗ trợ hình dung, hãy dùng các tấm thẻ 3 × 5 inch để biểu diễn các mặt phẳng.</p>
+              <ol marker="a">
+                <li><p>Có thể nào hai phương trình tuyến tính ba ẩn không có nghiệm không? Hãy phác thảo một ví dụ hoặc nêu lý do vì sao điều đó không thể xảy ra.</p></li>
+                <li><p>Có thể nào hai phương trình tuyến tính ba ẩn có đúng một nghiệm không? Hãy phác thảo một ví dụ hoặc nêu lý do vì sao điều đó không thể xảy ra.</p></li>
+                <li><p>Có thể nào nghiệm của bốn phương trình ba ẩn tạo thành một đường thẳng không? Hãy phác thảo một ví dụ hoặc nêu lý do vì sao điều đó không thể xảy ra.</p></li>
+                <li><p>Thông thường, bạn kỳ vọng tập nghiệm của bốn phương trình ba ẩn sẽ như thế nào?</p></li>
+                <li><p>Giả sử ta có một tập gồm 500 phương trình tuyến tính với 10 ẩn. Bạn kỳ vọng khả năng nào trong ba khả năng trên sẽ xảy ra?</p></li>
+                <li><p>Giả sử ta có một tập gồm 10 phương trình tuyến tính với 500 ẩn. Bạn kỳ vọng khả năng nào trong ba khả năng trên sẽ xảy ra?</p></li>
+              </ol>
+            </statement>
+          </activity>
+        </subsection>
+
+        <subsection xml:id="subsection-1-1-2-systems-of-linear-equations">
+          <title>Hệ phương trình tuyến tính</title>
+
+          <p>Bây giờ, sau khi đã xem một số ví dụ đơn giản, ta thống nhất một số thuật ngữ để suy nghĩ chính xác hơn về các tập hợp phương trình.</p>
+
+          <p>Trước hết, ta đã xét một phương trình tuyến tính có dạng</p>
+          <me>y = 2x - 1.</me>
+
+          <p>Sẽ thuận tiện nếu viết lại phương trình này sao cho tất cả các ẩn nằm ở cùng một vế của phương trình:</p>
+          <me>-2x + y = -1.</me>
+
+          <p>Tổng quát hơn, phương trình của một đường thẳng luôn có thể được biểu diễn dưới dạng</p>
+          <me>ax + by = c,</me>
+          <p>cách viết này đủ linh hoạt để mô tả mọi đường thẳng. Chẳng hạn, các đường thẳng đứng như <m>x = 3</m> cũng có thể được biểu diễn theo dạng này.</p>
+
+          <p>Hãy chú ý rằng mỗi hạng tử ở vế trái là tích của một hằng số với lũy thừa bậc nhất của một ẩn. Sau này, ta sẽ muốn xét các phương trình có nhiều ẩn hơn nữa, đôi khi được ký hiệu là <m>x_1,x_2,\ldots,x_n</m>. Điều này dẫn đến định nghĩa sau.</p>
+
+          <definition xml:id="definition-1-1-7-linear-equation">
+            <statement>
+              <p>Một <term>phương trình tuyến tính</term> theo các ẩn <m>x_1,x_2,\ldots,x_n</m> có thể được viết dưới dạng</p>
+              <me>a_1x_1 + a_2x_2 + \cdots + a_nx_n = b,</me>
+              <p>trong đó <m>a_1,a_2,\ldots,a_n</m> là các số thực, được gọi là <term>hệ số</term>. Ta cũng nói rằng <m>x_1,x_2,\ldots,x_n</m> là các <term>biến</term> trong phương trình.</p>
+              <p>Một <term>hệ phương trình tuyến tính</term>, hay <term>hệ tuyến tính</term>, là một tập hợp các phương trình tuyến tính được viết theo cùng một tập ẩn.</p>
+            </statement>
+          </definition>
+
+          <p>Ví dụ,</p>
+          <md>
+            <mrow>2x_1 + 1.2x_2 - 4x_3 = 3.7</mrow>
+            <mrow>-0.1x_1 + x_3 = 2</mrow>
+            <mrow>x_1 + x_2 - x_3 = 1.4</mrow>
+          </md>
+          <p>là một ví dụ về một hệ tuyến tính.</p>
+
+          <definition xml:id="definition-1-1-8-solution">
+            <statement>
+              <p>Một <term>nghiệm</term> của một hệ tuyến tính đơn giản là một bộ số <m>x_1=s_1</m>, <m>x_2=s_2</m>, ..., <m>x_n=s_n</m> thỏa mãn tất cả các phương trình trong hệ.</p>
+            </statement>
+          </definition>
+
+          <p>Chẳng hạn, trước đó ta đã xét hệ tuyến tính</p>
+          <md>
+            <mrow>-x + y = 1</mrow>
+            <mrow>-2x + y = -1.</mrow>
+          </md>
+
+          <p>Để kiểm tra rằng <m>(x,y) = (2,3)</m> là một nghiệm, ta xác minh các phương trình sau là đúng:</p>
+          <md>
+            <mrow>-2 + 3 = 1</mrow>
+            <mrow>-2(2) + 3 = -1.</mrow>
+          </md>
+
+          <definition xml:id="definition-1-1-9-solution-space">
+            <statement>
+              <p>Ta gọi tập hợp tất cả các nghiệm là <term>không gian nghiệm</term> của hệ tuyến tính.</p>
+            </statement>
+          </definition>
+
+          <activity xml:id="activity-1-1-3">
+            <title>Phương trình tuyến tính và nghiệm của chúng</title>
+            <statement>
+              <ol marker="a">
+                <li>
+                  <p>Những phương trình nào sau đây là phương trình tuyến tính? Hãy nêu lập luận biện minh cho câu trả lời của bạn.</p>
+                  <ol>
+                    <li><p><m>2x + xy - 3y^2 = 2.</m></p></li>
+                    <li><p><m>-2x_1 + 3x_2 + 4x_3 - x_5 = 0.</m></p></li>
+                    <li><p><m>x = 3z - 4y.</m></p></li>
+                  </ol>
+                </li>
+                <li>
+                  <p>Xét hệ phương trình tuyến tính:</p>
+                  <md>
+                    <mrow>x + y = 3</mrow>
+                    <mrow>y - z = 2</mrow>
+                    <mrow>2x + y + z = 4.</mrow>
+                  </md>
+                  <ol>
+                    <li><p><m>(x,y,z) = (1,2,0)</m> có phải là một nghiệm không?</p></li>
+                    <li><p><m>(x,y,z) = (-2,1,0)</m> có phải là một nghiệm không?</p></li>
+                    <li><p><m>(x,y,z) = (0,-3,1)</m> có phải là một nghiệm không?</p></li>
+                    <li><p>Bạn có thể tìm một nghiệm trong đó <m>y = 0</m> không?</p></li>
+                    <li><p>Bạn có nghĩ rằng còn nghiệm khác không? Hãy giải thích câu trả lời của bạn.</p></li>
+                  </ol>
+                </li>
+              </ol>
+            </statement>
+          </activity>
+        </subsection>
+
+        <subsection xml:id="subsection-1-1-3-summary">
+          <title>Tóm tắt</title>
+          <p>Mục đích của phần này là xây dựng một số trực giác về hành vi của nghiệm của các hệ tuyến tính thông qua việc xét một số ví dụ đơn giản. Trong những phần khám phá tiếp theo, ta sẽ phát triển một hiểu biết sâu hơn và chính xác hơn về các hiện tượng này.</p>
+          <ul>
+            <li><p>Một phương trình tuyến tính là phương trình có thể được viết dưới dạng</p>
+              <me>a_1x_1 + a_2x_2 + \cdots + a_nx_n = b.</me>
+            </li>
+            <li><p>Một hệ tuyến tính là một tập hợp các phương trình tuyến tính; một nghiệm là một bộ giá trị gán cho các ẩn sao cho mọi phương trình trong hệ đều đúng.</p></li>
+            <li><p>Ta đã đi đến kỳ vọng rằng một hệ tuyến tính có thể có vô số nghiệm, đúng một nghiệm, hoặc không có nghiệm.</p></li>
+            <li><p>Khi thêm nhiều phương trình vào một hệ, không gian nghiệm thường có vẻ trở nên nhỏ hơn.</p></li>
+          </ul>
+        </subsection>
+      </section>
+
+      <section xml:id="section-1-2-finding-solutions">
+        <title>Tìm nghiệm của các hệ tuyến tính</title>
+        <introduction>
+          <p>Trong mục trước, chúng ta đã nhìn các hệ phương trình tuyến tính từ góc nhìn đồ thị. Vì các phương trình chỉ có hai hoặc ba biến, ta có thể nghiên cứu các không gian nghiệm như giao điểm của các đường thẳng và mặt phẳng.</p>
+          <p>Vì cuối cùng ta sẽ xét các hệ có nhiều phương trình và nhiều biến, cách tiếp cận bằng đồ thị nói chung sẽ không phải là một chiến lược hữu ích. Thay vào đó, ta sẽ tiếp cận bài toán này bằng đại số và phát triển một kỹ thuật để mô tả các không gian nghiệm của các hệ tuyến tính tổng quát.</p>
+        </introduction>
+
+        <subsection xml:id="subsection-1-2-1-gaussian-elimination">
+          <title>Khử Gauss</title>
+          <p>Ta sẽ phát triển một thuật toán, thường được gọi là <term>khử Gauss</term>, cho phép ta mô tả không gian nghiệm của một hệ tuyến tính. Thuật toán này giữ vai trò trung tâm trong phần lớn những gì sẽ học tiếp theo.</p>
+
+          <activity xml:id="preview-activity-1-2-1">
+            <title>Hoạt động chuẩn bị</title>
+            <statement>
+              <p>Trong hoạt động này, ta sẽ xét một số ví dụ đơn giản nhằm định hướng cho việc tìm một cách tiếp cận tổng quát hơn.</p>
+              <ol marker="a">
+                <li>
+                  <p>Hãy mô tả không gian nghiệm của hệ tuyến tính:</p>
+                  <md>
+                    <mrow>x = 2</mrow>
+                    <mrow>y = -1.</mrow>
+                  </md>
+                </li>
+                <li>
+                  <p>Hãy mô tả không gian nghiệm của hệ tuyến tính:</p>
+                  <md>
+                    <mrow>-x+2y-z = -3</mrow>
+                    <mrow>3y+z = -1</mrow>
+                    <mrow>2z = 4.</mrow>
+                  </md>
+                </li>
+                <li>
+                  <p>Hãy mô tả không gian nghiệm của hệ tuyến tính:</p>
+                  <md>
+                    <mrow>x+3y = -1</mrow>
+                    <mrow>2x+y = 3.</mrow>
+                  </md>
+                </li>
+                <li><p>Mô tả không gian nghiệm của phương trình tuyến tính <m>0x = 0</m>.</p></li>
+                <li><p>Mô tả không gian nghiệm của phương trình tuyến tính <m>0x = 5</m>.</p></li>
+              </ol>
+            </statement>
+          </activity>
+
+          <p>Các ví dụ này dẫn đến một vài quan sát nhằm thúc đẩy một cách tiếp cận tổng quát để tìm nghiệm của các hệ tuyến tính.</p>
+
+          <observation xml:id="observation-1-2-1">
+            <statement>
+              <p>Trước hết, việc tìm không gian nghiệm của một số hệ là đơn giản. Chẳng hạn, vì mỗi phương trình trong hệ sau</p>
+              <md>
+                <mrow>x = -4</mrow>
+                <mrow>y = 2.</mrow>
+              </md>
+              <p>chỉ có một biến, nó quy định một giá trị cụ thể cho biến đó. Do đó ta thấy rằng có đúng một nghiệm, là <m>(x,y) = (-4,2)</m>. Ta gọi một hệ như vậy là <term>hệ tách rời</term>.</p>
+            </statement>
+          </observation>
+
+          <observation xml:id="observation-1-2-2">
+            <statement>
+              <p>Thứ hai, có một quy trình có thể dùng để tìm nghiệm cho một số kiểu hệ tuyến tính nhất định. Chẳng hạn, hãy xét hệ</p>
+              <md>
+                <mrow>x + 2y - 2z = -4</mrow>
+                <mrow>-y + z = 3</mrow>
+                <mrow>3z = 3.</mrow>
+              </md>
+              <p>Nhân hai vế của phương trình cuối với <m>1/3</m> cho ta</p>
+              <md>
+                <mrow>x + 2y - 2z = -4</mrow>
+                <mrow>-y + z = 3</mrow>
+                <mrow>z = 1.</mrow>
+              </md>
+              <p>Mọi nghiệm của hệ tuyến tính này do đó phải có <m>z = 1</m>.</p>
+              <p>Khi đã biết điều đó, ta có thể thay <m>z = 1</m> vào phương trình thứ nhất và thứ hai rồi rút gọn để thu được một hệ phương trình mới có cùng nghiệm:</p>
+              <md>
+                <mrow>x + 2y = -2</mrow>
+                <mrow>-y = 2.</mrow>
+              </md>
+              <p>Phương trình thứ hai, sau khi nhân hai vế với <m>-1</m>, cho ta <m>y = -2</m>. Sau đó ta có thể thay giá trị này vào phương trình thứ nhất để xác định <m>x = 2</m>.</p>
+              <p>Theo cách này, ta đi đến một hệ tách rời, cho thấy có đúng một nghiệm, cụ thể là <m>(x,y,z) = (2,-2,1)</m>.</p>
+              <p>Hệ ban đầu,</p>
+              <md>
+                <mrow>x + 2y - 2z = -4</mrow>
+                <mrow>-y + z = 3</mrow>
+                <mrow>3z = 3,</mrow>
+              </md>
+              <p>được gọi là <term>hệ tam giác</term> do hình dạng được tạo bởi các hệ số. Như ví dụ này cho thấy, hệ tam giác được giải dễ dàng bằng quy trình gọi là <term>thế ngược</term>.</p>
+            </statement>
+          </observation>
+
+          <observation xml:id="observation-1-2-3">
+            <statement>
+              <p>Ta có thể dùng phép thế theo một cách tổng quát hơn để giải các hệ tuyến tính. Ví dụ, một cách tiếp cận tự nhiên đối với hệ</p>
+              <md>
+                <mrow>x + 2y = 1</mrow>
+                <mrow>2x + 3y = 3.</mrow>
+              </md>
+              <p>là dùng phương trình thứ nhất để biểu diễn <m>x</m> theo <m>y</m>:</p>
+              <me>x = 1 - 2y</me>
+              <p>rồi thay vào phương trình thứ hai và rút gọn:</p>
+              <md>
+                <mrow>2x + 3y = 3</mrow>
+                <mrow>2(1-2y) + 3y = 3</mrow>
+                <mrow>2 - 4y + 3y = 3</mrow>
+                <mrow>-y = 1</mrow>
+                <mrow>y = -1.</mrow>
+              </md>
+              <p>Từ đây, ta có thể thay <m>y = -1</m> vào phương trình thứ nhất để đi đến nghiệm <m>(x,y) = (3,-1)</m>.</p>
+              <p>Tuy nhiên, quy trình hai bước “giải <m>x</m> theo <m>y</m> rồi thay vào phương trình thứ hai” có thể được thực hiện hiệu quả hơn bằng cách cộng một bội của phương trình thứ nhất vào phương trình thứ hai. Trong trường hợp này, ta nhân phương trình thứ nhất với <m>-2</m> và cộng vào phương trình thứ hai, tức là dùng</p>
+              <me>-2(\text{phương trình }1) + \text{phương trình }2</me>
+              <p>để thu được</p>
+              <md>
+                <mrow>-2(x+2y = 1)</mrow>
+                <mrow>+ \thinspace 2x+3y = 3,</mrow>
+              </md>
+              <p>điều này cho ta</p>
+              <md>
+                <mrow>-2x - 4y = -2</mrow>
+                <mrow>+ \thinspace 2x + 3y = 3</mrow>
+                <mrow>-y = 1.</mrow>
+              </md>
+              <p>Theo cách này, hệ</p>
+              <md>
+                <mrow>x + 2y = 1</mrow>
+                <mrow>2x + 3y = 3</mrow>
+              </md>
+              <p>được biến đổi thành hệ tam giác mới</p>
+              <md>
+                <mrow>x + 2y = 1</mrow>
+                <mrow>-y = 1.</mrow>
+              </md>
+              <p>Hãy chú ý rằng quá trình này có thể đảo ngược. Bắt đầu với hệ tam giác, ta có thể khôi phục hệ ban đầu bằng cách nhân phương trình thứ nhất với <m>2</m> và cộng vào phương trình thứ hai. Vì vậy hai hệ có cùng không gian nghiệm. Ta sẽ quay lại điểm này sau và đưa ra một giải thích có thể thuyết phục hơn.</p>
+              <p>Tất nhiên, việc chọn nhân phương trình thứ nhất với <m>-2</m> được thực hiện sao cho các hạng tử chứa <m>x</m> trong hai phương trình triệt tiêu, dẫn đến một hệ tam giác có thể giải bằng thế ngược.</p>
+            </statement>
+          </observation>
+
+          <p>Dựa trên các quan sát này, ta ghi nhận ba phép toán biến một hệ phương trình tuyến tính thành một hệ phương trình mới có cùng không gian nghiệm. Mục tiêu của chúng ta là tạo ra một hệ mới có không gian nghiệm giống với hệ ban đầu và có thể được mô tả dễ dàng.</p>
+          <dl>
+            <li>
+              <title>Nhân vô hướng</title>
+              <p>Ta có thể nhân một phương trình với một số khác không. Chẳng hạn,</p>
+              <me>2x - 4y = 6</me>
+              <p>có cùng tập nghiệm với</p>
+              <p>Nhân cả hai vế với <m>\frac{1}{2}</m>, ta được</p>
+              <me>x - 2y = 3</me>
+              <p>Phương trình mới có cùng tập nghiệm với phương trình ban đầu.</p>
+            </li>
+            <li>
+              <title>Hoán vị</title>
+              <p>Đổi chỗ các phương trình sẽ không làm thay đổi tập nghiệm. Chẳng hạn,</p>
+              <md>
+                <mrow>2x + 4y = 1</mrow>
+                <mrow>x - 3y = 0</mrow>
+              </md>
+              <p>có cùng tập nghiệm với</p>
+              <md>
+                <mrow>x - 3y = 0</mrow>
+                <mrow>2x + 4y = 1.</mrow>
+              </md>
+            </li>
+            <li>
+              <title>Thay thế</title>
+              <p>Như ta đã thấy ở trên, ta có thể nhân một phương trình với một số thực rồi cộng kết quả vào một phương trình khác. Ta gọi quá trình này là <term>thay thế</term>.</p>
+            </li>
+          </dl>
+
+          <example xml:id="example-1-2-4">
+            <title>Minh họa việc dùng các phép toán này</title>
+            <statement>
+              <p>Ta minh họa việc sử dụng các phép toán này để tìm không gian nghiệm của hệ phương trình:</p>
+              <md>
+                <mrow>x + 2y = 4</mrow>
+                <mrow>2x + y - 3z = 11</mrow>
+                <mrow>-3x - 2y + z = -10.</mrow>
+              </md>
+              <p>Trước hết ta sẽ biến đổi hệ thành một hệ tam giác, nên ta bắt đầu bằng cách loại <m>x</m> khỏi phương trình thứ hai và thứ ba.</p>
+              <p>Ta bắt đầu với một phép thay thế: nhân phương trình thứ nhất với <m>-2</m> và cộng kết quả vào phương trình thứ hai.</p>
+              <md>
+                <mrow>x + 2y = 4</mrow>
+                <mrow>-3y - 3z = 3</mrow>
+                <mrow>-3x - 2y + z = -10.</mrow>
+              </md>
+              <p>Một phép thay thế khác loại <m>x</m> khỏi phương trình thứ ba. Ta nhân phương trình thứ nhất với <m>3</m> và cộng vào phương trình thứ ba.</p>
+              <md>
+                <mrow>x + 2y = 4</mrow>
+                <mrow>-3y - 3z = 3</mrow>
+                <mrow>4y + z = 2.</mrow>
+              </md>
+              <p>Nhân vô hướng phương trình thứ hai bằng cách nhân nó với <m>-1/3</m>.</p>
+              <md>
+                <mrow>x + 2y = 4</mrow>
+                <mrow>y + z = -1</mrow>
+                <mrow>4y + z = 2.</mrow>
+              </md>
+              <p>Loại <m>y</m> khỏi phương trình thứ ba bằng cách nhân phương trình thứ hai với <m>-4</m> và cộng vào phương trình thứ ba. Hãy chú ý rằng bây giờ ta có một hệ tam giác có thể giải bằng thế ngược.</p>
+              <md>
+                <mrow>x + 2y = 4</mrow>
+                <mrow>y + z = -1</mrow>
+                <mrow>-3z = 6.</mrow>
+              </md>
+              <p>Phương trình cuối cho ta <m>z = -2</m>. Thế giá trị này vào phương trình thứ hai cho ta <m>y = 1</m>. Thế <m>y = 1</m> vào phương trình đầu cho ta <m>x = 2</m>. Do đó hệ có đúng một nghiệm, là <m>(x,y,z) = (2,1,-2)</m>.</p>
+              <p>Quy trình tạo một hệ tam giác và dùng thế ngược để mô tả không gian nghiệm được gọi là <term>khử Gauss</term>.</p>
+            </statement>
+          </example>
+
+          <activity xml:id="activity-1-2-2">
+            <title>Khử Gauss</title>
+            <statement>
+              <p>Với mỗi hệ tuyến tính sau, hãy dùng khử Gauss để mô tả không gian nghiệm. Cụ thể, hãy xác định hệ có đúng một nghiệm, vô số nghiệm, hay không có nghiệm.</p>
+              <ol marker="a">
+                <li><md><mrow>x+y+2z = 1</mrow><mrow>2x-y-2z = 2</mrow><mrow>-x+y+z = 0.</mrow></md></li>
+                <li><md><mrow>-x-2y+2z = -1</mrow><mrow>2x+4y-z = 5</mrow><mrow>x+2y = 3.</mrow></md></li>
+                <li><md><mrow>-x-2y+2z = -1</mrow><mrow>2x+4y-z = 5</mrow><mrow>x+2y = 2.</mrow></md></li>
+              </ol>
+            </statement>
+          </activity>
+        </subsection>
+
+        <subsection xml:id="subsection-1-2-2-augmented-matrices">
+          <title>Ma trận mở rộng</title>
+          <p>Sau khi thực hiện khử Gauss một vài lần, ta thấy phần lớn công việc chỉ tập trung vào các hệ số, còn các biến chỉ đóng vai trò giữ chỗ. Từ quan sát này, ta giới thiệu một cách viết gọn cho hệ tuyến tính.</p>
+          <p>Khi viết một hệ tuyến tính, ta sẽ luôn viết các biến theo cùng một thứ tự trong mỗi phương trình. Sau đó, ta xây dựng một <term>ma trận mở rộng</term> bằng cách bỏ qua tên biến và ghi lại dữ liệu số trong một mảng chữ nhật. Chẳng hạn, hệ</p>
+          <md>
+            <mrow>-x-2y+2z = -1</mrow>
+            <mrow>2x+4y-z = 5</mrow>
+            <mrow>x+2y = 3</mrow>
+          </md>
+          <p>có ma trận mở rộng</p>
+          <me>\left[\begin{array}{rrr|r}-1 \amp -2 \amp 2 \amp -1\\ 2 \amp 4 \amp -1 \amp 5\\ 1 \amp 2 \amp 0 \amp 3\end{array}\right].</me>
+          <p>Đường thẳng đứng nhắc ta vị trí của dấu bằng trong các phương trình. Các phần tử bên trái đường thẳng đứng là các hệ số của hệ. Nếu chỉ tập trung vào các hệ số, ta viết <term>ma trận hệ số</term>:</p>
+          <me>\begin{bmatrix}-1 \amp -2 \amp 2\\ 2 \amp 4 \amp -1\\ 1 \amp 2 \amp 0\end{bmatrix}.</me>
+          <p>Ba phép toán trên các phương trình chuyển tự nhiên thành các phép toán trên các hàng của ma trận. Chẳng hạn, phép thay thế nhân phương trình đầu với <m>2</m> rồi cộng vào phương trình thứ hai tương ứng với việc nhân hàng đầu với <m>2</m> rồi cộng vào hàng thứ hai:</p>
+          <me>\left[\begin{array}{rrr|r}-1 \amp -2 \amp 2 \amp -1\\ 2 \amp 4 \amp -1 \amp 5\\ 1 \amp 2 \amp 0 \amp 3\end{array}\right]
+          \sim
+          \left[\begin{array}{rrr|r}-1 \amp -2 \amp 2 \amp -1\\ 0 \amp 0 \amp 3 \amp 3\\ 1 \amp 2 \amp 0 \amp 3\end{array}\right].</me>
+          <p>Ký hiệu <m>\sim</m> giữa hai ma trận cho biết hai ma trận liên hệ với nhau bởi một chuỗi các phép nhân vô hướng, hoán vị và thay thế. Vì các phép toán này tác động lên các hàng, ta nói hai ma trận là <term>tương đương hàng</term>. Hai ma trận mở rộng tương đương hàng biểu diễn hai hệ tuyến tính có cùng không gian nghiệm.</p>
+
+          <activity xml:id="activity-1-2-3">
+            <title>Ma trận mở rộng và không gian nghiệm</title>
+            <statement>
+              <ol marker="a">
+                <li>
+                  <p>Viết ma trận mở rộng cho hệ tuyến tính sau và thực hiện khử Gauss để mô tả không gian nghiệm càng chi tiết càng tốt:</p>
+                  <md><mrow>x+2y-z = 1</mrow><mrow>3x+2y+2z = 7</mrow><mrow>-x+4z = -3.</mrow></md>
+                </li>
+                <li>
+                  <p>Giả sử một hệ tuyến tính theo các biến <m>x</m> và <m>y</m> có ma trận mở rộng tương đương hàng với</p>
+                  <me>\left[\begin{array}{cc|c}1 \amp 0 \amp 3\\ 0 \amp 1 \amp 0\\ 0 \amp 0 \amp 0\end{array}\right].</me>
+                  <p>Viết hệ tuyến tính tương ứng và mô tả tập nghiệm càng chi tiết càng tốt.</p>
+                </li>
+                <li>
+                  <p>Giả sử một hệ tuyến tính theo các biến <m>x</m> và <m>y</m> có ma trận mở rộng tương đương hàng với</p>
+                  <me>\left[\begin{array}{cc|c}1 \amp 0 \amp 3\\ 0 \amp 1 \amp 0\\ 0 \amp 0 \amp 1\end{array}\right].</me>
+                  <p>Viết hệ tuyến tính tương ứng và mô tả tập nghiệm càng chi tiết càng tốt.</p>
+                </li>
+                <li>
+                  <p>Giả sử ma trận mở rộng của một hệ tuyến tính có dạng sau, trong đó <m>*</m> có thể là bất kỳ số thực nào:</p>
+                  <me>\left[\begin{array}{ccccc|c}* \amp * \amp * \amp * \amp * \amp *\\ * \amp * \amp * \amp * \amp * \amp *\\ * \amp * \amp * \amp * \amp * \amp *\end{array}\right].</me>
+                  <ol>
+                    <li><p>Hệ này có bao nhiêu phương trình và bao nhiêu biến?</p></li>
+                    <li><p>Dựa trên thảo luận ở Mục 1.1, hệ có thể có đúng một nghiệm, vô số nghiệm hoặc không có nghiệm không?</p></li>
+                    <li>
+                      <p>Giả sử ma trận mở rộng này tương đương hàng với</p>
+                      <me>\left[\begin{array}{ccccc|c}1 \amp 2 \amp 0 \amp 0 \amp 3 \amp 2\\ 0 \amp 0 \amp 1 \amp 2 \amp -1 \amp -1\\ 0 \amp 0 \amp 0 \amp 0 \amp 0 \amp 0\end{array}\right].</me>
+                      <p>Hãy chọn tên biến, viết hệ tuyến tính tương ứng và xác định hệ có đúng một nghiệm, vô số nghiệm, hay không có nghiệm.</p>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </statement>
+          </activity>
+        </subsection>
+
+        <subsection xml:id="subsection-1-2-3-reduced-row-echelon-form">
+          <title>Dạng bậc thang rút gọn theo hàng</title>
+          <p>Có một lớp ma trận đặc biệt mà hình dạng của chúng giúp ta mô tả rất dễ dàng không gian nghiệm của hệ tuyến tính tương ứng. Khi đọc các tính chất dưới đây, hãy hình dung một ma trận trong đó các số <m>1</m> dẫn đầu dịch dần sang phải khi đi xuống các hàng.</p>
+
+          <definition xml:id="definition-1-2-5">
+            <statement>
+              <p>Ta nói một ma trận ở <term>dạng bậc thang rút gọn theo hàng</term> nếu các tính chất sau được thỏa mãn.</p>
+              <ul>
+                <li><p>Nếu các phần tử trong một hàng đều bằng <m>0</m>, thì điều tương tự cũng đúng với mọi hàng nằm dưới nó.</p></li>
+                <li><p>Nếu ta đi qua một hàng từ trái sang phải, phần tử khác <m>0</m> đầu tiên mà ta gặp là <m>1</m>. Ta gọi phần tử này là <term>phần tử dẫn đầu</term> trong hàng.</p></li>
+                <li><p>Phần tử dẫn đầu trong bất kỳ hàng nào cũng nằm bên phải các phần tử dẫn đầu trong tất cả các hàng phía trên nó.</p></li>
+                <li><p>Một phần tử dẫn đầu là phần tử khác <m>0</m> duy nhất trong cột của nó.</p></li>
+              </ul>
+              <p>Ta gọi một ma trận ở dạng bậc thang rút gọn theo hàng là một <term>ma trận bậc thang rút gọn theo hàng</term>.</p>
+            </statement>
+          </definition>
+
+          <p>Ta đã cố ý chưa nói rõ liệu ma trận đang xét là ma trận mở rộng tương ứng với một hệ tuyến tính hay là ma trận hệ số, vì trong tương lai ta sẽ xét cả hai khả năng.</p>
+
+          <activity xml:id="activity-1-2-4">
+            <title>Nhận diện các ma trận bậc thang rút gọn theo hàng</title>
+            <statement>
+              <p>Xét từng ma trận mở rộng sau. Hãy xác định ma trận có ở dạng bậc thang rút gọn theo hàng hay không. Nếu không, hãy thực hiện một chuỗi các phép nhân vô hướng, hoán vị và thay thế để thu được một ma trận tương đương hàng ở dạng bậc thang rút gọn theo hàng. Sau đó dùng ma trận bậc thang rút gọn theo hàng để mô tả không gian nghiệm.</p>
+              <ol marker="a">
+                <li><me>\left[\begin{array}{ccc|c}2 \amp 0 \amp 4 \amp -8\\ 0 \amp 1 \amp 3 \amp 2\end{array}\right].</me></li>
+                <li><me>\left[\begin{array}{ccc|c}1 \amp 0 \amp 0 \amp -1\\ 0 \amp 1 \amp 0 \amp 3\\ 0 \amp 0 \amp 1 \amp 1\end{array}\right].</me></li>
+                <li><me>\left[\begin{array}{ccc|c}1 \amp 0 \amp 4 \amp 2\\ 0 \amp 1 \amp 3 \amp 2\\ 0 \amp 0 \amp 0 \amp 1\end{array}\right].</me></li>
+                <li><me>\left[\begin{array}{ccc|c}0 \amp 1 \amp 3 \amp 2\\ 0 \amp 0 \amp 0 \amp 0\\ 1 \amp 0 \amp 4 \amp 2\end{array}\right].</me></li>
+                <li><me>\left[\begin{array}{ccc|c}1 \amp 2 \amp -1 \amp 2\\ 0 \amp 1 \amp -2 \amp 0\\ 0 \amp 0 \amp 1 \amp 1\end{array}\right].</me></li>
+              </ol>
+            </statement>
+          </activity>
+
+          <p>Các ví dụ trong hoạt động trước cho thấy có một chuỗi phép toán hàng biến bất kỳ ma trận nào thành một ma trận ở dạng bậc thang rút gọn theo hàng. Hơn nữa, các điều kiện định nghĩa ma trận bậc thang rút gọn theo hàng bảo đảm rằng ma trận này là duy nhất.</p>
+
+          <theorem xml:id="theorem-1-2-6">
+            <statement>
+              <p>Với bất kỳ ma trận cho trước nào, có đúng một ma trận bậc thang rút gọn theo hàng mà ma trận đó tương đương hàng với nó.</p>
+            </statement>
+          </theorem>
+
+          <p>Khi đã có ma trận bậc thang rút gọn theo hàng này, ta có thể mô tả tập nghiệm của hệ tuyến tính tương ứng một cách tương đối dễ dàng.</p>
+
+          <example xml:id="example-1-2-7">
+            <title>Mô tả không gian nghiệm từ một ma trận bậc thang rút gọn theo hàng</title>
+            <statement>
+              <ol marker="a">
+                <li>
+                  <p>Xét ma trận bậc thang rút gọn theo hàng</p>
+                  <me>\left[\begin{array}{ccc|c}1 \amp 0 \amp 2 \amp -1\\ 0 \amp 1 \amp 1 \amp 2\end{array}\right]</me>
+                  <p>và hệ tuyến tính tương ứng của nó là</p>
+                  <md><mrow>x+2z = -1</mrow><mrow>y+z = 2.</mrow></md>
+                  <p>Hãy viết lại các phương trình dưới dạng</p>
+                  <md><mrow>x = -1 - 2z</mrow><mrow>y = 2 - z.</mrow></md>
+                  <p>Từ mô tả này, rõ ràng là ta thu được một nghiệm với bất kỳ giá trị nào của biến <m>z</m>. Chẳng hạn, nếu <m>z = 2</m>, thì <m>x = -5</m> và <m>y = 0</m>, nên <m>(x,y,z) = (-5,0,2)</m> là một nghiệm. Tương tự, nếu <m>z = 0</m>, ta thấy rằng <m>(x,y,z) = (-1,2,0)</m> cũng là một nghiệm.</p>
+                  <p>Vì không có hạn chế nào đối với giá trị của <m>z</m>, ta gọi nó là một <term>biến tự do</term>, và ghi nhận rằng hệ tuyến tính có vô số nghiệm. Các biến <m>x</m> và <m>y</m> được gọi là <term>biến cơ bản</term> vì chúng được xác định sau khi ta chọn giá trị cho biến tự do.</p>
+                  <p>Ta sẽ gọi mô tả không gian nghiệm này, trong đó các biến cơ bản được viết theo các biến tự do, là một <term>mô tả tham số</term> của không gian nghiệm.</p>
+                </li>
+                <li>
+                  <p>Xét ma trận</p>
+                  <me>\left[\begin{array}{ccc|c}1 \amp 0 \amp 0 \amp 4\\ 0 \amp 1 \amp 0 \amp -3\\ 0 \amp 0 \amp 1 \amp 1\\ 0 \amp 0 \amp 0 \amp 0\end{array}\right].</me>
+                  <p>Phương trình cuối cho ta</p>
+                  <me>0x + 0y + 0z = 0,</me>
+                  <p>điều này đúng với mọi <m>(x,y,z)</m>. Ta có thể bỏ qua phương trình này một cách an toàn vì nó không đặt ra hạn chế nào lên <m>(x,y,z)</m>. Khi đó ta thấy rằng có một nghiệm duy nhất <m>(x,y,z) = (4,-3,1)</m>.</p>
+                </li>
+                <li>
+                  <p>Xét ma trận</p>
+                  <me>\left[\begin{array}{ccc|c}1 \amp 0 \amp 2 \amp 0\\ 0 \amp 1 \amp -1 \amp 0\\ 0 \amp 0 \amp 0 \amp 1\end{array}\right].</me>
+                  <p>Bắt đầu với phương trình cuối, ta thấy rằng</p>
+                  <me>0x + 0y + 0z = 1,</me>
+                  <p>điều này không đúng với bất kỳ <m>(x,y,z)</m> nào. Phương trình riêng lẻ này không có nghiệm, và do đó hệ phương trình cũng không có nghiệm.</p>
+                </li>
+              </ol>
+            </statement>
+          </example>
+        </subsection>
+
+        <subsection xml:id="subsection-1-2-4-summary">
+          <title>Tóm tắt</title>
+          <p>Ta đã thấy một số khái niệm quan trọng trong mục này.</p>
+          <ul>
+            <li><p>Ta có thể mô tả không gian nghiệm của một hệ tuyến tính bằng cách biến đổi nó thành một hệ tuyến tính mới có cùng không gian nghiệm thông qua một chuỗi các phép nhân vô hướng, hoán vị và thay thế.</p></li>
+            <li><p>Ta có thể biểu diễn một hệ tuyến tính bằng một ma trận mở rộng. Dùng các phép nhân vô hướng, hoán vị và thay thế, ma trận mở rộng tương đương hàng với đúng một ma trận bậc thang rút gọn theo hàng. Quá trình xây dựng ma trận bậc thang rút gọn theo hàng này được gọi là khử Gauss.</p></li>
+            <li><p>Ma trận bậc thang rút gọn theo hàng cho phép ta dễ dàng mô tả không gian nghiệm của một hệ tuyến tính.</p></li>
+          </ul>
+        </subsection>
+
+        <exercises xml:id="exercises-1-2-5">
+          <title>Bài tập</title>
+          <exercise xml:id="exercise-1-2-1"><statement>
+            <p>Với mỗi hệ tuyến tính dưới đây, hãy viết ma trận mở rộng tương ứng và tìm ma trận bậc thang rút gọn theo hàng tương đương hàng với nó. Xác định các biến cơ bản và biến tự do, rồi mô tả không gian nghiệm của hệ tuyến tính ban đầu bằng một mô tả tham số, nếu thích hợp.</p>
+            <ol marker="a">
+              <li><md><mrow>2x + y = 0</mrow><mrow>x + 2y = 3</mrow><mrow>-2x + 2y = 6</mrow></md></li>
+              <li><md><mrow>-x_1 + 2x_2 + x_3 = 2</mrow><mrow>3x_1 + 2x_3 = -1</mrow><mrow>-x_1 - x_2 + x_3 = 2</mrow></md></li>
+              <li><md><mrow>x_1 + 2x_2 - 5x_3 - x_4 = -3</mrow><mrow>-2x_1 - 2x_2 + 6x_3 - 2x_4 = 4</mrow><mrow>x_1 - x_3 + 9x_4 = -7</mrow><mrow>-x_2 + 2x_3 - x_4 = 4</mrow></md></li>
+            </ol>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-2-2"><statement>
+            <p>Xét từng ma trận dưới đây và xác định nó có ở dạng bậc thang rút gọn theo hàng hay không. Nếu không, hãy nêu lý do và áp dụng một chuỗi các phép toán hàng để tìm ma trận bậc thang rút gọn theo hàng của nó. Với mỗi ma trận, hãy cho biết hệ tuyến tính tương ứng có vô số nghiệm, đúng một nghiệm, hay không có nghiệm.</p>
+            <ol marker="a">
+              <li><me>\left[\begin{array}{ccc|c}1 \amp 1 \amp 0 \amp 3\\ 3 \amp 0 \amp 1 \amp 0\\ -2 \amp 1 \amp 0 \amp 0\\ 1 \amp 3 \amp 4 \amp 0\end{array}\right]</me></li>
+              <li><me>\left[\begin{array}{cccc|c}1 \amp 0 \amp 0 \amp 0 \amp 0\\ 0 \amp 2 \amp 0 \amp 0 \amp 0\\ 0 \amp 0 \amp -3 \amp 0 \amp 0\\ 0 \amp 0 \amp 0 \amp 1 \amp 0\\ 0 \amp 0 \amp 0 \amp 0 \amp 1\end{array}\right]</me></li>
+              <li><me>\left[\begin{array}{ccc|c}1 \amp 0 \amp 0 \amp 3\\ 3 \amp 0 \amp 1 \amp 0\\ -2 \amp 1 \amp 0 \amp 0\\ 1 \amp 3 \amp 4 \amp 0\\ 0 \amp 0 \amp 3 \amp 3\end{array}\right]</me></li>
+              <li><me>\left[\begin{array}{ccc|c}0 \amp 0 \amp 1 \amp 0\\ -1 \amp 0 \amp 1 \amp 0\\ 0 \amp 3 \amp 1 \amp 1\\ 1 \amp 1 \amp 1 \amp 2\end{array}\right]</me></li>
+            </ol>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-2-3"><statement>
+            <p>Hãy cho một ví dụ về một ma trận bậc thang rút gọn theo hàng mô tả một hệ tuyến tính có các tính chất đã nêu. Nếu không thể tìm được ví dụ như vậy, hãy giải thích vì sao không thể.</p>
+            <ol marker="a">
+              <li><p>Viết một ma trận bậc thang rút gọn theo hàng cho một hệ tuyến tính có năm phương trình, ba biến và đúng một nghiệm.</p></li>
+              <li><p>Viết một ma trận bậc thang rút gọn theo hàng cho một hệ tuyến tính có ba phương trình, ba biến và không có nghiệm.</p></li>
+              <li><p>Viết một ma trận bậc thang rút gọn theo hàng cho một hệ tuyến tính có ba phương trình, năm biến và vô số nghiệm.</p></li>
+              <li><p>Viết một ma trận bậc thang rút gọn theo hàng cho một hệ tuyến tính có ba phương trình, bốn biến và đúng một nghiệm.</p></li>
+              <li><p>Viết một ma trận bậc thang rút gọn theo hàng cho một hệ tuyến tính có bốn phương trình, bốn biến và đúng một nghiệm.</p></li>
+            </ol>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-2-4"><statement>
+            <p>Với bất kỳ ma trận cho trước nào, Định lý 1.2.6 cho biết rằng có một ma trận bậc thang rút gọn theo hàng tương đương hàng với nó. Bài tập này minh họa vì sao điều đó đúng. Mỗi ma trận sau thỏa mãn ba trong bốn điều kiện mà Định nghĩa 1.2.5 yêu cầu đối với một ma trận bậc thang rút gọn theo hàng. Với mỗi ma trận, hãy chỉ ra cách áp dụng một chuỗi các phép toán hàng để tạo thành một ma trận bậc thang rút gọn theo hàng tương đương hàng.</p>
+            <ol marker="a">
+              <li><me>\left[\begin{array}{cccc}1 \amp 0 \amp 2 \amp 3\\ 0 \amp 0 \amp 0 \amp 0\\ 0 \amp 1 \amp -2 \amp 1\end{array}\right]</me></li>
+              <li><me>\left[\begin{array}{cccc}1 \amp 0 \amp 0 \amp 2\\ 0 \amp -2 \amp 0 \amp -4\\ 0 \amp 0 \amp 1 \amp 1\end{array}\right]</me></li>
+              <li><me>\left[\begin{array}{cccc}0 \amp 1 \amp 0 \amp -2\\ 0 \amp 0 \amp 1 \amp 4\\ 1 \amp 0 \amp 0 \amp 3\\ 0 \amp 0 \amp 0 \amp 0\\ 0 \amp 0 \amp 0 \amp 0\end{array}\right]</me></li>
+              <li><me>\left[\begin{array}{cccc}1 \amp 0 \amp 2 \amp 3\\ 0 \amp 1 \amp 3 \amp 0\\ 0 \amp 0 \amp 1 \amp -1\\ 0 \amp 0 \amp 0 \amp 0\end{array}\right]</me></li>
+            </ol>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-2-5"><statement>
+            <p>Với mỗi câu hỏi dưới đây, hãy đưa ra lập luận biện minh cho câu trả lời của bạn.</p>
+            <ol marker="a">
+              <li><p>Sự xuất hiện của một hàng mà các phần tử đều bằng <m>0</m> trong một ma trận mở rộng cho ta biết điều gì về không gian nghiệm của hệ tuyến tính?</p></li>
+              <li><p>Làm thế nào để xác định trực tiếp từ ma trận bậc thang rút gọn theo hàng rằng một hệ tuyến tính không có nghiệm?</p></li>
+              <li><p>Làm thế nào để xác định trực tiếp từ ma trận bậc thang rút gọn theo hàng rằng một hệ tuyến tính có vô số nghiệm?</p></li>
+              <li><p>Nếu một hệ tuyến tính có nhiều biến hơn số phương trình và tồn tại ít nhất một nghiệm, ta có thể nói gì về không gian nghiệm?</p></li>
+            </ol>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-2-6"><statement>
+            <p>Xác định các phát biểu sau là đúng hay sai và giải thích lập luận của bạn.</p>
+            <ol marker="a">
+              <li><p>Nếu mọi biến đều là biến cơ bản, thì hệ tuyến tính có đúng một nghiệm.</p></li>
+              <li><p>Nếu hai ma trận mở rộng tương đương hàng với nhau, thì chúng mô tả hai hệ tuyến tính có cùng không gian nghiệm.</p></li>
+              <li><p>Sự xuất hiện của một biến tự do cho thấy hệ tuyến tính không có nghiệm.</p></li>
+              <li><p>Nếu một hệ tuyến tính có đúng một nghiệm, thì nó phải có số phương trình bằng số biến.</p></li>
+              <li><p>Nếu một hệ tuyến tính có số phương trình bằng số biến, thì nó có đúng một nghiệm.</p></li>
+            </ol>
+          </statement></exercise>
+        </exercises>
+      </section>
+<section xml:id="section-1-3-sage-computation">
+        <title>Tính toán với Sage</title>
+
+        <introduction>
+          <p>Đại số tuyến tính có vai trò nổi bật như một công cụ khoa học mạnh mẽ nhờ sức mạnh ngày càng tăng của máy tính. Carl Cowen, cựu chủ tịch Hiệp hội Toán học Hoa Kỳ, từng nói rằng: “Không có ứng dụng nghiêm túc nào của đại số tuyến tính diễn ra mà không có máy tính.” Thật vậy, vào những năm 1950, làm việc với một hệ gồm 100 phương trình và 100 ẩn số đã là khó khăn. Ngày nay, các nhà khoa học và nhà toán học thường xuyên làm việc với các bài toán lớn hơn rất nhiều. Điều này chỉ có thể thực hiện được nhờ sức mạnh tính toán hiện đại.</p>
+
+          <p>Vì vậy, một sinh viên đại số tuyến tính cần cảm thấy thoải mái khi giải các bài toán đại số tuyến tính bằng máy tính. Mục này giới thiệu chương trình <em>Sage</em>, một công cụ có thể hỗ trợ chúng ta. Dù bạn có thể thực hiện một số việc bằng máy tính đồ thị, bạn vẫn nên làm quen với Sage vì chúng ta sẽ sử dụng những tính năng ngày càng mạnh hơn khi gặp nhu cầu tương ứng.</p>
+        </introduction>
+
+        <subsection xml:id="subsection-1-3-1">
+          <title>Giới thiệu về Sage</title>
+
+          <p>Có một vài cách để truy cập Sage.</p>
+
+          <ul>
+            <li>
+              <p>Nếu bạn đang đọc sách này trực tuyến, sẽ có các “ô Sage” được nhúng tại những vị trí phù hợp trong văn bản. Bạn có thể nhập lệnh Sage vào các ô này và thực thi chúng, miễn là bạn có kết nối Internet. Hãy lưu ý rằng công việc của bạn sẽ bị mất nếu bạn tải lại trang.</p>
+
+              <p>Dưới đây là một ô Sage chứa lệnh yêu cầu Sage nhân 5 với 3. Bạn có thể thực thi lệnh bằng cách nhấn nút <em>Evaluate</em>.</p>
+
+              <sage>
+                <input>5 * 3</input>
+              </sage>
+            </li>
+
+            <li>
+              <p>Bạn cũng có thể truy cập <c>cocalc.com</c>, đăng ký tài khoản, mở một dự án mới và tạo một “Sage worksheet”. Khi ở trong worksheet, bạn có thể nhập các lệnh như minh họa ở đây và thực thi chúng bằng cách nhấn tổ hợp phím <c>Shift</c> + <c>Enter</c>.</p>
+            </li>
+
+            <li>
+              <p>Có một trang tập hợp các ô Sage tại <c>gvsu.edu/s/0Ng</c>. Kết quả thu được khi thực thi một ô sẽ có thể được sử dụng trong các ô khác. Tuy nhiên, công việc của bạn sẽ bị mất khi trang được tải lại.</p>
+            </li>
+          </ul>
+
+          <p>Trong suốt cuốn sách, chúng ta sẽ giới thiệu các lệnh Sage mới cho phép khảo sát các khái niệm đại số tuyến tính. Các lệnh này được tập hợp và tóm tắt trong phần tham khảo ở Phụ lục A.</p>
+
+          <activity xml:id="activity-1-3-1">
+            <title>Các lệnh Sage cơ bản</title>
+            <statement>
+              <ol marker="a">
+                <li>
+                  <p>Sage sử dụng các toán tử chuẩn <c>+</c>, <c>-</c>, <c>*</c>, <c>/</c>, và <c>^</c> cho các phép toán số học thông thường. Bằng cách nhập văn bản vào ô dưới đây, hãy yêu cầu Sage tính giá trị:</p>
+                  <me>3 + 4(2^4 - 1)</me>
+                  <sage>
+                    <input></input>
+                  </sage>
+                </li>
+
+                <li>
+                  <p>Lưu ý rằng ta có thể tạo dòng mới bằng cách nhấn <c>Enter</c> rồi nhập thêm lệnh ở dòng tiếp theo. Điều gì xảy ra khi bạn thực thi ô Sage sau?</p>
+                  <sage>
+                    <input>5 * 3
+      10 - 4</input>
+                  </sage>
+
+                  <p>Ta chỉ nhìn thấy kết quả của lệnh cuối cùng. Với lệnh <c>print</c>, ta có thể xem các kết quả trước đó nếu muốn.</p>
+
+                  <sage>
+                    <input>print(5 * 3)
+      print(10 - 4)</input>
+                  </sage>
+                </li>
+
+                <li>
+                  <p>Ta có thể đặt tên cho kết quả của một lệnh và sử dụng tên đó trong một lệnh sau.</p>
+
+                  <sage>
+                    <input>income = 1500 * 12
+      taxes = income * 0.15
+      print(taxes)</input>
+                  </sage>
+
+                  <p>Giả sử bạn có ba bài kiểm tra trong lớp đại số tuyến tính với điểm số là 90, 100 và 98. Trong ô Sage dưới đây, hãy cộng các điểm đó lại và gọi kết quả là <c>total</c>. Ở dòng tiếp theo, hãy tìm điểm trung bình và in kết quả ra.</p>
+
+                  <sage>
+                    <input></input>
+                  </sage>
+                </li>
+
+                <li>
+                  <p>Nếu bạn không phải là lập trình viên, bạn có thể bỏ qua phần này. Nếu bạn có kinh nghiệm lập trình, cần biết rằng Sage được viết bằng ngôn ngữ Python và bạn có thể nhập mã Python vào ô Sage.</p>
+
+                  <sage>
+                    <input>for i in range(10):
+          print(i)</input>
+                  </sage>
+                </li>
+              </ol>
+            </statement>
+          </activity>
+        </subsection>
+
+        <subsection xml:id="subsection-1-3-2">
+          <title>Sage và ma trận</title>
+
+          <p>Khi gặp một ma trận, Định lý 1.2.6 cho ta biết rằng có đúng một ma trận dạng bậc thang rút gọn tương đương hàng với nó.</p>
+
+          <p>Thực ra, tính duy nhất của ma trận dạng bậc thang rút gọn này chính là lý do ta định nghĩa dạng đặc biệt đó. Khi giải một hệ phương trình tuyến tính bằng khử Gauss, có thể có nhiều ma trận tương đương hàng khác nhau giúp tiết lộ cấu trúc của không gian nghiệm. Ma trận dạng bậc thang rút gọn chỉ là một quy ước thuận tiện để tất cả chúng ta tìm đến cùng một ma trận.</p>
+
+          <p>Một lợi ích nữa là ta có thể yêu cầu một chương trình máy tính, chẳng hạn Sage, tìm ma trận dạng bậc thang rút gọn cho mình. Bây giờ ta sẽ học cách làm điều đó sau khi đã có chút quen thuộc với Sage.</p>
+
+          <p>Ví dụ, ma trận</p>
+          <me>
+            \begin{bmatrix}
+            -2 \amp 3 \amp 0 \amp 4 \\
+            1 \amp -2 \amp 1 \amp -3 \\
+            0 \amp 2 \amp 3 \amp 0
+            \end{bmatrix}
+          </me>
+
+          <p>có thể được tạo trong Sage bằng lệnh sau:</p>
+
+          <sage>
+            <input>A = matrix(3, 4, [-2, 3, 0, 4,
+                        1, -2, 1, -3,
+                        0, 2, 3, 0])
+      A</input>
+          </sage>
+
+          <p>Ở đây, hai số đầu tiên cho biết ma trận có 3 hàng và 4 cột. Các phần tử được liệt kê theo thứ tự từng hàng một.</p>
+
+          <p>Ta cũng có thể nhập ma trận bằng cách dùng một danh sách các hàng:</p>
+
+          <sage>
+            <input>A = matrix([[-2, 3, 0, 4],
+                  [1, -2, 1, -3],
+                  [0, 2, 3, 0]])
+      A</input>
+          </sage>
+
+          <p>Để tìm dạng bậc thang rút gọn của ma trận, ta dùng phương thức <c>rref()</c>.</p>
+
+          <sage>
+            <input>A.rref()</input>
+          </sage>
+
+          <activity xml:id="activity-1-3-2">
+            <title>Sử dụng Sage để tìm dạng bậc thang rút gọn</title>
+            <statement>
+              <ol marker="a">
+                <li>
+                  <p>Hãy định nghĩa ma trận sau trong Sage và tìm dạng bậc thang rút gọn của nó:</p>
+                  <me>
+                    A =
+                    \begin{bmatrix}
+                    1 \amp 2 \amp -1 \amp 0 \\
+                    -3 \amp 0 \amp 4 \amp 3
+                    \end{bmatrix}.
+                  </me>
+                  <sage>
+                    <input></input>
+                  </sage>
+                </li>
+
+                <li>
+                  <p>Hãy định nghĩa ma trận sau và tìm dạng bậc thang rút gọn của nó:</p>
+                  <me>
+                    B =
+                    \begin{bmatrix}
+                    1 \amp 2 \amp -1 \amp 0 \\
+                    -3 \amp 0 \amp 4 \amp 3 \\
+                    2 \amp 4 \amp -2 \amp 0
+                    \end{bmatrix}.
+                  </me>
+                  <sage>
+                    <input></input>
+                  </sage>
+                </li>
+
+                <li>
+                  <p>Xét hệ phương trình tuyến tính:</p>
+                  <me>
+                    \begin{aligned}
+                    -2x_1 + 3x_2 + 2x_4 \amp = 3, \\
+                    -x_1 + 4x_2 + x_3 + 3x_4 \amp = 2, \\
+                    3x_1 + 2x_3 + 2x_4 \amp = 3, \\
+                    x_1 + 5x_2 + 3x_3 + 7x_4 \amp = 3.
+                    \end{aligned}
+                  </me>
+                  <p>Hãy viết ma trận mở rộng tương ứng rồi dùng Sage để tìm dạng bậc thang rút gọn của nó. Từ đó mô tả không gian nghiệm.</p>
+                  <sage>
+                    <input></input>
+                  </sage>
+                </li>
+
+                <li>
+                  <p>Gọi <m>A</m> là ma trận hệ số của hệ phương trình ở ý c. Gọi <m>B</m> là ma trận được tạo bằng cách thêm hai cột bất kỳ vào bên phải của <m>A</m>. Dùng Sage định nghĩa hai ma trận này và so sánh dạng bậc thang rút gọn của chúng. Bạn nhận thấy mối quan hệ gì?</p>
+                  <sage>
+                    <input>A = matrix([[-2, 3, 0],
+                  [-1, 4, 1],
+                  [3, 0, 2],
+                  [1, 5, 3]])
+
+      B = matrix([[-2, 3, 0, 2, 3],
+                  [-1, 4, 1, 1, 0],
+                  [3, 0, 2, -2, 1],
+                  [1, 5, 3, 0, 4]])
+
+      print(A.rref())
+      print("---------")
+      print(B.rref())</input>
+                  </sage>
+                </li>
+
+                <li>
+                  <p>Sử dụng hệ phương trình ở ý c, hãy viết ma trận mở rộng tương ứng. Dạng bậc thang rút gọn của ma trận mở rộng là gì?</p>
+                  <p>Sau đó viết ma trận hệ số của hệ phương trình này. Ý d cho bạn biết gì về dạng bậc thang rút gọn của ma trận hệ số?</p>
+                </li>
+              </ol>
+            </statement>
+          </activity>
+
+          <note xml:id="sage-practices">
+            <title>Một vài thói quen hữu ích khi dùng Sage</title>
+            <p>Dưới đây là một số thói quen có thể hữu ích khi làm việc với ma trận trong Sage.</p>
+
+            <ul>
+              <li>
+                <p>Để dễ đọc, hãy ngắt các phần tử ma trận thành nhiều dòng, mỗi dòng tương ứng với một hàng của ma trận.</p>
+                <sage>
+                  <input>A = matrix(2, 4, [1, 2, -1, 0,
+                        -3, 0, 4, 3])</input>
+                </sage>
+              </li>
+
+              <li>
+                <p>Hãy in ma trận ban đầu để kiểm tra rằng bạn đã nhập đúng. Bạn cũng có thể in một dòng phân cách giữa các ma trận.</p>
+                <sage>
+                  <input>A = matrix(2, 2, [1, 2,
+                        2, 2])
+      print(A)
+      print("---------")
+      A.rref()</input>
+                </sage>
+              </li>
+            </ul>
+          </note>
+
+          <p>Phần cuối của hoạt động trước minh họa một điều sẽ hữu ích cho chúng ta trong tương lai. Trong hoạt động đó, ta bắt đầu với một ma trận <m>A</m>, sau đó mở rộng nó bằng cách thêm một số cột để thu được ma trận <m>B</m>. Ta nhận thấy rằng dạng bậc thang rút gọn của <m>B</m> chính là một ma trận mở rộng của dạng bậc thang rút gọn của <m>A</m>.</p>
+
+          <p>Để minh họa, xét dạng bậc thang rút gọn của ma trận mở rộng:</p>
+
+          <me>
+            \begin{bmatrix}
+            -2 \amp 3 \amp 0 \amp 2 \\
+            -1 \amp 4 \amp 1 \amp 3 \\
+            3 \amp 0 \amp 2 \amp 2 \\
+            1 \amp 5 \amp 3 \amp 7
+            \end{bmatrix}
+            \sim
+            \begin{bmatrix}
+            1 \amp 0 \amp 0 \amp -4 \\
+            0 \amp 1 \amp 0 \amp -2 \\
+            0 \amp 0 \amp 1 \amp 7 \\
+            0 \amp 0 \amp 0 \amp 0
+            \end{bmatrix}.
+          </me>
+
+          <p>Khi đó, ta có thể xác định dạng bậc thang rút gọn của ma trận hệ số bằng cách nhìn vào các cột hệ số bên trong ma trận mở rộng:</p>
+
+          <me>
+            \begin{bmatrix}
+            -2 \amp 3 \amp 0 \\
+            -1 \amp 4 \amp 1 \\
+            3 \amp 0 \amp 2 \\
+            1 \amp 5 \amp 3
+            \end{bmatrix}
+            \sim
+            \begin{bmatrix}
+            1 \amp 0 \amp 0 \\
+            0 \amp 1 \amp 0 \\
+            0 \amp 0 \amp 1 \\
+            0 \amp 0 \amp 0
+            \end{bmatrix}.
+          </me>
+
+          <p>Nếu theo dõi cẩn thận các bước trong thuật toán khử Gauss, ta thấy đây là một nguyên lý tổng quát.</p>
+
+          <proposition xml:id="proposition-augmentation-principle">
+            <title>Nguyên lý mở rộng</title>
+            <statement>
+              <p>Nếu ma trận <m>B</m> là một ma trận mở rộng của ma trận <m>A</m>, thì dạng bậc thang rút gọn của <m>B</m> là một ma trận mở rộng của dạng bậc thang rút gọn của <m>A</m>.</p>
+            </statement>
+          </proposition>
+        </subsection>
+
+        <subsection xml:id="subsection-1-3-3">
+          <title>Nỗ lực tính toán</title>
+
+          <p>Ở đầu mục này, ta đã nói rằng đại số tuyến tính trở nên nổi bật hơn khi máy tính mạnh hơn. Tuy nhiên, máy tính vẫn có giới hạn. Hãy xét lượng nỗ lực cần dùng khi ta yêu cầu tìm dạng bậc thang rút gọn của một ma trận. Ta sẽ đo nỗ lực này một cách rất thô bằng số lần thuật toán yêu cầu nhân hoặc cộng hai số.</p>
+
+          <p>Ta giả sử ma trận có cùng số hàng và số cột, gọi là <m>n</m>. Ta chủ yếu quan tâm đến trường hợp <m>n</m> rất lớn, vì đó là lúc lượng nỗ lực tính toán trở thành vấn đề.</p>
+
+          <p>Trước hết, hãy xét nỗ lực cần thiết cho từng phép biến đổi hàng.</p>
+
+          <ul>
+            <li>
+              <p><em>Nhân một hàng với một số khác 0</em>: phép này nhân từng phần tử trong <m>n</m> phần tử của một hàng với một số, nên cần khoảng <m>n</m> phép toán.</p>
+            </li>
+            <li>
+              <p><em>Hoán vị hai hàng</em>: phép này không yêu cầu nhân hay cộng, nên ta sẽ không tính đáng kể nỗ lực của nó.</p>
+            </li>
+            <li>
+              <p><em>Thay thế một hàng</em>: ta nhân từng phần tử của một dòng với một số, cần <m>n</m> phép toán, rồi cộng các kết quả vào một hàng khác, cần thêm <m>n</m> phép toán. Tổng cộng cần khoảng <m>2n</m> phép toán.</p>
+            </li>
+          </ul>
+
+          <p>Mục tiêu của ta là biến đổi một ma trận về dạng bậc thang rút gọn, trông đại khái như sau:</p>
+
+          <me>
+            \begin{bmatrix}
+            1 \amp 0 \amp \cdots \amp 0 \\
+            0 \amp 1 \amp \cdots \amp 0 \\
+            \vdots \amp \vdots \amp \ddots \amp \vdots \\
+            0 \amp 0 \amp \cdots \amp 1
+            \end{bmatrix}.
+          </me>
+
+          <p>Ta thực hiện xấp xỉ một phép thay thế cho mỗi phần tử bằng 0 trong dạng bậc thang rút gọn. Khi <m>n</m> rất lớn, hầu hết trong <m>n^2</m> phần tử của ma trận dạng bậc thang rút gọn là 0, nên ta cần khoảng <m>n^2</m> phép thay thế. Vì mỗi phép thay thế cần <m>2n</m> phép toán, số phép toán do các phép thay thế tạo ra xấp xỉ là:</p>
+
+          <me>n^2(2n) = 2n^3.</me>
+
+          <p>Mỗi hàng được nhân chuẩn hóa khoảng một lần, nên có khoảng <m>n</m> phép nhân hàng, mỗi phép cần <m>n</m> phép toán. Do đó, số phép toán do việc nhân hàng xấp xỉ là <m>n^2</m>.</p>
+
+          <p>Vì vậy, tổng số phép toán xấp xỉ là:</p>
+
+          <me>2n^3 + n^2.</me>
+
+          <p>Khi <m>n</m> rất lớn, số hạng <m>n^2</m> nhỏ hơn rất nhiều so với số hạng <m>n^3</m>. Do đó, ta có nhận xét sau.</p>
+
+          <observation xml:id="observation-computational-effort">
+            <statement>
+              <p>Số phép toán cần thiết để tìm dạng bậc thang rút gọn của một ma trận <m>n \times n</m> xấp xỉ tỷ lệ với <m>n^3</m>.</p>
+            </statement>
+          </observation>
+
+          <p>Đây chỉ là một ước lượng rất thô về nỗ lực cần thiết để tìm dạng bậc thang rút gọn. Một phép đếm cẩn thận hơn cho thấy số phép toán số học xấp xỉ là <m>\frac{2}{3}n^3</m>. Như ta đã thấy, một số ma trận đòi hỏi nhiều nỗ lực hơn các ma trận khác, nhưng ý chính là nỗ lực tỷ lệ với <m>n^3</m>. Có thể hiểu như sau: nếu kích thước ma trận tăng lên 10 lần, thì nỗ lực cần thiết tăng lên <m>10^3 = 1000</m> lần.</p>
+
+          <p>Dù máy tính ngày nay rất mạnh, chúng không thể xử lý mọi bài toán ta muốn. Sau này, ta muốn xét các ma trận có <m>n = 10^{12}</m>, tức một nghìn tỷ hàng và một nghìn tỷ cột. Nói rất rộng, nỗ lực để tìm ma trận dạng bậc thang rút gọn sẽ cần khoảng:</p>
+
+          <me>(10^{12})^3 = 10^{36}</me>
+
+          <p>phép toán.</p>
+
+          <p>Để đặt điều này vào bối cảnh, hãy tưởng tượng ta cần giải một hệ tuyến tính có một nghìn tỷ phương trình và một nghìn tỷ biến, và ta có một máy tính có thể thực hiện một nghìn tỷ, tức <m>10^{12}</m>, phép toán mỗi giây. Việc tìm dạng bậc thang rút gọn sẽ mất khoảng <m>10^{16}</m> năm. Hiện nay, vũ trụ được ước tính có tuổi khoảng <m>10^{10}</m> năm. Nếu bắt đầu tính từ lúc vũ trụ hình thành, ta mới đi được khoảng một phần triệu quãng đường.</p>
+
+          <p>Điều này nghe có vẻ phi lý, nhưng ở Mục 4.5.3, ta sẽ thấy rằng hằng ngày ta vẫn sử dụng kết quả của một phép tính kiểu như vậy. Rõ ràng, ta sẽ cần những công cụ tốt hơn để xử lý các bài toán thực sự lớn.</p>
+        </subsection>
+
+        <subsection xml:id="subsection-1-3-4">
+          <title>Tóm tắt</title>
+
+          <p>Chúng ta đã học một số tính năng cơ bản của Sage, tập trung vào việc tìm dạng bậc thang rút gọn của ma trận.</p>
+
+          <ul>
+            <li>
+              <p>Sage có thể thực hiện số học cơ bản bằng các toán tử chuẩn. Sage cũng có thể lưu kết quả từ một lệnh để dùng lại trong lệnh sau.</p>
+            </li>
+            <li>
+              <p>Ta có thể định nghĩa ma trận trong Sage và tìm dạng bậc thang rút gọn bằng lệnh <c>rref()</c>.</p>
+            </li>
+            <li>
+              <p>Ta đã thấy một ví dụ về Nguyên lý mở rộng, sau đó phát biểu nó thành một nguyên lý tổng quát.</p>
+            </li>
+            <li>
+              <p>Ta thấy rằng nỗ lực tính toán cần thiết để tìm dạng bậc thang rút gọn của một ma trận <m>n \times n</m> tỷ lệ với <m>n^3</m>.</p>
+            </li>
+          </ul>
+
+          <p>Phụ lục A chứa phần tham khảo tóm tắt các lệnh Sage mà ta đã gặp.</p>
+        </subsection>
+
+        <exercises xml:id="exercises-1-3">
+          <title>Bài tập</title>
+          <exercise xml:id="exercise-1-3-1"><statement>
+            <p>Xét hệ tuyến tính sau. Hãy viết hệ này dưới dạng ma trận mở rộng và dùng Sage để mô tả không gian nghiệm.</p>
+            <me>\begin{aligned}x+2y-z &amp;= 1\\3x+2y+2z &amp;= 7\\-x+4z &amp;= -3\end{aligned}</me>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-3-2"><statement>
+            <p>Các sơ đồ dưới đây mô tả luồng giao thông trong trung tâm một thành phố lớn. Con số cho biết số xe mỗi giờ trên từng con đường. Mọi xe đi vào một giao lộ cũng phải rời giao lộ đó, nên số xe đi vào bằng số xe đi ra.</p>
+            <ol marker="a">
+              <li><p>Với sơ đồ thứ nhất, hãy lập phương trình tuyến tính cho bốn biến <m>x,y,z,w</m>, sau đó dùng Sage để tìm không gian nghiệm. Giải thích vì sao có đúng một nghiệm hay vô số nghiệm.</p><me>\text{Sơ đồ 1: các luồng ngoài }100,260,250,390\text{ và các luồng trong }x,y,z,w.</me><sage><input># nhập ma trận mở rộng của hệ giao thông thứ nhất ở đây
+A = matrix(QQ, [...])
+A.rref()</input></sage></li>
+              <li><p>Với sơ đồ thứ hai, hãy lập hệ tuyến tính cho <m>x,y,z,w</m>, giải bằng Sage, nhận xét nghiệm là duy nhất hay vô số nghiệm, và tìm lượng giao thông nhỏ nhất có thể qua nhánh <m>x</m>.</p><me>\text{Sơ đồ 2: các luồng ngoài }650,150,580,220\text{ và các luồng trong }x,y,z,w.</me><sage><input># nhập ma trận mở rộng của hệ giao thông thứ hai ở đây
+A = matrix(QQ, [...])
+A.rref()</input></sage></li>
+            </ol>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-3-3"><statement>
+            <p>Một bài toán điển hình trong nhiệt động lực học là tìm phân bố nhiệt độ ổn định bên trong một tấm mỏng khi biết nhiệt độ trên biên. Gọi <m>T_1,T_2,\ldots,T_6</m> là nhiệt độ tại sáu nút trong tấm. Nhiệt độ tại một nút xấp xỉ bằng trung bình của bốn nút gần nhất; ví dụ:</p>
+            <me>T_1 = (10+15+T_2+T_4)/4,</me>
+            <p>hay viết lại thành <m>4T_1-T_2-T_4=25</m>. Hãy lập hệ tuyến tính để tìm sáu nhiệt độ bên trong tấm rồi dùng Sage giải hệ đó. Nếu muốn xem xấp xỉ thập phân, dùng:</p>
+            <sage><input>A.rref().numerical_approx(digits=4)</input></sage>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-3-4"><statement>
+            <p>Nhiên liệu trong động cơ tên lửa mô hình lý tưởng gồm 60% than, 30% kali nitrat và 10% lưu huỳnh theo khối lượng. Ca thứ nhất làm đúng công thức; ca thứ hai dùng nhầm 50% than, 20% kali nitrat và 30% lưu huỳnh. Hai mẻ bị trộn chung. Phân tích hóa học cho thấy hỗn hợp có 100,3 pound than và 46,9 pound kali nitrat.</p>
+            <ol marker="a"><li><p>Giả sử ca thứ nhất sản xuất <m>x</m> pound và ca thứ hai sản xuất <m>y</m> pound. Hãy lập hệ tuyến tính và tìm số pound nhiên liệu mỗi ca đã sản xuất.</p></li><li><p>Bạn kỳ vọng có bao nhiêu lưu huỳnh trong hỗn hợp?</p></li></ol>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-3-5"><statement>
+            <p>Bài tập này nói về cân bằng phản ứng hóa học.</p>
+            <ol marker="a"><li><p>Xét phản ứng <m>xH_2+yO_2\to zH_2O</m>. Hãy lập hai phương trình tuyến tính bằng cách cân bằng số nguyên tử H và O trước/sau phản ứng, tìm nghiệm của hệ, giải thích vì sao có vô số nghiệm, rồi tìm nghiệm nguyên dương nhỏ nhất.</p></li><li><p>Xét phản ứng <m>x_1KMnO_4+x_2MnSO_4+x_3H_2O\to x_4MnO_2+x_5K_2SO_4+x_6H_2SO_4</m>. Hãy tìm các giá trị phù hợp của <m>x_1,x_2,\ldots,x_6</m> để cân bằng phản ứng.</p></li></ol>
+          </statement></exercise>
+          <exercise xml:id="exercise-1-3-6"><statement>
+            <p>Bài tập này minh họa giới hạn của tính toán máy tính với số thực. Máy tính biểu diễn số thực bằng hữu hạn bit, nên các phép tính số thực chỉ là xấp xỉ; khi thực hiện hàng triệu hoặc hàng tỷ phép toán, sai số có thể tích lũy.</p>
+            <ol marker="a"><li><p>Xét hệ tuyến tính có nghiệm đúng, sau đó yêu cầu Sage dùng số thực chỉ 10 bit bằng đoạn lệnh sau. So sánh nghiệm Sage trả về với nghiệm chính xác.</p><sage><input>R = RealNumber
+RealNumber = RealField(10)
+# nhập ma trận ở đây
+A = matrix(..., ..., [...])
+print(A.rref())
+RealNumber = R</input></sage></li><li><p>Xét hệ <m>x+y=2</m>, <m>x+1.001y=2</m>. Tìm nghiệm. Sau đó giả sử máy tính lưu sai hệ thành <m>x+y=2</m>, <m>x+1.001y=2.001</m>. Tìm nghiệm mới và nhận xét độ nhạy của hệ.</p></li></ol>
+          </statement></exercise>
+        </exercises>
+      </section>
+
+
+      <section xml:id="section-1-4-pivots">
+        <title>Các phần tử chốt và ảnh hưởng của chúng đối với không gian nghiệm</title>
+        <introduction>
+          <p>Đến đây ta đã thấy nhiều ví dụ cho thấy ma trận dạng bậc thang rút gọn giúp mô tả không gian nghiệm của hệ tuyến tính một cách thuận tiện. Trong mục này, ta dùng hiểu biết đó để rút ra các nhận xét tổng quát về việc các đặc điểm của ma trận bậc thang rút gọn phản ánh bản chất của không gian nghiệm như thế nào.</p>
+          <p>Hãy nhớ rằng một phần tử dẫn đầu trong ma trận dạng bậc thang rút gọn là phần tử khác 0 nằm xa bên trái nhất trong một hàng. Vị trí của các phần tử dẫn đầu chứa rất nhiều thông tin về không gian nghiệm của hệ tuyến tính tương ứng.</p>
+        </introduction>
+        <definition xml:id="definition-1-4-1-pivot-position"><statement>
+          <p>Một <term>vị trí chốt</term> trong ma trận <m>A</m> là vị trí của một phần tử dẫn đầu trong ma trận dạng bậc thang rút gọn của <m>A</m>.</p>
+        </statement></definition>
+        <p>Ví dụ, trong ma trận bậc thang rút gọn dưới đây, các vị trí chốt nằm ở các cột có phần tử dẫn đầu:</p>
+        <me>\begin{bmatrix}1&amp;0&amp;*&amp;0\\0&amp;1&amp;*&amp;0\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;0\end{bmatrix}</me>
+        <p>Ta có thể gọi vị trí chốt theo số hàng và số cột, chẳng hạn “vị trí chốt ở hàng thứ hai, cột thứ tư”.</p>
+        <activity xml:id="preview-activity-1-4-1"><title>Một số quan sát cơ bản về vị trí chốt</title><statement>
+          <ol marker="a">
+            <li><p>Dưới đây là một ma trận và dạng bậc thang rút gọn của nó. Hãy chỉ ra các vị trí chốt.</p><me>\begin{bmatrix}2&amp;4&amp;6&amp;-1\\-3&amp;1&amp;5&amp;0\\1&amp;3&amp;5&amp;1\end{bmatrix}\sim\begin{bmatrix}1&amp;0&amp;-1&amp;0\\0&amp;1&amp;2&amp;0\\0&amp;0&amp;0&amp;1\end{bmatrix}</me></li>
+            <li><p>Trong một hàng có thể có bao nhiêu vị trí chốt? Trong ma trận <m>3\times 5</m>, số vị trí chốt lớn nhất có thể là bao nhiêu? Hãy cho ví dụ đạt số lớn nhất đó.</p></li>
+            <li><p>Trong một cột có thể có bao nhiêu vị trí chốt? Trong ma trận <m>5\times 3</m>, số vị trí chốt lớn nhất có thể là bao nhiêu? Hãy cho ví dụ đạt số lớn nhất đó.</p></li>
+            <li><p>Hãy cho ví dụ về một ma trận có vị trí chốt ở mọi hàng và mọi cột. Ma trận như vậy có gì đặc biệt?</p></li>
+          </ol>
+        </statement></activity>
+        <paragraphs xml:id="question-1-4-2"><title>Hai câu hỏi nền tảng</title>
+          <p>Khi gặp một hệ tuyến tính, ta thường hỏi hai câu:</p>
+          <ul><li><p><em>Sự tồn tại:</em> Có nghiệm nào của hệ tuyến tính không? Nếu có, hệ được gọi là <term>tương thích</term>; nếu không, hệ được gọi là <term>mâu thuẫn</term>.</p></li><li><p><em>Tính duy nhất:</em> Nếu hệ tương thích, nghiệm có duy nhất không hay có vô số nghiệm?</p></li></ul>
+          <p>Hai câu hỏi này là hai mặt của cùng một vấn đề và sẽ xuất hiện nhiều lần trong các phần sau. Ta sẽ nghiên cứu cách vị trí chốt ảnh hưởng đến câu trả lời.</p>
+        </paragraphs>
+        <subsection xml:id="subsection-1-4-1"><title>Sự tồn tại của nghiệm</title>
+          <activity xml:id="activity-1-4-2"><statement>
+            <ol marker="a"><li><p>Dưới đây là ba ma trận mở rộng ở dạng bậc thang rút gọn. Với mỗi ma trận, hãy xác định các vị trí chốt và quyết định hệ tuyến tính tương ứng có tương thích hay không. Giải thích vì sao vị trí chốt quyết định điều đó.</p><me>\begin{bmatrix}1&amp;0&amp;0&amp;3\\0&amp;1&amp;0&amp;0\\0&amp;0&amp;1&amp;-2\\0&amp;0&amp;0&amp;0\end{bmatrix}\quad\begin{bmatrix}1&amp;0&amp;2&amp;3\\0&amp;1&amp;-1&amp;0\\0&amp;0&amp;0&amp;0\\0&amp;0&amp;0&amp;0\end{bmatrix}\quad\begin{bmatrix}1&amp;0&amp;2&amp;0\\0&amp;1&amp;-1&amp;0\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;0\end{bmatrix}</me></li><li><p>Mỗi ma trận trên có một hàng toàn 0. Hàng như vậy cho ta biết gì, nếu có, về tính tương thích của hệ?</p></li><li><p>Hãy cho ví dụ về một ma trận mở rộng <m>3\times 5</m> ở dạng bậc thang rút gọn biểu diễn hệ tương thích. Chỉ ra các vị trí chốt và giải thích.</p></li><li><p>Hãy cho ví dụ về một ma trận mở rộng <m>3\times 5</m> ở dạng bậc thang rút gọn biểu diễn hệ không tương thích. Chỉ ra các vị trí chốt và giải thích.</p></li><li><p>Viết dạng bậc thang rút gọn của ma trận hệ số ứng với hệ ở ý d. Bạn nhận thấy gì về vị trí chốt trong ma trận hệ số?</p></li><li><p>Giả sử ma trận hệ số của một hệ tuyến tính có dạng bậc thang rút gọn dưới đây. Có thể kết luận gì về tính tương thích của hệ?</p><me>\begin{bmatrix}1&amp;0&amp;0&amp;0&amp;-1\\0&amp;1&amp;0&amp;0&amp;2\\0&amp;0&amp;1&amp;0&amp;0\\0&amp;0&amp;0&amp;1&amp;-3\end{bmatrix}</me></li></ol>
+          </statement></activity>
+          <p>Xét ma trận bậc thang rút gọn <m>\begin{bmatrix}1&amp;*&amp;0&amp;0\\0&amp;0&amp;1&amp;0\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;0\end{bmatrix}</m>. Nếu biến là <m>x,y,z</m>, hàng cuối cùng nói rằng <m>0x+0y+0z=0</m>, luôn đúng với mọi giá trị. Vì vậy hàng toàn 0 không làm thay đổi không gian nghiệm.</p>
+          <p>Ngược lại, một hàng có dạng <m>0x+0y+0z=1</m> là bất khả thi. Nó xuất hiện trong ma trận mở rộng như một hàng có vị trí chốt ở cột ngoài cùng bên phải. Khi đó hệ không có nghiệm.</p>
+          <proposition xml:id="proposition-1-4-3"><statement><p>Một hệ tuyến tính không tương thích khi và chỉ khi có một vị trí chốt ở cột ngoài cùng bên phải của ma trận mở rộng tương ứng.</p></statement></proposition>
+          <p>Theo Nguyên lý mở rộng, nếu trong ma trận mở rộng có một hàng tạo ra mâu thuẫn thì trong ma trận hệ số tương ứng sẽ có một hàng không có vị trí chốt. Đảo lại, nếu mọi hàng của ma trận hệ số đều có vị trí chốt, hệ không thể tạo ra vị trí chốt ở cột phải của ma trận mở rộng.</p>
+          <proposition xml:id="proposition-1-4-4"><statement><p>Nếu mọi hàng của ma trận hệ số đều có vị trí chốt, thì hệ phương trình tuyến tính tương ứng là tương thích.</p></statement></proposition>
+        </subsection>
+        <subsection xml:id="subsection-1-4-2"><title>Tính duy nhất của nghiệm</title>
+          <activity xml:id="activity-1-4-3"><statement>
+            <ol marker="a"><li><p>Hãy xét lại ba ma trận mở rộng ở hoạt động trước. Với mỗi ma trận, xác định vị trí chốt và cho biết hệ tương thích hay không. Nếu tương thích, nghiệm là duy nhất hay có vô số nghiệm?</p></li><li><p>Nếu có thể, hãy cho ví dụ về ma trận mở rộng <m>3\times 5</m> ứng với hệ có nghiệm duy nhất. Nếu không thể, hãy giải thích.</p></li><li><p>Nếu có thể, hãy cho ví dụ về ma trận mở rộng <m>5\times 3</m> ứng với hệ có nghiệm duy nhất. Nếu không thể, hãy giải thích.</p></li><li><p>Điều kiện nào về vị trí chốt đảm bảo hệ tuyến tính có nghiệm duy nhất?</p></li><li><p>Nếu hệ tuyến tính có nghiệm duy nhất, ta có thể nói gì về quan hệ giữa số phương trình và số biến?</p></li></ol>
+          </statement></activity>
+          <p>Với hệ tương thích, không có vị trí chốt ở cột ngoài cùng bên phải của ma trận mở rộng. Khi mọi cột của ma trận hệ số đều có vị trí chốt, mọi biến đều được xác định duy nhất. Khi có một cột của ma trận hệ số không có vị trí chốt, biến tương ứng là biến tự do và hệ có vô số nghiệm.</p>
+          <paragraphs xml:id="principle-1-4-5"><title>Nguyên lý 1.4.5</title><p>Giả sử ta xét một hệ tuyến tính tương thích.</p><ul><li><p>Nếu mọi cột của ma trận hệ số đều chứa vị trí chốt, hệ có nghiệm duy nhất.</p></li><li><p>Nếu có một cột của ma trận hệ số không chứa vị trí chốt, hệ có vô số nghiệm.</p></li><li><p>Các cột có vị trí chốt tương ứng với biến cơ bản; các cột không có vị trí chốt tương ứng với biến tự do.</p></li></ul></paragraphs>
+          <p>Khi hệ có nghiệm duy nhất, mỗi cột của ma trận hệ số có một vị trí chốt. Vì mỗi hàng có nhiều nhất một vị trí chốt, số hàng của ma trận hệ số phải ít nhất bằng số cột. Nói cách khác, hệ phải có ít nhất nhiều phương trình bằng số biến.</p>
+          <p>Việc chọn biến tự do đôi khi có thể thay đổi, nhưng trong sách này ta theo quy ước: biến tự do tương ứng với các cột không có vị trí chốt. Ví dụ, trong ma trận <m>\begin{bmatrix}1&amp;0&amp;0&amp;2&amp;3\\0&amp;0&amp;1&amp;-1&amp;0\end{bmatrix}</m>, các biến <m>x_2</m> và <m>x_4</m> là biến tự do.</p>
+        </subsection>
+        <subsection xml:id="subsection-1-4-3"><title>Tóm tắt</title><p>Ta đã thấy rằng vị trí chốt trong cả ma trận mở rộng và ma trận hệ số cho biết thông tin quan trọng về sự tồn tại và tính duy nhất của nghiệm.</p><ul><li><p>Hệ tuyến tính mâu thuẫn đúng khi có vị trí chốt ở cột ngoài cùng bên phải của ma trận mở rộng.</p></li><li><p>Nếu hệ tương thích, nghiệm là duy nhất khi mọi cột của ma trận hệ số đều chứa vị trí chốt; hệ có vô số nghiệm khi có một cột của ma trận hệ số không có vị trí chốt.</p></li><li><p>Nếu hệ tương thích, các cột chốt của ma trận hệ số tương ứng với biến cơ bản; các cột không chốt tương ứng với biến tự do.</p></li></ul></subsection>
+        <exercises xml:id="exercises-1-4"><title>Bài tập</title>
+          <exercise xml:id="exercise-1-4-1"><statement><p>Với mỗi ma trận mở rộng ở dạng bậc thang rút gọn dưới đây, hãy xác định hệ tương ứng có tương thích hay không; nếu có, nghiệm có duy nhất không. Nếu hệ tương thích, hãy xác định biến tự do, biến cơ bản và mô tả không gian nghiệm ở dạng tham số.</p><ol marker="a"><li><me>\begin{bmatrix}0&amp;1&amp;0&amp;0&amp;2\\0&amp;0&amp;1&amp;0&amp;3\\0&amp;0&amp;0&amp;1&amp;-2\end{bmatrix}</me></li><li><me>\begin{bmatrix}1&amp;0&amp;0&amp;0&amp;0\\0&amp;1&amp;0&amp;0&amp;0\\0&amp;0&amp;1&amp;1&amp;0\\0&amp;0&amp;1&amp;0&amp;0\end{bmatrix}</me></li><li><me>\begin{bmatrix}1&amp;0&amp;0&amp;0&amp;0\\0&amp;1&amp;0&amp;0&amp;0\\0&amp;0&amp;1&amp;0&amp;0\\0&amp;0&amp;0&amp;1&amp;0\\0&amp;0&amp;0&amp;0&amp;1\end{bmatrix}</me></li><li><me>\begin{bmatrix}1&amp;0&amp;0&amp;-3\\0&amp;1&amp;0&amp;-1\\0&amp;0&amp;1&amp;-2\end{bmatrix}</me></li></ol></statement></exercise>
+          <exercise xml:id="exercise-1-4-2"><statement><p>Với mỗi hệ tuyến tính sau, hãy xác định hệ có tương thích hay không; nếu có, hãy xác định có vô số nghiệm hay không.</p><ol marker="a"><li><me>\begin{aligned}2x_1-x_2+3x_3&amp;=10\\-x_1+x_2+3x_4&amp;=8\\2x_2+2x_3-x_4&amp;=-4\\3x_1+2x_2-x_3+x_4&amp;=10\end{aligned}</me></li><li><me>\begin{aligned}2x_1-x_2+3x_3+3x_4&amp;=8\\-x_1+x_2+2x_4&amp;=-1\\2x_2+2x_3+6x_4&amp;=4\\3x_1+2x_2-x_3-3x_4&amp;=1\end{aligned}</me></li><li><me>\begin{aligned}2x_1-x_2+3x_3+3x_4&amp;=8\\-x_1+x_2+2x_4&amp;=-1\\2x_2+2x_3+6x_4&amp;=4\\3x_1+2x_2-x_3-3x_4&amp;=0\end{aligned}</me></li></ol></statement></exercise>
+          <exercise xml:id="exercise-1-4-3"><statement><p>Hãy đưa một ví dụ ma trận phù hợp khi biện minh cho các câu trả lời sau.</p><ol marker="a"><li><p>Nếu một hệ có sáu phương trình và ba biến là tương thích, có đảm bảo nghiệm duy nhất không? Có đảm bảo vô số nghiệm không?</p></li><li><p>Nếu một hệ có ba phương trình và sáu biến là tương thích, có đảm bảo nghiệm duy nhất không? Có đảm bảo vô số nghiệm không?</p></li><li><p>Nếu một hệ tương thích và có nghiệm duy nhất, ta đảm bảo được gì về các vị trí chốt trong ma trận mở rộng?</p></li></ol></statement></exercise>
+          <exercise xml:id="exercise-1-4-4"><statement><p>Xác định đúng/sai và giải thích.</p><ol marker="a"><li><p>Nếu ma trận hệ số của hệ tuyến tính có một vị trí chốt ở cột ngoài cùng bên phải thì hệ không tương thích.</p></li><li><p>Nếu một hệ có hai phương trình và bốn biến thì nó chắc chắn tương thích.</p></li><li><p>Nếu một hệ có bốn phương trình, ba biến và tương thích thì nghiệm là duy nhất.</p></li><li><p>Nếu hệ có bốn phương trình, bốn biến và ma trận hệ số có bốn vị trí chốt thì hệ tương thích và có nghiệm duy nhất.</p></li><li><p>Nếu hệ có năm phương trình, ba biến và ma trận hệ số có vị trí chốt ở mọi cột thì hệ tương thích và có nghiệm duy nhất.</p></li></ol></statement></exercise>
+          <exercise xml:id="exercise-1-4-5"><statement><p>Hãy xét lại ý tưởng: hệ có nhiều phương trình hơn thường có không gian nghiệm nhỏ hơn.</p><ol marker="a"><li><p>Không gian nghiệm của một phương trình tuyến tính trong ba biến là một mặt phẳng. Hai mặt phẳng có thể cắt nhau tại đúng một điểm không? Các cách giao nhau có thể xảy ra là gì? Vị trí chốt giúp trả lời thế nào?</p></li><li><p>Nếu một hệ tương thích có nhiều biến hơn phương trình, xét vị trí chốt cho phép kết luận chắc chắn gì về không gian nghiệm?</p></li><li><p>Nếu một hệ có nhiều phương trình hơn rất nhiều so với số biến, vì sao hợp lý khi kỳ vọng hệ không tương thích?</p></li></ol></statement></exercise>
+          <exercise xml:id="exercise-1-4-6"><statement><p>Các hệ sau chứa một hoặc hai tham số.</p><ol marker="a"><li><p>Với giá trị nào của <m>k</m> thì hệ sau tương thích? Trong các giá trị đó, khi nào nghiệm là duy nhất?</p><me>\begin{aligned}-x_1+2x_2&amp;=3\\2x_1-4x_2&amp;=k\end{aligned}</me></li><li><p>Với giá trị nào của <m>k</m> và <m>l</m> thì hệ sau tương thích? Trong các giá trị đó, khi nào nghiệm là duy nhất?</p><me>\begin{aligned}2x_1+4x_2&amp;=3\\-x_1+kx_2&amp;=l\end{aligned}</me></li></ol></statement></exercise>
+          <exercise xml:id="exercise-1-4-7"><statement><p>Xét hệ tuyến tính được mô tả bởi ma trận mở rộng sau.</p><me>\begin{bmatrix}1&amp;2&amp;3&amp;1\\4&amp;5&amp;6&amp;4\\a&amp;b&amp;c&amp;9\end{bmatrix}</me><ol marker="a"><li><p>Tìm một lựa chọn <m>a,b,c</m> làm hệ không tương thích. Giải thích.</p></li><li><p>Tìm một lựa chọn <m>a,b,c</m> làm hệ có nghiệm duy nhất. Giải thích.</p></li><li><p>Tìm một lựa chọn <m>a,b,c</m> làm hệ có vô số nghiệm. Giải thích.</p></li></ol></statement></exercise>
+          <exercise xml:id="exercise-1-4-8"><statement><p>Một hệ tuyến tính có vế phải của mọi phương trình bằng 0 được gọi là hệ thuần nhất.</p><me>\begin{bmatrix}*&amp;*&amp;*&amp;*&amp;0\\*&amp;*&amp;*&amp;*&amp;0\\*&amp;*&amp;*&amp;*&amp;0\end{bmatrix}</me><ol marker="a"><li><p>Dùng các khái niệm của mục này để giải thích vì sao hệ thuần nhất luôn tương thích.</p></li><li><p>Giá trị nào của các biến luôn cho một nghiệm?</p></li><li><p>Giả sử hệ thuần nhất có nghiệm duy nhất. Hãy cho ví dụ bằng ma trận mở rộng dạng bậc thang rút gọn; viết ma trận hệ số; nhận xét vị trí chốt; và cho biết số phương trình so với số biến phải thế nào.</p></li></ol></statement></exercise>
+          <exercise xml:id="exercise-1-4-9"><statement><p>Cho bốn điểm trên mặt phẳng. Ta muốn tìm đa thức đi qua bốn điểm đó.</p><p>Một đa thức bậc ba có dạng <m>p(x)=a+bx+cx^2+dx^3</m>. Vì muốn đồ thị đi qua điểm <m>(3,1)</m>, ta có điều kiện <m>p(3)=a+3b+9c+27d=1</m>.</p><ol marker="a"><li><p>Viết bốn phương trình tuyến tính cho các hệ số bằng cách yêu cầu đồ thị đi qua bốn điểm trong hình.</p></li><li><p>Viết ma trận mở rộng và dùng Sage để giải các hệ số.</p><sage><input># nhập ma trận mở rộng để tìm a,b,c,d
+A = matrix(QQ, [...])
+A.rref()</input></sage></li><li><p>Viết đa thức <m>p(x)</m> tìm được và kiểm tra bằng cách vẽ đồ thị trong Sage. Có thể dùng lệnh kiểu <c>plot(1 + x - 2*x^2, xmin=-1, xmax=4)</c>.</p><sage><input># vẽ đa thức ở đây
+plot(..., xmin=-1, xmax=4)</input></sage></li><li><p>Nếu muốn tìm đa thức bậc hai <m>p(x)=a+bx+cx^2</m> đi qua bốn điểm, hãy giải hệ tương ứng. Có thể nói gì về sự tồn tại và tính duy nhất?</p></li><li><p>Nếu muốn tìm đa thức bậc bốn <m>p(x)=a+bx+cx^2+dx^3+ex^4</m> đi qua bốn điểm, hãy giải hệ tương ứng. Có thể nói gì về sự tồn tại và tính duy nhất?</p></li><li><p>Nếu có 10 điểm và muốn tìm một đa thức đi qua tất cả các điểm đó, bậc của đa thức nên là bao nhiêu để đảm bảo có đúng một đa thức như vậy? Giải thích.</p></li></ol></statement></exercise>
+        </exercises>
+      </section>
+    </chapter>
+    </book>
+</pretext>

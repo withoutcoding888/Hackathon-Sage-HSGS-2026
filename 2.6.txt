@@ -1,0 +1,2075 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="sec-transforms-geom">
+
+  <title>
+    Hình học của các phép biến đổi ma trận
+  </title>
+
+  <introduction>
+    <p> Các phép biến đổi ma trận, mà ta đã tìm hiểu ở mục trước, cho phép ta mô tả một số hàm
+    <m>T:\real^n\to\real^m</m>. Trong mục này, ta sẽ chỉ ra cách các phép biến đổi ma trận cung cấp một phương tiện thuận tiện để mô tả các thao tác hình học, chẳng hạn như phép quay, phép phản xạ và phép co giãn. Sau đó, ta sẽ tìm hiểu cách các phép biến đổi ma trận được dùng trong hoạt hình máy tính. </p>
+
+    <exploration label="ula-preview-2-6">
+      <introduction>
+        <p> Ta sẽ mô tả phép biến đổi ma trận <m>T</m> phản xạ các vectơ hai chiều qua trục hoành. Chẳng hạn, <xref ref="fig-reflect-intro"/> minh họa cách một vectơ <m>\xvec</m> được phản xạ thành vectơ
+        <m>T(\xvec)</m>. </p>
+
+        <figure xml:id="fig-reflect-intro">
+	  <image width="50%">
+            <shortdescription>
+              Một vectơ hai chiều và ảnh phản xạ của nó qua trục hoành.
+            </shortdescription>
+            <description>
+              <p>Vectơ <m>\xvec=\twovec32</m> và ảnh phản xạ của nó qua trục hoành
+              <m>T(\xvec)=\twovec3{-2}</m>.</p>
+            </description>
+            <prefigure xmlns="https://prefigure.org" label="pf-reflect-intro">
+              <xi:include href="prefigure/section2-6/reflect-intro.xml"/>
+            </prefigure>
+          </image>
+	  <caption> Một vectơ <m>\xvec</m> và ảnh phản xạ của nó
+	  <m>T(\xvec)</m> qua trục hoành. </caption>
+        </figure>
+      </introduction>
+
+      <task label="ula-preview-2-6-a">
+        <statement>
+          <p>Nếu <m>\xvec = \twovec{2}{4}</m>, vectơ
+	  <m>T(\xvec)</m>là gì? Hãy phác họa các vectơ
+	  <m>\xvec</m> và <m>T(\xvec)</m>. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    <m>T(\xvec) = \twovec{2}{-4}</m>.
+	  </p>
+        </solution>
+        <answer>
+	  <p>
+	    <m>T(\xvec) = \twovec{2}{-4}</m>.
+	  </p>
+        </answer>
+      </task>
+
+      <task label="ula-preview-2-6-b">
+        <statement>
+	  <p> Tổng quát hơn, nếu <m>\xvec=\twovec{x}{y}</m>, là gì
+	  <m>T(\xvec)</m>?  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    <m>T(\xvec) = \twovec{x}{-y}</m>.
+	  </p>
+        </solution>
+        <answer>
+	  <p>
+	    <m>T(\xvec) = \twovec{x}{-y}</m>.
+	  </p>
+        </answer>
+      </task>
+      <task label="ula-preview-2-6-c">
+        <statement>
+	  <p> Tìm các vectơ <m>T\left(\twovec{1}{0}\right)</m>
+	  và <m>T\left(\twovec{0}{1}\right)</m>. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    <m>T\left(\twovec{1}{0}\right) = \twovec{1}{0}</m> và
+	    <m>T\left(\twovec{0}{1}\right) = \twovec{0}{-1}</m>.
+	  </p>
+        </solution>
+        <answer>
+	  <p>
+	    <m>T\left(\twovec{1}{0}\right) = \twovec{1}{0}</m> và
+	    <m>T\left(\twovec{0}{1}\right) = \twovec{0}{-1}</m>.
+	  </p>
+        </answer>
+      </task>
+      <task label="ula-preview-2-6-d">
+        <statement>
+	  <p> Dùng các kết quả của bạn để viết ma trận <m>A</m> sao cho <m>T(\xvec) = A\xvec</m>. Sau đó kiểm tra rằng <m>T\left(\twovec{x}{y}\right)</m> phù hợp với kết quả bạn tìm được ở phần b. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Ta có ma trận
+	    <m>A=\left[\begin{array}{rr}
+	    1 \amp 0 \\
+	    0 \amp -1 \\
+	    \end{array}\right]</m>. Suy ra
+	    <m>T\left(\twovec{x}{y}\right) = A\twovec{x}{y} =
+	    \twovec{x}{-y}</m> đúng như mong đợi.
+	  </p>
+        </solution>
+        <answer>
+          <p><m>A=\left[\begin{array}{rr}
+	    1 \amp 0 \\
+	    0 \amp -1 \\
+	    \end{array}\right]</m>.
+          </p>
+        </answer>
+      </task>
+      <task label="ula-preview-2-6-e">
+        <statement>
+	  <p> Mô tả phép biến đổi thu được khi hợp thành <m>T</m> với chính nó; tức là phép biến đổi <m>T\circ T</m>là gì? Hãy giải thích cách dùng phép nhân ma trận để biện minh cho câu trả lời của bạn. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Nếu ta phản xạ một vectơ hai lần qua trục hoành, ta thu được vectơ ban đầu. Ma trận của phép biến đổi <m>T\circ T</m> đơn giản là <m>AA= A^2 = \left[\begin{array}{rr}1\amp 0 \\ 0
+	    \amp 1 \\
+	    \end{array}\right]</m>.
+	  </p>
+        </solution>
+        <answer>
+          <p><m>AA= A^2 = \left[\begin{array}{rr}1\amp 0 \\ 0
+	    \amp 1 \\
+	    \end{array}\right]</m>.
+          </p>
+        </answer>
+      </task>
+
+      <task component="rs-preview">
+        <query label="ula-preview-2-6-poll" visibility="instructor">
+          <statement>
+            <p>Tôi cảm thấy tự tin với nội dung trong hoạt động này.</p>
+          </statement>
+          <choices>
+            <choice><p>Hoàn toàn đồng ý</p></choice>
+            <choice><p>Đồng ý</p></choice>
+            <choice><p>Trung lập</p></choice>
+            <choice><p>Không đồng ý</p></choice>
+            <choice><p>Hoàn toàn không đồng ý</p></choice>
+          </choices>
+        </query>
+      </task>
+
+      <task component="rs-preview" label="ula-preview-2-6-what-else">
+        <statement>
+          <p>Bạn cần biết thêm điều gì để cảm thấy tự tin hơn về nội dung này?</p>
+        </statement>
+        <response/>
+      </task>
+
+    </exploration>
+
+  </introduction>
+
+  <subsection>
+    <title> Hình học của các phép biến đổi ma trận <m>2\times2</m>
+    </title>
+    
+    <p> Ta đã thấy một vài thao tác hình học, chẳng hạn như phép quay và phép phản xạ, có thể được mô tả bằng các phép biến đổi ma trận như thế nào. Hoạt động sau đây cho thấy, một cách tổng quát hơn, rằng các phép biến đổi ma trận có thể thực hiện nhiều thao tác hình học quan trọng.
+    </p>
+    
+    <activity xml:id="activity-linear-trans-geom">
+      <title>
+	Dùng các phép biến đổi ma trận để mô tả các thao tác hình học
+      </title> 
+      <statement>
+
+	<figure xml:id="js-matrix-mult">
+	  <caption>
+	    Phép biến đổi ma trận <m>T</m> biến các đối tượng ở bên trái thành các đối tượng ở bên phải.
+	  </caption>
+	  
+	  <interactive xml:id="interactive-matrix-mult" platform="javascript" width="100%" aspect="14:9" source="jslibrary/figures.js           jslibrary/mult.c.js" preview="preview/mult-preview.png">
+            <shortdescription>
+              Một sơ đồ tương tác để khám phá hình học của các phép biến đổi ma trận.
+            </shortdescription>
+            <description>
+              <p>Sơ đồ tương tác này cung cấp một cách để khám phá tác động của một phép biến đổi ma trận lên toàn bộ mặt phẳng.</p>
+              <p>Ở phía trên sơ đồ có bốn thanh trượt được sắp xếp thành một mảng <m>2\times2</m> cho phép người đọc xác định một ma trận <m>2\times2</m> <m>A</m>. Phép biến đổi ma trận <m>T:\real^2\to\real^2</m> được cho bởi <m>T(\xvec) = A\xvec</m>.</p>
+              <p>Phần dưới của sơ đồ gồm hai hình nhỏ hơn, một hình bên trái và một hình bên phải. Hình bên trái chứa một lưới tọa độ <m>1\times1</m>
+              một bộ trục có nhãn, hình vuông đơn vị có đỉnh dưới bên trái tại gốc tọa độ, và một vectơ
+              <m>\xvec=\twovec10</m>.</p>
+              <p>Hình bên phải cho thấy tác động của
+              <m>T</m> lên các đối tượng này. Cụ thể, vectơ
+              <m>T(\xvec)</m> được hiển thị cùng với lưới tọa độ và hình vuông đơn vị sau biến đổi.</p>
+            </description>
+	    <sbsgroup>
+	      <sidebyside width="80%">
+		<slate xml:id="mult-sliders" aspect="10:2" surface="canvas"/>
+	      </sidebyside>
+	      <sidebyside widths="45% 45%" margins="2% 2%">
+		<slate xml:id="mult-left" aspect="1:1" surface="canvas"/>
+		<slate xml:id="mult-right" aspect="1:1" surface="canvas"/>
+	      </sidebyside>
+	    </sbsgroup>
+	    <instructions>
+	      <p>
+		Sơ đồ dưới đây minh họa tác động của một phép biến đổi ma trận <m>T</m> lên mặt phẳng. Bạn có thể thay đổi ma trận <m>A=\begin{bmatrix} a \amp b \\ c \amp d
+		\\ \end{bmatrix}</m> defining <m>T</m>
+		thông qua các thanh trượt ở phía trên.
+	      </p>
+	      <p>
+		Vì một phép biến đổi ma trận nhận đầu vào là một vectơ và cho đầu ra là một vectơ, ta sẽ biểu diễn đầu vào và đầu ra trên các hệ trục riêng. Cụ thể, các trục bên trái biểu diễn đầu vào, còn các trục bên phải minh họa cách các đối tượng đầu vào được biến đổi bởi <m>T</m>.
+	      </p>
+	    </instructions>
+	    <static>
+	      <sidebyside width="100%">
+		<p>
+		  Hoạt động này sử dụng một sơ đồ tương tác có tại <url href="http://gvsu.edu/s/0Jf" visual="gvsu.edu/s/0Jf"/>.
+		</p>
+	      </sidebyside>
+	      <sidebyside width="75%">
+		<image source="preview/mult-preview.png"/>
+	      </sidebyside>
+	    </static>
+	  </interactive>
+	</figure>
+	
+	<p>
+	  Với các <m>2\times2</m> matrices <m>A</m>, hãy dùng sơ đồ để nghiên cứu tác động của phép biến đổi ma trận tương ứng <m>T(\xvec) =
+	  A\xvec</m>. Với mỗi phép biến đổi, hãy mô tả tác động hình học mà phép biến đổi đó tạo ra trên mặt phẳng.
+	  <ol marker="a.">
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      2 \amp 0 \\
+	      0 \amp 1 \\
+	      \end{array}\right]</m>.
+	    </p></li>
+
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      2 \amp 0 \\
+	      0 \amp 2 \\
+	      \end{array}\right]</m>.
+	    </p></li>
+
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      0 \amp 1 \\
+	      -1 \amp 0 \\
+	      \end{array}\right]</m>.
+	    </p></li>
+
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      1 \amp 1 \\
+	      0 \amp 1 \\
+	      \end{array}\right]</m>.
+	    </p></li>
+
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      -1 \amp 0 \\
+	      0 \amp 1 \\
+	      \end{array}\right]</m>.
+	    </p></li>
+
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      1 \amp 0 \\
+	      0 \amp 0 \\
+	      \end{array}\right]</m>.
+	    </p></li>
+
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      1 \amp 0 \\
+	      0 \amp 1 \\
+	      \end{array}\right]</m>.
+	    </p></li>
+
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      1 \amp -1 \\
+	      -2 \amp 2 \\
+	      \end{array}\right]</m>.
+	    </p></li>
+
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> Phép biến đổi này kéo giãn theo hệ số 2 theo phương ngang.
+	  </p></li>
+
+	  <li><p> Phép biến đổi này kéo giãn đồng đều theo hệ số 2 theo mọi hướng.
+	  </p></li>
+
+	  <li><p> Đây là một phép <m>90^\circ</m> quay theo chiều kim đồng hồ.
+	  </p></li>
+
+	  <li><p> Phép biến đổi này được gọi là một <em>phép trượt</em>; nó đẩy các vectơ theo phương ngang một lượng bằng thành phần thẳng đứng.
+	  </p></li>
+
+	  <li><p> Phép biến đổi này phản xạ các vectơ qua trục tung.
+	  </p></li>
+
+	  <li><p> Phép biến đổi này được gọi là một <em>phép chiếu</em>; nó tạo ra hình chiếu của vectơ lên trục hoành.
+	  </p></li>
+
+	  <li><p> Phép biến đổi này được gọi là <em>phép đồng nhất</em>; nó không tạo ra thay đổi nào.
+	  </p></li>
+
+	  <li><p> Phép biến đổi này đẩy các vectơ lên đường thẳng được xác định bởi vectơ <m>\twovec{1}{-2}</m>.
+	  </p></li>
+	</ol></p>
+      </solution>
+
+    </activity>
+
+    <p>
+      Hoạt động trước đã trình bày một số ví dụ cho thấy các phép biến đổi ma trận có thể thực hiện những thao tác hình học thú vị, chẳng hạn như phép quay, phép co giãn và phép phản xạ. Trước khi đi xa hơn, ta nên giải thích vì sao có thể biểu diễn các thao tác này bằng các phép biến đổi ma trận. Thực ra, ta đặt câu hỏi tổng quát hơn: những loại hàm nào
+      <m>T:\real^n\to\real^m</m> được biểu diễn dưới dạng các phép biến đổi ma trận?
+    </p>
+    <p>
+      <xref ref="prop-matrix-mult-prop" text="custom">
+	tính tuyến tính của phép nhân ma trận-vectơ
+      </xref>
+      cung cấp chìa khóa để trả lời câu hỏi này. Hãy nhớ rằng nếu <m>A</m> là một ma trận, <m>\vvec</m> và <m>\wvec</m> là các vectơ, còn <m>c</m> là một vô hướng, thì
+      <me>
+	\begin{aligned}
+	A(c\vvec) \amp {}={} cA\vvec \\
+	A(\vvec + \wvec) \amp {}={} A\vvec + A\wvec\text{.}
+	\end{aligned}
+      </me>. Điều này có nghĩa là một phép biến đổi ma trận <m>T(\xvec) = A\xvec</m>
+      thỏa mãn tính chất tuyến tính tương ứng:
+      <assemblage xml:id="linearity-of-linear-transformations">
+	<title> Tính tuyến tính của các phép biến đổi ma trận </title>
+	<p>
+	  <me>
+	    \begin{aligned}
+	    T(c\vvec) \amp {}={} cT(\vvec) \\
+	    T(\vvec + \wvec) \amp {}={} T(\vvec) + T(\wvec)\text{.}
+	    \end{aligned}
+	  </me>
+	</p>
+      </assemblage>
+    </p>
+
+    <p>
+      Hóa ra, nếu <m>T:\real^n\to\real^m</m> thỏa mãn hai tính chất tuyến tính này, thì ta có thể tìm được một ma trận <m>A</m>
+      sao cho <m>T(\xvec) = A\xvec</m>. Thực ra, <xref ref="prop-linear-trans-columns"/> cho ta biết cách lập
+      <m>A</m>; ta chỉ cần viết
+      <me>
+	A = \left[\begin{array}{rrrr}
+
+	\end{array}\right]
+      </me>. Bây giờ ta sẽ kiểm tra rằng <m>T(\xvec) = A\xvec</m> bằng cách dùng tính tuyến tính của <m>T</m>:
+      <me>
+	\begin{aligned}
+	T(\xvec) = T\left(\fourvec{x_1}{x_2}{\vdots}{x_n}\right)
+	\amp {}={}
+	T(x_1\evec_1 + x_2\evec_2 + \ldots + x_n\evec_n) \\ \\
+	\amp {}={}
+	x_1T(\evec_1) + x_2T(\evec_2) + \ldots + x_nT(\evec_n) \\ \\
+	\amp {}={}
+	x_1A\evec_1 + x_2A\evec_2 + \ldots + x_nA\evec_n \\ \\
+	\amp {}={}
+	A(x_1\evec_1 + x_2\evec_2 + \ldots + x_n\evec_n) \\ \\
+	\amp {}={}
+	A\fourvec{x_1}{x_2}{\vdots}{x_n} \\ \\
+	\amp {}={}
+	A\xvec
+	\end{aligned}
+      </me>.
+    </p>
+
+    <p>
+      Kết quả là mệnh đề sau.
+    </p>
+
+    <proposition xml:id="prop-linear-trans-characterization">
+      <statement>
+	<p> Hàm <m>T:\real^n\to\real^m</m> là một phép biến đổi ma trận, trong đó <m>T(\xvec) = A\xvec</m> với một
+	ma trận <m>m\times n</m> <m>A</m> khi và chỉ khi
+	<me>
+	  \begin{aligned}
+	  T(c\vvec) \amp {}={} cT(\vvec) \\
+	  T(\vvec + \wvec) \amp {}={} T(\vvec) + T(\wvec)\text{.}
+	  \end{aligned}
+	</me>. In this case, <m>A</m> là ma trận có các cột là
+	<m>T(\evec_j)</m>; tức là,
+	<me>
+	  A=\left[\begin{array}{rrrr}
+	  T(\evec_1) \amp T(\evec_2) \amp \ldots \amp T(\evec_n)
+	  \end{array}\right]
+	</me>.
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      Nói đơn giản, mệnh đề này có nghĩa là nếu ta có một hàm
+      <m>T:\real^n\to\real^m</m> và có thể kiểm tra hai tính chất tuyến tính được nêu trong mệnh đề, thì ta biết rằng <m>T</m> là một phép biến đổi ma trận. Hãy xem điều này hoạt động trong thực tế như thế nào.
+    </p>
+
+    <example>
+      <statement>
+	<p>
+	  Ta sẽ xét hàm <m>T:\real^2\to\real^2</m>
+	  quay một vectơ <m>\xvec</m> by <m>45^\circ</m> ngược chiều kim đồng hồ để thu được <m>T(\xvec)</m> như thấy trong <xref ref="fig-45-rotation"/>.
+	</p>
+
+	<figure xml:id="fig-45-rotation">
+	  <sidebyside widths="45% 45%">
+	    <image>
+              <shortdescription>
+                Một vectơ hai chiều x
+              </shortdescription>
+              <description>
+                <p>Vectơ hai chiều
+                <m>\xvec=\twovec31</m>.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-a">
+                <xi:include href="prefigure/section2-6/45-rotation-a.xml"/>
+              </prefigure>
+            </image>
+	    <image>
+              <shortdescription>
+                Kết quả của việc quay vectơ x một góc 45 độ.
+              </shortdescription>
+              <description>
+                <p>Vectơ <m>T(\xvec)</m> thu được bằng cách quay
+                <m>\xvec</m> ngược chiều kim đồng hồ một góc 45 độ.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-b">
+                <xi:include href="prefigure/section2-6/45-rotation-b.xml"/>
+              </prefigure>
+            </image>
+	  </sidebyside>
+	  <caption>
+	    Hàm <m>T</m> quay một vectơ ngược chiều kim đồng hồ một góc
+	    <m>45^\circ</m>.
+	  </caption>
+	</figure>
+	
+	<p>
+	  Trước hết, ta cần biết rằng <m>T</m> có thể được biểu diễn bằng một phép biến đổi ma trận; điều này có nghĩa, theo <xref ref="prop-linear-trans-characterization"/>, rằng ta cần kiểm tra các tính chất tuyến tính:
+	  <me>
+	    \begin{aligned}
+	    T(c\vvec) \amp {}={} cT(\vvec) \\
+	    T(\vvec + \wvec) \amp {}={} T(\vvec) + T(\wvec)\text{.}
+	    \end{aligned}
+	  </me>
+	</p>
+	<p>
+	  Hai hình tiếp theo minh họa vì sao các tính chất này đúng. Chẳng hạn, <xref ref="fig-45-rotation-linear-mult"/>
+	  cho thấy mối quan hệ giữa <m>T(\vvec)</m> và
+	  <m>T(c\vvec)</m> when <m>c</m> là một vô hướng. Cụ thể, co giãn một vectơ rồi quay nó cũng giống như quay rồi co giãn nó, nghĩa là <m>T(c\vvec)
+	  = cT(\vvec)</m>.
+	</p>
+
+	<figure xml:id="fig-45-rotation-linear-mult">
+	  <sidebyside widths="45% 45%">
+	    <image>
+              <shortdescription>
+                Một vectơ v và một bội vô hướng của v
+              </shortdescription>
+              <description>
+                <p>Một vectơ <m>\vvec</m> và một bội vô hướng
+                <m>c\vvec</m>, cả hai đều nằm trên cùng một đường thẳng.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-linear-a-a">
+                <xi:include href="prefigure/section2-6/45-rotation-linear-a-a.xml"/>
+              </prefigure>
+            </image>
+	    <image>
+              <shortdescription>
+                Phép biến đổi ma trận T quay v và c lần v một góc 45 độ
+              </shortdescription>
+              <description>
+                <p>Vectơs <m>T(\vvec)</m> và
+                <m>T(c\vvec)</m> được thu được bằng cách quay <m>\vvec</m>
+                và <m>c\vvec</m> một góc 45 độ. Cả hai vectơ lại nằm trên cùng một đường thẳng.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-linear-a-b">
+                <xi:include href="prefigure/section2-6/45-rotation-linear-a-b.xml"/>
+              </prefigure>
+            </image>
+	  </sidebyside>
+	  <caption>
+	    Ta thấy rằng vectơ <m>T(c\vvec)</m> là một bội vô hướng của <m>T(\vvec)</m> sao cho <m>T(c\vvec) =
+	    cT(\vvec)</m>.
+	  </caption>
+	</figure>
+
+	<p>
+	  Similarly, <xref ref="fig-45-rotation-linear-add"/> cho thấy mối quan hệ giữa <m>T(\vvec+\wvec)</m>,
+	  <m>T(\vvec)</m>, và <m>T(\wvec)</m>. Hãy nhớ rằng tổng của hai vectơ được biểu diễn bởi đường chéo của hình bình hành xác định bởi hai vectơ đó. Phép quay
+	  <m>T</m> có tác dụng quay hình bình hành được xác định bởi <m>\vvec</m> và <m>\wvec</m> thành hình bình hành được xác định bởi <m>T(\vvec)</m> và
+	  <m>T(\wvec)</m>, giải thíching why
+	  <m>T(\vvec+\wvec) = T(\vvec) + T(\wvec)</m>.
+	</p>
+	
+	<figure xml:id="fig-45-rotation-linear-add">
+	  <sidebyside widths="45% 45%">
+	    <image>
+              <shortdescription>
+                Một hình bình hành thu được từ tổng vectơ của các vectơ v và w
+              </shortdescription>
+              <description>
+                <p>Hình bình hành được tạo bởi các vectơ
+                <m>\vvec</m> và <m>\wvec</m> với tổng vectơ của chúng là đường chéo của hình bình hành.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-linear-b-a">
+                <xi:include href="prefigure/section2-6/45-rotation-linear-b-a.xml"/>
+              </prefigure>
+            </image>
+	    <image>
+              <shortdescription>
+                Một hình bình hành thu được từ tổng vectơ của các vectơ T của v và T của w
+              </shortdescription>
+              <description>
+                <p>Hình bình hành được tạo bởi các vectơ
+                <m>T(\vvec)</m> và <m>T(\wvec)</m> với tổng vectơ của chúng là đường chéo của hình bình hành. Vì hình bình hành này thu được bằng cách quay hình bình hành ban đầu được xác định bởi <m>\vvec</m> và
+                <m>\wvec</m>, ta thấy rằng <m>T(\vvec+\wvec) =
+                T(\vvec)+T(\wvec)</m>.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-linear-b-b">
+                <xi:include href="prefigure/section2-6/45-rotation-linear-b-b.xml"/>
+              </prefigure>
+            </image>
+	  </sidebyside>
+	  <caption>
+	    Ta thấy rằng vectơ <m>T(\vvec+\wvec)</m> là tổng của <m>T(\vvec)</m> và <m>T(\wvec)</m>, do đó 
+	    <m>T(\vvec + \wvec) = T(\vvec) + T(\wvec)</m>.
+	  </caption>
+	</figure>
+
+	<p>
+	  Sau khi kiểm tra hai tính chất này, bây giờ ta biết rằng hàm <m>T</m> quay các vectơ một góc <m>45^\circ</m> là một phép biến đổi ma trận. Do đó, ta có thể viết nó dưới dạng <m>T(\xvec) = A\xvec</m> trong đó
+	  <m>A</m> là ma trận <m>2\times2</m>
+	  <m>A=\left[\begin{array}{rr} T(\evec_1) \amp T(\evec_2)
+	  \end{array}\right]</m>. Các cột của ma trận này,
+	  <m>T(\evec_1)</m> và <m>T(\evec_2)</m>, được biểu diễn ở bên phải của <xref ref="fig-45-rotation-basis"/>.
+	</p>
+
+	<figure xml:id="fig-45-rotation-basis">
+	  <sidebyside widths="45% 45%">
+	    <image>
+              <shortdescription>
+                Hai vectơ chuẩn e một và e hai
+              </shortdescription>
+              <description>
+                <p>Hai vectơ <m>\evec_1=\twovec10</m> và
+                <m>\evec_2=\twovec01</m> được hiển thị.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-basis-a">
+                <xi:include href="prefigure/section2-6/45-rotation-basis-a.xml"/>
+              </prefigure>
+            </image>
+	    <image>
+              <shortdescription>
+                Kết quả của việc áp dụng phép biến đổi ma trận T cho e một và e hai
+              </shortdescription>
+              <description>
+                <p>Ta thấy <m>T(\evec_1)</m> và <m>T(\evec_2)</m>, là kết quả của việc quay <m>\evec_1</m> và
+                <m>\evec_2</m> một góc 45 độ.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-basis-b">
+                <xi:include href="prefigure/section2-6/45-rotation-basis-b.xml"/>
+              </prefigure>
+            </image>
+	  </sidebyside>
+	  <caption>
+	    Phép biến đổi ma trận <m>T</m> quay <m>\evec_1</m>
+	    và <m>\evec_2</m> một góc <m>45^\circ</m>.
+	  </caption>
+	</figure>
+
+	<p> Chú ý rằng <m>T(\evec_1)</m> tạo thành một tam giác vuông cân, như được minh họa trong <xref ref="fig-45-rotation-e1"/>. Vì độ dài của <m>\evec_1</m> là 1, độ dài của
+	<m>T(\evec_1)</m>, là cạnh huyền của tam giác, cũng bằng 1, và theo định lý Pythagore, độ dài các cạnh góc vuông của nó là
+	<m>1/\sqrt{2}</m>.
+	</p>
+
+	<figure xml:id="fig-45-rotation-e1">
+	  <image width="50%">
+            <shortdescription>
+              Vectơ thu được khi quay e 1 ngược chiều kim đồng hồ một góc 45 độ.
+            </shortdescription>
+            <description>
+              <p>Vectơ <m>T(\evec_1)</m>, trong đó
+              <m>\evec_1=\twovec10</m>, được biểu diễn bằng một mũi tên bắt đầu tại gốc tọa độ, có độ dài một đơn vị, và tạo với chiều dương của trục hoành một góc 45 độ. Một tam giác vuông được tạo bởi vectơ này, trục hoành, và đoạn thẳng đứng từ đầu mút vectơ xuống trục hoành. Hai cạnh góc vuông của tam giác này đều có độ dài
+              <m>1/\sqrt{2}</m>.</p>
+            </description>
+            <prefigure xmlns="https://prefigure.org" label="pf-45-rotation-e1">
+              <xi:include href="prefigure/section2-6/45-rotation-e1.xml"/>
+            </prefigure>
+          </image>
+	  <caption>
+	    Vectơ <m>T(\evec_1)</m> có độ dài 1 và là cạnh huyền của một tam giác vuông cân.
+	  </caption>
+	</figure>
+
+	<p>
+	  Điều này dẫn đến
+	  <m>T(\evec_1) = \twovec{\frac1{\sqrt{2}}}
+	  {\frac1{\sqrt{2}}}</m>. Tương tự, ta tìm được rằng
+	  <m>T(\evec_2) = \twovec{-\frac1{\sqrt{2}}}
+	  {\frac1{\sqrt{2}}}</m> nên ma trận <m>A</m> is
+	  <me>
+	    A = \left[\begin{array}{rr}
+	    \frac{1}{\sqrt{2}} \amp 
+	    -\frac{1}{\sqrt{2}} \\
+	    \frac{1}{\sqrt{2}} \amp 
+	    \frac{1}{\sqrt{2}} \\
+	    \end{array}\right]
+	  </me>. Bạn có thể kiểm tra điều này bằng sơ đồ tương tác trong hoạt động trước, sử dụng xấp xỉ <m>1/\sqrt{2} \approx 0.7</m>.
+	</p>
+      </statement>
+	
+    </example>
+
+    <p>
+      Trong ví dụ này, ta thấy rằng <m>T</m>, một hàm mô tả phép quay trong mặt phẳng, thực ra là một phép biến đổi ma trận bằng cách kiểm tra rằng
+      <me>
+	\begin{aligned}
+	T(c\vvec) \amp {}={} cT(\vvec) \\
+	T(\vvec + \wvec) \amp {}={} T(\vvec) + T(\wvec)\text{.}
+	\end{aligned}.
+      </me>
+      Cách suy nghĩ tương tự áp dụng tổng quát hơn để cho thấy các phép quay, phép phản xạ và phép co giãn là các phép biến đổi ma trận. Tương tự, ta có thể quay lại các hàm trong
+      <xref ref="activity-mt-intro"/> và kiểm tra rằng chúng là các phép biến đổi ma trận.  
+    </p>
+
+    <activity>
+      <statement>
+      <p> Trong hoạt động này, ta tìm cách mô tả nhiều phép biến đổi ma trận khác nhau bằng cách tìm ma trận tạo ra phép biến đổi mong muốn. Tất cả các phép biến đổi mà ta nghiên cứu ở đây đều có dạng <m>T:\real^2\to\real^2</m>.
+      <ol marker="a.">
+	<li><p> Tìm ma trận của phép biến đổi không tác động gì lên các vectơ; tức là, <m>T(\xvec) = \xvec</m>.
+	</p></li>
+
+	<li><p> Tìm ma trận của phép biến đổi phản xạ các vectơ trong <m>\real^2</m> qua đường thẳng <m>y=x</m>. </p></li>
+
+	<li><p> Kết quả của việc hợp thành phép phản xạ bạn tìm được ở phần trước với chính nó là gì; tức là, tác động của việc phản xạ qua đường thẳng <m>y=x</m> rồi lại phản xạ qua đường thẳng này một lần nữa là gì? Hãy đưa ra một giải thích hình học cho kết quả của bạn, cũng như một giải thích đại số thu được bằng cách nhân ma trận. </p></li>
+
+	<li><p> Tìm ma trận quay các vectơ trong mặt phẳng ngược chiều kim đồng hồ một góc <m>90^\circ</m>. </p></li>
+
+	<li><p> So sánh kết quả của việc quay một góc <m>90^\circ</m> rồi phản xạ qua đường thẳng <m>y=x</m> với kết quả của việc trước hết phản xạ qua <m>y=x</m> rồi quay
+	<m>90^\circ</m>. </p></li>
+
+	<li><p> Tìm ma trận thu được khi hợp thành một phép quay
+	<m>90^\circ</m> với chính nó bốn lần; tức là, nếu
+	<m>T</m> là phép biến đổi ma trận quay các vectơ một góc
+	<m>90^\circ</m>, hãy tìm ma trận cho <m>T\circ T\circ T \circ
+	T</m>. Hãy giải thích vì sao kết quả của bạn hợp lý về mặt hình học. </p></li>
+
+	<li><p> Giải thích vì sao ma trận quay các vectơ ngược chiều kim đồng hồ một góc <m>\theta</m> is
+	<me>
+	  \left[\begin{array}{rr}
+	  \cos\theta \amp -\sin\theta \\
+	  \sin\theta \amp \cos\theta \\
+	  \end{array}\right]
+	</me>.
+	</p></li>
+      </ol></p>
+      </statement>
+
+      <solution>
+	<p> Ta dùng thực tế rằng các cột của những ma trận cần tìm có dạng <m>\left[\begin{array}{rr} T(\evec_1) \amp
+	T(\evec_2) \end{array}\right]</m>.
+	<ol marker="a.">
+	  <li><p>
+	    <m>\left[\begin{array}{rr}
+	    1 \amp 0 \\
+	    0 \amp 1 \\
+	    \end{array}\right]
+	    </m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>\left[\begin{array}{rr}
+	    0 \amp 1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    </m>.
+	  </p></li>
+
+	  <li><p> Hợp thành phép phản xạ này với chính nó được mô tả bằng cách nhân ma trận với chính nó. Điều này cho ra ma trận
+	  <m>\left[\begin{array}{rr}
+	  1 \amp 0 \\
+	  0 \amp 1 \\
+	  \end{array}\right]
+	  </m>, mà ta vừa thấy là ma trận của phép biến đổi đồng nhất. Điều này có nghĩa là phản xạ một vectơ qua đường thẳng <m>y=x</m> hai lần sẽ cho lại vectơ ban đầu.
+	  </p></li>
+
+	  <li><p>
+	    <m>\left[\begin{array}{rr}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    </m>.
+	  </p></li>
+
+	  <li><p> Nếu trước hết ta quay rồi phản xạ, ta thu được phép biến đổi ma trận được xác định bởi
+	  <me>
+	    \left[\begin{array}{rr}
+	    0 \amp 1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    \left[\begin{array}{rr}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    =
+	    \left[\begin{array}{rr}
+	    1 \amp 0 \\
+	    0 \amp -1 \\
+	    \end{array}\right]\text{,}
+	  </me> đây là ma trận của phép phản xạ qua trục hoành. </p>
+
+	  <p> Nếu trước hết ta phản xạ rồi quay, ta thu được ma trận
+	  <me>
+	    \left[\begin{array}{rr}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    \left[\begin{array}{rr}
+	    0 \amp 1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    =
+	    \left[\begin{array}{rr}
+	    -1 \amp 0 \\
+	    0 \amp 1 \\
+	    \end{array}\right]\text{,}
+	  </me> đây là ma trận của phép phản xạ qua trục tung.
+	  </p></li>
+
+	  <li><p>
+	    Hợp thành bốn lần tương ứng với việc nâng ma trận lên lũy thừa bốn, cho ta ma trận đồng nhất
+	    <m>I</m>. 
+	  </p></li>
+
+	  <li><p>
+	    Nếu ta xét tác động của việc quay vectơ
+	    <m>\twovec{1}{0}</m> một góc <m>\theta</m>, ta thu được vectơ <m>\twovec{\cos\theta}{\sin\theta}</m>.
+	  </p></li>
+
+	</ol></p>
+      </solution>
+	    
+    </activity>
+
+  </subsection>
+
+  <subsection>
+    <title> Các phép biến đổi ma trận và hoạt hình máy tính </title>
+
+    <p>
+      Đại số tuyến tính đóng một vai trò quan trọng trong hoạt hình máy tính. Bây giờ ta sẽ minh họa cách các phép biến đổi ma trận và một số ý tưởng đã phát triển trong mục này được các nhà làm hoạt hình sử dụng để tạo ảo giác chuyển động cho các nhân vật.
+    </p>
+
+    <p>
+      <xref ref="fig-blob-man"/> cho thấy một nhân vật thử nghiệm được các nhà làm hoạt hình Pixar sử dụng. Bên trái là mô tả gốc của nhân vật; bên phải, ta thấy nhân vật đã được chuyển sang một tư thế khác. Để làm cho nhân vật có vẻ như đang chuyển động, các nhà làm hoạt hình tạo ra một chuỗi khung hình, trong đó tư thế của nhân vật được điều chỉnh nhẹ từ khung này sang khung tiếp theo, thường bằng cách dùng các phép biến đổi ma trận.
+    </p>
+
+    <figure xml:id="fig-blob-man">
+      <sidebyside widths="45% 45%">
+	<image source="images/char-bind.jpg">
+          <shortdescription>
+            Một hình dựng ba chiều của một nhân vật người được dùng trong hoạt hình máy tính.
+          </shortdescription>
+          <description>
+            <p>Một nhân vật người ba chiều được dùng trong hoạt hình máy tính. Nhân vật đứng thẳng với hai tay duỗi ngang sang hai bên. Cũng có một tập hợp các tam giác tạo thành một khối bao quanh nhân vật. Các nhà làm hoạt hình di chuyển nhân vật bằng cách di chuyển các đỉnh của các tam giác.</p>
+          </description>
+        </image>
+	<image source="images/char-mvt.jpg">
+          <shortdescription>
+            Cùng nhân vật đó được hiển thị trong tư thế nghiêng sang một bên.
+          </shortdescription>
+          <description>
+            <p>Cùng nhân vật đó giờ được hiển thị nghiêng sang một bên, với hai tay vẫn duỗi vuông góc với thân.</p>
+          </description>
+        </image>
+      </sidebyside>
+      <caption>
+	Các nhà làm hoạt hình máy tính định nghĩa một nhân vật và tạo chuyển động bằng cách vẽ nó trong một chuỗi các tư thế.
+	<copyright/> Disney/Pixar
+      </caption>
+    </figure>
+    <sidebyside widths="45% 45%">
+      <p> Tất nhiên, các nhân vật chân thực sẽ được vẽ trong không gian ba chiều. Tuy nhiên, để mọi thứ đơn giản hơn một chút, ta sẽ xét nhân vật hai chiều này và thiết kế các phép biến đổi ma trận để đưa nhân vật vào các tư thế khác nhau.
+      </p>
+      <image>
+        <shortdescription>
+          Một hình người que hai chiều đơn giản sẽ được dùng trong hoạt động sắp tới.
+        </shortdescription>
+        <description>
+          <p>Một hình người que hai chiều đơn giản, có thể đại diện cho một nhân vật trong phim hoạt hình máy tính, được hiển thị trên một lưới tọa độ và hệ trục. Hai bàn chân của nhân vật ở các điểm <m>(-1/2,0)</m> và <m>(1/2,0)</m>. Hai chân kéo dài từ bàn chân và nối với thân nhân vật tại
+          <m>(0,1/2)</m>. Đầu của nhân vật là một elip có tâm tại <m>(0,2)</m> với chiều cao một đơn vị và chiều rộng nửa đơn vị. Hai tay được vẽ như một đoạn thẳng duy nhất từ <m>(-1/2,1/2)</m> to <m>(1/2,3/2)</m>.</p>
+        </description>
+        <prefigure xmlns="https://prefigure.org" label="pf-animate-char">
+          <xi:include href="prefigure/section2-6/animate-char.xml"/>
+        </prefigure>
+      </image>
+    </sidebyside>
+
+    <p>
+      Tất nhiên, điều đầu tiên ta có thể muốn làm là đơn giản di chuyển nhân vật đến một vị trí khác trong mặt phẳng, chẳng hạn như vị trí được minh họa trong <xref ref="fig-animate-translate"/>. Những chuyển động như vậy được gọi là
+      <em>phép tịnh tiếns</em>. 
+    </p>
+    
+    <figure xml:id="fig-animate-translate">
+      <image width="45%">
+        <shortdescription>
+          Nhân vật đã được tịnh tiến hai đơn vị theo phương ngang và một đơn vị theo phương thẳng đứng.
+        </shortdescription>
+        <description>
+          <p>Nhân vật đã được tịnh tiến hai đơn vị theo phương ngang và một đơn vị theo phương thẳng đứng.</p>
+        </description>
+        <prefigure xmlns="https://prefigure.org" label="pf-animate-translate">
+          <xi:include href="prefigure/section2-6/animate-translate.xml"/>
+        </prefigure>
+      </image>
+      <caption>
+	Tịnh tiến nhân vật của ta đến một vị trí mới trong mặt phẳng.
+      </caption>
+    </figure>
+
+    <p>
+      Điều này tạo ra một vấn đề vì một phép biến đổi ma trận <m>T:\real^2\to\real^2</m> có tính chất rằng <m>T(\zerovec) = A\zerovec = \zerovec</m>. Điều này có nghĩa là một phép biến đổi ma trận không thể di chuyển gốc tọa độ của mặt phẳng tọa độ. Để xử lý hạn chế này, các nhà làm hoạt hình sử dụng
+      <em>tọa độ thuần nhất</em>, được tạo bằng cách đặt mặt phẳng tọa độ hai chiều bên trong <m>\real^3</m> như mặt phẳng <m>z=1</m>, như được minh họa trong <xref ref="fig-animate-homogeneous"/>.
+    </p>
+
+    <figure xml:id="fig-animate-homogeneous">
+      <image width="70%">
+        <shortdescription>
+          Một hình ba chiều cho thấy mặt phẳng tọa độ hai chiều được vẽ như mặt phẳng z bằng 1.
+        </shortdescription>
+        <description>
+          <p>Một sơ đồ ba chiều với các trục tọa độ được gắn nhãn <m>x</m>, <m>y</m> và <m>z</m>. Mặt phẳng tọa độ hai chiều, bao gồm cả nhân vật người que, được đưa vào như mặt phẳng <m>z=1</m> sao cho nó xuất hiện như một mặt phẳng ngang nằm cao hơn gốc tọa độ một đơn vị.</p>
+        </description>
+        <prefigure xmlns="https://prefigure.org" label="pf-animate-homogeneous">
+          <xi:include href="prefigure/section2-6/animate-homogeneous.xml"/>
+        </prefigure>
+      </image>
+      <caption>
+	Ta đưa mặt phẳng tọa độ hai chiều vào <m>\real^3</m>
+	as mặt phẳng <m>z=1</m> để ta có thể tịnh tiến nhân vật.
+      </caption>
+    </figure>
+
+    <p>
+      Do đó, thay vì mô tả các điểm trong mặt phẳng dưới dạng vectơ <m>\twovec{x}{y}</m>, ta mô tả chúng dưới dạng vectơ ba chiều <m>\threevec{x}{y}{1}</m>. Như ta sẽ thấy trong hoạt động tiếp theo, điều này cho phép ta tịnh tiến nhân vật trong mặt phẳng.
+    </p>
+
+    <activity>
+      <statement>
+      <p> Trong hoạt động này, ta sẽ dùng tọa độ thuần nhất và các phép biến đổi ma trận để di chuyển nhân vật của mình vào nhiều tư thế khác nhau.  
+      </p>
+
+      <p><ol marker="a.">
+	<li><p>
+	  Vì ta xem nhân vật của mình như đang sống trong <m>\real^3</m>, ta sẽ xét các phép biến đổi ma trận được xác định bởi các ma trận
+	  <me>
+	    \left[\begin{array}{rrr}
+	    a \amp b \amp c \\
+	    d \amp e \amp f \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}\right]
+	  </me>Hãy kiểm tra rằng một phép biến đổi ma trận như vậy biến các điểm trong mặt phẳng <m>z=1</m> thành các điểm trong cùng mặt phẳng đó; tức là, hãy kiểm tra rằng
+	  <me>
+	    \left[\begin{array}{rrr}
+	    a \amp b \amp c \\
+	    d \amp e \amp f \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}\right]
+	    \threevec{x}{y}{1} = \threevec{x'}{y'}{1}
+	  </me>. Hãy biểu diễn tọa độ của điểm kết quả <m>x'</m> và
+	  <m>y'</m> theo tọa độ của điểm ban đầu <m>x</m> và <m>y</m>.
+	</p>
+
+
+	<figure xml:id="figure-animation">
+          <caption>
+	    Một sơ đồ tương tác cho phép ta di chuyển nhân vật bằng tọa độ thuần nhất.
+	  </caption>
+          <interactive xml:id="interactive-animation" platform="javascript" width="100%" aspect="48:33" source="jslibrary/animate.js" preview="preview/animation-preview.png">
+            <shortdescription>
+              Một sơ đồ tương tác để di chuyển nhân vật người que bằng một phép biến đổi ma trận.
+            </shortdescription>
+            <description>
+              <p>Sơ đồ tương tác này có sáu thanh trượt ở phía trên. Ở hàng trên có ba thanh trượt được gắn nhãn <m>a</m>, <m>b</m> và <m>c</m>. Ở hàng dưới có ba thanh trượt được gắn nhãn <m>d</m>,
+              <m>e</m> và <m>f</m>. Người đọc có thể di chuyển các thanh trượt này để xác định một phép biến đổi ma trận được xác định bởi ma trận
+              <m>\begin{bmatrix}a \amp b \amp c \\
+              d \amp e \amp f \\
+              0 \amp 0 \amp 1 \\
+              \end{bmatrix}</m>.</p>
+              <p>Bên dưới sáu thanh trượt là hai sơ đồ. Bên trái mô tả nhân vật người que đã được giới thiệu trước đó. Bên phải hiển thị kết quả của việc áp dụng phép biến đổi ma trận cho nhân vật người que.</p>
+              <p>Ngoài ra, có hai nút ở dưới cùng của sơ đồ được gắn nhãn <q>Hợp thành</q> và
+              <q>Đặt lại</q>.</p>
+            </description>
+            <sbsgroup>
+              <sidebyside widths="30% 30% 30%">
+                <slate xml:id="a" surface="canvas" aspect="5:1"/>
+                <slate xml:id="b" surface="canvas" aspect="5:1"/>
+                <slate xml:id="c" surface="canvas" aspect="5:1"/>
+              </sidebyside>
+              <sidebyside widths="30% 30% 30%">
+                <slate xml:id="d" surface="canvas" aspect="5:1"/>
+                <slate xml:id="e" surface="canvas" aspect="5:1"/>
+                <slate xml:id="f" surface="canvas" aspect="5:1"/>
+              </sidebyside>
+              <sidebyside widths="45% 45%">
+                <slate xml:id="left" surface="canvas" aspect="6:6"/>
+                <slate xml:id="right" surface="canvas" aspect="6:6"/>
+              </sidebyside>
+              <sidebyside widths="15% 15%" margins="33% 33%">
+                <slate surface="html" aspect="2:1">
+                  <button xmlns="http://www.w3.org/1999/xhtml" type="button" id="compose">
+		    Hợp thành
+		  </button>
+                </slate>
+                <slate surface="html" aspect="2:1">
+                  <button xmlns="http://www.w3.org/1999/xhtml" type="button" id="reset">
+		    Đặt lại
+		  </button>
+                </slate>
+              </sidebyside>
+            </sbsgroup>
+            <instructions>
+              <p>
+		Sơ đồ dưới đây cho phép bạn chọn các tham số <m>a, b, \ldots, f</m> để xác định ma trận gắn với ma trận <m>\begin{bmatrix}
+		a \amp b \amp c \\
+		d \amp e \amp f \\
+		0 \amp 0 \amp 1 \\
+		\end{bmatrix}</m>. Tác động của phép biến đổi lên nhân vật của ta được hiển thị ở bên phải.
+	      </p>
+            </instructions>
+	    <static>
+	      <sidebyside width="100%">
+		<p>
+		  Hoạt động này sử dụng một sơ đồ tương tác có tại
+		  <url href="http://gvsu.edu/s/0Jb" visual="gvsu.edu/s/0Jb"/>. Bằng cách dùng sáu thanh trượt, bạn có thể chọn ma trận
+		  <m> \begin{bmatrix}
+		  a \amp b \amp c \\
+		  d \amp e \amp f \\
+		  0 \amp 0 \amp 1 \\
+		  \end{bmatrix}</m>
+		  sẽ di chuyển nhân vật của ta trong mặt phẳng.
+		</p>
+	      </sidebyside>
+	      <sidebyside width="75%">
+		<image source="preview/animation-preview.png"/>
+	      </sidebyside>
+	    </static>
+          </interactive>
+        </figure>
+
+	</li>
+
+	<li><p> Tìm phép biến đổi ma trận tịnh tiến nhân vật của ta đến một vị trí mới trong mặt phẳng, như được minh họa trong <xref ref="fig-animate-translate-2"/>
+	</p>
+
+	<figure xml:id="fig-animate-translate-2">
+	  <sidebyside widths="40% 40%">
+	    <image>
+              <shortdescription>
+                Hình nhìn chuẩn của nhân vật người que.
+              </shortdescription>
+              <description>
+                <p>Hình nhìn chuẩn của nhân vật người que.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-animate-char-1">
+                <xi:include href="prefigure/section2-6/animate-char.xml"/>
+              </prefigure>
+            </image>
+	    <image>
+              <shortdescription>
+                Nhân vật người que sau khi tịnh tiến hai đơn vị theo phương ngang và một đơn vị theo phương thẳng đứng.
+              </shortdescription>
+              <description>
+                <p>Nhân vật người que sau khi tịnh tiến hai đơn vị theo phương ngang và một đơn vị theo phương thẳng đứng.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-animate-translate-1">
+                <xi:include href="prefigure/section2-6/animate-translate.xml"/>
+              </prefigure>
+            </image>
+	  </sidebyside>
+	  <caption>
+	    Tịnh tiến đến một vị trí mới.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p>
+	  Theo hình vẽ ban đầu, nhân vật của ta đang vẫy bằng một tay. Trong một cảnh của bộ phim, ta muốn nhân vật vẫy bằng tay kia, như được minh họa trong <xref ref="fig-animate-reflect"/>. Tìm phép biến đổi ma trận đưa nhân vật vào tư thế này.
+	</p>
+
+	<figure xml:id="fig-animate-reflect">
+	  <sidebyside widths="40% 40%">
+	    <image>
+              <shortdescription>
+                Hình nhìn chuẩn của nhân vật người que.
+              </shortdescription>
+              <description>
+                <p>Hình nhìn chuẩn của nhân vật người que.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-animate-char-2">
+                <xi:include href="prefigure/section2-6/animate-char.xml"/>
+              </prefigure>
+            </image>
+	    <image>
+              <shortdescription>
+                Nhân vật người que đã được phản xạ qua trục tung.
+              </shortdescription>
+              <description>
+                <p>Nhân vật người que đã được phản xạ qua trục tung.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org" label="pf-animate-reflect">
+                <xi:include href="prefigure/section2-6/animate-reflect.xml"/>
+              </prefigure>
+            </image>
+	  </sidebyside>
+	  <caption>
+	    Vẫy bằng tay kia.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p> Sau đó, nhân vật của ta thực hiện động tác lộn vòng bằng cách di chuyển qua chuỗi tư thế được minh họa trong <xref ref="fig-animate-rotate"/>. Tìm các phép biến đổi ma trận tạo ra những tư thế này.
+	</p>
+
+	<figure xml:id="fig-animate-rotate">
+	  <sbsgroup widths="40% 40%">
+	    <sidebyside>
+	      <image>
+                <shortdescription>
+                  Nhân vật người que sau khi quay ngược chiều kim đồng hồ 45 độ quanh gốc tọa độ.
+                </shortdescription>
+                <description>
+                  <p>Nhân vật người que sau khi quay ngược chiều kim đồng hồ 45 độ quanh gốc tọa độ.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-rotate-a">
+                  <xi:include href="prefigure/section2-6/animate-rotate-a.xml"/>
+                </prefigure>
+              </image>
+	      <image>
+                <shortdescription>
+                  Nhân vật người que sau khi quay ngược chiều kim đồng hồ 90 độ quanh gốc tọa độ.
+                </shortdescription>
+                <description>
+                  <p>Nhân vật người que sau khi quay ngược chiều kim đồng hồ 90 độ quanh gốc tọa độ.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-rotate-b">
+                  <xi:include href="prefigure/section2-6/animate-rotate-b.xml"/>
+                </prefigure>
+              </image>
+	    </sidebyside>
+	    <sidebyside>
+	      <image>
+                <shortdescription>
+                  Nhân vật người que sau khi quay ngược chiều kim đồng hồ 135 độ quanh gốc tọa độ.
+                </shortdescription>
+                <description>
+                  <p>Nhân vật người que sau khi quay ngược chiều kim đồng hồ 135 độ quanh gốc tọa độ.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-rotate-c">
+                  <xi:include href="prefigure/section2-6/animate-rotate-c.xml"/>
+                </prefigure>
+              </image>
+	      <image>
+                <shortdescription>
+                  Nhân vật người que sau khi quay ngược chiều kim đồng hồ 180 độ quanh gốc tọa độ.
+                </shortdescription>
+                <description>
+                  <p>Nhân vật người que sau khi quay ngược chiều kim đồng hồ 180 độ quanh gốc tọa độ.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-rotate-d">
+                  <xi:include href="prefigure/section2-6/animate-rotate-d.xml"/>
+                </prefigure>
+              </image>
+	    </sidebyside>
+	  </sbsgroup>
+	  <caption>
+	    Thực hiện động tác lộn vòng.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p> Tiếp theo, ta muốn tìm các phép biến đổi phóng to khuôn mặt của nhân vật, như được minh họa trong 
+	<xref ref="fig-animate-closeup"/>. Để làm điều này, bạn nên nghĩ đến việc hợp thành các phép biến đổi ma trận. Điều này có thể được thực hiện trong sơ đồ bằng cách dùng nút
+	<em>Hợp thành</em> nút này biến tư thế hiện tại, được hiển thị bên phải, thành tư thế bắt đầu mới, được hiển thị bên trái. Phép biến đổi ma trận nào đưa nhân vật từ tư thế ban đầu, ở phía trên bên trái, đến tư thế cuối cùng, ở phía dưới bên phải?
+      </p>
+
+	<figure xml:id="fig-animate-closeup">
+	  <sbsgroup widths="40% 40%">
+	    <sidebyside>
+	      <image>
+                <shortdescription>
+                  Hình nhìn chuẩn của nhân vật người que.
+                </shortdescription>
+                <description>
+                  <p>Hình nhìn chuẩn của nhân vật người que.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-char-3">
+                  <xi:include href="prefigure/section2-6/animate-char.xml"/>
+                </prefigure>
+              </image>
+	      <image>
+                <shortdescription>
+                  Nhân vật người que đã được tịnh tiến xuống dưới một đơn vị.
+                </shortdescription>
+                <description>
+                  <p>Nhân vật người que đã được tịnh tiến xuống dưới một đơn vị.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-closeup-a">
+                  <xi:include href="prefigure/section2-6/animate-closeup-a.xml"/>
+                </prefigure>
+              </image>
+	    </sidebyside>
+	    <sidebyside>
+	      <image>
+                <shortdescription>
+                  Nhân vật người que lại được tịnh tiến xuống dưới một đơn vị.
+                </shortdescription>
+                <description>
+                  <p>Nhân vật người que lại được tịnh tiến xuống dưới một đơn vị sao cho đầu của nó có tâm tại gốc tọa độ và hai bàn chân nằm cách mỗi phía nửa đơn vị quanh
+                  <m>(0,-2)</m>.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-closeup-b">
+                  <xi:include href="prefigure/section2-6/animate-closeup-b.xml"/>
+                </prefigure>
+              </image>
+	      <image>
+                <shortdescription>
+                  Nhân vật người que đã được phóng to theo hệ số hai.
+                </shortdescription>
+                <description>
+                  <p>Bắt đầu từ vị trí cuối cùng, nhân vật đã được phóng to theo hệ số hai. Đầu vẫn có tâm tại gốc tọa độ nhưng hai bàn chân giờ nằm cách mỗi phía một đơn vị quanh <m>(0,-4)</m></p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-closeup-c">
+                  <xi:include href="prefigure/section2-6/animate-closeup-c.xml"/>
+                </prefigure>
+              </image>
+	    </sidebyside>
+	  </sbsgroup>
+	  <caption>
+	    Phóng to khuôn mặt của nhân vật.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p> Ta cũng muốn tạo bóng của nhân vật, được hiển thị trong chuỗi tư thế ở <xref ref="fig-animate-shadow"/>. Tìm chuỗi các phép biến đổi ma trận thực hiện điều này. Cụ thể, hãy tìm phép biến đổi ma trận đưa nhân vật từ tư thế ban đầu đến bóng của nó ở phía dưới bên phải.  
+      </p>
+      
+	<figure xml:id="fig-animate-shadow">
+	  <sbsgroup widths="40% 40%">
+	    <sidebyside>
+	      <image>
+                <shortdescription>
+                  Hình nhìn chuẩn của nhân vật người que.
+                </shortdescription>
+                <description>
+                  <p>Hình nhìn chuẩn của nhân vật người que.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-char-4">
+                  <xi:include href="prefigure/section2-6/animate-char.xml"/>
+                </prefigure>
+              </image>
+	      <image>
+                <shortdescription>
+                  Nhân vật được vẽ với cùng chiều cao nhưng nghiêng sang phải một góc 45 độ.
+                </shortdescription>
+                <description>
+                  <p>Hai bàn chân của nhân vật vẫn nằm cách mỗi phía nửa đơn vị ngang quanh gốc tọa độ. Tuy nhiên, thân của nó tạo thành một đường thẳng 45 độ so với chiều dương trục hoành, và đầu của nó có tâm tại điểm <m>(2,2)</m>.
+                  </p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-shadow-a">
+                  <xi:include href="prefigure/section2-6/animate-shadow-a.xml"/>
+                </prefigure>
+              </image>
+	    </sidebyside>
+	    <sidebyside>
+	      <image>
+                <shortdescription>
+                  Nhân vật đã được nén theo phương thẳng đứng từ vị trí trước đó.
+                </shortdescription>
+                <description>
+                  <p>Từ vị trí trước đó, nhân vật đã được nén theo phương thẳng đứng theo hệ số hai. Hai bàn chân vẫn cách mỗi phía nửa đơn vị ngang quanh gốc tọa độ nhưng đầu giờ có tâm tại
+                  <m>(2,1)</m>.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-shadow-b">
+                  <xi:include href="prefigure/section2-6/animate-shadow-b.xml"/>
+                </prefigure>
+              </image>
+	      <image>
+                <shortdescription>
+                  Nhân vật lại được nén theo phương thẳng đứng từ vị trí trước đó.
+                </shortdescription>
+                <description>
+                  <p>Từ vị trí trước đó, nhân vật lại được nén theo phương thẳng đứng theo hệ số hai. Hai bàn chân vẫn cách mỗi phía nửa đơn vị ngang quanh gốc tọa độ nhưng đầu giờ có tâm tại
+                  <m>(2,1/2)</m>.</p>
+                </description>
+                <prefigure xmlns="https://prefigure.org" label="pf-animate-shadow-c">
+                  <xi:include href="prefigure/section2-6/animate-shadow-c.xml"/>
+                </prefigure>
+              </image>
+	    </sidebyside>
+	  </sbsgroup>
+	  <caption>
+	    Tạo bóng.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p> Hãy viết một cảnh cuối cho bộ phim và mô tả cách xây dựng một chuỗi các phép biến đổi ma trận để tạo ra cảnh đó.
+	</p></li>
+      </ol>
+    </p>
+  </statement>
+
+  <solution>
+    <p><ol marker="a.">
+      <li><p>
+	<me>
+	  \left[\begin{array}{rrr}
+	  a \amp b \amp c \\
+	  d \amp e \amp f \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  \threevec{x}{y}{1} =
+	  \cthreevec{ax+by+c}{dx+ey+f}{1}\text{,}
+	</me>
+	điều này cho thấy rằng
+	<me>
+	  \begin{alignedat}{2}
+	  x' \amp {}={} ax+by+c \\
+	  y' \amp {}={} dx+ey+f\text{.} \\
+	  \end{alignedat}
+	</me>
+      </p></li>
+
+      <li><p>
+	Chú ý rằng các phần tử <m>c</m> và <m>f</m> chịu trách nhiệm cho phép tịnh tiến. Do đó, ta cần phép biến đổi ma trận được xác định bởi
+	<m>\left[\begin{array}{rrr}
+	1 \amp 0 \amp 2 \\
+	0 \amp 1 \amp 1 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right]
+	</m>.
+      </p></li>
+
+      <li><p>
+	Ta muốn phản xạ qua trục tung, vì vậy ta dùng ma trận 
+	<m>\left[\begin{array}{rrr}
+	-1 \amp 0 \amp 0 \\
+	0 \amp 1 \amp 0 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right]
+	</m>.
+      </p></li>
+
+      <li><p>
+	Nhân vật được quay liên tiếp một góc <m>45^\circ</m> bằng cách dùng ma trận
+	<m>
+	  \left[\begin{array}{rrr}
+	  \cos(45^\circ) \amp -\sin(45^\circ) \amp 0 \\
+	  \sin(45^\circ) \amp  \cos(45^\circ) \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right] =
+	  \left[\begin{array}{rrr}
+	  \frac{1}{\sqrt{2}} \amp -\frac{1}{\sqrt{2}} \amp 0 \\
+	  \frac{1}{\sqrt{2}} \amp \frac{1}{\sqrt{2}} \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	</m>.
+      </p></li>
+
+      <li><p>
+	Trước hết ta tịnh tiến nhân vật xuống dưới hai đơn vị bằng ma trận
+	<m>\left[\begin{array}{rrr}
+	1 \amp 0 \amp 0 \\
+	0 \amp 1 \amp -2 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right]
+	</m>. Sau đó ta phóng to bằng cách kéo giãn đồng đều theo hệ số
+	<m>2</m> bằng cách dùng ma trận
+	<m>\left[\begin{array}{rrr}
+	2 \amp 0 \amp 0 \\
+	0 \amp 2 \amp 0 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right]
+	</m>. Hiệu ứng tổng hợp là phép biến đổi được mô tả bởi ma trận
+	<me>
+	  \left[\begin{array}{rrr}
+	  2 \amp 0 \amp 0 \\
+	  0 \amp 2 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp -2 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  =
+	  \left[\begin{array}{rrr}
+	  2 \amp 0 \amp 0 \\
+	  0 \amp 2 \amp -4 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]\text{.}
+	</me>
+      </p></li>
+
+      <li><p>
+	Bóng trước hết được tạo bằng phép trượt
+	<m>
+	  \left[\begin{array}{rrr}
+	  1 \amp 1 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	</m>. Sau đó tỉ lệ theo phương thẳng đứng được nén bằng ma trận
+	<m>
+	  \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp \frac12 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  </m>.
+      </p></li>
+    </ol></p>
+  </solution>
+	
+</activity>
+
+
+  </subsection>
+  
+  <subsection>
+    <title>
+      Tóm tắt
+    </title>
+
+    <p>Mục này đã tìm hiểu cách các thao tác hình học được thực hiện bởi các phép biến đổi ma trận.  
+
+    <ul>
+      <li><p>
+	A hàm <m>T:\real^n\to\real^m</m> là một phép biến đổi ma trận khi và chỉ khi các tính chất sau được thỏa mãn:
+	<me>
+	  \begin{aligned}
+	  T(c\vvec) \amp = cT(\vvec) \\
+	  T(\vvec+\wvec) \amp = T(\vvec)+T(\wvec). \\
+	  \end{aligned}
+	</me>
+      </p></li>
+
+      <li><p>
+	Các thao tác hình học, chẳng hạn như phép quay, phép phản xạ và phép co giãn, có thể được biểu diễn dưới dạng các phép biến đổi ma trận.
+      </p></li>
+
+      <li><p> Hợp thành các thao tác hình học tương ứng với phép nhân ma trận.</p></li>
+
+      <li><p> Các nhà làm hoạt hình máy tính sử dụng tọa độ thuần nhất và các phép biến đổi ma trận để tạo ảo giác chuyển động. </p></li>
+
+    </ul>
+    </p>
+
+    <exercise component="proteus" label="ula-proteus-2-6-seeing-functions-v1">
+      <title> Nhìn các phép biến đổi ma trận như các hàm </title>
+
+      <introduction>
+        <p>Xét hàm
+        <me>
+          T\left(\threevec{x_1}{x_2}{x_3}\right) =
+          \twovec{x_1 - 2x_2+4x_3}{2x_2+2x_3}
+        </me>.
+        </p>
+      </introduction>
+
+      <task label="ula-proteus-2-6-seeing-functions-a-v1">
+        <statement>
+          <p>Tính <m>T(\xvec)</m> nếu <m>\xvec=\threevec312</m>
+          </p>
+        </statement>
+        <response/>
+      </task>
+
+      <task label="ula-proteus-2-6-seeing-functions-b-v1">
+        <statement>
+          <p>Nếu ta viết <m>T:\real^m\to\real^n</m>, thì các giá trị của <m>m</m> và <m>n</m>?
+          </p>
+        </statement>
+        <response/>
+      </task>
+
+      <task label="ula-proteus-2-6-seeing-functions-c-v1">
+        <statement>
+          <p>Ma trận <m>A</m> sao cho <m>T(\xvec) = A\xvec</m>?
+          </p>
+        </statement>
+        <response/>
+      </task>
+
+      <task label="ula-proteus-2-6-seeing-functions-d-v1">
+        <statement>
+          <p>Mô tả tất cả các vectơ <m>\xvec</m> sao cho <m>T(\xvec) =
+          \zerovec</m>.
+          </p>
+        </statement>
+        <response/>
+      </task>
+
+      <task label="ula-proteus-2-6-seeing-functions-e-v1">
+        <statement>
+          <p>Mô tả tất cả các vectơ <m>\xvec</m> sao cho <m>T(\xvec) =
+          \twovec88</m>.
+          </p>
+        </statement>
+        <response/>
+      </task>
+
+    </exercise>
+
+    <exercise component="proteus" label="ula_proteus_2-6_Correct_Matrix_for_Transformation_v1">
+      <title>Tìm ma trận của các phép biến đổi</title>
+      <statement>
+        <p>Ở bên trái, bạn được cho một số phép biến đổi ở dạng vectơ. Nếu phép biến đổi là một phép biến đổi ma trận, hãy kéo nó đến ma trận tương ứng. Nếu không, hãy kéo nó đến "Không phải là phép biến đổi ma trận".
+        </p>
+      </statement>
+      <cardsort>
+        <match>
+          <premise>
+            <m>
+              T\left(\cthreevec{x}{y}{z}\right)=
+            \cthreevec{4x-z}{y-2x}{2x-3z+5y}</m>
+          </premise>
+          <response>
+            <m>
+              \begin{bmatrix}
+              4 \amp 0 \amp -1 \\ -2 \amp 1 \amp 0 \\ 2 \amp 5 \amp -3
+              \end{bmatrix}
+            </m>
+        </response>
+        </match>
+        <match>
+          <premise>
+            <m> T\left(\cthreevec{x}{y}{z}\right)=
+            \cthreevec{4x+2z-2y}{y+5z}{-3z-x}</m>
+          </premise>
+          <response>
+            <m>
+              \begin{bmatrix}
+              4 \amp -2 \amp 2 \\ 0 \amp 1 \amp 5 \\ -1 \amp 0 \amp -3
+              \end{bmatrix}
+            </m>
+        </response>
+        </match>
+        <match>
+          <premise>
+            <m> T\left(\cthreevec{x}{y}{z}\right)=\ctwovec{z}{y-4x}</m>
+          </premise>
+          <response>
+            <m>
+              \begin{bmatrix}
+              0 \amp 0 \amp 1 \\ -4 \amp 1 \amp 0
+              \end{bmatrix}
+            </m>
+          </response>
+        </match>
+        <match>
+          <premise>
+            <m> T\left(\ctwovec{x_1}{x_2}\right)=
+            \cthreevec{-4x_2}{x_2}{x_1}</m>
+          </premise>
+          <response>
+            <m>
+              \begin{bmatrix}
+              0 \amp -4 \\ 0 \amp 1 \\ 1 \amp 0
+              \end{bmatrix}
+            </m>
+       </response>
+        </match>
+        <match>
+          <premise>
+            <m> T\left(\cthreevec{x}{y}{z}\right)=
+            \cthreevec{z-x^2}{x+y+z}{0}</m>
+          </premise>
+          <premise>
+            <m> T\left(\cthreevec{a}{b}{c}\right)=
+            \cthreevec{4a-1}{b-2}{2a-3c+5}</m>
+          </premise>
+          <response>
+              Không phải là phép biến đổi ma trận
+        </response>
+        </match>
+      </cardsort>
+    </exercise>
+
+    <exercise component="proteus" label="ula_proteus_2-6_Find_Matrix_from_Unit_Square_Image_v1">
+      <title>Tìm ma trận của các phép biến đổi bằng hình học</title>
+
+      <introduction>
+        <p>
+          Hình vuông đơn vị được hiển thị ở bên trái của 
+          <xref ref="diagram-unit-square-transformed"/>Giả sử phép biến đổi ma trận <m>T</m> 
+          biến hình vuông đơn vị thành hình bình hành được hiển thị ở bên phải.
+        </p>
+        <figure xml:id="diagram-unit-square-transformed">
+          <sidebyside widths="40% 40%">
+            <image>
+              <prefigure xmlns="https://prefigure.org" label="prefigure-unit-square-2-6">
+                <diagram dimensions="(250,250)" margins="5">          
+                  <coordinates bbox="(-2,-2,5,5)">
+                    <grid-axes xlabel="x" ylabel="y"/>
+                    <polygon points="((0,0),(1,0),(1,1),(0,1))" closed="yes" fill="cornflowerblue" stroke="gray" thickness="3"/>
+                    <vector v="(1,0)" stroke="red" thickness="4"/>
+                  </coordinates>
+                </diagram>
+              </prefigure>
+              <shortdescription>
+                Hình vuông đơn vị và vectơ một không.
+              </shortdescription>
+              <description>
+                <p>Một lưới tọa độ <m>1\times1</m> và một hệ trục tọa độ, cùng với một hình vuông <m>1\times1</m> có hai đỉnh đối diện tại gốc tọa độ và <m>(1,1)</m>. Vectơ <m>\twovec10</m> cũng được vẽ.</p>
+              </description>
+            </image>
+            <image>
+              <prefigure xmlns="https://prefigure.org" label="prefigure-unit-square-2-6-transformed">
+                <diagram dimensions="(250,250)" margins="5">          
+                  <coordinates bbox="(-2,-2,5,5)">
+                    <grid-axes xlabel="x" ylabel="y"/>
+                    <polygon points="((0,0),(3,-1),(4,1),(1,2))" closed="yes" fill="cornflowerblue" stroke="gray" thickness="3"/>  
+                    <vector v="(3,-1)" stroke="red" thickness="4"/>
+                  </coordinates>
+                </diagram>
+              </prefigure>
+              <shortdescription>
+                Một hình bình hành và vectơ.
+              </shortdescription>
+              <description>
+                <p>Một lưới tọa độ <m>1\times1</m> và một hệ trục tọa độ, cùng với hình bình hành có các đỉnh là gốc tọa độ, <m>(3,-1)</m>, <m>(4,1)</m> và <m>(1,2)</m>.
+                </p>
+              </description>
+            </image>      
+          </sidebyside>
+          <caption>Hình vuông đơn vị ở bên trái được biến thành hình bình hành ở bên phải.
+          </caption>
+        </figure>
+      </introduction>
+
+      <task label="ula_proteus_2-6_Find_Matrix_from_Unit_Square_Image_task1_v1">
+        <statement>
+          <p>
+            Hãy cho ma trận của phép biến đổi <m>T</m> mô tảd above.
+          </p>
+        </statement>
+        <response/>
+      </task>
+      <task label="ula_proteus_2-6_Find_Matrix_from_Unit_Square_Image_task2_v1">
+        <statement>
+          <p>
+            Dùng phép biến đổi <m>T</m>, hãy ghép mỗi biểu thức ở bên trái với đầu ra phù hợp.
+         </p>
+        </statement>
+        <cardsort>
+          <match>
+            <premise>
+              <me> T\left(\twovec{1}{1}\right)</me>
+            </premise>
+            <response>
+              <me> \twovec{4}{1}</me>
+          </response>
+          </match>
+          <match>
+            <premise>
+              <me> T\left(\twovec{0}{1}\right)</me>
+            </premise>
+            <response>
+              <me> \twovec{1}{2}</me>
+          </response>
+          </match>
+          <match>
+            <premise>
+              <me> T\left(\twovec{-1}{0}\right)</me>
+            </premise>
+            <response>
+              <me> \twovec{-3}{1}</me>
+          </response>
+          </match>
+          <match>
+            <premise>
+              <me> T\left(\twovec{1}{0}\right)</me>
+            </premise>
+            <response>
+              <me> \twovec{3}{-1}</me>
+          </response>
+          </match>
+          <match>
+            <premise>
+              <me> T\left(\twovec{2}{-1}\right)</me>
+            </premise>
+            <response>
+              <me> \twovec{5}{-4}</me>
+          </response>
+          </match>
+          <match>
+            <premise>
+              <me> T\left(\twovec{0}{0}\right)</me>
+            </premise>
+            <response>
+              <me> \twovec{0}{0}</me>
+          </response>
+          </match>
+        </cardsort>
+      </task>
+    </exercise>
+         
+    <exercise component="proteus" label="ula-proteus-2-6-algebraic-properties">
+      <title>Các tính chất đại số của phép biến đổi ma trận</title>
+
+      <statement>
+        <p>
+          Giả sử <m>T</m> là một phép biến đổi ma trận <m>T(\xvec) =
+          A\xvec</m> được xác định bởi ma trận <m>A</m>. Hãy xác định mỗi tính chất sau là Luôn đúng, Không bao giờ đúng, hay Đôi khi đúng.
+        </p>
+      </statement>
+
+      <cardsort>
+        <match>
+          <premise>
+            <p>
+              Nếu <m>T(\xvec_1)=\zerovec</m> và
+              <m>T(\xvec_2)=\zerovec</m>, thì <m>T(\xvec_1
+              +\xvec_2)=\zerovec</m>.
+            </p>
+          </premise>
+          <premise>
+            <m>T(\zerovec)=\zerovec</m>
+          </premise>
+          <premise>
+            <p>
+              Nếu <m>T(\xvec)=\zerovec</m>, thì <m>T(r\xvec)=\zerovec</m>
+              với mọi vô hướng <m>r</m>.
+            </p>
+          </premise>
+          <response>Luôn đúng</response>
+        </match>
+
+        <match>
+          <premise>
+            <p>
+              Nếu <m>A</m> là ma trận <m>4\times 5</m> và
+              <m>T(\xvec)=\yvec</m>, thì <m>\yvec</m> thuộc <m>\real^5</m>.
+            </p>
+          </premise>
+          <response>Không bao giờ đúng</response>
+        </match>
+
+        <match>
+          <premise>
+            <p>
+              Nếu <m>T(\xvec_1)=T(\xvec_2)</m>, thì
+              <m>\xvec_1=\xvec_2</m>.
+            </p>
+          </premise>
+          <premise>
+            <p>
+              Nếu <m>T(\xvec)=\zerovec</m>, thì <m>\xvec=\zerovec</m>.
+            </p>
+          </premise>
+          <premise>
+            <p>
+              Nếu <m>A\xvec=\zerovec</m>, thì <m>\xvec=\zerovec</m>.
+            </p>
+          </premise>
+          <response>Đôi khi đúng</response>
+        </match>
+      </cardsort>
+    </exercise>
+
+    <exercise component="proteus" label="ula-proteus-2-6-identify-matrix-graphically">
+      <title>Nhận diện các phép biến đổi ma trận bằng hình học</title>
+
+      <statement>
+        <p>
+          Hình vuông đơn vị được mô tả trong <xref ref="diagram-unit-square"/>. Cột bên phải hiển thị ảnh của hình vuông đơn vị dưới một phép biến đổi ma trận. Hãy ghép mỗi ma trận ở cột bên trái với ảnh tương ứng của hình vuông đơn vị.
+        </p>
+
+        <figure xml:id="diagram-unit-square">
+          <caption>Hình vuông đơn vị</caption>
+          <image width="30%">
+            <prefigure xmlns="https://prefigure.org" label="prefigure-unit-square">
+              <diagram dimensions="(150,150)" margins="5">
+                <definition>origin=(0,0)</definition>
+                <definition>v1=(1,0)</definition>
+                <definition>v2=(0,1)</definition>
+                <rectangle lower-left="(-10,-10)" dimensions="(220,220)" fill="white"/>
+                <coordinates bbox="(-3,-3,3,3)">
+                  <grid-axes decorations="no"/>
+                  <polygon points="(origin,v1,v1+v2,v2)" closed="yes" fill="cornflowerblue" stroke="gray"/>
+                </coordinates>
+              </diagram>
+            </prefigure>
+            <shortdescription>
+              Hình vuông đơn vị
+            </shortdescription>
+            <description>
+              <p>Hình vuông đơn vị, là một <m>1\times1</m> hình vuông có các cạnh song song với các trục tọa độ và có hai đỉnh đối diện tại gốc tọa độ và <m>(1,1)</m>.</p>
+            </description>
+          </image>
+        </figure>
+      </statement>
+
+      <cardsort>
+        <match>
+          <premise order="2">
+            <m>\begin{bmatrix}
+            0 \amp -1 \\
+            1 \amp 0 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>
+            <figure>
+              <image width="40%">
+                <prefigure xmlns="https://prefigure.org" label="prefigure-grid-1">
+                  <diagram dimensions="(200,200)" margins="5">
+                    <definition>origin=(0,0)</definition>
+                    <definition>v1=(0,1)</definition>
+                    <definition>v2=(-1,0)</definition>
+                    <rectangle lower-left="(-10,-10)" dimensions="(220,220)" fill="white"/>
+                    <coordinates bbox="(-3,-3,3,3)">
+                      <grid-axes decorations="no"/>
+                      <polygon points="(origin,v1,v1+v2,v2)" closed="yes" fill="cornflowerblue" stroke="gray"/>
+                    </coordinates>
+                  </diagram>
+                </prefigure>
+                <shortdescription>
+                  Một hình vuông trong góc phần tư thứ hai của mặt phẳng tọa độ.
+                </shortdescription>
+                <description>
+                  <p>A <m>1\times1</m> hình vuông có các cạnh song song với các trục tọa độ và hai đỉnh đối diện tại gốc tọa độ và <m>(-1,1)</m>.</p>
+                </description>
+              </image>
+            </figure>
+          </response>
+        </match>
+
+        <match>
+          <premise order="6">
+            <m>\begin{bmatrix}
+            -1 \amp 0 \\
+            0 \amp 2 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>
+            <figure>
+              <image width="40%">
+                <prefigure xmlns="https://prefigure.org" label="prefigure-grid-2">
+                  <diagram dimensions="(200,200)" margins="5">
+                    <definition>origin=(0,0)</definition>
+                    <definition>v1=(-1,0)</definition>
+                    <definition>v2=(0,2)</definition>
+                    <rectangle lower-left="(-10,-10)" dimensions="(220,220)" fill="white"/>
+                    <coordinates bbox="(-3,-3,3,3)">
+                      <grid-axes decorations="no"/>
+                      <polygon points="(origin,v1,v1+v2,v2)" closed="yes" fill="cornflowerblue" stroke="gray"/>
+                    </coordinates>
+                  </diagram>
+                </prefigure>
+                <shortdescription>
+                  Một hình chữ nhật trong góc phần tư thứ hai của mặt phẳng tọa độ, rộng một đơn vị và cao hai đơn vị.
+                </shortdescription>
+                <description>
+                  <p>Một hình chữ nhật có các cạnh song song với các trục tọa độ và có hai đỉnh đối diện tại gốc tọa độ và <m>(-1,2)</m>.</p>
+                </description>
+              </image>
+            </figure>
+          </response>
+        </match>
+
+        <match>
+          <premise order="3">
+            <m>\begin{bmatrix}
+            1 \amp 1 \\
+            0 \amp 1 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>
+            <figure>
+              <image width="40%">
+                <prefigure xmlns="https://prefigure.org" label="prefigure-grid-3">
+                  <diagram dimensions="(200,200)" margins="5">
+                    <definition>origin=(0,0)</definition>
+                    <definition>v1=(1,0)</definition>
+                    <definition>v2=(1,1)</definition>
+                    <rectangle lower-left="(-10,-10)" dimensions="(220,220)" fill="white"/>
+                    <coordinates bbox="(-3,-3,3,3)">
+                      <grid-axes decorations="no"/>
+                      <polygon points="(origin,v1,v1+v2,v2)" closed="yes" fill="cornflowerblue" stroke="gray"/>
+                    </coordinates>
+                  </diagram>
+                </prefigure>
+                <shortdescription>
+                  Một hình bình hành trong góc phần tư thứ nhất của mặt phẳng tọa độ.
+                </shortdescription>
+                <description>
+                  <p>Một hình bình hành có các đỉnh tại gốc tọa độ,
+                  <m>(1,0)</m>, <m>(2,1)</m> và <m>(1,1)</m>.</p>
+                </description>
+              </image>
+            </figure>
+          </response>
+        </match>
+
+        <match>
+          <premise order="1">
+            <m>\begin{bmatrix}
+            1 \amp 0 \\
+            0 \amp 1 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>
+            <figure>
+              <image width="40%">
+                <prefigure xmlns="https://prefigure.org" label="prefigure-grid-4">
+                  <diagram dimensions="(200,200)" margins="5">
+                    <definition>origin=(0,0)</definition>
+                    <definition>v1=(1,0)</definition>
+                    <definition>v2=(0,1)</definition>
+                    <rectangle lower-left="(-10,-10)" dimensions="(220,220)" fill="white"/>
+                    <coordinates bbox="(-3,-3,3,3)">
+                      <grid-axes decorations="no"/>
+                      <polygon points="(origin,v1,v1+v2,v2)" closed="yes" fill="cornflowerblue" stroke="gray"/>
+                    </coordinates>
+                  </diagram>
+                </prefigure>
+                <shortdescription>
+                  Hình vuông đơn vị trong mặt phẳng tọa độ.
+                </shortdescription>
+                <description>
+                  <p>A <m>1\times1</m> hình vuông có các cạnh song song với các trục tọa độ và có hai đỉnh đối diện tại gốc tọa độ và <m>(1,1)</m>.</p>
+                </description>
+              </image>
+            </figure>
+          </response>
+        </match>
+
+        <match>
+          <premise order="6">
+            <m>\begin{bmatrix}
+            1 \amp -1 \\
+            1 \amp 1 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>
+            <figure>
+              <image width="40%">
+                <prefigure xmlns="https://prefigure.org" label="prefigure-grid-5">
+                  <diagram dimensions="(200,200)" margins="5">
+                    <definition>origin=(0,0)</definition>
+                    <definition>v1=(1,1)</definition>
+                    <definition>v2=(-1,1)</definition>
+                    <rectangle lower-left="(-10,-10)" dimensions="(220,220)" fill="white"/>
+                    <coordinates bbox="(-3,-3,3,3)">
+                      <grid-axes decorations="no"/>
+                      <polygon points="(origin,v1,v1+v2,v2)" closed="yes" fill="cornflowerblue" stroke="gray"/>
+                    </coordinates>
+                  </diagram>
+                </prefigure>
+                <shortdescription>
+                  Một hình vuông trong mặt phẳng tọa độ.
+                </shortdescription>
+                <description>
+                  <p>Một hình vuông trong mặt phẳng tọa độ có các đỉnh tại gốc tọa độ, <m>(1,1)</m>, <m>(0,2)</m>, và
+                  <m>(-1,1)</m>.</p>
+                </description>
+              </image>
+            </figure>
+          </response>
+        </match>
+
+        <match>
+          <premise order="4">
+            <m>\begin{bmatrix}
+            1 \amp 1 \\
+            1 \amp 1 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>
+            <figure>
+              <image width="40%">
+                <prefigure xmlns="https://prefigure.org" label="prefigure-grid-6">
+                  <diagram dimensions="(200,200)" margins="5">
+                    <definition>origin=(0,0)</definition>
+                    <definition>v1=(1,1)</definition>
+                    <definition>v2=(1,1)</definition>
+                    <rectangle lower-left="(-10,-10)" dimensions="(220,220)" fill="white"/>
+                    <coordinates bbox="(-3,-3,3,3)">
+                      <grid-axes decorations="no"/>
+                      <polygon points="(origin,v1,v1+v2,v2)" closed="yes" fill="cornflowerblue" stroke="gray"/>
+                    </coordinates>
+                  </diagram>
+                </prefigure>
+                <shortdescription>
+                  Một đoạn thẳng từ gốc tọa độ kéo dài vào góc phần tư thứ nhất với góc 45 độ.
+                </shortdescription>
+                <description>
+                  <p>Đoạn thẳng từ gốc tọa độ đến điểm
+                  <m>(2,2)</m>.</p>
+                </description>
+              </image>
+            </figure>
+          </response>
+        </match>
+
+      </cardsort>
+    </exercise>
+
+  </subsection>
+
+
+  <exercises>
+    <title>Bài tập</title>
+
+    <exercise>
+      <statement>
+        <p>Với mỗi phép biến đổi hình học sau đây trong mặt phẳng, hãy tìm một ma trận <m>2\times2</m> xác định phép biến đổi ma trận thực hiện phép biến đổi đó.</p>
+        <ol marker="a.">
+          <li><p>Quay các vectơ một góc <m>180^\circ</m>.</p></li>
+          <li><p>Phản xạ các vectơ qua trục tung.</p></li>
+          <li><p>Phản xạ các vectơ qua đường thẳng <m>y=-x</m>.</p></li>
+          <li><p>Quay các vectơ ngược chiều kim đồng hồ một góc <m>60^\circ</m>.</p></li>
+          <li><p>Trước hết quay các vectơ ngược chiều kim đồng hồ một góc <m>60^\circ</m>, rồi phản xạ qua đường thẳng <m>y=x</m>.</p></li>
+        </ol>
+      </statement>
+    </exercise>
+
+    <exercise>
+      <statement>
+        <p>Bài tập này khảo sát phép hợp thành của các phép phản xạ trong mặt phẳng.</p>
+        <ol marker="a.">
+          <li><p>Hãy tìm kết quả của việc trước hết phản xạ qua đường thẳng <m>y=0</m>, rồi phản xạ qua đường thẳng <m>y=x</m>. Tác động tổng hợp của phép hợp thành này là phép biến đổi quen thuộc nào?</p></li>
+          <li><p>Điều gì xảy ra nếu bạn hợp thành các phép biến đổi theo thứ tự ngược lại; tức là trước hết phản xạ qua <m>y=x</m>, rồi phản xạ qua <m>y=0</m>? Kết quả là phép biến đổi quen thuộc nào?</p></li>
+          <li><p>Phép biến đổi hình học quen thuộc nào thu được nếu trước hết phản xạ qua đường thẳng <m>y=x</m>, rồi phản xạ qua đường thẳng <m>y=-x</m>?</p></li>
+          <li><p>Phép biến đổi hình học quen thuộc nào thu được nếu trước hết quay một góc <m>90^\circ</m>, rồi phản xạ qua đường thẳng <m>y=x</m>?</p></li>
+        </ol>
+        <p>Một sự thật tổng quát là phép hợp thành của hai phép phản xạ tạo ra một phép quay với góc quay bằng hai lần góc từ đường phản xạ thứ nhất đến đường phản xạ thứ hai. Ta sẽ khảo sát điều này tổng quát hơn trong Bài tập 2.6.4.8.</p>
+      </statement>
+    </exercise>
+
+    <exercise>
+      <statement>
+        <p>Trong Hình 2.6.19, các vectơ <m>\evec_1</m>, <m>\evec_2</m>, và <m>\evec_3</m> trong <m>\real^3</m> được cho trước.</p>
+        <ol marker="a.">
+          <li><p>Hãy tưởng tượng ngón cái bàn tay phải của bạn chỉ theo hướng của <m>\evec_1</m>. Một phép quay dương quanh trục <m>x</m> tương ứng với chiều mà các ngón tay của bạn cuộn lại. Hãy tìm ma trận xác định phép biến đổi ma trận <m>T</m> quay các vectơ một góc <m>90^\circ</m> quanh trục <m>x</m>.</p></li>
+          <li><p>Tương tự, hãy tìm ma trận quay các vectơ một góc <m>90^\circ</m> quanh trục <m>y</m>.</p></li>
+          <li><p>Hãy tìm ma trận quay các vectơ một góc <m>90^\circ</m> quanh trục <m>z</m>.</p></li>
+          <li><p>Tác động tổng hợp của việc quay <m>90^\circ</m> quanh trục <m>x</m>, tiếp theo là quay <m>90^\circ</m> quanh trục <m>y</m>, rồi tiếp theo là quay <m>-90^\circ</m> quanh trục <m>x</m> là gì?</p></li>
+        </ol>
+      </statement>
+    </exercise>
+
+    <exercise>
+      <statement>
+        <p>Nếu một phép biến đổi ma trận thực hiện một phép biến đổi hình học, ta muốn tìm một phép biến đổi ma trận đảo ngược phép biến đổi đó.</p>
+        <ol marker="a.">
+          <li><p>Giả sử <m>T:\real^2\to\real^2</m> là phép biến đổi ma trận quay các vectơ một góc <m>90^\circ</m>. Hãy tìm một phép biến đổi ma trận <m>S:\real^2\to\real^2</m> đảo ngược phép quay này; tức là <m>S</m> đưa <m>T(\xvec)</m> trở lại <m>\xvec</m> sao cho <m>(S\circ T)(\xvec)=\xvec</m>. Hãy suy nghĩ về mặt hình học xem phép biến đổi <m>S</m> nên là gì, rồi kiểm chứng bằng đại số. Ta nói rằng <m>S</m> là nghịch đảo của <m>T</m> và viết là <m>T^{-1}</m>.</p></li>
+          <li><p>Hãy kiểm chứng bằng đại số rằng phép phản xạ <m>R:\real^2\to\real^2</m> qua đường thẳng <m>y=x</m> là nghịch đảo của chính nó; tức là <m>R^{-1}=R</m>.</p></li>
+          <li><p>Phép biến đổi ma trận <m>T:\real^2\to\real^2</m> được xác định bởi ma trận
+          <m>A=\left[\begin{array}{rr}1 \amp 1 \\ 0 \amp 1\end{array}\right]</m>
+          được gọi là một phép trượt. Hãy tìm nghịch đảo của <m>T</m>.</p></li>
+          <li><p>Hãy mô tả tác động hình học của phép biến đổi ma trận được xác định bởi
+          <m>A=\left[\begin{array}{rr}2 \amp 0 \\ 0 \amp 3\end{array}\right]</m>,
+          rồi tìm nghịch đảo của nó.</p></li>
+        </ol>
+      </statement>
+    </exercise>
+
+    <exercise>
+      <statement>
+        <p>Ta đã thấy rằng ma trận
+        <me>\left[\begin{array}{rr}\cos\theta \amp -\sin\theta \\ \sin\theta \amp \cos\theta\end{array}\right]</me>
+        thực hiện phép quay một góc <m>\theta</m> quanh gốc tọa độ. Giả sử thay vào đó ta muốn quay một góc <m>90^\circ</m> quanh điểm <m>(1,2)</m>. Sử dụng tọa độ thuần nhất, ta sẽ xây dựng một ma trận thực hiện phép biến đổi này.</p>
+        <p>Chiến lược của ta là bắt đầu với một vectơ có gốc tại điểm <m>(1,2)</m>, tịnh tiến vectơ để gốc của nó nằm tại gốc tọa độ, quay một góc <m>90^\circ</m>, rồi tịnh tiến vectơ để gốc của nó quay trở lại <m>(1,2)</m>.</p>
+        <p>Khi làm việc với tọa độ thuần nhất, ta xét các ma trận có dạng
+        <me>\left[\begin{array}{rrr}a \amp b \amp c \\ d \amp e \amp f \\ 0 \amp 0 \amp 1\end{array}\right]</me>.</p>
+        <ol marker="a.">
+          <li><p>Phép biến đổi đầu tiên là phép tịnh tiến bởi <m>(-1,-2)</m>. Hãy tìm ma trận thực hiện phép tịnh tiến này.</p></li>
+          <li><p>Phép biến đổi thứ hai là phép quay <m>90^\circ</m> quanh gốc tọa độ. Hãy tìm ma trận thực hiện phép quay này.</p></li>
+          <li><p>Phép biến đổi thứ ba là phép tịnh tiến bởi <m>(1,2)</m>. Hãy tìm ma trận thực hiện phép tịnh tiến này.</p></li>
+          <li><p>Hãy dùng các ma trận này để tìm ma trận thực hiện phép quay <m>90^\circ</m> quanh <m>(1,2)</m>.</p></li>
+          <li><p>Hãy dùng ma trận của bạn để xác định điểm <m>(-10,5)</m> đi đến đâu nếu nó được quay <m>90^\circ</m> quanh <m>(1,2)</m>.</p></li>
+        </ol>
+      </statement>
+    </exercise>
+
+    <exercise>
+      <statement>
+        <p>Xét phép biến đổi ma trận <m>T:\real^2\to\real^2</m> gán cho mỗi vectơ <m>\xvec</m> vectơ gần nhất trên trục ngang, như được minh họa trong Hình 2.6.21. Phép biến đổi này được gọi là phép chiếu lên trục ngang. Bạn có thể tưởng tượng <m>T(\xvec)</m> là bóng của <m>\xvec</m> do một đèn pin ở rất xa phía trên trục <m>y</m> dương chiếu xuống.</p>
+        <ol marker="a.">
+          <li><p>Hãy tìm ma trận xác định phép biến đổi ma trận <m>T</m> này.</p></li>
+          <li><p>Hãy tìm ma trận xác định phép chiếu lên trục tung.</p></li>
+          <li><p>Kết quả của việc hợp thành phép chiếu lên trục ngang với phép chiếu lên trục tung là gì?</p></li>
+          <li><p>Hãy tìm ma trận xác định phép chiếu lên đường thẳng <m>y=x</m>.</p></li>
+        </ol>
+      </statement>
+    </exercise>
+
+    <exercise>
+      <statement>
+        <p>Bài tập này nói về các phép biến đổi ma trận được xác định bởi các ma trận có dạng
+        <me>A=\left[\begin{array}{rr}a \amp -b \\ b \amp a\end{array}\right]</me>.</p>
+        <p>Ta bắt đầu bằng cách xét hai loại đặc biệt của các ma trận này.</p>
+        <ol marker="a.">
+          <li><p>Trước hết, xét ma trận với <m>a=2</m> và <m>b=0</m>, do đó
+          <m>A=\left[\begin{array}{rr}2 \amp 0 \\ 0 \amp 2\end{array}\right]</m>.
+          Hãy mô tả tác động hình học của ma trận này. Tổng quát hơn, giả sử
+          <m>A=\left[\begin{array}{rr}r \amp 0 \\ 0 \amp r\end{array}\right]</m>,
+          trong đó <m>r</m> là một số dương. Tác động hình học của <m>A</m> lên các vectơ trong mặt phẳng là gì?</p></li>
+          <li><p>Bây giờ giả sử <m>a=0</m> và <m>b=1</m>, do đó
+          <m>A=\left[\begin{array}{rr}0 \amp -1 \\ 1 \amp 0\end{array}\right]</m>.
+          Tác động hình học của <m>A</m> lên các vectơ trong mặt phẳng là gì? Tổng quát hơn, giả sử
+          <m>A=\left[\begin{array}{rr}\cos\theta \amp -\sin\theta \\ \sin\theta \amp \cos\theta\end{array}\right]</m>.
+          Tác động hình học của <m>A</m> lên các vectơ trong mặt phẳng là gì?</p></li>
+          <li><p>Nói chung, phép hợp thành các phép biến đổi ma trận phụ thuộc vào thứ tự hợp thành. Tuy nhiên, với các phép biến đổi này thì không như vậy. Hãy kiểm tra điều này bằng cách xác minh rằng
+          <me>\left[\begin{array}{rr}r \amp 0 \\ 0 \amp r\end{array}\right]
+          \left[\begin{array}{rr}\cos\theta \amp -\sin\theta \\ \sin\theta \amp \cos\theta\end{array}\right]
+          =
+          \left[\begin{array}{rr}\cos\theta \amp -\sin\theta \\ \sin\theta \amp \cos\theta\end{array}\right]
+          \left[\begin{array}{rr}r \amp 0 \\ 0 \amp r\end{array}\right]</me>.</p></li>
+          <li><p>Bây giờ xét trường hợp tổng quát
+          <m>A=\left[\begin{array}{rr}a \amp -b \\ b \amp a\end{array}\right]</m>.
+          Ta vẽ vectơ <m>\twovec{a}{b}</m> trong mặt phẳng và biểu diễn nó bằng tọa độ cực <m>r</m> và <m>\theta</m>. Khi đó
+          <m>\twovec{a}{b}=\twovec{r\cos\theta}{r\sin\theta}</m>.
+          Hãy chứng minh rằng
+          <me>\left[\begin{array}{rr}a \amp -b \\ b \amp a\end{array}\right]
+          =
+          \left[\begin{array}{rr}r \amp 0 \\ 0 \amp r\end{array}\right]
+          \left[\begin{array}{rr}\cos\theta \amp -\sin\theta \\ \sin\theta \amp \cos\theta\end{array}\right]</me>.</p></li>
+          <li><p>Dựa trên mô tả này, hãy mô tả tác động hình học lên các vectơ trong mặt phẳng của phép biến đổi ma trận được xác định bởi
+          <m>A=\left[\begin{array}{rr}a \amp -b \\ b \amp a\end{array}\right]</m>.</p></li>
+          <li><p>Giả sử ta có một phép biến đổi ma trận <m>T</m> được xác định bởi ma trận <m>A</m> và một phép biến đổi khác <m>S</m> được xác định bởi <m>B</m>, trong đó
+          <m>A=\left[\begin{array}{rr}a \amp -b \\ b \amp a\end{array}\right]</m>,
+          <m>B=\left[\begin{array}{rr}c \amp -d \\ d \amp c\end{array}\right]</m>.
+          Hãy mô tả tác động hình học của phép hợp thành <m>S\circ T</m> theo <m>a,b,c</m> và <m>d</m>.</p></li>
+        </ol>
+        <p>Các ma trận có dạng này cho một mô hình của số phức và sẽ đóng vai trò quan trọng trong Mục 4.4.</p>
+      </statement>
+    </exercise>
+
+    <exercise>
+      <statement>
+        <p>Trước đó ta đã thấy phép quay trong mặt phẳng qua một góc <m>\theta</m> được cho bởi ma trận:
+        <me>\left[\begin{array}{rr}\cos\theta \amp -\sin\theta \\ \sin\theta \amp \cos\theta\end{array}\right]</me>.
+        Ta muốn tìm một biểu thức tương tự cho ma trận biểu diễn phép phản xạ qua <m>L_\theta</m>, đường thẳng đi qua gốc tọa độ và tạo với trục <m>x</m> dương một góc <m>\theta</m>.</p>
+        <ol marker="a.">
+          <li><p>Để làm điều này, hãy chú ý rằng phép phản xạ này có thể thu được bằng cách hợp thành ba phép biến đổi riêng biệt. Bắt đầu với vectơ <m>\xvec</m>, ta áp dụng phép biến đổi <m>R</m> để quay một góc <m>-\theta</m> và thu được <m>R(\xvec)</m>. Tiếp theo, ta áp dụng <m>S</m>, một phép phản xạ qua trục ngang, rồi áp dụng <m>T</m>, một phép quay góc <m>\theta</m>. Ta thấy rằng <m>T(S(R(\xvec)))</m> giống với ảnh phản xạ của <m>\xvec</m> qua đường thẳng ban đầu <m>L_\theta</m>. Dùng phân tích này, hãy chứng minh rằng phép phản xạ qua đường thẳng <m>L_\theta</m> được mô tả bởi ma trận
+          <me>\left[\begin{array}{rr}\cos(2\theta) \amp \sin(2\theta) \\ \sin(2\theta) \amp -\cos(2\theta)\end{array}\right]</me>.
+          Bạn sẽ cần nhớ các đẳng thức lượng giác:
+          <me>\cos(2\theta)=\cos^2\theta-\sin^2\theta,\qquad \sin(2\theta)=2\sin\theta\cos\theta</me>.</p></li>
+          <li><p>Bây giờ khi đã có ma trận mô tả phép phản xạ qua đường thẳng <m>L_\theta</m>, hãy chứng minh rằng phép hợp thành của phép phản xạ qua trục ngang rồi phản xạ qua <m>L_\theta</m> là một phép quay ngược chiều kim đồng hồ một góc <m>2\theta</m>. Ta đã thấy một vài ví dụ về điều này trước đó trong Bài tập 2.6.4.2.</p></li>
+        </ol>
+      </statement>
+    </exercise>
+
+  </exercises>
+
+
+</section>

@@ -1,0 +1,1948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="chap2" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Vectơ, ma trận và tổ hợp tuyến tính</title>
+
+  <introduction>
+    <p>Trong Chương 1, ta bắt đầu nghiên cứu hệ tuyến tính thông qua ma trận mở rộng, chẳng hạn</p>
+    <me>
+      \left[
+      \begin{array}{rrr|r}
+      1 \amp 2 \amp -1 \amp 3 \\
+      -3 \amp 3 \amp -1 \amp 2 \\
+      2 \amp 3 \amp 2 \amp -1
+      \end{array}
+      \right].
+    </me>
+    <p>Trong chương này, ta sẽ nhìn thấy thông tin hình học ẩn trong những ma trận như vậy. Điều này giúp ta hiểu trực giác hơn các kết quả đã thu được về nghiệm của hệ tuyến tính.</p>
+  </introduction>
+
+  <section xml:id="sec-vectors-lin-combs-vi">
+    <title>Vectơ và tổ hợp tuyến tính</title>
+
+    <introduction>
+      <p>Một điều rất đáng chú ý là đại số, vốn nghiên cứu các phương trình ký hiệu và nghiệm của chúng, lại gắn bó chặt chẽ với hình học. Chẳng hạn, tập nghiệm của một phương trình tuyến tính hai ẩn như <m>2x+y=1</m> có thể được biểu diễn bằng một đường thẳng. Mục tiêu của phần này là làm sâu hơn mối liên hệ đó bằng cách giới thiệu vectơ. Vectơ giúp ta dùng trực giác hình học để suy nghĩ về các hệ tuyến tính.</p>
+    </introduction>
+
+    <subsection xml:id="subsection-2-1-vectors">
+      <title>Vectơ</title>
+
+      <p>Một <term>vectơ</term> có thể được hiểu đơn giản nhất là một ma trận chỉ có một cột. Chẳng hạn,</p>
+      <me>
+        \mathbf{v}=\left[\begin{array}{r}2\\1\end{array}\right]
+        \quad\text{và}\quad
+        \mathbf{w}=\left[\begin{array}{r}-3\\1\\0\\2\end{array}\right]
+      </me>
+      <p>đều là các vectơ. Các phần tử nằm trong một vectơ được gọi là <term>thành phần</term> của vectơ đó. Vì <m>\mathbf{v}</m> có hai thành phần, ta nói <m>\mathbf{v}</m> là một vectơ hai chiều. Tương tự, <m>\mathbf{w}</m> là một vectơ bốn chiều.</p>
+
+      <p>Tập hợp tất cả các vectơ <m>m</m> chiều được ký hiệu là <m>\R^m</m>. Vì vậy, nếu <m>\mathbf{u}</m> là một vectơ ba chiều, ta nói <m>\mathbf{u}</m> thuộc <m>\R^3</m>.</p>
+
+      <p>Khó có thể hình dung một vectơ bốn chiều, nhưng một vectơ hai chiều có thể được vẽ bằng một mũi tên trong mặt phẳng. Ví dụ, vectơ</p>
+      <me>\mathbf{v}=\left[\begin{array}{r}2\\1\end{array}\right]</me>
+      <p>có thể được hiểu là một bước đi trong mặt phẳng: đi sang ngang 2 đơn vị và đi theo chiều dọc 1 đơn vị. Thường ta đặt gốc của mũi tên tại gốc tọa độ, khi đó đầu mũi tên nằm tại điểm <m>(2,1)</m>. Vì vậy, trong nhiều trường hợp, ta có thể qua lại giữa cách nhìn vectơ <m>\left[\begin{array}{r}2\\1\end{array}\right]</m> và điểm <m>(2,1)</m>.</p>
+    </subsection>
+
+    <subsection xml:id="subsection-2-1-vector-operations">
+      <title>Các phép toán cơ bản với vectơ</title>
+
+      <p>Có hai phép toán đại số cơ bản thường được thực hiện trên vectơ.</p>
+
+      <definition xml:id="definition-2-1-scalar-multiplication">
+        <title>Nhân vô hướng</title>
+        <statement>
+          <p>Ta nhân một vectơ <m>\mathbf{v}</m> với một số thực <m>c</m> bằng cách nhân từng thành phần của <m>\mathbf{v}</m> với <m>c</m>. Các số thực như <m>c</m> được gọi là <term>vô hướng</term> để phân biệt với vectơ.</p>
+          <me>
+            -3\left[\begin{array}{r}2\\-4\\1\end{array}\right]
+            =
+            \left[\begin{array}{r}-6\\12\\-3\end{array}\right].
+          </me>
+        </statement>
+      </definition>
+
+      <definition xml:id="definition-2-1-vector-addition">
+        <title>Cộng vectơ</title>
+        <statement>
+          <p>Ta chỉ có thể cộng hai vectơ có cùng số chiều. Khi đó, ta cộng các thành phần tương ứng của chúng.</p>
+          <me>
+            \left[\begin{array}{r}2\\-4\\3\end{array}\right]
+            +
+            \left[\begin{array}{r}-5\\6\\-3\end{array}\right]
+            =
+            \left[\begin{array}{r}-3\\2\\0\end{array}\right].
+          </me>
+        </statement>
+      </definition>
+
+      <definition xml:id="definition-2-1-zero-vector">
+        <title>Vectơ không</title>
+        <statement>
+          <p>Vectơ có tất cả các thành phần bằng <m>0</m> được gọi là <term>vectơ không</term>, ký hiệu là <m>\mathbf{0}</m>. Số chiều của <m>\mathbf{0}</m> phụ thuộc vào ngữ cảnh.</p>
+          <me>
+            \mathbf{0}=\left[\begin{array}{c}0\\0\\\vdots\\0\end{array}\right].
+          </me>
+        </statement>
+      </definition>
+
+      <p>Về mặt hình học, nhân vô hướng làm kéo dài hoặc co ngắn một vectơ. Nếu nhân với một vô hướng âm, hướng của vectơ bị đảo ngược. Mọi bội vô hướng của một vectơ <m>\mathbf{v}</m> đều nằm trên cùng một đường thẳng xác định bởi <m>\mathbf{v}</m>.</p>
+
+      <p>Phép cộng vectơ có thể hiểu như một bước đi liên tiếp. Để biểu diễn <m>\mathbf{v}+\mathbf{w}</m>, ta đi theo vectơ <m>\mathbf{v}</m>, rồi từ đầu mũi tên của <m>\mathbf{v}</m> tiếp tục đi theo vectơ <m>\mathbf{w}</m>. Vectơ tổng <m>\mathbf{v}+\mathbf{w}</m> là vectơ đi từ điểm xuất phát ban đầu đến điểm kết thúc cuối cùng. Cách nhìn tương đương là dựng hình bình hành có hai cạnh là <m>\mathbf{v}</m> và <m>\mathbf{w}</m>; khi đó <m>\mathbf{v}+\mathbf{w}</m> là đường chéo của hình bình hành.</p>
+
+      <observation xml:id="observation-2-1-vector-properties">
+        <title>Một số tính chất quen thuộc</title>
+        <statement>
+          <p>Dù các phép toán trên vectơ là mới, chúng vẫn thỏa mãn nhiều tính chất quen thuộc:</p>
+          <ul>
+            <li><p><term>Giao hoán:</term> <m>\mathbf{v}+\mathbf{w}=\mathbf{w}+\mathbf{v}</m>.</p></li>
+            <li><p><term>Kết hợp:</term> <m>(\mathbf{u}+\mathbf{v})+\mathbf{w}=\mathbf{u}+(\mathbf{v}+\mathbf{w})</m>.</p></li>
+            <li><p><term>Vectơ không:</term> <m>\mathbf{v}+\mathbf{0}=\mathbf{v}</m>.</p></li>
+            <li><p><term>Vectơ đối:</term> <m>\mathbf{v}+(-\mathbf{v})=\mathbf{0}</m>.</p></li>
+            <li><p><term>Phân phối theo phép cộng vectơ:</term> <m>a(\mathbf{v}+\mathbf{w})=a\mathbf{v}+a\mathbf{w}</m>.</p></li>
+            <li><p><term>Phân phối theo phép cộng vô hướng:</term> <m>(a+b)\mathbf{v}=a\mathbf{v}+b\mathbf{v}</m>.</p></li>
+          </ul>
+        </statement>
+      </observation>
+
+      <p>Một ý quan trọng từ hoạt động mở đầu của sách là: tập hợp các vectơ dạng <m>c\mathbf{v}</m>, với <m>c</m> thay đổi trên các số thực, tạo thành một đường thẳng đi qua gốc tọa độ. Tập hợp các vectơ dạng <m>c\mathbf{v}+\mathbf{w}</m> tạo thành một đường thẳng song song với đường do <m>\mathbf{v}</m> xác định, nhưng được tịnh tiến để đi qua đầu mút của <m>\mathbf{w}</m>. Khi nói các vectơ đó tạo thành một đường thẳng, ta hiểu chính xác hơn là các đầu mút của chúng nằm trên đường thẳng đó.</p>
+    </subsection>
+
+    <subsection xml:id="subsection-2-1-linear-combinations">
+      <title>Tổ hợp tuyến tính</title>
+
+      <p><term>Tổ hợp tuyến tính</term> là khái niệm nối vectơ với hệ tuyến tính. Nó cho phép ta đưa trực giác hình học vào các bài toán đại số.</p>
+
+      <definition xml:id="definition-2-1-linear-combination">
+        <title>Tổ hợp tuyến tính</title>
+        <statement>
+          <p>Cho các vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> và các vô hướng <m>c_1,c_2,\ldots,c_n</m>. Vectơ</p>
+          <me>
+            c_1\mathbf{v}_1+c_2\mathbf{v}_2+\cdots+c_n\mathbf{v}_n
+          </me>
+          <p>được gọi là một <term>tổ hợp tuyến tính</term> của các vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m>. Các vô hướng <m>c_1,c_2,\ldots,c_n</m> được gọi là các <term>trọng số</term> của tổ hợp tuyến tính.</p>
+        </statement>
+      </definition>
+
+      <p>Về mặt hình học, tổ hợp tuyến tính <m>c\mathbf{v}+d\mathbf{w}</m> có thể hiểu là: đi theo hướng <m>\mathbf{v}</m> với trọng số <m>c</m>, rồi đi theo hướng <m>\mathbf{w}</m> với trọng số <m>d</m>. Nếu giữ một trọng số cố định và thay đổi trọng số còn lại, đầu mút của vectơ tạo ra thường di chuyển trên một đường thẳng.</p>
+
+      <example xml:id="example-2-1-linear-combination-computation">
+        <title>Tính một tổ hợp tuyến tính</title>
+        <statement>
+          <p>Giả sử</p>
+          <me>
+            \mathbf{v}=\left[\begin{array}{r}3\\1\end{array}\right],
+            \quad
+            \mathbf{w}=\left[\begin{array}{r}-1\\2\end{array}\right].
+          </me>
+          <p>Với <m>c=-2</m> và <m>d=1</m>, ta có</p>
+          <me>
+            c\mathbf{v}+d\mathbf{w}
+            =-2\left[\begin{array}{r}3\\1\end{array}\right]
+            +\left[\begin{array}{r}-1\\2\end{array}\right]
+            =\left[\begin{array}{r}-7\\0\end{array}\right].
+          </me>
+        </statement>
+      </example>
+
+      <p>Một câu hỏi trung tâm là: một vectơ <m>\mathbf{b}</m> có thể viết được dưới dạng tổ hợp tuyến tính của các vectơ đã cho hay không? Nói cách khác, ta muốn biết có tồn tại các trọng số sao cho</p>
+      <me>
+        c_1\mathbf{v}_1+c_2\mathbf{v}_2+\cdots+c_n\mathbf{v}_n=\mathbf{b}
+      </me>
+      <p>hay không.</p>
+    </subsection>
+
+    <subsection xml:id="subsection-2-1-linear-combinations-systems">
+      <title>Tổ hợp tuyến tính và hệ tuyến tính</title>
+
+      <example xml:id="example-2-1-combination-system">
+        <title>Đưa bài toán tổ hợp tuyến tính về hệ tuyến tính</title>
+        <statement>
+          <p>Cho</p>
+          <me>
+            \mathbf{v}=\left[\begin{array}{r}3\\-1\end{array}\right],
+            \quad
+            \mathbf{w}=\left[\begin{array}{r}4\\3\end{array}\right],
+            \quad
+            \mathbf{b}=\left[\begin{array}{r}-11\\-18\end{array}\right].
+          </me>
+          <p>Ta muốn xác định xem <m>\mathbf{b}</m> có phải là tổ hợp tuyến tính của <m>\mathbf{v}</m> và <m>\mathbf{w}</m> hay không. Điều đó có nghĩa là cần tìm các trọng số <m>c</m> và <m>d</m> sao cho</p>
+          <me>
+            c\mathbf{v}+d\mathbf{w}=\mathbf{b}.
+          </me>
+          <p>Viết theo thành phần, ta được</p>
+          <me>
+            c\left[\begin{array}{r}3\\-1\end{array}\right]
+            +d\left[\begin{array}{r}4\\3\end{array}\right]
+            =
+            \left[\begin{array}{r}-11\\-18\end{array}\right],
+          </me>
+          <p>tức là</p>
+          <me>
+            \left[\begin{array}{r}3c+4d\\-c+3d\end{array}\right]
+            =
+            \left[\begin{array}{r}-11\\-18\end{array}\right].
+          </me>
+          <p>Do đó ta thu được hệ tuyến tính</p>
+          <me>
+            \begin{alignedat}{3}
+            3c \amp{}+{}\amp 4d \amp{}={}\amp -11\\
+            -c \amp{}+{}\amp 3d \amp{}={}\amp -18.
+            \end{alignedat}
+          </me>
+          <p>Ma trận mở rộng tương ứng là</p>
+          <me>
+            \left[\begin{array}{rr|r}
+            3 \amp 4 \amp -11\\
+            -1 \amp 3 \amp -18
+            \end{array}\right]
+            \sim
+            \left[\begin{array}{rr|r}
+            1 \amp 0 \amp 3\\
+            0 \amp 1 \amp -5
+            \end{array}\right].
+          </me>
+          <p>Vì vậy <m>c=3</m> và <m>d=-5</m>. Ta có</p>
+          <me>
+            3\mathbf{v}-5\mathbf{w}=\mathbf{b}.
+          </me>
+          <p>Ma trận bậc thang rút gọn còn cho biết đây là cách biểu diễn duy nhất của <m>\mathbf{b}</m> dưới dạng tổ hợp tuyến tính của <m>\mathbf{v}</m> và <m>\mathbf{w}</m>.</p>
+        </statement>
+      </example>
+
+      <p>Ví dụ trên cho thấy mối liên hệ cốt lõi: hỏi xem một vectơ <m>\mathbf{b}</m> có là tổ hợp tuyến tính của các vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> hay không cũng chính là hỏi xem một hệ tuyến tính tương ứng có tương thích hay không.</p>
+
+      <proposition xml:id="prop-system-comb-vi">
+        <title>Tổ hợp tuyến tính và tính tương thích của hệ tuyến tính</title>
+        <statement>
+          <p>Vectơ <m>\mathbf{b}</m> là một tổ hợp tuyến tính của các vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> khi và chỉ khi hệ tuyến tính ứng với ma trận mở rộng</p>
+          <me>
+            \left[
+            \begin{array}{rrrr|r}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n \amp \mathbf{b}
+            \end{array}
+            \right]
+          </me>
+          <p>là tương thích. Một nghiệm của hệ tuyến tính này chính là một bộ trọng số <m>c_1,c_2,\ldots,c_n</m> sao cho</p>
+          <me>
+            c_1\mathbf{v}_1+c_2\mathbf{v}_2+\cdots+c_n\mathbf{v}_n=\mathbf{b}.
+          </me>
+        </statement>
+      </proposition>
+
+      <p>Mệnh đề này cũng cho ta một tiêu chuẩn quan trọng. Nếu ma trận hệ số <m>\left[\begin{array}{rrrr}\mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n\end{array}\right]</m> có vị trí pivot ở mọi hàng, thì mọi vectơ <m>\mathbf{b}</m> trong không gian tương ứng đều có thể được viết thành tổ hợp tuyến tính của các vectơ đã cho. Nếu thiếu pivot ở một hàng nào đó, sẽ có ít nhất một vectơ <m>\mathbf{b}</m> khiến hệ không tương thích, tức là không thể biểu diễn <m>\mathbf{b}</m> bằng tổ hợp tuyến tính của các vectơ đã cho.</p>
+
+      <example xml:id="example-2-1-collinear-vectors">
+        <title>Khi các vectơ cùng nằm trên một đường thẳng</title>
+        <statement>
+          <p>Xét</p>
+          <me>
+            \mathbf{v}=\left[\begin{array}{r}-1\\1\end{array}\right],
+            \quad
+            \mathbf{w}=\left[\begin{array}{r}2\\-2\end{array}\right].
+          </me>
+          <p>Ta thấy <m>\mathbf{w}=-2\mathbf{v}</m>, nên hai vectơ này nằm trên cùng một đường thẳng. Vì vậy mọi tổ hợp tuyến tính <m>c\mathbf{v}+d\mathbf{w}</m> cũng nằm trên đường thẳng đó. Một vectơ không nằm trên đường thẳng này, chẳng hạn</p>
+          <me>
+            \mathbf{b}=\left[\begin{array}{r}3\\0\end{array}\right],
+          </me>
+          <p>không thể viết thành tổ hợp tuyến tính của <m>\mathbf{v}</m> và <m>\mathbf{w}</m>. Thật vậy,</p>
+          <me>
+            \left[\begin{array}{rr|r}
+            -1 \amp 2 \amp 3\\
+            1 \amp -2 \amp 0
+            \end{array}\right]
+            \sim
+            \left[\begin{array}{rr|r}
+            1 \amp -2 \amp 0\\
+            0 \amp 0 \amp 1
+            \end{array}\right],
+          </me>
+          <p>nên hệ tương ứng không tương thích. Do đó <m>\mathbf{b}</m> không phải là tổ hợp tuyến tính của <m>\mathbf{v}</m> và <m>\mathbf{w}</m>.</p>
+        </statement>
+      </example>
+    </subsection>
+
+    <subsection xml:id="subsection-2-1-summary">
+      <title>Tóm tắt</title>
+      <p>Phần này đã giới thiệu vectơ, tổ hợp tuyến tính và mối liên hệ của chúng với hệ tuyến tính.</p>
+      <ul>
+        <li><p>Vectơ có thể được xem là một ma trận một cột. Một vectơ có <m>m</m> thành phần thuộc <m>\R^m</m>.</p></li>
+        <li><p>Hai phép toán cơ bản trên vectơ là nhân vô hướng và cộng vectơ. Cả hai đều có ý nghĩa hình học.</p></li>
+        <li><p>Nhân vô hướng kéo dài, co ngắn hoặc đảo hướng vectơ. Cộng vectơ có thể hiểu bằng quy tắc bước đi liên tiếp hoặc đường chéo hình bình hành.</p></li>
+        <li><p>Cho một tập vectơ và một tập vô hướng gọi là trọng số, ta tạo được một tổ hợp tuyến tính bằng cách dùng nhân vô hướng và cộng vectơ.</p></li>
+        <li><p>Muốn xác định <m>\mathbf{b}</m> có phải là tổ hợp tuyến tính của <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> hay không, ta xét hệ tuyến tính ứng với ma trận mở rộng <m>\left[\begin{array}{rrrr|r}\mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n \amp \mathbf{b}\end{array}\right]</m>.</p></li>
+        <li><p>Nghiệm của hệ tuyến tính đó chính là các trọng số biểu diễn <m>\mathbf{b}</m> dưới dạng tổ hợp tuyến tính của các vectơ đã cho.</p></li>
+      </ul>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-matrices-lin-combs-vi">
+    <title>Phép nhân ma trận và tổ hợp tuyến tính</title>
+
+    <introduction>
+      <p>Phần trước đã giới thiệu vectơ và tổ hợp tuyến tính, đồng thời cho thấy chúng cung cấp một cách nhìn hình học đối với hệ tuyến tính. Cụ thể, ta đã thấy rằng vectơ <m>\mathbf{b}</m> là tổ hợp tuyến tính của các vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> đúng khi hệ tuyến tính ứng với ma trận mở rộng</p>
+      <me>
+        \left[\begin{array}{rrrr|r}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n \amp \mathbf{b}
+        \end{array}\right]
+      </me>
+      <p>là tương thích. Mục tiêu của phần này là giới thiệu phép nhân ma trận, một phép toán đại số giúp làm sâu hơn mối liên hệ giữa hệ tuyến tính và tổ hợp tuyến tính.</p>
+    </introduction>
+
+    <subsection xml:id="subsection-2-2-matrix-addition-scalar">
+      <title>Nhân vô hướng và cộng ma trận</title>
+
+      <p>Ma trận là một mảng chữ nhật gồm các số. Nếu nói ma trận có kích thước <m>m\times n</m>, ta hiểu rằng ma trận đó có <m>m</m> hàng và <m>n</m> cột. Chẳng hạn, ma trận</p>
+      <me>
+        \left[
+        \begin{array}{rrrr}
+        0 \amp 4 \amp -3 \amp 1\\
+        3 \amp -1 \amp 2 \amp 0\\
+        2 \amp 0 \amp -1 \amp 1
+        \end{array}
+        \right]
+      </me>
+      <p>có kích thước <m>3\times4</m>.</p>
+
+      <p>Ta cũng có thể xem các cột của một ma trận là một tập vectơ có thứ tự. Ma trận trên có thể được viết là</p>
+      <me>
+        \left[\begin{array}{rrrr}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \mathbf{v}_3 \amp \mathbf{v}_4
+        \end{array}\right],
+      </me>
+      <p>trong đó</p>
+      <me>
+        \mathbf{v}_1=\left[\begin{array}{r}0\\3\\2\end{array}\right],\quad
+        \mathbf{v}_2=\left[\begin{array}{r}4\\-1\\0\end{array}\right],\quad
+        \mathbf{v}_3=\left[\begin{array}{r}-3\\2\\-1\end{array}\right],\quad
+        \mathbf{v}_4=\left[\begin{array}{r}1\\0\\1\end{array}\right].
+      </me>
+      <p>Vì vậy, một ma trận <m>3\times4</m> có thể được xem như một bộ có thứ tự gồm 4 vectơ trong <m>\R^3</m>.</p>
+
+      <definition xml:id="definition-2-2-matrix-scalar-addition">
+        <title>Nhân vô hướng và cộng ma trận</title>
+        <statement>
+          <p>Nhân vô hướng với ma trận và cộng ma trận được định nghĩa theo từng cột, tương ứng với các phép toán trên vectơ:</p>
+          <me>
+            c\left[\begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+            \end{array}\right]
+            =
+            \left[\begin{array}{rrrr}
+            c\mathbf{v}_1 \amp c\mathbf{v}_2 \amp \cdots \amp c\mathbf{v}_n
+            \end{array}\right],
+          </me>
+          <me>
+            \left[\begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+            \end{array}\right]
+            +
+            \left[\begin{array}{rrrr}
+            \mathbf{w}_1 \amp \mathbf{w}_2 \amp \cdots \amp \mathbf{w}_n
+            \end{array}\right]
+            =
+            \left[\begin{array}{rrrr}
+            \mathbf{v}_1+\mathbf{w}_1 \amp \mathbf{v}_2+\mathbf{w}_2 \amp \cdots \amp \mathbf{v}_n+\mathbf{w}_n
+            \end{array}\right].
+          </me>
+          <p>Hai ma trận chỉ cộng được với nhau khi chúng có cùng kích thước.</p>
+        </statement>
+      </definition>
+
+      <definition xml:id="definition-2-2-identity-matrix">
+        <title>Ma trận đơn vị</title>
+        <statement>
+          <p>Ma trận <m>I_n</m>, gọi là <term>ma trận đơn vị</term>, là ma trận <m>n\times n</m> có các phần tử trên đường chéo chính bằng <m>1</m> và các phần tử còn lại bằng <m>0</m>. Ví dụ,</p>
+          <me>
+            I_3=\left[\begin{array}{rrr}
+            1 \amp 0 \amp 0\\
+            0 \amp 1 \amp 0\\
+            0 \amp 0 \amp 1
+            \end{array}\right].
+          </me>
+          <p>Nếu tổng <m>A+I_n</m> xác định, thì <m>A</m> phải là ma trận <m>n\times n</m>.</p>
+        </statement>
+      </definition>
+    </subsection>
+
+    <subsection xml:id="subsection-2-2-matrix-vector-product">
+      <title>Phép nhân ma trận-vectơ và tổ hợp tuyến tính</title>
+
+      <p>Phép nhân ma trận-vectơ là phép toán rất quan trọng vì nó cho phép ta viết hệ tuyến tính một cách gọn gàng. Cốt lõi của phép nhân này là tổ hợp tuyến tính của các cột của ma trận.</p>
+
+      <example xml:id="example-2-2-matrix-vector-product">
+        <title>Phép nhân ma trận-vectơ</title>
+        <statement>
+          <p>Giả sử</p>
+          <me>
+            A=\left[\begin{array}{rr}
+            -2 \amp 3\\
+            0 \amp 2\\
+            3 \amp 1
+            \end{array}\right],
+            \quad
+            \mathbf{x}=\left[\begin{array}{r}2\\3\end{array}\right].
+          </me>
+          <p>Tích <m>A\mathbf{x}</m> được định nghĩa là tổ hợp tuyến tính của các cột của <m>A</m>, trong đó các thành phần của <m>\mathbf{x}</m> là các trọng số:</p>
+          <me>
+            \begin{aligned}
+            A\mathbf{x}
+            \amp=
+            \left[\begin{array}{rr}
+            -2 \amp 3\\
+            0 \amp 2\\
+            3 \amp 1
+            \end{array}\right]
+            \left[\begin{array}{r}2\\3\end{array}\right]\\
+            \amp=2\left[\begin{array}{r}-2\\0\\3\end{array}\right]
+            +3\left[\begin{array}{r}3\\2\\1\end{array}\right]\\
+            \amp=\left[\begin{array}{r}-4\\0\\6\end{array}\right]
+            +\left[\begin{array}{r}9\\6\\3\end{array}\right]
+            =\left[\begin{array}{r}5\\6\\9\end{array}\right].
+            \end{aligned}
+          </me>
+          <p>Vì <m>A</m> có 2 cột nên ta cần 2 trọng số để lập tổ hợp tuyến tính của các cột đó. Do đó <m>\mathbf{x}</m> phải có 2 thành phần. Các cột của <m>A</m> là các vectơ 3 chiều, nên <m>A\mathbf{x}</m> cũng là một vectơ 3 chiều.</p>
+        </statement>
+      </example>
+
+      <definition xml:id="definition-2-2-matrix-vector-multiplication">
+        <title>Phép nhân ma trận-vectơ</title>
+        <statement>
+          <p>Tích của ma trận <m>A</m> với vectơ <m>\mathbf{x}</m> là tổ hợp tuyến tính của các cột của <m>A</m>, trong đó các thành phần của <m>\mathbf{x}</m> đóng vai trò trọng số. Cụ thể, nếu</p>
+          <me>
+            A=\left[\begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+            \end{array}\right],
+            \quad
+            \mathbf{x}=\left[\begin{array}{c}c_1\\c_2\\\vdots\\c_n\end{array}\right],
+          </me>
+          <p>thì</p>
+          <me>
+            A\mathbf{x}=c_1\mathbf{v}_1+c_2\mathbf{v}_2+\cdots+c_n\mathbf{v}_n.
+          </me>
+          <p>Nếu <m>A</m> là ma trận <m>m\times n</m>, thì <m>\mathbf{x}</m> phải là vectơ <m>n</m> chiều, và tích <m>A\mathbf{x}</m> là một vectơ <m>m</m> chiều.</p>
+        </statement>
+      </definition>
+
+      <p>Có một cách tính nhanh tích ma trận-vectơ theo hàng. Để tìm thành phần thứ nhất của <m>A\mathbf{x}</m>, ta lấy hàng thứ nhất của <m>A</m>, nhân từng phần tử của hàng đó với thành phần tương ứng của <m>\mathbf{x}</m>, rồi cộng các kết quả lại. Làm tương tự với các hàng tiếp theo để thu được các thành phần còn lại.</p>
+
+      <example xml:id="example-2-2-row-computation">
+        <title>Cách tính theo hàng</title>
+        <statement>
+          <p>Với</p>
+          <me>
+            A=\left[\begin{array}{rr}
+            -2 \amp 3\\
+            0 \amp 2\\
+            3 \amp 1
+            \end{array}\right],
+            \quad
+            \mathbf{x}=\left[\begin{array}{r}2\\3\end{array}\right],
+          </me>
+          <p>thành phần thứ nhất của <m>A\mathbf{x}</m> là <m>2(-2)+3(3)=5</m>. Thành phần thứ ba là <m>2(3)+3(1)=9</m>. Cách tính này cho cùng kết quả với định nghĩa bằng tổ hợp tuyến tính của các cột.</p>
+        </statement>
+      </example>
+
+      <proposition xml:id="prop-matrix-mult-prop-vi">
+        <title>Tính tuyến tính của phép nhân ma trận</title>
+        <statement>
+          <p>Nếu <m>A</m> là một ma trận, <m>\mathbf{v}</m> và <m>\mathbf{w}</m> là các vectơ có số chiều phù hợp, và <m>c</m> là một vô hướng, thì</p>
+          <ul>
+            <li><p><m>A\mathbf{0}=\mathbf{0}</m>.</p></li>
+            <li><p><m>A(c\mathbf{v})=cA\mathbf{v}</m>.</p></li>
+            <li><p><m>A(\mathbf{v}+\mathbf{w})=A\mathbf{v}+A\mathbf{w}</m>.</p></li>
+          </ul>
+        </statement>
+      </proposition>
+
+      <p>Các tính chất trên nói rằng phép nhân với một ma trận giữ cấu trúc tuyến tính: nó biến vectơ không thành vectơ không, đưa bội vô hướng ra ngoài được, và phân phối qua phép cộng vectơ.</p>
+    </subsection>
+
+    <subsection xml:id="subsection-2-2-matrix-equation-linear-systems">
+      <title>Phương trình ma trận-vectơ và hệ tuyến tính</title>
+
+      <p>Cho đến đây, ta bắt đầu với một ma trận <m>A</m> và một vectơ <m>\mathbf{x}</m>, rồi tạo tích <m>A\mathbf{x}=\mathbf{b}</m>. Bây giờ ta đảo ngược câu hỏi: cho trước <m>A</m> và <m>\mathbf{b}</m>, liệu có tìm được vectơ <m>\mathbf{x}</m> sao cho <m>A\mathbf{x}=\mathbf{b}</m> hay không? Câu hỏi này đưa ta trở lại với hệ tuyến tính.</p>
+
+      <p>Viết ma trận <m>A</m> theo các cột và viết <m>\mathbf{x}</m> theo các thành phần:</p>
+      <me>
+        A=\left[\begin{array}{rrrr}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+        \end{array}\right],
+        \quad
+        \mathbf{x}=\left[\begin{array}{c}x_1\\x_2\\\vdots\\x_n\end{array}\right].
+      </me>
+      <p>Theo định nghĩa của tích ma trận-vectơ, phương trình <m>A\mathbf{x}=\mathbf{b}</m> chính là cách viết gọn của phương trình tổ hợp tuyến tính</p>
+      <me>
+        x_1\mathbf{v}_1+x_2\mathbf{v}_2+\cdots+x_n\mathbf{v}_n=\mathbf{b}.
+      </me>
+      <p>Do đó nghiệm của phương trình <m>A\mathbf{x}=\mathbf{b}</m> cũng chính là nghiệm của hệ tuyến tính có ma trận mở rộng</p>
+      <me>
+        \left[\begin{array}{rrrr|r}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n \amp \mathbf{b}
+        \end{array}\right].
+      </me>
+
+      <proposition xml:id="prop-matrix-eq-solution-vi">
+        <title>Ba cách nhìn cùng một không gian nghiệm</title>
+        <statement>
+          <p>Giả sử</p>
+          <me>
+            A=\left[\begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+            \end{array}\right],
+            \quad
+            \mathbf{x}=\left[\begin{array}{c}x_1\\x_2\\\vdots\\x_n\end{array}\right].
+          </me>
+          <p>Khi đó các phát biểu sau là tương đương:</p>
+          <ul>
+            <li><p>Vectơ <m>\mathbf{x}</m> thỏa mãn phương trình <m>A\mathbf{x}=\mathbf{b}</m>.</p></li>
+            <li><p>Vectơ <m>\mathbf{b}</m> là tổ hợp tuyến tính của các cột của <m>A</m> với trọng số <m>x_j</m>:</p>
+              <me>x_1\mathbf{v}_1+x_2\mathbf{v}_2+\cdots+x_n\mathbf{v}_n=\mathbf{b}.</me>
+            </li>
+            <li><p>Các thành phần của <m>\mathbf{x}</m> tạo thành một nghiệm của hệ tuyến tính ứng với ma trận mở rộng</p>
+              <me>
+                \left[\begin{array}{rrrr|r}
+                \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n \amp \mathbf{b}
+                \end{array}\right].
+              </me>
+            </li>
+          </ul>
+        </statement>
+      </proposition>
+
+      <p>Khi <m>A=\left[\begin{array}{rrrr}\mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n\end{array}\right]</m>, ta thường viết</p>
+      <me>
+        \left[\begin{array}{rrrr|r}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n \amp \mathbf{b}
+        \end{array}\right]
+        =
+        \left[\begin{array}{r|r}A \amp \mathbf{b}\end{array}\right]
+      </me>
+      <p>và nói rằng ma trận <m>A</m> được mở rộng bởi vectơ <m>\mathbf{b}</m>.</p>
+
+      <example xml:id="example-2-2-solving-Ax-b">
+        <title>Mô tả nghiệm của phương trình <m>A\mathbf{x}=\mathbf{b}</m></title>
+        <statement>
+          <p>Xét phương trình</p>
+          <me>
+            \left[\begin{array}{rrr}
+            2 \amp 0 \amp 2\\
+            4 \amp -1 \amp 6\\
+            1 \amp 3 \amp -5
+            \end{array}\right]
+            \mathbf{x}
+            =
+            \left[\begin{array}{r}0\\-5\\15\end{array}\right].
+          </me>
+          <p>Phương trình này tương đương với hệ tuyến tính có ma trận mở rộng</p>
+          <me>
+            \left[\begin{array}{rrr|r}
+            2 \amp 0 \amp 2 \amp 0\\
+            4 \amp -1 \amp 6 \amp -5\\
+            1 \amp 3 \amp -5 \amp 15
+            \end{array}\right]
+            \sim
+            \left[\begin{array}{rrr|r}
+            1 \amp 0 \amp 1 \amp 0\\
+            0 \amp 1 \amp -2 \amp 5\\
+            0 \amp 0 \amp 0 \amp 0
+            \end{array}\right].
+          </me>
+          <p>Ma trận rút gọn tương ứng với hệ</p>
+          <me>
+            \begin{alignedat}{4}
+            x_1 \amp{}{}\amp{}{}\amp{}+{}\amp x_3 \amp{}={}\amp 0\\
+            {} \amp{}{}\amp x_2 \amp{}-{}\amp 2x_3 \amp{}={}\amp 5.
+            \end{alignedat}
+          </me>
+          <p>Biến <m>x_3</m> là biến tự do, nên</p>
+          <me>
+            x_1=-x_3,\qquad x_2=5+2x_3.
+          </me>
+          <p>Vì vậy nghiệm có thể viết dưới dạng tham số:</p>
+          <me>
+            \mathbf{x}
+            =\left[\begin{array}{r}x_1\\x_2\\x_3\end{array}\right]
+            =\left[\begin{array}{r}-x_3\\5+2x_3\\x_3\end{array}\right]
+            =\left[\begin{array}{r}0\\5\\0\end{array}\right]
+            +x_3\left[\begin{array}{r}-1\\2\\1\end{array}\right].
+          </me>
+          <p>Về mặt hình học, không gian nghiệm là một đường thẳng trong <m>\R^3</m>, đi qua vectơ <m>\left[\begin{array}{r}0\\5\\0\end{array}\right]</m> và song song với vectơ <m>\left[\begin{array}{r}-1\\2\\1\end{array}\right]</m>.</p>
+        </statement>
+      </example>
+
+      <observation xml:id="observation-2-2-homogeneous-equation">
+        <title>Phương trình thuần nhất</title>
+        <statement>
+          <p>Nếu <m>A</m> là ma trận <m>m\times n</m>, thì phương trình <m>A\mathbf{x}=\mathbf{0}</m> luôn có ít nhất một nghiệm, đó là <m>\mathbf{x}=\mathbf{0}</m>. Nghiệm này gọi là nghiệm tầm thường. Tùy vào các vị trí pivot của <m>A</m>, hệ có thể có thêm các nghiệm không tầm thường.</p>
+        </statement>
+      </observation>
+    </subsection>
+
+    <subsection xml:id="subsection-2-2-matrix-matrix-products">
+      <title>Tích hai ma trận</title>
+
+      <p>Ta đã phát triển các phép toán trên ma trận nhằm đơn giản hóa cách mô tả hệ tuyến tính. Bây giờ ta giới thiệu tích của hai ma trận, một phép toán sẽ trở nên quan trọng khi nghiên cứu các phép biến đổi tuyến tính.</p>
+
+      <definition xml:id="definition-2-2-matrix-matrix-multiplication">
+        <title>Phép nhân ma trận-ma trận</title>
+        <statement>
+          <p>Cho hai ma trận <m>A</m> và <m>B</m>. Trước hết viết <m>B</m> theo các cột:</p>
+          <me>
+            B=\left[\begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_p
+            \end{array}\right].
+          </me>
+          <p>Khi đó tích <m>AB</m> được định nghĩa bởi</p>
+          <me>
+            AB=\left[\begin{array}{rrrr}
+            A\mathbf{v}_1 \amp A\mathbf{v}_2 \amp \cdots \amp A\mathbf{v}_p
+            \end{array}\right].
+          </me>
+          <p>Nói cách khác, các cột của <m>AB</m> là kết quả lấy <m>A</m> nhân lần lượt với từng cột của <m>B</m>.</p>
+        </statement>
+      </definition>
+
+      <example xml:id="example-2-2-matrix-matrix-product">
+        <title>Tính tích hai ma trận theo cột</title>
+        <statement>
+          <p>Cho</p>
+          <me>
+            A=\left[\begin{array}{rr}
+            4 \amp 2\\
+            0 \amp 1\\
+            -3 \amp 4\\
+            2 \amp 0
+            \end{array}\right],
+            \quad
+            B=\left[\begin{array}{rrr}
+            -2 \amp 3 \amp 0\\
+            1 \amp 2 \amp -2
+            \end{array}\right].
+          </me>
+          <p>Khi đó</p>
+          <me>
+            AB=
+            \left[\begin{array}{rrr}
+            A\left[\begin{array}{r}-2\\1\end{array}\right]
+            \amp
+            A\left[\begin{array}{r}3\\2\end{array}\right]
+            \amp
+            A\left[\begin{array}{r}0\\-2\end{array}\right]
+            \end{array}\right]
+            =
+            \left[\begin{array}{rrr}
+            -6 \amp 16 \amp -4\\
+            1 \amp 2 \amp -2\\
+            10 \amp -1 \amp -8\\
+            -4 \amp 6 \amp 0
+            \end{array}\right].
+          </me>
+        </statement>
+      </example>
+
+      <observation xml:id="observation-2-2-compatible-shapes">
+        <title>Điều kiện kích thước khi nhân ma trận</title>
+        <statement>
+          <p>Chỉ có thể nhân hai ma trận khi kích thước của chúng tương thích. Khi lập tích <m>AB</m>, ma trận <m>A</m> nhân với các cột của <m>B</m>. Vì vậy, số cột của <m>A</m> phải bằng số hàng của <m>B</m>. Nếu <m>A</m> là ma trận <m>m\times n</m> và <m>B</m> là ma trận <m>n\times p</m>, thì tích <m>AB</m> xác định và là ma trận <m>m\times p</m>.</p>
+        </statement>
+      </observation>
+
+      <assemblage xml:id="assemblage-2-2-properties-matrix-multiplication">
+        <title>Các tính chất của phép nhân ma trận</title>
+        <p>Nếu các ma trận <m>A</m>, <m>B</m>, <m>C</m> có kích thước sao cho các phép toán dưới đây xác định, thì:</p>
+        <dl>
+          <li><title>Kết hợp</title><p><m>A(BC)=(AB)C</m>.</p></li>
+          <li><title>Phân phối</title><p><m>A(B+C)=AB+AC</m>.</p><p><m>(A+B)C=AC+BC</m>.</p></li>
+        </dl>
+      </assemblage>
+
+      <assemblage xml:id="assemblage-2-2-cautions">
+        <title>Cẩn thận: ma trận không luôn giống số thực</title>
+        <p>Một số tính chất đúng với số thực nhưng không đúng tổng quát với ma trận:</p>
+        <dl>
+          <li><title>Không giao hoán</title><p>Nói chung, <m>AB</m> không nhất thiết bằng <m>BA</m>. Thậm chí có khi một trong hai tích xác định còn tích kia không xác định, hoặc hai tích có kích thước khác nhau.</p></li>
+          <li><title>Không được khử tùy tiện</title><p>Nói chung, từ <m>AB=AC</m> không thể kết luận <m>B=C</m>.</p></li>
+          <li><title>Có thể có ước của không</title><p>Nói chung, từ <m>AB=0</m> không thể kết luận <m>A=0</m> hoặc <m>B=0</m>.</p></li>
+        </dl>
+      </assemblage>
+    </subsection>
+
+    <subsection xml:id="subsection-2-2-summary">
+      <title>Tóm tắt</title>
+      <p>Trong phần này, ta đã tìm được một cách rất gọn để biểu diễn hệ tuyến tính bằng phép nhân ma trận.</p>
+      <ul>
+        <li><p>Ma trận kích thước <m>m\times n</m> có <m>m</m> hàng và <m>n</m> cột. Có thể xem ma trận như một bộ có thứ tự gồm các vectơ cột.</p></li>
+        <li><p>Cộng ma trận chỉ thực hiện được khi hai ma trận có cùng kích thước. Nhân vô hướng và cộng ma trận được thực hiện theo từng thành phần, hoặc tương đương, theo từng cột.</p></li>
+        <li><p>Nếu <m>A</m> là ma trận <m>m\times n</m> và <m>\mathbf{x}</m> là vectơ <m>n</m> chiều, thì <m>A\mathbf{x}</m> là tổ hợp tuyến tính của các cột của <m>A</m>, với các thành phần của <m>\mathbf{x}</m> làm trọng số. Vectơ <m>A\mathbf{x}</m> thuộc <m>\R^m</m>.</p></li>
+        <li><p>Không gian nghiệm của phương trình <m>A\mathbf{x}=\mathbf{b}</m> chính là không gian nghiệm của hệ tuyến tính ứng với ma trận mở rộng <m>\left[\begin{array}{r|r}A \amp \mathbf{b}\end{array}\right]</m>.</p></li>
+        <li><p>Nếu <m>A</m> là ma trận <m>m\times n</m> và <m>B</m> là ma trận <m>n\times p</m>, thì tích <m>AB</m> xác định, có kích thước <m>m\times p</m>, và các cột của nó là <m>A</m> nhân với từng cột của <m>B</m>.</p></li>
+        <li><p>Phép nhân ma trận có tính kết hợp và phân phối, nhưng nói chung không giao hoán, không có quy tắc khử tùy tiện, và có thể có trường hợp <m>AB=0</m> dù cả <m>A</m> và <m>B</m> đều khác ma trận không.</p></li>
+      </ul>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-span-vi">
+    <title>Không gian sinh của một tập vectơ</title>
+
+    <introduction>
+      <p>Phép nhân ma trận cho phép ta viết một hệ tuyến tính dưới dạng <m>A\mathbf{x}=\mathbf{b}</m>. Ngoài việc giúp biểu diễn hệ tuyến tính ngắn gọn hơn, dạng này còn giúp ta suy nghĩ về hệ tuyến tính bằng hình học, vì phép nhân ma trận được định nghĩa thông qua các tổ hợp tuyến tính của các vectơ.</p>
+
+      <p>Ta quay lại hai câu hỏi cơ bản, nhưng bây giờ viết bằng ngôn ngữ của phương trình ma trận:</p>
+      <ul>
+        <li><p><term>Sự tồn tại:</term> Phương trình <m>A\mathbf{x}=\mathbf{b}</m> có nghiệm hay không?</p></li>
+        <li><p><term>Tính duy nhất:</term> Nếu phương trình <m>A\mathbf{x}=\mathbf{b}</m> có nghiệm, nghiệm đó có duy nhất hay không?</p></li>
+      </ul>
+      <p>Trong phần này, ta tập trung vào câu hỏi về sự tồn tại nghiệm. Câu hỏi này dẫn đến khái niệm <term>không gian sinh</term> của một tập vectơ.</p>
+    </introduction>
+
+    <subsection xml:id="subsection-2-3-existence-preview">
+      <title>Sự tồn tại nghiệm và vị trí pivot</title>
+
+      <p>Trước khi định nghĩa không gian sinh, ta xét lại một thực tế quan trọng về hệ tuyến tính. Nếu phương trình <m>A\mathbf{x}=\mathbf{b}</m> vô nghiệm, thì trong ma trận mở rộng</p>
+      <me>
+        \left[\begin{array}{r|r}A \amp \mathbf{b}\end{array}\right]
+      </me>
+      <p>sẽ xuất hiện một vị trí pivot ở cột ngoài cùng bên phải. Nói cách khác, khi rút gọn ma trận mở rộng, ta gặp một hàng biểu diễn mâu thuẫn kiểu <m>0=1</m>.</p>
+
+      <example xml:id="example-2-3-existence-preview">
+        <title>Một ma trận nhưng hai vectơ vế phải khác nhau</title>
+        <statement>
+          <p>Xét ma trận</p>
+          <me>
+            A=
+            \left[
+            \begin{array}{rrr}
+            1 \amp 0 \amp -2\\
+            -2 \amp 2 \amp 2\\
+            1 \amp 1 \amp -3
+            \end{array}
+            \right].
+          </me>
+
+          <p>Với <m>\mathbf{b}=\threevec{2}{2}{5}</m>, ma trận mở rộng rút gọn thành</p>
+          <me>
+            \left[
+            \begin{array}{rrr|r}
+            1 \amp 0 \amp -2 \amp 2\\
+            -2 \amp 2 \amp 2 \amp 2\\
+            1 \amp 1 \amp -3 \amp 5
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rrr|r}
+            1 \amp 0 \amp -2 \amp 2\\
+            0 \amp 1 \amp -1 \amp 3\\
+            0 \amp 0 \amp 0 \amp 0
+            \end{array}
+            \right].
+          </me>
+          <p>Vì không có hàng mâu thuẫn nên hệ tương thích. Không gian nghiệm có thể viết dưới dạng tham số:</p>
+          <me>
+            \mathbf{x}=\threevec{2}{3}{0}+x_3\threevec{2}{1}{1}.
+          </me>
+
+          <p>Nhưng với <m>\mathbf{b}=\threevec{2}{2}{6}</m>, ta có</p>
+          <me>
+            \left[
+            \begin{array}{rrr|r}
+            1 \amp 0 \amp -2 \amp 2\\
+            -2 \amp 2 \amp 2 \amp 2\\
+            1 \amp 1 \amp -3 \amp 6
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rrr|r}
+            1 \amp 0 \amp -2 \amp 0\\
+            0 \amp 1 \amp -1 \amp 0\\
+            0 \amp 0 \amp 0 \amp 1
+            \end{array}
+            \right].
+          </me>
+          <p>Hàng cuối cho biết hệ vô nghiệm. Điểm đáng chú ý là ma trận <m>A</m> chỉ có hai vị trí pivot, tức là có một hàng không chứa pivot. Điều này cho phép có những lựa chọn <m>\mathbf{b}</m> làm xuất hiện pivot ở cột ngoài cùng bên phải của ma trận mở rộng.</p>
+        </statement>
+      </example>
+    </subsection>
+
+    <subsection xml:id="subsection-2-3-span-definition">
+      <title>Không gian sinh của một tập vectơ</title>
+
+      <p>Giả sử ma trận <m>A</m> có các cột là</p>
+      <me>
+        A=
+        \left[
+        \begin{array}{rrrr}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+        \end{array}
+        \right].
+      </me>
+      <p>Theo phần trước, phương trình <m>A\mathbf{x}=\mathbf{b}</m> tương thích khi và chỉ khi <m>\mathbf{b}</m> có thể viết thành một tổ hợp tuyến tính của các cột <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m>.</p>
+
+      <definition xml:id="definition-2-3-span">
+        <title>Không gian sinh</title>
+        <statement>
+          <p><term>Không gian sinh</term> của một tập vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> là tập hợp tất cả các tổ hợp tuyến tính có thể tạo được từ các vectơ đó.</p>
+          <p>Ta ký hiệu không gian sinh này là</p>
+          <me>
+            \laspan{\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n}.
+          </me>
+          <p>Nếu</p>
+          <me>
+            A=
+            \left[
+            \begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+            \end{array}
+            \right],
+          </me>
+          <p>thì <m>\laspan{\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n}</m> cũng chính là tập tất cả các vectơ <m>\mathbf{b}</m> sao cho phương trình <m>A\mathbf{x}=\mathbf{b}</m> tương thích.</p>
+        </statement>
+      </definition>
+
+      <example xml:id="example-2-3-vector-in-span">
+        <title>Một vectơ thuộc không gian sinh</title>
+        <statement>
+          <p>Xét các vectơ</p>
+          <me>
+            \mathbf{v}=\twovec{-2}{1},
+            \qquad
+            \mathbf{w}=\twovec{8}{-4}.
+          </me>
+          <p>Ta có</p>
+          <me>
+            \mathbf{b}=3\mathbf{v}+\mathbf{w}=\twovec{2}{-1}.
+          </me>
+          <p>Vì <m>\mathbf{b}</m> là một tổ hợp tuyến tính của <m>\mathbf{v}</m> và <m>\mathbf{w}</m>, nên <m>\mathbf{b}</m> thuộc <m>\laspan{\mathbf{v},\mathbf{w}}</m>.</p>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-3-vector-not-in-span">
+        <title>Một vectơ không thuộc không gian sinh</title>
+        <statement>
+          <p>Vẫn với</p>
+          <me>
+            \mathbf{v}=\twovec{-2}{1},
+            \qquad
+            \mathbf{w}=\twovec{8}{-4},
+          </me>
+          <p>ta kiểm tra xem <m>\mathbf{b}=\twovec{5}{2}</m> có thuộc <m>\laspan{\mathbf{v},\mathbf{w}}</m> hay không. Lập ma trận</p>
+          <me>
+            A=
+            \begin{bmatrix}
+            \mathbf{v} \amp \mathbf{w}
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            -2 \amp 8\\
+            1 \amp -4
+            \end{bmatrix}.
+          </me>
+          <p>Xét phương trình <m>A\mathbf{x}=\mathbf{b}</m>. Ma trận mở rộng rút gọn thành</p>
+          <me>
+            \left[
+            \begin{array}{rr|r}
+            -2 \amp 8 \amp 5\\
+            1 \amp -4 \amp 2
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rr|r}
+            1 \amp -4 \amp 0\\
+            0 \amp 0 \amp 1
+            \end{array}
+            \right].
+          </me>
+          <p>Hệ vô nghiệm, nên <m>\twovec{5}{2}</m> không thuộc không gian sinh của <m>\mathbf{v}</m> và <m>\mathbf{w}</m>.</p>
+        </statement>
+      </example>
+
+      <p>Không gian sinh có thể hiểu hình học bằng ý tưởng “đi bộ”. Một tổ hợp tuyến tính <m>c\mathbf{v}+d\mathbf{w}</m> nghĩa là ta đi một đoạn theo hướng <m>\mathbf{v}</m>, rồi đi tiếp một đoạn theo hướng <m>\mathbf{w}</m>. Không gian sinh gồm tất cả các vị trí mà ta có thể tới được bằng cách thay đổi các hệ số.</p>
+
+      <example xml:id="example-2-3-span-line-and-plane">
+        <title>Hai khả năng hình học trong <m>\R^2</m></title>
+        <statement>
+          <p>Trước hết xét</p>
+          <me>
+            \mathbf{v}=\twovec{1}{2},
+            \qquad
+            \mathbf{w}=\twovec{-2}{-4}.
+          </me>
+          <p>Vì <m>\mathbf{w}=-2\mathbf{v}</m>, mọi tổ hợp tuyến tính của <m>\mathbf{v}</m> và <m>\mathbf{w}</m> đều có dạng</p>
+          <me>
+            c\mathbf{v}+d\mathbf{w}=c\mathbf{v}-2d\mathbf{v}=(c-2d)\mathbf{v}.
+          </me>
+          <p>Do đó không gian sinh của hai vectơ này chỉ là đường thẳng đi qua gốc theo hướng <m>\mathbf{v}</m>. Chẳng hạn <m>\twovec{2}{4}</m> thuộc không gian sinh, nhưng <m>\twovec{3}{0}</m> thì không.</p>
+
+          <p>Ngược lại, xét</p>
+          <me>
+            \mathbf{v}=\twovec{2}{1},
+            \qquad
+            \mathbf{w}=\twovec{1}{2}.
+          </me>
+          <p>Hai vectơ này không cùng phương. Bằng cách thay đổi các hệ số <m>c</m> và <m>d</m> trong <m>c\mathbf{v}+d\mathbf{w}</m>, ta có thể tạo ra mọi vectơ trong mặt phẳng. Vì vậy</p>
+          <me>
+            \laspan{\mathbf{v},\mathbf{w}}=\R^2.
+          </me>
+          <p>Ví dụ, <m>\twovec{-2}{2}=-2\mathbf{v}+2\mathbf{w}</m> và <m>\twovec{3}{0}=2\mathbf{v}-\mathbf{w}</m>.</p>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-3-span-r2-by-pivots">
+        <title>Khi hai vectơ sinh ra toàn bộ <m>\R^2</m></title>
+        <statement>
+          <p>Xét</p>
+          <me>
+            \mathbf{v}=\twovec{2}{0},
+            \qquad
+            \mathbf{w}=\twovec{-1}{1}.
+          </me>
+          <p>Từ hình học, vectơ <m>\mathbf{b}=\twovec{0}{2}</m> có thể viết là</p>
+          <me>
+            \mathbf{b}=\mathbf{v}+2\mathbf{w}.
+          </me>
+          <p>Ta cũng có thể kiểm tra bằng hệ tuyến tính:</p>
+          <me>
+            \left[
+            \begin{array}{rr|r}
+            2 \amp -1 \amp 0\\
+            0 \amp 1 \amp 2
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rr|r}
+            1 \amp 0 \amp 1\\
+            0 \amp 1 \amp 2
+            \end{array}
+            \right].
+          </me>
+          <p>Ma trận hệ số</p>
+          <me>
+            \begin{bmatrix}
+            2 \amp -1\\
+            0 \amp 1
+            \end{bmatrix}
+            \sim
+            \begin{bmatrix}
+            1 \amp 0\\
+            0 \amp 1
+            \end{bmatrix}
+          </me>
+          <p>có pivot ở mọi hàng. Vì vậy, với mọi vectơ <m>\mathbf{b}\in\R^2</m>, phương trình <m>\begin{bmatrix}\mathbf{v}\amp\mathbf{w}\end{bmatrix}\mathbf{x}=\mathbf{b}</m> đều tương thích. Nói cách khác, <m>\laspan{\mathbf{v},\mathbf{w}}=\R^2</m>.</p>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-3-span-line">
+        <title>Khi hai vectơ chỉ sinh ra một đường thẳng</title>
+        <statement>
+          <p>Xét</p>
+          <me>
+            \mathbf{v}=\twovec{-1}{1},
+            \qquad
+            \mathbf{w}=\twovec{2}{-2}.
+          </me>
+          <p>Ta có <m>\mathbf{w}=-2\mathbf{v}</m>, nên mọi tổ hợp tuyến tính của hai vectơ này đều là bội vô hướng của <m>\mathbf{v}</m>:</p>
+          <me>
+            c\mathbf{v}+d\mathbf{w}=c\mathbf{v}-2d\mathbf{v}=(c-2d)\mathbf{v}.
+          </me>
+          <p>Vì vậy <m>\laspan{\mathbf{v},\mathbf{w}}</m> là đường thẳng xác định bởi <m>\mathbf{v}</m>. Chẳng hạn, <m>\twovec{0}{2}</m> không nằm trong không gian sinh này, vì hệ</p>
+          <me>
+            \begin{bmatrix}
+            \mathbf{v} \amp \mathbf{w}
+            \end{bmatrix}
+            \mathbf{x}=\twovec{0}{2}
+          </me>
+          <p>có ma trận mở rộng rút gọn thành</p>
+          <me>
+            \left[
+            \begin{array}{rr|r}
+            1 \amp -2 \amp 0\\
+            0 \amp 0 \amp 1
+            \end{array}
+            \right],
+          </me>
+          <p>nên hệ vô nghiệm.</p>
+        </statement>
+      </example>
+    </subsection>
+
+    <subsection xml:id="subsection-2-3-pivots-and-span">
+      <title>Vị trí pivot và không gian sinh</title>
+
+      <p>Một tập vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> tự nhiên xác định một ma trận</p>
+      <me>
+        A=
+        \begin{bmatrix}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+        \end{bmatrix}
+      </me>
+      <p>có các cột chính là các vectơ đã cho. Như đã thấy, một vectơ <m>\mathbf{b}</m> nằm trong <m>\laspan{\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n}</m> đúng khi hệ <m>A\mathbf{x}=\mathbf{b}</m> tương thích.</p>
+
+      <p>Trong <m>\R^3</m>, các không gian sinh thường gặp có thể hiểu rất trực quan:</p>
+      <ul>
+        <li><p>Không gian sinh của một vectơ khác vectơ không là một đường thẳng đi qua gốc tọa độ.</p></li>
+        <li><p>Không gian sinh của hai vectơ không cùng nằm trên một đường thẳng thường là một mặt phẳng đi qua gốc tọa độ.</p></li>
+        <li><p>Nếu có đủ các hướng độc lập, không gian sinh có thể là toàn bộ <m>\R^3</m>.</p></li>
+      </ul>
+
+      <example xml:id="example-2-3-span-r3-basic">
+        <title>Đường thẳng, mặt phẳng và toàn bộ <m>\R^3</m></title>
+        <statement>
+          <p>Nếu <m>\mathbf{v}=\threevec{1}{2}{1}</m>, thì <m>\laspan{\mathbf{v}}</m> là đường thẳng xác định bởi <m>\mathbf{v}</m>.</p>
+
+          <p>Nếu</p>
+          <me>
+            \mathbf{e}_1=\threevec{1}{0}{0},
+            \qquad
+            \mathbf{e}_2=\threevec{0}{1}{0},
+          </me>
+          <p>thì <m>\laspan{\mathbf{e}_1,\mathbf{e}_2}</m> là mặt phẳng <m>xy</m>. Thật vậy, một vectơ <m>\mathbf{b}=\threevec{b_1}{b_2}{b_3}</m> nằm trong không gian sinh này khi và chỉ khi hệ</p>
+          <me>
+            \left[
+            \begin{array}{rr}
+            1 \amp 0\\
+            0 \amp 1\\
+            0 \amp 0
+            \end{array}
+            \right]
+            \mathbf{x}
+            =
+            \threevec{b_1}{b_2}{b_3}
+          </me>
+          <p>tương thích. Điều này xảy ra đúng khi <m>b_3=0</m>, tức là <m>\mathbf{b}</m> nằm trong mặt phẳng <m>xy</m>.</p>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-3-span-plane-and-r3">
+        <title>Từ mặt phẳng đến toàn bộ <m>\R^3</m></title>
+        <statement>
+          <p>Xét hai vectơ</p>
+          <me>
+            \mathbf{v}_1=\threevec{1}{1}{-1},
+            \qquad
+            \mathbf{v}_2=\threevec{0}{2}{1}.
+          </me>
+          <p>Vectơ <m>\mathbf{b}=\threevec{1}{-2}{4}</m> không thuộc <m>\laspan{\mathbf{v}_1,\mathbf{v}_2}</m>, vì ma trận mở rộng tương ứng rút gọn thành</p>
+          <me>
+            \left[
+            \begin{array}{rr|r}
+            1 \amp 0 \amp 1\\
+            1 \amp 2 \amp -2\\
+            -1 \amp 1 \amp 4
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rr|r}
+            1 \amp 0 \amp 0\\
+            0 \amp 1 \amp 0\\
+            0 \amp 0 \amp 1
+            \end{array}
+            \right].
+          </me>
+          <p>Ngược lại, vectơ <m>\mathbf{b}=\threevec{-2}{0}{3}</m> thuộc <m>\laspan{\mathbf{v}_1,\mathbf{v}_2}</m>, vì</p>
+          <me>
+            \left[
+            \begin{array}{rr|r}
+            1 \amp 0 \amp -2\\
+            1 \amp 2 \amp 0\\
+            -1 \amp 1 \amp 3
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rr|r}
+            1 \amp 0 \amp -2\\
+            0 \amp 1 \amp 1\\
+            0 \amp 0 \amp 0
+            \end{array}
+            \right].
+          </me>
+          <p>Vì vậy <m>\laspan{\mathbf{v}_1,\mathbf{v}_2}</m> là một mặt phẳng trong <m>\R^3</m>.</p>
+
+          <p>Nếu thêm vectơ</p>
+          <me>
+            \mathbf{v}_3=\threevec{1}{-2}{4},
+          </me>
+          <p>thì ma trận có các cột <m>\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3</m> rút gọn thành</p>
+          <me>
+            \left[
+            \begin{array}{rrr}
+            1 \amp 0 \amp 1\\
+            1 \amp 2 \amp -2\\
+            -1 \amp 1 \amp 4
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rrr}
+            1 \amp 0 \amp 0\\
+            0 \amp 1 \amp 0\\
+            0 \amp 0 \amp 1
+            \end{array}
+            \right].
+          </me>
+          <p>Vì có pivot ở mọi hàng, nên mọi phương trình <m>A\mathbf{x}=\mathbf{b}</m> đều tương thích. Do đó</p>
+          <me>
+            \laspan{\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3}=\R^3.
+          </me>
+        </statement>
+      </example>
+
+      <p>Tóm lại, nếu xét ma trận có các cột là các vectơ trong <m>\R^3</m>, thì số vị trí pivot cho ta hình dung hình học về không gian sinh:</p>
+      <ul>
+        <li><p>Một vị trí pivot thường tương ứng với một đường thẳng.</p></li>
+        <li><p>Hai vị trí pivot thường tương ứng với một mặt phẳng.</p></li>
+        <li><p>Ba vị trí pivot, tức pivot ở mọi hàng, tương ứng với toàn bộ <m>\R^3</m>.</p></li>
+      </ul>
+
+      <proposition xml:id="prop-pivot-row-vi">
+        <title>Không gian sinh bằng toàn bộ <m>\R^m</m></title>
+        <statement>
+          <p>Giả sử <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> là các vectơ trong <m>\R^m</m>. Khi đó</p>
+          <me>
+            \laspan{\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n}=\R^m
+          </me>
+          <p>khi và chỉ khi ma trận</p>
+          <me>
+            \left[
+            \begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+            \end{array}
+            \right]
+          </me>
+          <p>có vị trí pivot ở mọi hàng.</p>
+        </statement>
+      </proposition>
+
+      <p>Mệnh đề này nói rằng nếu các cột của ma trận sinh ra toàn bộ <m>\R^m</m>, thì phương trình <m>A\mathbf{x}=\mathbf{b}</m> phải có nghiệm với mọi <m>\mathbf{b}\in\R^m</m>. Điều này chỉ xảy ra khi không có hàng nào thiếu pivot; nếu một hàng thiếu pivot, ta có thể chọn một vectơ <m>\mathbf{b}</m> làm xuất hiện mâu thuẫn trong ma trận mở rộng.</p>
+
+      <proposition xml:id="prop-span-bound-vi">
+        <title>Số vectơ tối thiểu để sinh ra <m>\R^m</m></title>
+        <statement>
+          <p>Một tập vectơ có không gian sinh bằng <m>\R^m</m> phải chứa ít nhất <m>m</m> vectơ.</p>
+        </statement>
+      </proposition>
+
+      <p>Lý do là nếu <m>n</m> vectơ sinh ra <m>\R^m</m>, thì ma trận có <m>m</m> hàng và <m>n</m> cột tương ứng phải có pivot ở mọi hàng. Vì mỗi cột có nhiều nhất một pivot, số cột phải ít nhất bằng số hàng, tức là <m>n\geq m</m>. Ví dụ, muốn sinh ra toàn bộ <m>\R^{632}</m>, ta cần ít nhất 632 vectơ.</p>
+
+      <assemblage xml:id="assemblage-2-3-terminology">
+        <title>Thuật ngữ</title>
+        <p>Không gian sinh là khái niệm gắn với một tập vectơ. Vì vậy, ta nên nói “không gian sinh của các cột của ma trận <m>A</m>”, thay vì nói “không gian sinh của ma trận <m>A</m>”. Cách nói thứ hai dễ gây hiểu nhầm, vì span thực chất được tạo ra từ các vectơ cột.</p>
+      </assemblage>
+    </subsection>
+
+    <subsection xml:id="subsection-2-3-summary">
+      <title>Tóm tắt</title>
+
+      <p>Phần này đã định nghĩa không gian sinh của một tập vectơ và phát triển trực giác hình học cho khái niệm này.</p>
+      <ul>
+        <li><p>Không gian sinh của tập vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> là tập tất cả các tổ hợp tuyến tính của các vectơ đó. Ta ký hiệu là <m>\laspan{\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n}</m>.</p></li>
+        <li><p>Một vectơ <m>\mathbf{b}</m> thuộc <m>\laspan{\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n}</m> khi và chỉ khi hệ tuyến tính</p>
+          <me>
+            \left[
+            \begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+            \end{array}
+            \right]
+            \mathbf{x}=\mathbf{b}
+          </me>
+          <p>tương thích.</p>
+        </li>
+        <li><p>Nếu ma trận <m>m\times n</m> có các cột là <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> có vị trí pivot ở mọi hàng, thì</p>
+          <me>
+            \laspan{\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n}=\R^m.
+          </me>
+        </li>
+        <li><p>Mọi tập vectơ sinh ra toàn bộ <m>\R^m</m> phải có ít nhất <m>m</m> vectơ.</p></li>
+        <li><p>Trong <m>\R^3</m>, không gian sinh của một tập vectơ thường có thể hình dung là một đường thẳng, một mặt phẳng, hoặc toàn bộ không gian <m>\R^3</m>.</p></li>
+      </ul>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-linear-dep-vi">
+    <title>Độc lập tuyến tính</title>
+
+    <introduction>
+      <p>Trong phần trước, câu hỏi về sự tồn tại nghiệm của một hệ tuyến tính đã dẫn ta tới khái niệm không gian sinh của một tập vectơ. Cụ thể, nếu</p>
+      <me>
+        A=\left[\begin{array}{rrrr}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+        \end{array}\right],
+      </me>
+      <p>thì không gian sinh của các vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> là tập các vectơ <m>\mathbf{b}</m> sao cho phương trình <m>A\mathbf{x}=\mathbf{b}</m> có nghiệm.</p>
+      <p>Trong phần này, ta chuyển sang câu hỏi cơ bản thứ hai: nếu phương trình <m>A\mathbf{x}=\mathbf{b}</m> có nghiệm, nghiệm đó có duy nhất không? Câu hỏi này dẫn tới khái niệm <term>độc lập tuyến tính</term>.</p>
+    </introduction>
+
+    <subsection xml:id="subsection-2-4-linear-dependence">
+      <title>Phụ thuộc tuyến tính</title>
+
+      <p>Ta đã thấy có những tập gồm ba vectơ trong <m>\R^3</m> sinh ra toàn bộ <m>\R^3</m>, nhưng cũng có những tập gồm ba vectơ chỉ sinh ra một mặt phẳng. Ta cần hiểu điều gì tạo nên sự khác biệt giữa hai tình huống này.</p>
+
+      <example xml:id="example-2-4-span-r3">
+        <title>Ba vectơ sinh ra toàn bộ <m>\R^3</m></title>
+        <statement>
+          <p>Xét ba vectơ trong <m>\R^3</m>:</p>
+          <me>
+            \mathbf{v}_1=\threevec220,\qquad
+            \mathbf{v}_2=\threevec11{-1},\qquad
+            \mathbf{v}_3=\threevec{-1}01.
+          </me>
+          <p>Ma trận có các cột là ba vectơ này là</p>
+          <me>
+            \begin{bmatrix}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \mathbf{v}_3
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            2 \amp 1 \amp -1\\
+            2 \amp 1 \amp 0\\
+            0 \amp -1 \amp 1
+            \end{bmatrix}
+            \sim
+            \begin{bmatrix}
+            1 \amp 0 \amp 0\\
+            0 \amp 1 \amp 0\\
+            0 \amp 0 \amp 1
+            \end{bmatrix}.
+          </me>
+          <p>Vì có pivot ở mọi hàng, các vectơ này sinh ra toàn bộ <m>\R^3</m>:</p>
+          <me>\laspan{\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3}=\R^3.</me>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-4-span-plane">
+        <title>Ba vectơ nhưng chỉ sinh ra một mặt phẳng</title>
+        <statement>
+          <p>Bây giờ xét ba vectơ</p>
+          <me>
+            \mathbf{w}_1=\threevec220,\qquad
+            \mathbf{w}_2=\threevec11{-1},\qquad
+            \mathbf{w}_3=\threevec{-5}{-5}{1}.
+          </me>
+          <p>Ma trận tương ứng có dạng bậc thang rút gọn:</p>
+          <me>
+            \begin{bmatrix}
+            \mathbf{w}_1 \amp \mathbf{w}_2 \amp \mathbf{w}_3
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            2 \amp 1 \amp -5\\
+            2 \amp 1 \amp -5\\
+            0 \amp -1 \amp 1
+            \end{bmatrix}
+            \sim
+            \begin{bmatrix}
+            1 \amp 0 \amp -2\\
+            0 \amp 1 \amp -1\\
+            0 \amp 0 \amp 0
+            \end{bmatrix}.
+          </me>
+          <p>Vì hàng cuối không có pivot, không gian sinh của ba vectơ này không phải toàn bộ <m>\R^3</m>; nó chỉ là một mặt phẳng.</p>
+
+          <p>Nếu nhìn ma trận trên như một ma trận mở rộng, ta thấy</p>
+          <me>
+            \left[
+            \begin{array}{rr|r}
+            \mathbf{w}_1 \amp \mathbf{w}_2 \amp \mathbf{w}_3
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rr|r}
+            1 \amp 0 \amp -2\\
+            0 \amp 1 \amp -1\\
+            0 \amp 0 \amp 0
+            \end{array}
+            \right].
+          </me>
+          <p>Điều này cho biết</p>
+          <me>
+            \mathbf{w}_3=-2\mathbf{w}_1-\mathbf{w}_2.
+          </me>
+          <p>Do đó mọi tổ hợp tuyến tính của ba vectơ <m>\mathbf{w}_1,\mathbf{w}_2,\mathbf{w}_3</m> đều có thể viết lại chỉ bằng <m>\mathbf{w}_1</m> và <m>\mathbf{w}_2</m>:</p>
+          <me>
+            \begin{aligned}
+            c_1\mathbf{w}_1+c_2\mathbf{w}_2+c_3\mathbf{w}_3
+            \amp=c_1\mathbf{w}_1+c_2\mathbf{w}_2+c_3(-2\mathbf{w}_1-\mathbf{w}_2)\\
+            \amp=(c_1-2c_3)\mathbf{w}_1+(c_2-c_3)\mathbf{w}_2.
+            \end{aligned}
+          </me>
+          <p>Vì vậy</p>
+          <me>
+            \laspan{\mathbf{w}_1,\mathbf{w}_2,\mathbf{w}_3}
+            =
+            \laspan{\mathbf{w}_1,\mathbf{w}_2}.
+          </me>
+          <p>Nói cách khác, thêm vectơ <m>\mathbf{w}_3</m> vào tập <m>\mathbf{w}_1,\mathbf{w}_2</m> không làm không gian sinh lớn hơn, vì <m>\mathbf{w}_3</m> đã nằm sẵn trong không gian sinh của hai vectơ kia.</p>
+        </statement>
+      </example>
+
+      <p>Về mặt hình học, nếu một vectơ mới không nằm trong không gian sinh của các vectơ cũ, nó mở ra một hướng mới và có thể làm không gian sinh lớn hơn. Ngược lại, nếu vectơ mới đã là tổ hợp tuyến tính của các vectơ cũ, nó không thêm hướng mới nào và không làm thay đổi không gian sinh.</p>
+
+      <definition xml:id="definition-linear-independence-vi">
+        <title>Phụ thuộc tuyến tính và độc lập tuyến tính</title>
+        <statement>
+          <p>Một tập vectơ được gọi là <term>phụ thuộc tuyến tính</term> nếu một vectơ trong tập có thể viết thành tổ hợp tuyến tính của các vectơ còn lại.</p>
+          <p>Nếu không có vectơ nào trong tập có thể viết thành tổ hợp tuyến tính của các vectơ còn lại, tập vectơ đó được gọi là <term>độc lập tuyến tính</term>.</p>
+        </statement>
+      </definition>
+
+      <p>Để đầy đủ, ta quy ước rằng một tập chỉ gồm một vectơ khác vectơ không là một tập độc lập tuyến tính.</p>
+    </subsection>
+
+    <subsection xml:id="subsection-2-4-recognizing-linear-dependence">
+      <title>Cách nhận biết phụ thuộc tuyến tính</title>
+
+      <p>Vị trí pivot đóng vai trò then chốt trong việc xác định các cột của một ma trận có độc lập tuyến tính hay không.</p>
+
+      <example xml:id="example-2-4-nonpivot-column">
+        <title>Cột không có pivot tạo ra phụ thuộc tuyến tính</title>
+        <statement>
+          <p>Giả sử bốn vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3,\mathbf{v}_4</m> tạo thành ma trận có dạng bậc thang rút gọn</p>
+          <me>
+            \left[
+            \begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \mathbf{v}_3 \amp \mathbf{v}_4
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rrrr}
+            1 \amp 0 \amp 2 \amp 0\\
+            0 \amp 1 \amp -3 \amp 0\\
+            0 \amp 0 \amp 0 \amp 1\\
+            0 \amp 0 \amp 0 \amp 0
+            \end{array}
+            \right].
+          </me>
+          <p>Cột thứ ba không có pivot. Nếu tập trung vào ba cột đầu và xem cột thứ ba như vế phải của một hệ tuyến tính, ta có</p>
+          <me>
+            \left[
+            \begin{array}{rr|r}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \mathbf{v}_3
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rr|r}
+            1 \amp 0 \amp 2\\
+            0 \amp 1 \amp -3\\
+            0 \amp 0 \amp 0\\
+            0 \amp 0 \amp 0
+            \end{array}
+            \right].
+          </me>
+          <p>Điều này cho biết</p>
+          <me>
+            \mathbf{v}_3=2\mathbf{v}_1-3\mathbf{v}_2.
+          </me>
+          <p>Vì một vectơ trong tập là tổ hợp tuyến tính của các vectơ khác, tập <m>\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3,\mathbf{v}_4</m> phụ thuộc tuyến tính. Hơn nữa, vì <m>\mathbf{v}_3</m> không thêm hướng mới nên</p>
+          <me>
+            \laspan{\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3,\mathbf{v}_4}
+            =
+            \laspan{\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_4}.
+          </me>
+        </statement>
+      </example>
+
+      <p>Tổng quát hơn, nếu ma trận tạo bởi các vectơ cột có một cột không chứa pivot, thì vectơ ứng với cột đó có thể viết thành tổ hợp tuyến tính của các vectơ ứng với những cột có pivot trước nó. Do đó tập các cột là phụ thuộc tuyến tính.</p>
+
+      <p>Ngược lại, nếu ma trận có pivot ở mọi cột, thì không có cột nào có thể viết thành tổ hợp tuyến tính của các cột còn lại. Khi đó các cột tạo thành một tập độc lập tuyến tính.</p>
+
+      <proposition xml:id="prop-linear-indep-pivot-column-vi">
+        <title>Tiêu chuẩn pivot cho độc lập tuyến tính</title>
+        <statement>
+          <p>Các cột của một ma trận độc lập tuyến tính khi và chỉ khi mọi cột của ma trận đều chứa một vị trí pivot.</p>
+        </statement>
+      </proposition>
+
+      <p>Tiêu chuẩn này kéo theo một giới hạn rất quan trọng về số lượng vectơ trong một tập độc lập tuyến tính. Nếu một tập gồm <m>n</m> vectơ trong <m>\R^m</m> là độc lập tuyến tính, thì ma trận tương ứng có <m>m</m> hàng và <m>n</m> cột, đồng thời phải có pivot ở mọi cột. Vì mỗi hàng có nhiều nhất một pivot, nên số cột không thể nhiều hơn số hàng. Do đó <m>n\leq m</m>.</p>
+
+      <proposition xml:id="prop-linear-indep-bound-vi">
+        <title>Số lượng vectơ trong một tập độc lập tuyến tính</title>
+        <statement>
+          <p>Một tập độc lập tuyến tính gồm các vectơ trong <m>\R^m</m> chứa nhiều nhất <m>m</m> vectơ.</p>
+        </statement>
+      </proposition>
+
+      <p>Chẳng hạn, trong <m>\R^3</m>, không thể có nhiều hơn ba hướng độc lập. Tương tự, một tập gồm 12 vectơ trong <m>\R^{10}</m> chắc chắn phụ thuộc tuyến tính, vì ma trận tương ứng chỉ có 10 hàng nên có nhiều nhất 10 pivot.</p>
+
+      <p>Kết quả này song song với kết quả của phần trước: một tập vectơ sinh ra toàn bộ <m>\R^m</m> phải có ít nhất <m>m</m> vectơ, còn một tập độc lập tuyến tính trong <m>\R^m</m> có nhiều nhất <m>m</m> vectơ.</p>
+    </subsection>
+
+    <subsection xml:id="subsection-2-4-homogeneous-equations">
+      <title>Phương trình thuần nhất</title>
+
+      <p>Nếu <m>A</m> là một ma trận, phương trình</p>
+      <me>
+        A\mathbf{x}=\mathbf{0}
+      </me>
+      <p>được gọi là một <term>phương trình thuần nhất</term>. Phương trình này luôn có ít nhất một nghiệm, đó là nghiệm tầm thường <m>\mathbf{x}=\mathbf{0}</m>. Các nghiệm khác <m>\mathbf{0}</m> được gọi là nghiệm không tầm thường.</p>
+
+      <p>Mối liên hệ quan trọng là: nghiệm không tầm thường của phương trình thuần nhất chính là dấu hiệu cho thấy các cột của <m>A</m> phụ thuộc tuyến tính.</p>
+
+      <example xml:id="example-2-4-homogeneous-dependence">
+        <title>Phương trình thuần nhất và phụ thuộc tuyến tính</title>
+        <statement>
+          <p>Xét ma trận</p>
+          <me>
+            A=
+            \begin{bmatrix}
+            3 \amp 2 \amp 0\\
+            -1 \amp 0 \amp -2\\
+            2 \amp 1 \amp 1
+            \end{bmatrix},
+          </me>
+          <p>có các cột là <m>\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3</m>. Ta xét phương trình thuần nhất <m>A\mathbf{x}=\mathbf{0}</m>. Dạng bậc thang rút gọn của ma trận hệ số là</p>
+          <me>
+            \begin{bmatrix}
+            3 \amp 2 \amp 0\\
+            -1 \amp 0 \amp -2\\
+            2 \amp 1 \amp 1
+            \end{bmatrix}
+            \sim
+            \begin{bmatrix}
+            1 \amp 0 \amp 2\\
+            0 \amp 1 \amp -3\\
+            0 \amp 0 \amp 0
+            \end{bmatrix}.
+          </me>
+          <p>Vì <m>x_3</m> là biến tự do, ta có</p>
+          <me>
+            x_1=-2x_3,\qquad x_2=3x_3.
+          </me>
+          <p>Do đó không gian nghiệm là</p>
+          <me>
+            \mathbf{x}
+            =
+            \threevec{x_1}{x_2}{x_3}
+            =
+            x_3\threevec{-2}{3}{1}.
+          </me>
+          <p>Lấy <m>x_3=1</m>, ta được nghiệm không tầm thường</p>
+          <me>
+            \mathbf{x}=\threevec{-2}{3}{1}.
+          </me>
+          <p>Nghiệm này cho biết</p>
+          <me>
+            -2\mathbf{v}_1+3\mathbf{v}_2+\mathbf{v}_3=\mathbf{0}.
+          </me>
+          <p>Suy ra</p>
+          <me>
+            \mathbf{v}_3=2\mathbf{v}_1-3\mathbf{v}_2.
+          </me>
+          <p>Vậy <m>\mathbf{v}_3</m> là tổ hợp tuyến tính của <m>\mathbf{v}_1</m> và <m>\mathbf{v}_2</m>, nên ba vectơ cột của <m>A</m> phụ thuộc tuyến tính.</p>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-4-homogeneous-four-dimensional">
+        <title>Một ví dụ khác về nghiệm không tầm thường</title>
+        <statement>
+          <p>Xét các vectơ</p>
+          <me>
+            \mathbf{v}_1=\fourvec2{-4}10,\qquad
+            \mathbf{v}_2=\fourvec113{-2},\qquad
+            \mathbf{v}_3=\fourvec3{-3}4{-2},
+          </me>
+          <p>và ma trận <m>A=\begin{bmatrix}\mathbf{v}_1 \amp \mathbf{v}_2 \amp \mathbf{v}_3\end{bmatrix}</m>. Phương trình thuần nhất <m>A\mathbf{x}=\mathbf{0}</m> có ma trận mở rộng rút gọn:</p>
+          <me>
+            \left[
+            \begin{array}{rrr|r}
+            2 \amp 1 \amp 3 \amp 0\\
+            -4 \amp 1 \amp -3 \amp 0\\
+            1 \amp 3 \amp 4 \amp 0\\
+            0 \amp -2 \amp -2 \amp 0
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rrr|r}
+            1 \amp 0 \amp 1 \amp 0\\
+            0 \amp 1 \amp 1 \amp 0\\
+            0 \amp 0 \amp 0 \amp 0\\
+            0 \amp 0 \amp 0 \amp 0
+            \end{array}
+            \right].
+          </me>
+          <p>Vì có biến tự do, phương trình thuần nhất có vô số nghiệm:</p>
+          <me>
+            \mathbf{x}
+            =
+            \threevec{x_1}{x_2}{x_3}
+            =
+            x_3\threevec{-1}{-1}{1}.
+          </me>
+          <p>Lấy <m>x_3=1</m>, ta được</p>
+          <me>
+            -\mathbf{v}_1-\mathbf{v}_2+\mathbf{v}_3=\mathbf{0},
+          </me>
+          <p>hay</p>
+          <me>
+            \mathbf{v}_3=\mathbf{v}_1+\mathbf{v}_2.
+          </me>
+          <p>Do đó tập <m>\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3</m> phụ thuộc tuyến tính.</p>
+        </statement>
+      </example>
+
+      <proposition xml:id="prop-linear-dep-equivalences-vi">
+        <title>Các tiêu chuẩn tương đương của phụ thuộc tuyến tính</title>
+        <statement>
+          <p>Cho ma trận</p>
+          <me>
+            A=
+            \left[
+            \begin{array}{rrrr}
+            \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+            \end{array}
+            \right].
+          </me>
+          <p>Các phát biểu sau là tương đương:</p>
+          <ul>
+            <li><p>Các cột của <m>A</m> phụ thuộc tuyến tính.</p></li>
+            <li><p>Một trong các vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> là tổ hợp tuyến tính của các vectơ còn lại.</p></li>
+            <li><p>Ma trận <m>A</m> có một cột không chứa vị trí pivot.</p></li>
+            <li><p>Phương trình thuần nhất <m>A\mathbf{x}=\mathbf{0}</m> có vô số nghiệm, do đó có nghiệm không tầm thường.</p></li>
+            <li><p>Tồn tại các hệ số <m>c_1,c_2,\ldots,c_n</m>, không đồng thời bằng 0, sao cho</p>
+              <me>
+                c_1\mathbf{v}_1+c_2\mathbf{v}_2+\cdots+c_n\mathbf{v}_n=\mathbf{0}.
+              </me>
+            </li>
+          </ul>
+        </statement>
+      </proposition>
+    </subsection>
+
+    <subsection xml:id="subsection-2-4-summary">
+      <title>Tóm tắt</title>
+
+      <p>Phần này phát triển khái niệm phụ thuộc tuyến tính và độc lập tuyến tính của một tập vectơ.</p>
+      <ul>
+        <li><p>Một tập vectơ phụ thuộc tuyến tính nếu một vectơ trong tập có thể viết thành tổ hợp tuyến tính của các vectơ còn lại.</p></li>
+        <li><p>Một tập vectơ độc lập tuyến tính nếu không vectơ nào trong tập có thể viết thành tổ hợp tuyến tính của các vectơ còn lại.</p></li>
+        <li><p>Các cột của một ma trận độc lập tuyến tính khi và chỉ khi ma trận có pivot ở mọi cột.</p></li>
+        <li><p>Một tập độc lập tuyến tính trong <m>\R^m</m> chứa nhiều nhất <m>m</m> vectơ.</p></li>
+        <li><p>Các cột của <m>A</m> phụ thuộc tuyến tính khi phương trình thuần nhất <m>A\mathbf{x}=\mathbf{0}</m> có nghiệm không tầm thường.</p></li>
+        <li><p>Một tập vectơ <m>\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n</m> phụ thuộc tuyến tính khi tồn tại các hệ số <m>c_1,c_2,\ldots,c_n</m>, không đồng thời bằng 0, sao cho</p>
+          <me>
+            c_1\mathbf{v}_1+c_2\mathbf{v}_2+\cdots+c_n\mathbf{v}_n=\mathbf{0}.
+          </me>
+        </li>
+      </ul>
+
+      <p>Có một sự song song rất quan trọng giữa không gian sinh và độc lập tuyến tính. Nếu</p>
+      <me>
+        A=\left[\begin{array}{rrrr}
+        \mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n
+        \end{array}\right],
+      </me>
+      <p>thì:</p>
+      <ul>
+        <li><p>Một vectơ <m>\mathbf{b}</m> thuộc không gian sinh của các cột của <m>A</m> khi và chỉ khi phương trình <m>A\mathbf{x}=\mathbf{b}</m> có nghiệm.</p></li>
+        <li><p>Các cột của <m>A</m> độc lập tuyến tính khi và chỉ khi <m>\mathbf{x}=\mathbf{0}</m> là nghiệm duy nhất của phương trình <m>A\mathbf{x}=\mathbf{0}</m>.</p></li>
+        <li><p>Các cột của một ma trận <m>m\times n</m> sinh ra <m>\R^m</m> khi ma trận có pivot ở mọi hàng.</p></li>
+        <li><p>Các cột của một ma trận độc lập tuyến tính khi ma trận có pivot ở mọi cột.</p></li>
+        <li><p>Một tập sinh ra <m>\R^m</m> phải có ít nhất <m>m</m> vectơ; một tập độc lập tuyến tính trong <m>\R^m</m> có nhiều nhất <m>m</m> vectơ.</p></li>
+      </ul>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-linear-trans-vi">
+    <title>Phép biến đổi ma trận</title>
+
+    <introduction>
+      <p>Các phần trước đã giới thiệu phép nhân ma trận-vectơ như một cách để suy nghĩ hình học về nghiệm của hệ tuyến tính. Cụ thể, ta đã viết lại hệ tuyến tính dưới dạng phương trình ma trận <m>A\mathbf{x}=\mathbf{b}</m>, rồi phát triển các khái niệm không gian sinh và độc lập tuyến tính để trả lời hai câu hỏi cơ bản: nghiệm có tồn tại không và nghiệm có duy nhất không.</p>
+
+      <p>Trong phần này, ta khảo sát cách phép nhân ma trận-vectơ xác định một số loại hàm đặc biệt, gọi là <term>phép biến đổi ma trận</term>. Chúng tương tự các hàm đã gặp trong đại số, nhưng đầu vào và đầu ra bây giờ là vectơ. Ta sẽ phát triển các công cụ đại số để làm việc với các phép biến đổi này và xem một số ví dụ tiêu biểu. Sang phần sau, ta sẽ thấy các phép biến đổi ma trận mô tả những thao tác hình học quan trọng và được dùng trong hoạt hình máy tính.</p>
+    </introduction>
+
+    <subsection xml:id="subsection-2-5-matrix-transformations">
+      <title>Phép biến đổi ma trận</title>
+
+      <p>Trong đại số một biến, một hàm tuyến tính đơn giản có dạng <m>g(x)=mx</m>. Ta chọn một số <m>m</m>; khi nhận đầu vào <m>x</m>, hàm trả về đầu ra <m>mx</m>.</p>
+
+      <p>Bây giờ ta xét các hàm mà đầu vào là vectơ và đầu ra cũng là vectơ, được xác định bằng phép nhân ma trận-vectơ. Nếu <m>A</m> là một ma trận và <m>\mathbf{x}</m> là một vectơ, hàm</p>
+      <me>T(\mathbf{x})=A\mathbf{x}</me>
+      <p>lấy vectơ <m>\mathbf{x}</m> làm đầu vào và trả về tích <m>A\mathbf{x}</m> làm đầu ra. Một hàm như vậy được gọi là một phép biến đổi ma trận.</p>
+
+      <definition xml:id="definition-2-5-matrix-transformation">
+        <title>Phép biến đổi ma trận</title>
+        <statement>
+          <p><term>Phép biến đổi ma trận</term> ứng với ma trận <m>A</m> là hàm gán cho mỗi vectơ <m>\mathbf{x}</m> vectơ <m>A\mathbf{x}</m>; tức là</p>
+          <me>T(\mathbf{x})=A\mathbf{x}.</me>
+        </statement>
+      </definition>
+
+      <example xml:id="example-2-5-matrix-to-transformation">
+        <title>Từ ma trận đến phép biến đổi ma trận</title>
+        <statement>
+          <p>Ma trận</p>
+          <me>
+            A=\begin{bmatrix}
+            3 \amp -2\\
+            1 \amp 2\\
+            0 \amp 3
+            \end{bmatrix}
+          </me>
+          <p>xác định phép biến đổi ma trận <m>T(\mathbf{x})=A\mathbf{x}</m> như sau:</p>
+          <me>
+            T\left(\twovec{x_1}{x_2}\right)
+            =
+            \begin{bmatrix}
+            3 \amp -2\\
+            1 \amp 2\\
+            0 \amp 3
+            \end{bmatrix}
+            \twovec{x_1}{x_2}
+            =
+            \cthreevec{3x_1-2x_2}{x_1+2x_2}{3x_2}.
+          </me>
+          <p>Đầu vào của <m>T</m> là vectơ hai chiều <m>\twovec{x_1}{x_2}</m>, còn đầu ra là vectơ ba chiều. Ta viết ngắn gọn</p>
+          <me>T:\real^2\to\real^3</me>
+          <p>để nói rằng <m>T</m> nhận vectơ trong <m>\real^2</m> và trả về vectơ trong <m>\real^3</m>.</p>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-5-transformation-to-matrix">
+        <title>Từ công thức của hàm đến ma trận</title>
+        <statement>
+          <p>Giả sử có hàm <m>T:\real^3\to\real^2</m> có dạng</p>
+          <me>
+            T\left(\threevec{x_1}{x_2}{x_3}\right)
+            =
+            \begin{bmatrix}
+            -4x_1-x_2+2x_3\\
+            x_1+2x_2-x_3
+            \end{bmatrix}.
+          </me>
+          <p>Ta có thể nhóm các hạng tử theo từng biến:</p>
+          <me>
+            \begin{aligned}
+            T\left(\threevec{x_1}{x_2}{x_3}\right)
+            \amp=
+            \twovec{-4x_1}{x_1}
+            +\twovec{-x_2}{2x_2}
+            +\twovec{2x_3}{-x_3}\\
+            \amp=
+            x_1\twovec{-4}{1}
+            +x_2\twovec{-1}{2}
+            +x_3\twovec{2}{-1}\\
+            \amp=
+            \begin{bmatrix}
+            -4 \amp -1 \amp 2\\
+            1 \amp 2 \amp -1
+            \end{bmatrix}
+            \threevec{x_1}{x_2}{x_3}.
+            \end{aligned}
+          </me>
+          <p>Vì vậy <m>T</m> là phép biến đổi ma trận <m>T(\mathbf{x})=A\mathbf{x}</m> ứng với ma trận</p>
+          <me>
+            A=\begin{bmatrix}
+            -4 \amp -1 \amp 2\\
+            1 \amp 2 \amp -1
+            \end{bmatrix}.
+          </me>
+        </statement>
+      </example>
+
+      <p>Nếu <m>A</m> là ma trận <m>m\times n</m>, thì để tích <m>A\mathbf{x}</m> xác định, vectơ đầu vào <m>\mathbf{x}</m> phải có <m>n</m> thành phần. Khi đó <m>A\mathbf{x}</m> là một vectơ có <m>m</m> thành phần. Vì vậy phép biến đổi ma trận ứng với <m>A</m> có dạng</p>
+      <me>T:\real^n\to\real^m.</me>
+      <p>Chẳng hạn, nếu</p>
+      <me>
+        A=\left[\begin{array}{rrrr}
+        4 \amp 0 \amp -3 \amp 2\\
+        0 \amp 1 \amp 3 \amp 1
+        \end{array}\right],
+      </me>
+      <p>thì <m>A</m> là ma trận <m>2\times4</m>, nên phép biến đổi tương ứng là <m>T:\real^4\to\real^2</m>.</p>
+
+      <p>Một điểm rất quan trọng là ta có thể khôi phục ma trận <m>A</m> nếu biết ảnh của các vectơ cơ sở chuẩn. Giả sử <m>A</m> là ma trận <m>m\times2</m> với các cột là <m>\mathbf{v}_1</m> và <m>\mathbf{v}_2</m>:</p>
+      <me>
+        A=\left[\begin{array}{rr}\mathbf{v}_1 \amp \mathbf{v}_2\end{array}\right].
+      </me>
+      <p>Khi đó</p>
+      <me>
+        T\left(\twovec{1}{0}\right)
+        =
+        \left[\begin{array}{rr}\mathbf{v}_1 \amp \mathbf{v}_2\end{array}\right]
+        \twovec{1}{0}
+        =\mathbf{v}_1,
+      </me>
+      <p>và tương tự <m>T\left(\twovec{0}{1}\right)=\mathbf{v}_2</m>. Nghĩa là ảnh của các vectơ cơ sở chuẩn chính là các cột của ma trận.</p>
+
+      <p>Tổng quát hơn, ta ký hiệu các cột của ma trận đơn vị <m>n\times n</m> là</p>
+      <me>
+        \mathbf{e}_1=\left[\begin{array}{c}1\\0\\\vdots\\0\end{array}\right],\quad
+        \mathbf{e}_2=\left[\begin{array}{c}0\\1\\\vdots\\0\end{array}\right],\quad
+        \ldots,\quad
+        \mathbf{e}_n=\left[\begin{array}{c}0\\0\\\vdots\\1\end{array}\right].
+      </me>
+      <p>Nếu <m>A=\left[\begin{array}{rrrr}\mathbf{v}_1 \amp \mathbf{v}_2 \amp \cdots \amp \mathbf{v}_n\end{array}\right]</m>, thì</p>
+      <me>
+        T(\mathbf{e}_j)=A\mathbf{e}_j=\mathbf{v}_j.
+      </me>
+
+      <proposition xml:id="prop-linear-trans-columns-vi">
+        <title>Các cột của ma trận được xác định bởi ảnh của các vectơ cơ sở</title>
+        <statement>
+          <p>Nếu <m>T:\real^n\to\real^m</m> là phép biến đổi ma trận cho bởi <m>T(\mathbf{x})=A\mathbf{x}</m>, thì ma trận <m>A</m> có các cột là <m>T(\mathbf{e}_j)</m>. Cụ thể,</p>
+          <me>
+            A=\left[\begin{array}{rrrr}
+            T(\mathbf{e}_1) \amp T(\mathbf{e}_2) \amp \cdots \amp T(\mathbf{e}_n)
+            \end{array}\right].
+          </me>
+        </statement>
+      </proposition>
+
+      <example xml:id="example-2-5-rotation-90">
+        <title>Phép quay <m>90^\circ</m> ngược chiều kim đồng hồ</title>
+        <statement>
+          <p>Xét phép biến đổi <m>T:\real^2\to\real^2</m> quay mỗi vectơ trong mặt phẳng một góc <m>90^\circ</m> ngược chiều kim đồng hồ. Vì</p>
+          <me>
+            T\left(\twovec{1}{0}\right)=\twovec{0}{1},
+            \qquad
+            T\left(\twovec{0}{1}\right)=\twovec{-1}{0},
+          </me>
+          <p>nên ma trận của phép biến đổi là</p>
+          <me>
+            A=\begin{bmatrix}
+            0 \amp -1\\
+            1 \amp 0
+            \end{bmatrix}.
+          </me>
+          <p>Do đó, với <m>\mathbf{x}=\twovec{x}{y}</m>, ta có</p>
+          <me>
+            T\left(\twovec{x}{y}\right)
+            =
+            \begin{bmatrix}
+            0 \amp -1\\
+            1 \amp 0
+            \end{bmatrix}
+            \twovec{x}{y}
+            =\twovec{-y}{x}.
+          </me>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-5-bakery-transformation">
+        <title>Một mô hình sản xuất bằng phép biến đổi ma trận</title>
+        <statement>
+          <p>Một công ty có hai lò bánh. Trong một giờ hoạt động, lò 1 sản xuất 10 bánh kem, 50 bánh vòng và 30 bánh su kem; lò 2 sản xuất 20 bánh kem, 30 bánh vòng và 30 bánh su kem. Nếu lò 1 chạy <m>x_1</m> giờ và lò 2 chạy <m>x_2</m> giờ, ta đặt <m>\mathbf{x}=\twovec{x_1}{x_2}</m>.</p>
+          <p>Phép biến đổi <m>T:\real^2\to\real^3</m> trả về tổng số bánh kem, bánh vòng và bánh su kem được sản xuất. Vì</p>
+          <me>
+            T\left(\twovec{1}{0}\right)=\threevec{10}{50}{30},
+            \qquad
+            T\left(\twovec{0}{1}\right)=\threevec{20}{30}{30},
+          </me>
+          <p>nên ma trận của phép biến đổi là</p>
+          <me>
+            A=\begin{bmatrix}
+            10 \amp 20\\
+            50 \amp 30\\
+            30 \amp 30
+            \end{bmatrix}.
+          </me>
+          <p>Nếu lò 1 chạy 120 giờ và lò 2 chạy 180 giờ, tổng sản lượng là</p>
+          <me>
+            T\left(\twovec{120}{180}\right)
+            =
+            \threevec{4800}{11400}{9000}.
+          </me>
+          <p>Nếu công ty sản xuất 5060 bánh kem, 14310 bánh vòng và 10470 bánh su kem, ta giải phương trình</p>
+          <me>
+            A\mathbf{x}=\threevec{5060}{14310}{10470}
+          </me>
+          <p>và thu được <m>\mathbf{x}=\twovec{192}{157}</m>. Tuy nhiên, không phải mọi đơn hàng ba chiều đều có thể được đáp ứng chính xác, vì hai cột của ma trận <m>3\times2</m> không thể sinh ra toàn bộ <m>\real^3</m>.</p>
+        </statement>
+      </example>
+    </subsection>
+
+    <subsection xml:id="subsection-2-5-composition">
+      <title>Hợp thành các phép biến đổi ma trận</title>
+
+      <p>Đôi khi ta muốn kết hợp các phép biến đổi ma trận bằng cách thực hiện phép này rồi tiếp tục thực hiện phép kia. Chẳng hạn, nếu <m>T</m> là phép quay vectơ trong <m>\real^2</m> một góc <m>90^\circ</m>, thì thực hiện <m>T</m> hai lần cho ta <m>T(T(\mathbf{x}))</m>, tức là quay vectơ hai lần, mỗi lần <m>90^\circ</m>.</p>
+
+      <p>Quá trình này gọi là <term>hợp thành hàm</term>. Ví dụ, nếu <m>g(x)=2x+1</m> và <m>h(x)=x^2</m>, thì hợp thành thực hiện <m>g</m> trước rồi <m>h</m> sau được viết là</p>
+      <me>
+        (h\circ g)(x)=h(g(x))=h(2x+1)=(2x+1)^2.
+      </me>
+
+      <p>Với phép biến đổi ma trận, ý tưởng tương tự. Giả sử <m>T:\real^n\to\real^m</m> và <m>S:\real^m\to\real^p</m> là hai phép biến đổi ma trận, với các ma trận tương ứng là <m>A</m> và <m>B</m>. Khi đó</p>
+      <me>
+        T(\mathbf{x})=A\mathbf{x},
+        \qquad
+        S(\mathbf{x})=B\mathbf{x}.
+      </me>
+      <p>Nếu ta áp dụng <m>T</m> cho <m>\mathbf{x}</m>, rồi áp dụng <m>S</m> cho kết quả, ta được</p>
+      <me>
+        (S\circ T)(\mathbf{x})
+        =S(T(\mathbf{x}))
+        =S(A\mathbf{x})
+        =B(A\mathbf{x})
+        =(BA)\mathbf{x}.
+      </me>
+      <p>Vì vậy hợp thành <m>S\circ T</m> cũng là một phép biến đổi ma trận, và ma trận tương ứng là tích <m>BA</m>.</p>
+
+      <proposition xml:id="prop-2-5-composition">
+        <title>Hợp thành phép biến đổi ma trận và phép nhân ma trận</title>
+        <statement>
+          <p>Nếu <m>T:\real^n\to\real^m</m> và <m>S:\real^m\to\real^p</m> là các phép biến đổi ma trận với các ma trận tương ứng <m>A</m> và <m>B</m>, thì hợp thành <m>S\circ T</m> cũng là một phép biến đổi ma trận, có ma trận tương ứng là <m>BA</m>.</p>
+        </statement>
+      </proposition>
+
+      <p>Điều kiện để hợp thành hai phép biến đổi chính là điều kiện để nhân hai ma trận. Đầu ra <m>T(\mathbf{x})</m> là một vectơ <m>m</m> chiều, nên nó phải là đầu vào hợp lệ của <m>S</m>. Tương ứng, để tích <m>BA</m> xác định, số cột của <m>B</m> phải bằng số hàng của <m>A</m>.</p>
+
+      <example xml:id="example-2-5-compose-rotation">
+        <title>Quay <m>90^\circ</m> hai lần</title>
+        <statement>
+          <p>Với phép quay <m>90^\circ</m> ngược chiều kim đồng hồ, ma trận là</p>
+          <me>
+            A=\begin{bmatrix}0 \amp -1\\1 \amp 0\end{bmatrix}.
+          </me>
+          <p>Hợp thành phép quay này với chính nó có ma trận</p>
+          <me>
+            A^2
+            =
+            \begin{bmatrix}0 \amp -1\\1 \amp 0\end{bmatrix}
+            \begin{bmatrix}0 \amp -1\\1 \amp 0\end{bmatrix}
+            =
+            \begin{bmatrix}-1 \amp 0\\0 \amp -1\end{bmatrix}.
+          </me>
+          <p>Đây là phép quay <m>180^\circ</m>, hay tương đương là phép biến mỗi vectơ <m>\mathbf{x}</m> thành <m>-\mathbf{x}</m>. Chẳng hạn, nếu <m>\mathbf{v}=\twovec{-2}{-1}</m>, thì</p>
+          <me>
+            A^2\mathbf{v}=\twovec{2}{1}.
+          </me>
+        </statement>
+      </example>
+
+      <example xml:id="example-2-5-compose-bakery">
+        <title>Hợp thành hai mô hình sản xuất</title>
+        <statement>
+          <p>Tiếp tục ví dụ hai lò bánh. Ma trận</p>
+          <me>
+            A=\begin{bmatrix}
+            10 \amp 20\\
+            50 \amp 30\\
+            30 \amp 30
+            \end{bmatrix}
+          </me>
+          <p>biến số giờ hoạt động của hai lò thành số bánh kem, bánh vòng và bánh su kem. Giả sử mỗi bánh kem cần 4 cốc bột và 2 cốc đường; mỗi bánh vòng cần 1 cốc bột và 1 cốc đường; mỗi bánh su kem cần 1 cốc bột và 2 cốc đường. Khi đó phép biến đổi <m>S:\real^3\to\real^2</m> biến số lượng ba loại bánh thành số cốc bột và đường cần dùng, với ma trận</p>
+          <me>
+            B=\begin{bmatrix}
+            4 \amp 1 \amp 1\\
+            2 \amp 1 \amp 2
+            \end{bmatrix}.
+          </me>
+          <p>Nếu sản xuất 1200 bánh kem, 2850 bánh vòng và 2250 bánh su kem, lượng bột và đường cần dùng là</p>
+          <me>
+            B\threevec{1200}{2850}{2250}=\twovec{9900}{9750}.
+          </me>
+          <p>Hợp thành <m>S\circ T</m> nhận đầu vào là số giờ hoạt động của hai lò và trả về tổng số cốc bột, đường cần dùng. Ma trận tương ứng là</p>
+          <me>
+            BA
+            =
+            \begin{bmatrix}
+            120 \amp 140\\
+            130 \amp 130
+            \end{bmatrix}.
+          </me>
+          <p>Nếu hai lò đã dùng tổng cộng 5800 cốc bột và 5980 cốc đường, ta giải</p>
+          <me>
+            BA\mathbf{x}=\twovec{5800}{5980}
+          </me>
+          <p>và được <m>\mathbf{x}=\twovec{32}{14}</m>.</p>
+        </statement>
+      </example>
+    </subsection>
+
+    <subsection xml:id="subsection-2-5-discrete-dynamical-systems">
+      <title>Hệ động lực rời rạc</title>
+
+      <p>Trong Chương 4, ta sẽ nghiên cứu kỹ hơn một loại phép biến đổi ma trận đặc biệt, xuất hiện khi trạng thái của một hệ thay đổi từng bước theo thời gian.</p>
+
+      <example xml:id="example-2-5-truck-dynamical-system">
+        <title>Một hệ động lực rời rạc</title>
+        <statement>
+          <p>Giả sử một công ty có hai kho, gọi là <m>P</m> và <m>Q</m>, cùng một đội 1000 xe giao hàng. Mỗi sáng, một xe xuất phát từ một kho và buổi tối quay về một trong hai kho. Quan sát cho thấy:</p>
+          <ul>
+            <li><p>70% xe xuất phát từ <m>P</m> quay lại <m>P</m>, còn 30% quay về <m>Q</m>.</p></li>
+            <li><p>50% xe xuất phát từ <m>Q</m> quay về <m>Q</m>, và 50% quay về <m>P</m>.</p></li>
+          </ul>
+          <p>Ta biểu diễn phân bố xe bằng vectơ <m>\mathbf{x}=\twovec{x_1}{x_2}</m>, trong đó <m>x_1</m> là số xe ở <m>P</m> và <m>x_2</m> là số xe ở <m>Q</m>. Nếu <m>\mathbf{x}</m> mô tả phân bố buổi sáng, thì <m>T(\mathbf{x})</m> mô tả phân bố buổi tối.</p>
+          <p>Nếu tất cả 1000 xe bắt đầu ở <m>P</m>, buổi tối có 700 xe ở <m>P</m> và 300 xe ở <m>Q</m>, nên</p>
+          <me>
+            T\left(\ctwovec{1000}{0}\right)=\twovec{700}{300},
+            \qquad
+            T\left(\twovec{1}{0}\right)=\twovec{0.7}{0.3}.
+          </me>
+          <p>Tương tự, nếu tất cả 1000 xe bắt đầu ở <m>Q</m>, buổi tối có 500 xe ở <m>P</m> và 500 xe ở <m>Q</m>, nên</p>
+          <me>
+            T\left(\twovec{0}{1}\right)=\twovec{0.5}{0.5}.
+          </me>
+          <p>Vì vậy ma trận của phép biến đổi là</p>
+          <me>
+            A=\left[\begin{array}{rr}
+            0.7 \amp 0.5\\
+            0.3 \amp 0.5
+            \end{array}\right].
+          </me>
+          <p>Nếu buổi sáng có 100 xe ở <m>P</m> và 900 xe ở <m>Q</m>, thì buổi tối có</p>
+          <me>
+            A\twovec{100}{900}=\twovec{520}{480}.
+          </me>
+          <p>Nếu buổi tối có 550 xe ở <m>P</m> và 450 xe ở <m>Q</m>, thì phân bố buổi sáng là nghiệm của</p>
+          <me>
+            A\mathbf{x}=\twovec{550}{450},
+          </me>
+          <p>tức là <m>\mathbf{x}=\twovec{250}{750}</m>.</p>
+          <p>Nếu tất cả xe ở <m>Q</m> vào sáng thứ Hai, ta đặt <m>\mathbf{x}_0=\ctwovec{0}{1000}</m>. Khi đó</p>
+          <me>
+            \mathbf{x}_1=A\mathbf{x}_0=\twovec{500}{500},
+            \qquad
+            \mathbf{x}_2=A\mathbf{x}_1=\twovec{600}{400},
+            \qquad
+            \mathbf{x}_3=A\mathbf{x}_2=\twovec{620}{380}.
+          </me>
+          <p>Ma trận biến phân bố buổi sáng hôm nay thành phân bố buổi sáng sau một tuần là <m>A^7</m>. Trong ví dụ này,</p>
+          <me>
+            A^7=\left[\begin{array}{rr}
+            0.625 \amp 0.625\\
+            0.375 \amp 0.375
+            \end{array}\right].
+          </me>
+        </statement>
+      </example>
+
+      <p>Trong những tình huống như vậy, vectơ <m>\mathbf{x}</m> mô tả <term>trạng thái</term> của hệ tại một thời điểm. Phép biến đổi <m>T(\mathbf{x})=A\mathbf{x}</m> mô tả cách trạng thái chuyển từ thời điểm này sang thời điểm kế tiếp; vì vậy <m>T</m> được gọi là <term>hàm chuyển trạng thái</term>.</p>
+
+      <p>Bắt đầu từ trạng thái ban đầu <m>\mathbf{x}_0</m>, ta có</p>
+      <me>
+        \begin{aligned}
+        \mathbf{x}_1 \amp=T(\mathbf{x}_0)=A\mathbf{x}_0,\\
+        \mathbf{x}_2 \amp=T(\mathbf{x}_1)=A^2\mathbf{x}_0,\\
+        \mathbf{x}_3 \amp=T(\mathbf{x}_2)=A^3\mathbf{x}_0,
+        \end{aligned}
+      </me>
+      <p>và cứ tiếp tục như vậy.</p>
+
+      <definition xml:id="definition-2-5-discrete-dynamical-system">
+        <title>Hệ động lực rời rạc</title>
+        <statement>
+          <p>Một tình huống trong đó trạng thái của hệ thay đổi từ bước này sang bước tiếp theo theo quy tắc</p>
+          <me>\mathbf{x}_{k+1}=A\mathbf{x}_k</me>
+          <p>được gọi là một <term>hệ động lực rời rạc</term>. Các lũy thừa của ma trận <m>A</m> quyết định hành vi dài hạn của vectơ trạng thái.</p>
+        </statement>
+      </definition>
+    </subsection>
+
+    <subsection xml:id="subsection-2-5-summary">
+      <title>Tóm tắt</title>
+      <p>Phần này đã giới thiệu phép biến đổi ma trận, tức là các hàm được xác định bằng phép nhân ma trận-vectơ, chẳng hạn <m>T(\mathbf{x})=A\mathbf{x}</m>.</p>
+      <ul>
+        <li><p>Nếu <m>A</m> là ma trận <m>m\times n</m>, thì phép biến đổi tương ứng có dạng <m>T:\real^n\to\real^m</m>.</p></li>
+        <li><p>Các cột của ma trận <m>A</m> được tìm bằng cách tính ảnh của các vectơ cơ sở chuẩn: <m>A=\left[\begin{array}{rrrr}T(\mathbf{e}_1) \amp T(\mathbf{e}_2) \amp \cdots \amp T(\mathbf{e}_n)\end{array}\right]</m>.</p></li>
+        <li><p>Hợp thành các phép biến đổi ma trận tương ứng với phép nhân ma trận. Nếu <m>T</m> ứng với <m>A</m> và <m>S</m> ứng với <m>B</m>, thì <m>S\circ T</m> ứng với <m>BA</m>.</p></li>
+        <li><p>Một hệ động lực rời rạc gồm một vectơ trạng thái <m>\mathbf{x}</m> và một hàm chuyển trạng thái <m>T(\mathbf{x})=A\mathbf{x}</m>, mô tả quy luật <m>\mathbf{x}_{k+1}=A\mathbf{x}_k</m>.</p></li>
+      </ul>
+    </subsection>
+  </section>
+</chapter>

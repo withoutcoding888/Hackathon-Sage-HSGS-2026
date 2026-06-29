@@ -1,0 +1,1328 @@
+<!-- chap3_vi.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="chap3" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <title>Tính khả nghịch, cơ sở và hệ tọa độ</title>
+
+  <introduction>
+    <p>
+      Trong <xref ref="chap2" />, chúng ta đã xét
+      <xref ref="fundamental-questions" text="custom">
+	hai câu hỏi cơ bản
+      </xref>
+      liên quan đến sự tồn tại và tính duy nhất của nghiệm của các hệ tuyến tính một cách độc lập với nhau. Chúng ta thấy rằng mọi phương trình có dạng <m>A\xvec = \bvec</m> đều có nghiệm khi span của các cột của <m>A</m> là <m>\real^m</m>. Chúng ta cũng thấy rằng nghiệm <m>\xvec=\zerovec</m> của phương trình thuần nhất <m>A\xvec = \zerovec</m> là duy nhất khi các cột của <m>A</m> độc lập tuyến tính. Trong chương này, chúng ta khảo sát tình huống trong đó hai điều kiện này cùng đúng đồng thời.
+    </p>
+  </introduction>
+
+  <xi:include href="./section3-1_vi.xml" />
+  <xi:include href="./section3-2.xml" />
+  <xi:include href="./section3-3.xml" />
+  <xi:include href="./section3-4.xml" />
+  <xi:include href="./section3-5.xml" />
+  
+</chapter>
+
+
+<!-- section3-1_vi.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-matrix-inverse"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <title>
+    Tính khả nghịch
+  </title>
+
+  <introduction>
+    <p> Cho đến thời điểm này, chúng ta đã dùng thuật toán khử Gauss để tìm nghiệm của các hệ tuyến tính. Bây giờ ta khảo sát một cách khác để tìm nghiệm của phương trình <m>A\xvec=\bvec</m> khi ma trận <m>A</m> có cùng số hàng và số cột. Để bắt đầu, hãy xem một vài ví dụ quen thuộc.
+    </p>
+
+    <exploration label="ula-preview-3-1">
+      <task label="ula-preview-3-1-a">
+        <statement>
+          <p>
+            Hãy giải thích cách bạn giải phương trình <m>3x =
+	    5</m> bằng phép nhân thay vì phép chia. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+          <p> Chia cho <m>3</m> cũng giống như nhân với <m>\frac13</m>, tức là nghịch đảo nhân <m>\frac13</m> của <m>3</m>. Ta có
+	    <me>
+	      \begin{array}{rl}
+	      \frac13(3x) \amp = \dfrac13 5  \\
+	      \left(\frac13 3\right)x\amp = \dfrac53   \\
+	      1x \amp = \dfrac 53 \\
+	      x \amp = \dfrac53\text{.} \\
+	      \end{array}
+	    </me>
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-3-1-b">
+	<statement>
+          <p> Hãy tìm ma trận <m>2\times2</m> <m>A</m> quay các vectơ ngược chiều kim đồng hồ một góc <m>90^\circ</m>. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Như ta đã thấy vài lần, ma trận đó là
+	    <m>A=\left[\begin{array}{rr}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]\text{.}
+	    </m>
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-3-1-c">
+        <statement>
+	  <p> Hãy tìm ma trận <m>2\times2</m> <m>B</m> quay các vectơ <em>theo chiều kim đồng hồ</em> một góc <m>90^\circ</m>. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Ở đây, ma trận là
+	    <m>B=\left[\begin{array}{rr}
+	    0 \amp 1 \\
+	    -1 \amp 0 \\
+	    \end{array}\right]\text{.}
+	    </m>
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-3-1-d">
+        <statement>
+	  <p> Bạn dự đoán tích <m>AB</m> sẽ là gì? Hãy giải thích lập luận phía sau dự đoán đó rồi tính <m>AB</m> để kiểm chứng. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p> Ta nên dự đoán rằng <m>AB=I</m> vì tác dụng của việc quay <m>90^\circ</m> theo chiều kim đồng hồ rồi sau đó quay <m>90^\circ</m> ngược chiều kim đồng hồ là giữ nguyên vectơ. Ta có thể kiểm chứng điều này bằng cách thực hiện phép nhân ma trận.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-3-1-e">
+        <statement>
+	  <p> Giải phương trình <m>A\xvec = \twovec{3}{-2}</m> bằng khử Gauss.
+	  <sage>
+	    <input>
+	    </input>
+	  </sage>
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p> Ta có
+	  <me>
+	    \left[\begin{array}{rr|r}
+	    0 \amp -1 \amp 3 \\
+	    1 \amp 0 \amp -2 \\
+	    \end{array}\right]
+	    \sim
+	    \left[\begin{array}{rr|r}
+	    1 \amp 0 \amp -2 \\
+	    0 \amp 1 \amp -3 \\
+	    \end{array}\right]
+	  </me>
+	  nên nghiệm là <m>\xvec=\twovec{-2}{-3}</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-3-1-f">
+        <statement>
+	  <p> Giải thích vì sao nghiệm của bạn cũng có thể được tìm bằng cách tính <m>\xvec = B\twovec{3}{-2}</m>. </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Phương trình <m>A\xvec=\twovec{3}{-2}</m> yêu cầu ta tìm vectơ mà sau khi quay <m>90^\circ</m> sẽ trở thành <m>\twovec{3}{-2}</m>. Nếu ta quay <m>\twovec{3}{-2}</m> một góc <m>90^\circ</m> theo hướng ngược lại, vectơ thu được sẽ có tính chất này. Nghĩa là, nếu <m>\xvec = B\twovec3{-2}</m>, thì
+	    <me>
+	      A\xvec = A(B\twovec3{-2})
+	      = (AB)\twovec{3}{-2} 
+	      = I\twovec{3}{-2} 
+	      = \twovec{3}{-2}.
+	    </me>
+	  </p>
+        </solution>
+      </task>
+
+      <task component="rs-preview">
+        <query label="ula-preview-3-1-poll" visibility="instructor">
+          <statement>
+            <p>Tôi cảm thấy tự tin với nội dung trong hoạt động này.</p>
+          </statement>
+          <choices>
+            <choice><p>Hoàn toàn đồng ý</p></choice>
+            <choice><p>Đồng ý</p></choice>
+            <choice><p>Trung lập</p></choice>
+            <choice><p>Không đồng ý</p></choice>
+            <choice><p>Hoàn toàn không đồng ý</p></choice>
+          </choices>
+        </query>
+      </task>
+
+      <task component="rs-preview"
+            label="ula-preview-3-1-what-else">
+        <statement>
+          <p>Bạn cần biết thêm điều gì để cảm thấy tự tin hơn về nội dung này?</p>
+        </statement>
+        <response/>
+      </task>
+
+    </exploration>
+    
+  </introduction>
+
+  <subsection xml:id="subsec-invertible-matrices">
+    <title> Ma trận khả nghịch </title>
+
+    <p> Hoạt động mở đầu bắt đầu với một dạng phương trình quen thuộc, <m>3x = 5</m>, và yêu cầu đưa ra một chiến lược để giải nó. Một cách trả lời là chia hai vế cho 3. Thay vào đó, ta hãy diễn đạt lại thao tác này như việc nhân với <m>3^{-1} = \frac
+    13</m>, nghịch đảo nhân của 3.
+    </p>
+
+    <p> Bây giờ, khi ta quan tâm đến việc giải các phương trình có dạng <m>A\xvec = \bvec</m>, ta có thể thử tìm một cách tiếp cận tương tự. Có ma trận nào <m>A^{-1}</m> đóng vai trò như nghịch đảo nhân của <m>A</m> hay không? Tất nhiên, số thực <m>0</m> không có nghịch đảo nhân, nên có lẽ ta không nên kỳ vọng mọi ma trận đều có nghịch đảo nhân. Tuy nhiên, ta sẽ thấy rằng có nhiều ma trận có nghịch đảo.
+    </p>
+
+    <definition>
+      <statement>
+	<idx> khả nghịch </idx>
+	<idx> ma trận, nghịch đảo </idx>
+	<p> Một ma trận <m>n\times n</m> <m>A</m> được gọi là <em>khả nghịch</em> nếu tồn tại một ma trận <m>B</m> sao cho <m>AB = I_n</m>, trong đó <m>I_n</m> là ma trận đơn vị <m>n\times n</m>. Ma trận <m>B</m> được gọi là <em>nghịch đảo</em> của <m>A</m> và được ký hiệu là <m>A^{-1}</m>.
+	</p>
+      </statement>
+    </definition>
+
+    <p>
+      <idx> ma trận, vuông </idx> Lưu ý rằng ta chỉ định nghĩa tính khả nghịch cho các ma trận có cùng số hàng và số cột; trong trường hợp đó, ta gọi ma trận là <em>ma trận vuông</em>.
+    </p>
+
+    <example>
+      <statement>
+	<p>
+	  Giả sử <m>A</m> là ma trận quay các vectơ hai chiều ngược chiều kim đồng hồ một góc <m>90^\circ</m> và <m>B</m> quay các vectơ một góc <m>-90^\circ</m>. Ta có
+	  <me>
+	    A=\left[\begin{array}{rr}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{array}\right],~~~
+	    B=\left[\begin{array}{rr}
+	    0 \amp 1 \\
+	    -1 \amp 0 \\
+	    \end{array}\right].
+	  </me>
+	  Ta có thể kiểm tra rằng
+	  <me>
+	    AB = \begin{bmatrix}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{bmatrix}
+	    \begin{bmatrix}
+	    0 \amp 1 \\
+	    -1 \amp 0 \\
+	    \end{bmatrix}
+	    = \begin{bmatrix}
+	    1 \amp 0 \\
+	    0 \amp 1 \\
+	    \end{bmatrix}
+	    = I 
+	  </me>
+	  điều này cho thấy <m>A</m> khả nghịch và <m>A^{-1}=B</m>.
+	</p>
+	<p>
+	  Lưu ý rằng nếu ta nhân các ma trận theo thứ tự ngược lại, ta thấy <m>BA=I</m>, điều này nói rằng <m>B</m> cũng khả nghịch và <m>B^{-1} = A</m>. Nói cách khác, <m>A</m> và <m>B</m> là nghịch đảo của nhau.
+	</p>
+      </statement>
+    </example>
+
+    <activity>
+      <statement>
+	<p>
+	  Hoạt động này minh họa một quy trình tìm nghịch đảo của ma trận <m>A</m>.
+
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Giả sử <m>A = \begin{bmatrix}
+		3 \amp -2 \\
+		1 \amp -1 \\
+		\end{bmatrix}
+		</m>. Để tìm một nghịch đảo <m>B</m>, ta viết các cột của nó dưới dạng <m>B = \begin{bmatrix}\bvec_1 \amp \bvec_2
+		\end{bmatrix}</m> và yêu cầu rằng
+		<me>
+		  \begin{aligned}
+		  AB \amp = I \\
+		  \begin{bmatrix}
+		  A\bvec_1 \amp A\bvec_2
+		  \end{bmatrix}
+		  \amp = 
+		  \begin{bmatrix}
+		  1 \amp 0 \\
+		  0 \amp 1 \\
+		  \end{bmatrix}.
+		  \end{aligned}
+		</me>
+		Nói cách khác, ta có thể tìm các cột của <m>B</m> bằng cách giải các phương trình
+		<me>
+		  A\bvec_1 = \twovec10,~~~
+		  A\bvec_2 = \twovec01.
+		</me>
+		Hãy giải các phương trình này để tìm <m>\bvec_1</m> và <m>\bvec_2</m>. Sau đó viết ma trận <m>B</m> và kiểm chứng rằng <m>AB=I</m>. Điều này là đủ để ta kết luận rằng <m>B</m> là nghịch đảo của <m>A</m>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Tìm tích <m>BA</m> và giải thích vì sao lúc này ta biết rằng <m>B</m> khả nghịch và <m>B^{-1}=A</m>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Điều gì xảy ra khi bạn thử tìm nghịch đảo của
+		<m>C = \begin{bmatrix}
+		-2 \amp 1 \\
+		4 \amp -2 \\
+		\end{bmatrix}</m>?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Bây giờ ta xây dựng một điều kiện mà một ma trận khả nghịch phải thỏa mãn. Giả sử <m>A</m> là ma trận khả nghịch <m>n\times n</m> với nghịch đảo <m>B</m>, và giả sử <m>\bvec</m> là một vectơ <m>n</m>-chiều bất kỳ. Vì <m>AB=I</m>, ta có
+		<me>
+		  A(B\bvec) = (AB)\bvec = I\bvec = \bvec.
+		</me>
+		Điều này nói rằng phương trình <m>A\xvec = \bvec</m> là tương thích và <m>\xvec=B\bvec</m> là một nghiệm.
+	      </p>
+
+	      <p>
+		Vì ta biết rằng <m>A\xvec = \bvec</m> tương thích với mọi vectơ <m>\bvec</m>, điều này nói gì về span của các cột của <m>A</m>?
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Vì <m>A</m> là ma trận vuông, điều này nói gì về các vị trí pivot của <m>A</m>? Dạng bậc thang rút gọn theo hàng của <m>A</m> là gì?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Trong hoạt động này, ta đã nghiên cứu các ma trận
+		<me>
+		  A = \begin{bmatrix}
+		  3 \amp -2 \\
+		  1 \amp -1 \\
+		  \end{bmatrix},~~~
+		  C = \begin{bmatrix}
+		  -2 \amp 1 \\
+		  4 \amp -2 \\
+		  \end{bmatrix}.
+		</me>
+		Hãy tìm dạng bậc thang rút gọn theo hàng của mỗi ma trận và giải thích cách những dạng đó giúp ta kết luận ma trận nào khả nghịch và ma trận nào không khả nghịch.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p>
+	    Giải hai phương trình để tìm <m>\bvec_1</m> và <m>\bvec_2</m> cho ta
+	    <m>B = \begin{bmatrix}
+	    1 \amp -2 \\
+	    1 \amp -3 \\
+	    \end{bmatrix}</m>. Ta có thể kiểm chứng rằng, đúng như kỳ vọng, <m>AB=I</m>.
+	  </p></li>
+
+	  <li><p>
+	    Ta thấy rằng <m>BA=I</m>, đây là điều kiện cho ta biết rằng <m>B</m> khả nghịch.
+	  </p></li>
+
+	  <li><p>
+	    Khi tìm cột thứ nhất của <m>C^{-1}</m>, ta thấy phương trình <m>C\xvec = \twovec10</m> không tương thích. Điều này có nghĩa là <m>C</m> không khả nghịch.
+	  </p></li>
+
+	  <li><p>
+	    Vì phương trình <m>A\xvec = \bvec</m> tương thích với mọi <m>\bvec</m>, ta biết rằng span của các cột của <m>A</m> là <m>\real^n</m>.
+	  </p></li>
+
+	  <li><p>
+	    Vì span của các cột của <m>A</m> là <m>\real^n</m>, có một vị trí pivot trong mọi hàng. Vì <m>A</m> là ma trận vuông, cũng có một vị trí pivot trong mọi cột. Điều này có nghĩa là dạng bậc thang rút gọn theo hàng của <m>A</m> phải là ma trận đơn vị <m>I_n</m>.
+	  </p></li>
+
+	  <li><p>
+	    Ta thấy rằng
+	    <me>
+	      A\sim \begin{bmatrix}
+	      1 \amp 0 \\
+	      0 \amp 1 \\
+	      \end{bmatrix},~~~
+	      C\sim
+	      \begin{bmatrix}
+	      1 \amp -\frac12 \\
+	      0 \amp 0 \\
+	      \end{bmatrix},
+	    </me>
+	    điều này cho thấy <m>A</m> khả nghịch và <m>C</m> thì không.
+	  </p></li>
+	</ol></p>
+      </solution>
+
+    </activity>
+
+    <example xml:id="example-inverse-augment-I">
+      <statement>
+	<p>
+	  Ta có thể diễn đạt lại quy trình tìm nghịch đảo của một ma trận. Để thuận tiện, giả sử <m>A</m> là ma trận khả nghịch <m>2\times2</m> với nghịch đảo <m>B=\begin{bmatrix} \bvec_1 \amp \bvec_2 \end{bmatrix}</m>. Thay vì giải riêng hai phương trình
+	  <me>
+	    A\bvec_1 = \twovec10,~~~
+	    A\bvec_2 = \twovec01
+	  </me>
+	  ta có thể giải chúng cùng lúc bằng cách ghép thêm vào <m>A</m> cả hai vectơ <m>\twovec10</m> và <m>\twovec01</m>, rồi tìm dạng bậc thang rút gọn theo hàng.
+	</p>
+	
+	<p>
+	  Ví dụ, nếu
+	  <m>A =
+	  \begin{bmatrix}
+	  1 \amp 2 \\
+	  1 \amp 1 \\
+	  \end{bmatrix}</m>,
+	  ta lập
+	  <me>
+	    \left[
+	    \begin{array}{rr|rr}
+	    1 \amp 2 \amp 1 \amp 0 \\
+	    1 \amp 1 \amp 0 \amp 1 \\
+	    \end{array}
+	    \right]
+	    \sim
+	    \left[
+	    \begin{array}{rr|rr}
+	    1 \amp 0 \amp -1 \amp 2 \\
+	    0 \amp 1 \amp 1 \amp -1 \\
+	    \end{array}
+	    \right].
+	  </me>
+	  Điều này cho thấy ma trận
+	  <m> B =
+	  \begin{bmatrix}
+	  -1 \amp 2 \\
+	  1 \amp 1 \\
+	  \end{bmatrix}
+	  </m> là nghịch đảo của <m>A</m>.
+	</p>
+	<p>
+	  Nói cách khác, bắt đầu với <m>A</m>, ta ghép thêm ma trận đơn vị và tìm dạng bậc thang rút gọn theo hàng để xác định <m>A^{-1}</m>:
+	  <me>
+	    \left[
+	    \begin{array}{r|r}
+	    A \amp I \\
+	    \end{array}
+	    \right]
+	    \sim
+	    \left[
+	    \begin{array}{r|r}
+	    I \amp A^{-1} \\
+	    \end{array}
+	    \right].
+	  </me>
+	</p>
+      </statement>
+    </example>
+
+    <p>
+      Thực ra, cách diễn đạt lại này luôn hoạt động. Giả sử <m>A</m> là ma trận khả nghịch <m>n\times n</m> với nghịch đảo <m>B</m>. Giả sử thêm rằng <m>\bvec</m> là một vectơ <m>n</m>-chiều bất kỳ và xét phương trình <m>A\xvec = \bvec</m>. Ta biết rằng <m>x=B\bvec</m> là một nghiệm vì
+      <m>
+	A(B\bvec) = (AB)\bvec = I\bvec = \bvec.
+      </m>
+    </p>
+
+    <proposition xml:id="proposition-inverse-solve">
+      <statement>
+	<p>
+	  Nếu <m>A</m> là ma trận khả nghịch với nghịch đảo <m>B</m>, thì mọi phương trình <m>A\xvec = \bvec</m> đều tương thích và <m>\xvec = B\bvec</m> là một nghiệm. Nói cách khác, nghiệm của <m>A\xvec = \bvec</m> là <m>\xvec =
+	  A^{-1}\bvec</m>.
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      Lưu ý rằng điều này tương tự như việc nói rằng nghiệm của <m>3x=5</m> là <m>x = \frac13\cdot 5</m>, như ta đã thấy trong hoạt động mở đầu.
+    </p>
+
+    <p>
+      Bây giờ, vì <m>A\xvec=\bvec</m> tương thích với mọi vectơ <m>\bvec</m>, các cột của <m>A</m> phải span <m>\real^n</m>, nên có một vị trí pivot trong mọi hàng. Vì <m>A</m> cũng là ma trận vuông, điều này có nghĩa là dạng bậc thang rút gọn theo hàng của <m>A</m> là ma trận đơn vị.
+    </p>
+
+    <proposition xml:id="proposition-invertible-rref">
+      <statement>
+	<p>
+	  Ma trận <m>A</m> khả nghịch khi và chỉ khi dạng bậc thang rút gọn theo hàng của <m>A</m> là ma trận đơn vị: <m>A\sim I</m>. Ngoài ra, ta có thể tìm nghịch đảo bằng cách ghép thêm ma trận đơn vị vào <m>A</m> và tìm dạng bậc thang rút gọn theo hàng:
+	  <me>
+	    \left[
+	    \begin{array}{r|r}
+	    A \amp I \\
+	    \end{array}
+	    \right]
+	    \sim
+	    \left[
+	    \begin{array}{r|r}
+	    I \amp A^{-1} \\
+	    \end{array}
+	    \right].
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      Có thể bạn đã nhận ra rằng <xref
+      ref="proposition-inverse-solve"/> nói rằng <em>nghiệm duy nhất</em> của phương trình <m>A\xvec = \bvec</m> là <m>\xvec =
+      A^{-1}\bvec</m>. Thật vậy, ta biết rằng phương trình này có nghiệm duy nhất vì <m>A</m> có vị trí pivot trong mọi cột.
+    </p>
+      
+    <p>
+      Điều quan trọng cần nhớ là tích của hai ma trận phụ thuộc vào thứ tự nhân. Nghĩa là, nếu <m>C</m> và <m>D</m> là các ma trận, thì đôi khi xảy ra <m>CD \neq DC</m>. Tuy nhiên, có một điều thuận lợi xảy ra khi ta xét tính khả nghịch. Hóa ra nếu <m>A</m> là ma trận <m>n\times n</m> và <m>AB=I</m>, thì cũng đúng rằng <m>BA=I</m>. Ta đã kiểm chứng điều này trong một vài ví dụ cho đến giờ, và <xref ref="ex-right-inverse" /> giải thích vì sao điều đó luôn xảy ra. Điều này dẫn đến mệnh đề sau.
+    </p>
+
+    <proposition xml:id="proposition-inverse-inverse">
+      <statement>
+	<p>
+	  Nếu <m>A</m> là ma trận khả nghịch <m>n\times n</m> với nghịch đảo <m>B</m>, thì <m>BA=I</m>, điều này cho ta biết rằng <m>B</m> khả nghịch với nghịch đảo <m>A</m>. Nói cách khác,
+	  <me>
+	    (A^{-1})^{-1} = A.
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+
+  </subsection>
+
+  <subsection>
+    <title> Giải phương trình bằng nghịch đảo </title>
+
+    <p>
+      Nếu <m>A</m> là ma trận khả nghịch, thì <xref ref="proposition-inverse-solve"/> cho ta thấy cách dùng <m>A^{-1}</m> để giải các phương trình liên quan đến <m>A</m>. Cụ thể, nghiệm của <m>A\xvec = \bvec</m> là <m>\xvec = A^{-1}\bvec</m>.
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Ta sẽ bắt đầu bằng cách xét ma trận vuông
+	  <me>
+	    A = \begin{bmatrix}
+	    1 \amp 0 \amp 2 \\
+	    2 \amp 2 \amp 1 \\
+	    1 \amp 1 \amp 1 \\
+	    \end{bmatrix}.
+	  </me>
+	  
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Mô tả không gian nghiệm của phương trình <m>A\xvec
+		= \threevec343</m> bằng cách ghép thêm cột vế phải vào <m>A</m> và tìm dạng bậc thang rút gọn theo hàng.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Dùng <xref ref="proposition-invertible-rref"/> để giải thích vì sao <m>A</m> khả nghịch và tìm nghịch đảo của nó.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Bây giờ dùng nghịch đảo để giải phương trình <m>A\xvec =
+		\threevec343</m> và kiểm chứng rằng kết quả trùng với điều bạn tìm được ở phần a.
+	      </p>
+	    </li>
+		
+	    <li>
+	      <p>
+		Nếu bạn đã định nghĩa một ma trận <c>B</c> trong Sage, bạn có thể tìm nghịch đảo của nó bằng <c>B.inverse()</c> hoặc <c>B^-1</c>. Hãy dùng Sage để tìm nghịch đảo của ma trận
+		<me>
+		  B = \left[\begin{array}{rrr}
+		  1 \amp -2 \amp -1 \\
+		  -1 \amp 5 \amp 6 \\
+		  5 \amp -4 \amp 6 \\
+		  \end{array}\right]
+		</me>
+		và dùng nó để giải phương trình <m>B\xvec =
+		\threevec83{36}</m>. 
+		  <sage>
+		    <input>
+		    </input>
+		  </sage>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		Nếu <m>A</m> và <m>B</m> là hai ma trận được định nghĩa trong hoạt động này, hãy tìm tích <m>AB</m> của chúng và kiểm chứng rằng nó khả nghịch.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Tính các tích <m>A^{-1}B^{-1}</m> và <m>B^{-1}A^{-1}</m>. Tích nào trùng với <m>(AB)^{-1}</m>?
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Giải thích phát hiện của bạn bằng cách xét tích
+		<me>
+		  (AB)(B^{-1}A^{-1})
+		</me>
+		và dùng tính kết hợp để nhóm lại các tích sao cho hai thừa số ở giữa được nhân trước.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p>
+	    Lập ma trận mở rộng, ta thấy rằng
+	    <me>
+	      \left[\begin{array}{rrr|r}
+	      1 \amp 0 \amp 2 \amp 3 \\
+	      2 \amp 2 \amp 1 \amp 4 \\
+	      1 \amp 1 \amp 1 \amp 3
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rrr|r}
+	      1 \amp 0 \amp 0 \amp -1 \\
+	      0 \amp 1 \amp 0 \amp 2 \\
+	      0 \amp 0 \amp 1 \amp 2
+	      \end{array}\right],
+	    </me>
+	    điều này nói rằng có nghiệm duy nhất <m>\xvec =
+	    \threevec{-1}22</m>.
+	  </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      Kết quả ở phần a cho thấy <m>A\sim I</m>, từ đó ta kết luận rằng <m>A</m> khả nghịch. Để tìm nghịch đảo,
+	      <me>
+		\left[\begin{array}{rrr|rrr}
+		1 \amp 0 \amp 2 \amp 1 \amp 0 \amp 0 \\
+		2 \amp 2 \amp 1 \amp 0 \amp 1 \amp 0 \\
+		1 \amp 1 \amp 1 \amp 0 \amp 0 \amp 1
+		\end{array}\right]
+		\sim
+		\left[\begin{array}{rrr|rrr}
+		1 \amp 0 \amp 0 \amp 1 \amp 2 \amp -4 \\
+		0 \amp 1 \amp 0 \amp -1 \amp -1 \amp 3 \\
+		0 \amp 0 \amp 1 \amp 0 \amp -1 \amp 2
+		\end{array}\right],
+	      </me>
+	      điều này nói rằng
+	      <me>
+		A^{-1} = \begin{bmatrix}
+		1 \amp 2 \amp -4 \\
+		-1 \amp -1 \amp 3 \\
+		0 \amp -1 \amp 2 \\
+		\end{bmatrix}.
+	      </me>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Ta thấy rằng <m>A^{-1}\threevec343 = \threevec{-1}22</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Sage cho ta biết rằng <m>B^{-1}\threevec{8}3{36} =
+	      \threevec{76}{47}{-26}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Sage giúp ta thấy rằng <m>(AB)\sim I</m>, điều này cho ta biết rằng <m>AB</m> khả nghịch.
+	    </p>
+	  </li>
+
+	  <li><p>
+	    Ta tìm được <m>(AB)^{-1} = B^{-1}A^{-1}</m>.
+	  </p></li>
+
+	  <li>
+	    <p>
+	      Ta thấy rằng
+	      <me>
+		(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AIA^{-1} =
+		AA^{-1} = I.
+	      </me>
+	    </p>
+	  </li>
+	</ol></p>
+      </solution>
+
+    </activity>
+
+    <p>
+      Mệnh đề tiếp theo tóm tắt nhiều điều ta đã tìm được về ma trận khả nghịch.
+    </p>
+    
+    <proposition xml:id="proposition-invertible-properties">
+      <title> Các tính chất của ma trận khả nghịch </title>
+      <statement>
+	<p> 
+	  <ul>
+	    <li><p> Một ma trận <m>n\times n</m> <m>A</m> khả nghịch khi và chỉ khi <m>A\sim I</m>. </p></li>
+
+	    <li><p> Nếu <m>A</m> khả nghịch, thì nghiệm của phương trình <m>A\xvec = \bvec</m> được cho bởi <m>\xvec =
+	    A^{-1}\bvec</m>. </p></li>
+
+	    <li><p> Ta có thể tìm <m>A^{-1}</m> bằng cách tìm dạng bậc thang rút gọn theo hàng của <m>\left[\begin{array}{r|r} A \amp I
+	    \end{array}\right]</m>; cụ thể,
+	    <me>
+	      \left[\begin{array}{r|r} A \amp I \end{array}\right]
+	      \sim
+	      \left[\begin{array}{r|r} I \amp A^{-1} \end{array}\right]
+	    </me>.</p></li>
+
+	    <li><p> Nếu <m>A</m> và <m>B</m> là hai ma trận khả nghịch <m>n\times
+	    n</m>, thì tích <m>AB</m> của chúng cũng khả nghịch và <m>(AB)^{-1} = B^{-1}A^{-1}</m>. </p></li>
+	  </ul>
+	</p>
+      </statement>
+    </proposition>
+    
+    <p> Có một công thức đơn giản để tìm nghịch đảo của ma trận <m>2\times2</m>:
+    <me>
+      \left[\begin{array}{rr}
+      a \amp b \\
+      c \amp d \\
+      \end{array}\right]^{-1}
+      =
+      \frac{1}{ad-bc}
+      \left[\begin{array}{rr}
+      d \amp -b \\
+      -c \amp a \\
+      \end{array}\right]
+    </me>,
+    điều này có thể được kiểm tra dễ dàng. Trong trường hợp này, điều kiện để <m>A</m> khả nghịch rút gọn thành điều kiện <m>ad-bc\neq 0</m>. Ta sẽ hiểu điều kiện này rõ hơn sau khi khảo sát định thức trong <xref ref="sec-determinants" />. Có một công thức tương tự cho nghịch đảo của ma trận <m>3\times
+    3</m>, nhưng không có lý do tốt để viết nó ở đây.
+    </p>
+
+  </subsection>
+
+  <subsection xml:id="subsec-triangular-invertible">
+    <title> Ma trận tam giác và khử Gauss </title>
+
+    <p>
+      Với một số ý tưởng đã phát triển, ta có thể diễn đạt lại thuật toán khử Gauss bằng phép nhân ma trận và tính khả nghịch. Điều này sẽ đặc biệt hữu ích về sau khi ta xét <xref ref="sec-determinants" text="custom">
+	định thức
+      </xref>
+      và 
+      <xref ref="sec-gaussian-revisited" text="custom">
+	phân tích LU.
+      </xref>
+      Ma trận tam giác sẽ đóng một vai trò quan trọng.
+    </p>
+
+    <definition>
+      <statement>
+	<idx> ma trận tam giác dưới </idx>
+	<idx> ma trận tam giác trên </idx>
+	<p> Ta nói rằng một ma trận <m>A</m> là <em>tam giác dưới</em> nếu tất cả các phần tử nằm phía trên đường chéo chính đều bằng không. Tương tự, <m>A</m> là <em>tam giác trên</em> nếu tất cả các phần tử nằm phía dưới đường chéo chính đều bằng không.
+	</p>
+      </statement>
+    </definition>
+
+    <p> Ví dụ, ma trận <m>L</m> bên dưới là một ma trận tam giác dưới, trong khi <m>U</m> là một ma trận tam giác trên.
+    <me>
+      L = \left[\begin{array}{rrrr}
+      * \amp 0 \amp 0 \amp 0 \\
+      * \amp * \amp 0 \amp 0 \\
+      * \amp * \amp * \amp 0 \\
+      * \amp * \amp * \amp * \\
+      \end{array}\right],
+      \hspace{24pt}
+      U = 
+      \left[\begin{array}{rrrr}
+      * \amp * \amp * \amp * \\
+      0 \amp * \amp * \amp * \\
+      0 \amp 0 \amp * \amp * \\
+      0 \amp 0 \amp 0 \amp * \\
+      \end{array}\right]
+    </me>.
+    </p>
+
+    <p> Ta có thể xây dựng một phép kiểm tra đơn giản để xác định một ma trận tam giác dưới <m>n\times n</m> có khả nghịch hay không. Hãy dùng khử Gauss để tìm dạng bậc thang rút gọn theo hàng của ma trận tam giác dưới
+    <me>
+      \begin{aligned}
+      \left[\begin{array}{rrr}
+      1 \amp 0 \amp 0 \\
+      2 \amp -2 \amp 0 \\
+      -3 \amp 4 \amp -4 \\
+      \end{array}\right]
+      \amp {}\sim{}
+      \left[\begin{array}{rrr}
+      1 \amp 0 \amp 0 \\
+      0 \amp -2 \amp 0 \\
+      0 \amp 4 \amp -4 \\
+      \end{array}\right]
+      \\
+      \amp {}\sim{}
+      \left[\begin{array}{rrr}
+      1 \amp 0 \amp 0 \\
+      0 \amp -2 \amp 0 \\
+      0 \amp 0 \amp -4 \\
+      \end{array}\right]      
+      \sim
+      \left[\begin{array}{rrr}
+      1 \amp 0 \amp 0 \\
+      0 \amp 1 \amp 0 \\
+      0 \amp 0 \amp 1 \\
+      \end{array}\right]\text{.}
+      \end{aligned}
+    </me>
+      Vì các phần tử trên đường chéo chính đều khác không, ta tìm được một vị trí pivot trong mọi hàng, điều này cho ta biết rằng ma trận khả nghịch.
+    </p>
+    <p>
+      Tuy nhiên, nếu có một phần tử bằng không trên đường chéo chính, thì ma trận không thể khả nghịch. Xét ma trận bên dưới, ta thấy việc có một số 0 trên đường chéo chính dẫn đến một hàng không có vị trí pivot.
+    <me>
+      \left[\begin{array}{rrr}
+      1 \amp 0 \amp 0 \\
+      2 \amp 0 \amp 0 \\
+      -3 \amp 4 \amp -4 \\
+      \end{array}\right]
+      \sim
+      \left[\begin{array}{rrr}
+      1 \amp 0 \amp 0 \\
+      0 \amp 0 \amp 0 \\
+      0 \amp 4 \amp -4 \\
+      \end{array}\right]
+      \sim
+      \left[\begin{array}{rrr}
+      1 \amp 0 \amp 0 \\
+      0 \amp 1 \amp -1 \\
+      0 \amp 0 \amp 0 \\
+      \end{array}\right]\text{.}
+    </me>
+    </p>
+
+    <proposition xml:id="proposition-triangular-invertibility">
+      <statement>
+	<p> Một ma trận tam giác <m>n\times n</m> khả nghịch khi và chỉ khi tất cả các phần tử trên đường chéo chính đều khác không.
+	</p>
+      </statement>
+    </proposition>
+
+    <activity>
+      <title> Khử Gauss và phép nhân ma trận </title>
+      <statement>
+	<p>
+	  Hoạt động này khảo sát cách thực hiện các phép biến đổi hàng gồm nhân một hàng với hằng số, hoán đổi hai hàng và thay thế hàng bằng phép nhân ma trận.
+	</p>
+	<p>
+	  Ví dụ, ta xét ma trận
+	  <me>
+	    A = \left[\begin{array}{rrr}
+	    1 \amp 2 \amp 1 \\
+	    2 \amp 0 \amp -2 \\
+	    -1 \amp 2 \amp -1 \\
+	    \end{array}\right]
+	  </me>
+	  và áp dụng một phép thay thế hàng: nhân hàng thứ nhất với <m>-2</m> rồi cộng vào hàng thứ hai. Thay vì thực hiện phép biến đổi này theo cách thông thường, ta xây dựng một ma trận mới bằng cách áp dụng phép thay thế mong muốn lên ma trận đơn vị. Để minh họa, ta bắt đầu với ma trận đơn vị
+	  <me>
+	    I = \begin{bmatrix}
+	    1 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{bmatrix}
+	  </me>
+	  và tạo một ma trận mới bằng cách nhân hàng thứ nhất với <m>-2</m> rồi cộng vào hàng thứ hai, thu được
+	  <me>
+	    R = \begin{bmatrix}
+	    1 \amp 0 \amp 0 \\
+	    -2 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{bmatrix}.
+	  </me>
+	  <ol marker="a.">
+	    <li><p>
+	      Chứng minh rằng tích <m>RA</m> chính là kết quả của việc áp dụng phép thay thế hàng đó lên <m>A</m>.
+	      <sage>
+		<input>
+		</input>
+	      </sage>
+	    </p></li>
+
+	    <li><p> Giải thích vì sao <m>R</m> khả nghịch và tìm nghịch đảo <m>R^{-1}</m>.
+	    </p></li>
+	    
+	    <li><p> Mô tả mối quan hệ giữa <m>R</m> và <m>R^{-1}</m>, rồi dùng sự liên hệ với các phép thay thế hàng để giải thích vì sao quan hệ đó đúng.
+	    </p></li>
+
+	    <li><p> Các phép biến đổi hàng khác cũng có thể được thực hiện bằng một quy trình tương tự. Chẳng hạn, giả sử ta muốn nhân hàng thứ hai của <m>A</m> với <m>4</m>. Hãy tìm một ma trận <m>S</m> sao cho <m>SA</m> giống với kết quả thu được từ phép nhân hàng đó. Vì sao <m>S</m> khả nghịch và <m>S^{-1}</m> là gì?
+	    <sage>
+	      <input>
+	      </input>
+	    </sage>
+	    </p></li>
+
+	    <li><p> Cuối cùng, giả sử ta muốn hoán đổi hàng thứ nhất và hàng thứ ba của <m>A</m>. Hãy tìm một ma trận <m>P</m>, thường gọi là <em>ma trận hoán vị</em>, thực hiện phép biến đổi này. <m>P^{-1}</m> là gì?
+	    </p></li>
+	      
+	    <li><p> Ma trận ban đầu <m>A</m> được thấy là tương đương hàng với ma trận tam giác trên <m>U</m> bằng cách thực hiện ba phép thay thế hàng lên <m>A</m>:
+	    <me>
+	      A = \left[\begin{array}{rrr}
+	      1 \amp 2 \amp 1 \\
+	      2 \amp 0 \amp -2 \\
+	      -1 \amp 2 \amp -1 \\
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rrr}
+	      1 \amp 2 \amp 1 \\
+	      0 \amp -4 \amp -4 \\
+	      0 \amp 0 \amp -4 \\
+	      \end{array}\right] = U.
+	    </me>
+	    Hãy tìm các ma trận <m>L_1</m>, <m>L_2</m> và <m>L_3</m> thực hiện các phép thay thế hàng này sao cho <m>L_3L_2L_1 A = U</m>.  </p></li>
+	    
+	      <li><p> Giải thích vì sao tích ma trận <m>L_3L_2L_1</m> khả nghịch và dùng điều này để viết <m>A = LU</m>. Ma trận <m>L</m> mà bạn tìm được là gì? Vì sao bạn nghĩ ta ký hiệu nó là <m>L</m>?
+	      <sage>
+		<input>
+		</input>
+	      </sage>
+	      
+	      </p></li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p>
+	    Thực hiện phép nhân ma trận, ta được
+	    <me>
+	      RA = 
+	      \left[\begin{array}{rrr}
+	      1 \amp 0 \amp 0 \\
+	      -2 \amp 1 \amp 0 \\
+	      0 \amp 0 \amp 1 \\
+	      \end{array}\right]
+	      \left[\begin{array}{rrr}
+	      1 \amp 2 \amp 1 \\
+	      2 \amp 0 \amp -2 \\
+	      -1 \amp 2 \amp -1 \\
+	      \end{array}\right]
+	      =
+	      \left[\begin{array}{rrr}
+	      1 \amp 2 \amp 1 \\
+	      0 \amp -4 \amp -4 \\
+	      -1 \amp 2 \amp -1 \\
+	      \end{array}\right]\text{.}
+	    </me>
+	  </p></li>
+
+	  <li><p> Ta biết rằng <m>R</m> khả nghịch vì nó là ma trận tam giác dưới có tất cả các phần tử trên đường chéo chính đều bằng 1. Ta tìm được
+	  <m>
+	    R^{-1}
+	    = \left[\begin{array}{rrr}
+	    1 \amp 0 \amp 0 \\
+	    2 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}\right]
+	    </m>, điều này có thể được kiểm chứng.
+	  </p></li>
+
+	  <li><p>
+	    Nhưng ta cũng có thể thấy điều này theo cách khác. Phép thay thế hàng là phép biến đổi có thể đảo ngược; nghĩa là, thao tác nhân hàng thứ nhất với <m>-2</m> rồi cộng vào hàng thứ hai có thể được hoàn tác bằng cách nhân hàng thứ nhất với <m>2</m> rồi cộng vào hàng thứ hai.
+	  </p></li>
+
+	  <li><p> Ta tìm được
+	  <me>
+	    S = \begin{bmatrix}
+	    1 \amp 0 \amp 0 \\
+	    0 \amp 4 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{bmatrix},~~~
+	    S^{-1} = \begin{bmatrix}
+	    1 \amp 0 \amp 0 \\
+	    0 \amp \frac14 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{bmatrix}.
+	  </me>
+	  Điều này hợp lý vì nhân một hàng với <m>4</m> có thể được hoàn tác bằng cách nhân chính hàng đó với <m>\frac14</m>.
+	  </p></li>
+
+	  <li><p> Ta tìm được
+	  <me>
+	    P = \begin{bmatrix}
+	    0 \amp 0 \amp 1 \\
+	    0 \amp 1 \amp 0 \\
+	    1 \amp 0 \amp 0 \\
+	    \end{bmatrix}.
+	  </me>
+	  Hơn nữa, <m>P=P^{-1}</m> vì ta có thể hoàn tác phép hoán đổi bằng cách lặp lại chính phép hoán đổi đó.
+	  </p></li>
+
+	  <li><p>
+	    Tiếp tục thuật toán khử Gauss, ta có <m>L_1 = R</m>, như trên,
+	    <me>
+	      L_2 = \left[\begin{array}{rrr}
+	      1 \amp 0 \amp 0 \\
+	      0 \amp 1 \amp 0 \\
+	      1 \amp 0 \amp 1 \\
+	      \end{array}\right],~~~
+	      L_3 = \left[\begin{array}{rrr}
+	      1 \amp 0 \amp 0 \\
+	      0 \amp 1 \amp 0 \\
+	      0 \amp 1 \amp 1 \\
+	      \end{array}\right]\text{.}
+	    </me>
+	    Khi đó ta có <m>L_3L_2L_1A = U</m>.
+	  </p></li>
+
+	  <li><p>
+	    Mỗi ma trận <m>L_1</m>, <m>L_2</m> và <m>L_3</m> đều khả nghịch nên tích của chúng cũng khả nghịch. Vì <m>(L_3L_2L_1)A = U</m>, ta có <m>A =
+	    (L_3L_2L_1)^{-1}U</m>. Hơn nữa,
+	    <m>L = (L_3L_2L_1)^{-1} = L_1^{-1}L_2^{-1}L_3^{-1}</m>
+	    cho ta
+	    <m>L=\left[\begin{array}{rrr}
+	    1 \amp 0 \amp 0 \\
+	    2 \amp 1 \amp 0 \\
+	    -1 \amp -1 \amp 1 \\
+	    \end{array}\right]</m>. Lưu ý rằng ma trận này là tam giác dưới nên ta gọi nó là <m>L</m>.
+	  </p></li>
+
+	</ol></p>
+      </solution>
+	      
+    </activity>
+
+    <p>
+      <idx> ma trận, sơ cấp </idx>
+      Sau đây là các ví dụ về những ma trận, được gọi là <em>ma trận sơ cấp</em>, thực hiện các phép biến đổi hàng trên một ma trận có ba hàng.
+      <dl>
+	<li><title> Thay thế </title>
+	<p> Nhân hàng thứ hai với 3 rồi cộng vào hàng thứ ba được thực hiện bởi
+	<me>
+	  L = \begin{bmatrix}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp 3 \amp 1 \\
+	  \end{bmatrix}.
+	</me>  Ta thường dùng <m>L</m> để mô tả các ma trận này vì chúng là tam giác dưới.
+	</p></li>
+	<li><title> Nhân hàng với hằng số </title>
+	<p> Nhân hàng thứ ba với 2 được thực hiện bởi
+	<me>
+	  S = \begin{bmatrix}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 2 \\
+	  \end{bmatrix}.
+	</me>
+	</p></li>
+
+	<li><title> Hoán đổi </title>
+	<p> Hoán đổi hai hàng đầu tiên được thực hiện bởi
+	<me>
+	  P = \begin{bmatrix}
+	  0 \amp 1 \amp 0 \\
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{bmatrix}.
+	</me>
+	</p></li>
+      </dl>
+    </p>
+    
+    <example>
+      <statement>
+	<p> Giả sử ta có
+	<me>
+	  A = \left[\begin{array}{rrr}
+	  1 \amp 3 \amp -2 \\
+	  -3 \amp -6 \amp 3 \\
+	  2 \amp 0 \amp -2 \\
+	  \end{array}\right].
+	</me>
+	Trong pha thế tiến của khử Gauss, ta thực hiện một dãy ba phép thay thế hàng. Phép thay thế hàng đầu tiên nhân hàng thứ nhất với <m>3</m> rồi cộng kết quả vào hàng thứ hai. Ta có thể thực hiện phép biến đổi này bằng cách nhân <m>A</m> với ma trận tam giác dưới <m>L_1</m>, trong đó
+	<me>
+	  L_1A =
+	  \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  3 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  \left[\begin{array}{rrr}
+	  1 \amp 3 \amp -2 \\
+	  -3 \amp -6 \amp 3 \\
+	  2 \amp 0 \amp -2 \\
+	  \end{array}\right]
+	  = 
+	  \left[\begin{array}{rrr}
+	  1 \amp 3 \amp -2 \\
+	  0 \amp 3 \amp -3 \\
+	  2 \amp 0 \amp -2 \\
+	  \end{array}\right].
+	  </me>
+	</p>
+
+	<p> Hai phép thay thế hàng tiếp theo được thực hiện bởi các ma trận
+	<me>
+	  L_2 = \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  -2 \amp 0 \amp 1 \\
+	  \end{array}\right],
+	  \hspace{24pt}
+	  L_3 = \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp 2 \amp 1 \\
+	  \end{array}\right]
+	</me>
+	sao cho
+	<me>L_3L_2L_1A = U = \begin{bmatrix}
+	1 \amp 3 \amp -2 \\
+	0 \amp 3 \amp -3 \\
+	0 \amp 0 \amp -4 \\
+	\end{bmatrix}.
+	</me>
+	</p>
+	
+	<p> Lưu ý rằng nghịch đảo của <m>L_1</m> có dạng đơn giản:
+	<me>
+	  L_1 = \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  3 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right],
+	  \hspace{24pt}
+	  L_1^{-1} = \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  -3 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  </me>.
+	  Điều này nói rằng nếu ta muốn hoàn tác thao tác nhân hàng thứ nhất với <m>3</m> rồi cộng vào hàng thứ hai, ta nên nhân hàng thứ nhất với <m>-3</m> rồi cộng vào hàng thứ hai. Đó là tác dụng của <m>L_1^{-1}</m>.
+	</p>
+	
+	<p> Lưu ý rằng lúc này ta có <m>L_3L_2L_1A = U</m>, suy ra
+	<me>
+	  \begin{aligned}
+	  (L_3L_2L_1)A \amp = U \\
+	  (L_3L_2L_1)^{-1}(L_3L_2L_1)A \amp = 
+	  (L_3L_2L_1)^{-1}U \\
+	  A \amp = (L_3L_2L_1)^{-1}U = LU\\
+	  \end{aligned}
+	</me>
+	trong đó <m>L</m> là ma trận tam giác dưới
+	<me> L = (L_3L_2L_1)^{-1}=\begin{bmatrix}
+	1 \amp 0 \amp 0 \\
+	-3 \amp 1 \amp 0 \\
+	2 \amp -2 \amp 1 \\
+	\end{bmatrix}.
+	</me>
+	Cách viết <m>A=LU</m> dưới dạng tích của một ma trận tam giác dưới và một ma trận tam giác trên được gọi là một <m>phân tích LU</m> của <m>A</m>, và sự hữu ích của nó sẽ được khảo sát trong <xref ref="sec-gaussian-revisited"/>.
+	</p>
+
+      </statement>
+    </example>
+
+  </subsection>
+
+  <subsection>
+    <title> Tóm tắt </title>
+
+    <p> Trong mục này, ta đã tìm được các điều kiện đảm bảo rằng một ma trận có nghịch đảo. Khi các điều kiện này đúng, ta cũng tìm được một thuật toán để tìm nghịch đảo đó.
+    <ul>
+      <li><p> Một ma trận vuông khả nghịch nếu tồn tại một ma trận <m>B</m>, được gọi là nghịch đảo của <m>A</m>, sao cho <m>AB =
+      I</m>. Ta thường viết <m>A^{-1} = B</m>.  </p></li>
+
+      <li><p> Ma trận <m>n\times n</m> <m>A</m> khả nghịch khi và chỉ khi nó tương đương hàng với <m>I_n</m>, ma trận đơn vị <m>n\times n</m>. </p></li>
+
+      <li><p> Nếu một ma trận <m>A</m> khả nghịch, ta có thể dùng khử Gauss để tìm nghịch đảo của nó:
+      <me>
+	\left[\begin{array}{r|r} A \amp I \end{array}\right] \sim 
+	\left[\begin{array}{r|r} I \amp A^{-1} \end{array}\right]
+      </me>. </p></li>
+
+      <li><p> Nếu một ma trận <m>A</m> khả nghịch, thì nghiệm của phương trình <m>A\xvec = \bvec</m> là <m>\xvec =
+      A^{-1}\bvec</m>. </p></li> 
+
+      <li><p> Các phép biến đổi hàng gồm thay thế, nhân hàng với hằng số và hoán đổi có thể được thực hiện bằng cách nhân với các ma trận sơ cấp.  </p></li>
+    </ul>
+    </p>
+
+    <exercise component="proteus"
+              label="ula-proteus-3-1-matching-matrix-invertibility">
+      <title>Xác định tính khả nghịch của ma trận</title>
+
+      <statement>
+        <p>
+          Dưới đây là một số mô tả về các ma trận, trong đó <m>*</m> biểu thị một số khác không. Với mỗi ma trận, hãy xác định nó khả nghịch, không khả nghịch, hay cần thêm thông tin.
+        </p>
+      </statement>
+
+      <feedback>
+        <p>Bạn có thể nên ôn lại cách cấu trúc của một ma trận tam giác quyết định tính khả nghịch của nó. Phần tóm tắt chương ở trên cũng có thể hữu ích, cũng như nội dung trong <xref
+        ref="subsec-triangular-invertible"/>.
+        </p>
+      </feedback>
+
+      <cardsort>
+        <match>
+          <premise>
+            <m>\begin{bmatrix}
+            * \amp 0 \amp 0 \\
+            * \amp * \amp 0 \\
+            * \amp * \amp * \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <premise>
+            <m>\begin{bmatrix}
+            * \amp * \amp * \\
+            0 \amp * \amp * \\
+            0 \amp 0 \amp * \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <premise>
+            <m>\begin{bmatrix}
+            * \amp * \amp * \\
+            * \amp * \amp 0 \\
+            * \amp 0 \amp 0 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <premise>
+            <m>\begin{bmatrix}
+            0 \amp 0 \amp * \\
+            0 \amp * \amp 0 \\
+            * \amp 0 \amp 0 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>Chắc chắn khả nghịch</response>
+        </match>
+        <match>
+          <premise>
+            <m>\begin{bmatrix}
+            * \amp * \amp 0 \\
+            0 \amp 0 \amp * \\
+            0 \amp 0 \amp * \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <premise>
+            <m>\begin{bmatrix}
+            * \amp * \amp * \\
+            0 \amp * \amp * \\
+            0 \amp 0 \amp 0 \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>Chắc chắn không khả nghịch</response>
+        </match>
+        <match>
+          <premise>
+            <m>\begin{bmatrix}
+            * \amp * \amp * \\
+            * \amp * \amp * \\
+            * \amp * \amp * \\
+            \end{bmatrix}
+            </m>
+          </premise>
+          <response>Cần thêm thông tin</response>
+        </match>
+      </cardsort>
+    </exercise>
+
+    <exercise component="proteus"
+              label="ula-proteus-3-1-matching-invertibility-conditions">
+      <title>Xác định các điều kiện cho tính khả nghịch</title>
+
+      <statement>
+        <p>
+          Giả sử <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> là các vectơ trong <m>\real^n</m> và đặt
+          <m>A=\begin{bmatrix}
+          \vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n
+          \end{bmatrix}
+          </m>. Hãy ghép mỗi điều kiện sau với mô tả phù hợp của <m>A</m>, nếu có thể.
+        </p>
+      </statement>
+
+      <feedback>
+        <p>Bạn có thể nên ôn lại cách dạng bậc thang rút gọn theo hàng của một ma trận xác định ma trận đó có khả nghịch hay không, và những hệ quả phát sinh từ đó. Phần tóm tắt chương ở trên cũng có thể hữu ích, cũng như nội dung trong <xref
+        ref="subsec-invertible-matrices"/>.
+        </p>
+      </feedback>
+
+      <cardsort>
+        <match>
+          <premise>
+            <m>\{\vvec_1,\vvec_2,\ldots,\vvec_n\}</m> là một tập vectơ độc lập tuyến tính.
+          </premise>
+          <premise>
+            <m>A</m> tương đương hàng với ma trận đơn vị <m>I</m>.
+          </premise>
+          <premise>
+            <m>A\xvec = \zerovec</m> có đúng một nghiệm.
+          </premise>
+          <premise>
+            <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n} = \real^n
+            </m>.
+          </premise>
+          <response><m>A</m> khả nghịch</response>
+        </match>
+        <match>
+          <premise>
+            Dạng bậc thang rút gọn theo hàng của <m>A</m> có một hàng mà tất cả các phần tử đều bằng không.
+          </premise>
+          <premise>
+            <m>A\threevec1{-1}{-3} = \zerovec</m>.
+          </premise>
+          <response><m>A</m> không khả nghịch</response>
+        </match>
+        <match>
+          <premise>
+            <m>A\xvec = \zerovec</m> có nghiệm
+            <m>\xvec=\zerovec</m>.
+          </premise>
+          <response>Không thể xác định</response>
+        </match>
+      </cardsort>
+    </exercise>
+
+    <exercise component="proteus"
+              label="ula-proteus-3-1-reading-invertibility">
+      <title>Kết nối tính khả nghịch với nghiệm của phương trình</title>
+      <statement>
+        <p>Nếu <m>A</m> là một ma trận sao cho
+        <m>A\xvec=\threevec1{-1}0</m> có nghiệm duy nhất <m>\xvec
+        = \threevec102</m>, ta có thể kết luận điều gì về tính khả nghịch của <m>A</m> không? Hãy giải thích suy nghĩ của bạn.</p>
+      </statement>
+      <response/>
+    </exercise>
+  </subsection>
+
+  <xi:include href="exercises/exercises3-1.xml" />
+  
+</section>

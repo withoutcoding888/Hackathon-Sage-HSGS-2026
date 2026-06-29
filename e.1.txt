@@ -1,0 +1,3893 @@
+===== section6-2.xml =====
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-chuyển vị"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title> Phần bù trực giao và phép chuyển vị ma trận </title>
+
+  <introduction>
+
+    <p>
+      Bây giờ chúng ta đã thấy tích số chấm đặt chúng ta xác định
+      góc giữa hai vectơ và cụ thể hơn là khi hai
+      các vectơ là trực giao.  Trong tương lai, chúng ta sẽ khám phá cách
+      điều kiện trực giao đơn giản hóa nhiều nhiệm vụ phổ biến, chẳng hạn như
+      biểu diễn một vectơ dưới dạng tổ hợp tuyến tính của một tập hợp các vectơ đã cho
+      vectơ.
+    </p>
+
+    <p>
+      Phần này giới thiệu khái niệm về phần bù trực giao,
+      tập hợp các vectơ mà mỗi vectơ trực giao với một quy định
+      không gian con.  Chúng ta cũng sẽ tìm cách mô tả tích số chấm bằng cách sử dụng
+      tích ma trận, đặt chúng ta nghiên cứu tính trực giao bằng cách sử dụng
+      nhiều công cụ để hiểu các hệ thống tuyến tính mà chúng ta
+      được phát triển trước đó.
+    </p>
+
+    <exploration label="ula-preview-6-2">
+      <task label="ula-preview-6-2-a"
+            attachment="yes">
+        <statement>
+	  <p> Phác thảo vectơ <m>\vvec=\twovec{-1}2</m> TRÊN
+	  <xref ref="fig-pa-6-2" /> và một vectơ trực giao với nó.
+          </p>
+          <p component="rs-preview">Bạn có thể tải lên bản quét của bạn
+          phác thảo dưới đây.</p>
+	  <figure xml:id="fig-pa-6-2">
+	    <image width="50%">
+              <shortdescription>
+                Lưới tọa độ và tập hợp các trục.
+              </shortdescription>
+              <description>
+                <p>MỘT <m>1\times1</m> lưới tọa độ chuẩn và
+                bộ trục.  Phạm vi ngang và dọc
+                cả hai đều chạy từ <m>-4</m> ĐẾN <m>4</m>.</p>
+              </description>
+              <prefigure xmlns="https://prefigure.org"
+                             label="pf-empty-4-6-2">
+                <xi:include href="prefigure/section1-1/empty-4.xml"/>
+              </prefigure>
+            </image>
+	    <caption>
+	      Phác thảo vectơ <m>\vvec</m> và một vectơ
+	      trực giao với nó.
+	    </caption>
+	  </figure>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Vectơ <m>\wvec=\twovec21</m> là một ví dụ về một
+	    vectơ trực giao với <m>\vvec</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-2-b">
+        <statement>
+	  <p>
+	    Nếu một vectơ <m>\xvec</m> trực giao với
+	    <m>\vvec</m>, chúng ta biết gì về tích số chấm
+	    <m>\vvec\cdot\xvec</m>?
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Tích số chấm phải bằng 0.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-2-c">
+        <statement>
+	  <p>
+	    Nếu chúng ta viết <m>\xvec=\twovec xy</m>, sử dụng tích vô hướng để
+	    viết phương trình các vectơ trực giao với <m>\vvec</m>
+	    về mặt <m>x</m> và <m>y</m>.
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    <m>\vvec\cdot\xvec = -x+2y = 0</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-2-d">
+        <statement>
+          <p>
+	    Sử dụng phương trình này để phác họa tập hợp tất cả các vectơ trực giao
+	    để <m>\vvec</m> TRONG <xref ref="fig-pa-6-2" />.
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Đây là dòng <m>y=\frac12 x</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-2-e">
+        <statement>
+	  <p>
+	    <xref ref="sec-subspaces" /> đã giới thiệu
+	    không gian cột <m>\col(A)</m> và không gian trống
+	    <m>\nul(A)</m> của một ma trận <m>A</m>.
+	    Nếu như <m>A</m> là một ma trận, ý nghĩa của giá trị rỗng là gì
+	    không gian <m>\nul(A)</m>?
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Đó là tập hợp các vectơ <m>\xvec</m> vì cái gì
+	    <m>A\xvec = \zerovec</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-2-f">
+        <statement>
+	  <p>
+	    Ý nghĩa của không gian cột là gì <m>\col(A)</m>?
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Đó là tập vectơ <m>\bvec</m> mà
+	    phương trình <m>A\xvec=\bvec</m> là tương thích.
+	  </p>
+        </solution>
+      </task>
+
+      <task component="rs-preview">
+        <query label="ula-preview-6-2-poll" visibility="instructor">
+          <statement>
+            <p>Tôi cảm thấy tự tin với tài liệu của hoạt động này.</p>
+          </statement>
+          <choices>
+            <choice><p>Rất đồng ý</p></choice>
+            <choice><p>Đồng ý</p></choice>
+            <choice><p>Trung lập</p></choice>
+            <choice><p>Không đồng ý</p></choice>
+            <choice><p>Rất không đồng ý</p></choice>
+          </choices>
+        </query>
+      </task>
+
+      <task component="rs-preview"
+            label="ula-preview-6-2-what-else">
+        <statement>
+          <p>Bạn cần biết điều gì để cảm nhận
+          tự tin hơn về tài liệu này?</p>
+        </statement>
+        <response/>
+      </task>
+    </exploration>
+  </introduction>
+  
+  <subsection>
+    <title> Phần bù trực giao </title>
+
+    <p>
+      Hoạt động xem trước đã cung cấp cho chúng ta một vectơ <m>\vvec</m> và
+      dẫn chúng ta qua quá trình mô tả tất cả các vectơ
+      trực giao với <m>\vvec</m>.  Lưu ý rằng tập hợp vô hướng
+      bội số của <m>\vvec</m>
+      mô tả một dòng <m>L</m>, một
+      không gian con 1 chiều của <m>\real^2</m>.
+      Sau đó chúng ta mô tả dòng thứ hai bao gồm tất cả các vectơ
+      trực giao với <m>\vvec</m>.  Chú ý rằng mọi vectơ trên đây
+      đường thẳng trực giao với mọi vectơ trên đường thẳng <m>L</m>.  Chúng ta
+      gọi dòng mới này là <em>phần bù trực giao</em> của
+      <m>L</m> và ký hiệu nó bằng <m>L^\perp</m>.  các dòng <m>L</m>
+      Và <m>L^\perp</m> được minh họa bên trái của <xref
+      ref="fig-orthog-comps" />.
+    </p>
+
+    <figure xml:id="fig-orthog-comps">
+      <sidebyside widths="45% 45%">
+	<image>
+          <shortdescription>
+            Một đường thẳng trong hai chiều và phần bù trực giao của nó.
+          </shortdescription>
+          <description>
+            <p>Một vectơ hai chiều <m>\vvec</m> và dòng
+            <m>L</m> mà nó định nghĩa.  Phần bù trực giao
+            <m>L^\perp</m>, là đường thẳng vuông góc với <m>L</m>, là
+            cũng được hiển thị.</p>
+          </description>
+          <prefigure xmlns="https://prefigure.org"
+                     label="pf-orthog-lines">
+            <xi:include href="prefigure/section6-2/orthog-lines.xml"/>
+          </prefigure>
+        </image>
+	<image>
+          <shortdescription>
+            Một mặt phẳng trong ba chiều và phần bù trực giao của nó.
+          </shortdescription>
+          <description>
+            <p>một chiếc máy bay <m>W</m> trong ba chiều và trực giao của nó
+            bổ sung <m>W^\perp</m>, là đường thẳng vuông góc với
+            <m>W</m>.</p>
+          </description>
+          <prefigure xmlns="https://prefigure.org"
+                     label="pf-orthog-comp">
+            <xi:include href="prefigure/section6-2/orthog-comp.xml"/>
+          </prefigure>
+        </image>
+      </sidebyside>
+      <caption>
+	Bên trái là một dòng <m>L</m> và phần bù trực giao của nó
+	<m>L^\perp</m>.  Bên phải là máy bay <m>W</m> và nó
+	phần bù trực giao <m>W^\perp</m> TRONG <m>\real^3</m>.
+      </caption>
+    </figure>
+
+    <p>
+      Định nghĩa tiếp theo đặt ví dụ này vào một bối cảnh tổng quát hơn.
+    </p>
+
+    <definition>
+      <idx>phần bù trực giao</idx>
+      <statement>
+	<p>
+	  Cho một không gian con <m>W</m> của <m>\real^m</m>, cái
+	  <term>phần bù trực giao</term> của <m>W</m> là tập hợp của
+	  vectơ trong <m>\real^m</m> mỗi cái đều vuông góc với
+	  mọi vectơ trong <m>W</m>.  Chúng ta biểu thị sự trực giao
+	  bổ sung bằng <m>W^\perp</m>.
+	</p>
+      </statement>
+    </definition>
+
+    <p>
+      Một ví dụ điển hình xuất hiện ở bên phải <xref
+      ref="fig-orthog-comps" />.  Ở đây chúng ta thấy một chiếc máy bay <m>W</m>, một
+      không gian con hai chiều của <m>\real^3</m>, và trực giao của nó
+      bổ sung <m>W^\perp</m>, đó là một dòng trong <m>\real^3</m>.
+    </p>
+
+    <p>
+      Như hoạt động tiếp theo chứng minh, phần bù trực giao của
+      một không gian con <m>W</m> chính nó là một không gian con của <m>\real^m</m>.
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Giả sử rằng <m>\wvec_1=\threevec10{-2}</m> Và
+	  <m>\wvec_2=\threevec11{-1}</m> tạo cơ sở cho
+	  <m>W</m>, một không gian con hai chiều của
+	  <m>\real^3</m>.  Chúng ta sẽ tìm thấy mô tả của
+	  phần bù trực giao <m>W^\perp</m>. 
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Giả sử rằng vectơ <m>\xvec</m> trực giao với
+		<m>\wvec_1</m>.  Nếu chúng ta viết
+		<m>\xvec=\threevec{x_1}{x_2}{x_3}</m>,
+		sử dụng thực tế rằng <m>\wvec_1\cdot\xvec =
+		0</m> để viết một tuyến tính
+		phương trình cho <m>x_1</m>, <m>x_2</m>, Và <m>x_3</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Giả sử rằng <m>\xvec</m> cũng vuông góc với
+		<m>\wvec_2</m>.  Tương tự, hãy viết một đường thẳng
+		phương trình cho <m>x_1</m>, <m>x_2</m>, Và <m>x_3</m>
+		điều đó phát sinh từ thực tế là <m>\wvec_2\cdot\xvec =
+		0</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Nếu như <m>\xvec</m> trực giao với cả hai <m>\wvec_1</m>
+		Và <m>\wvec_2</m>, hai phương trình này cho chúng ta một
+		hệ thống tuyến tính <m>B\xvec=\zerovec</m> đối với một số ma trận
+		<m>B</m>.  Xác định ma trận <m>B</m> và viết một
+		mô tả tham số của không gian nghiệm cho
+		phương trình <m>B\xvec = \zerovec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Từ <m>\wvec_1</m> và <m>\wvec_2</m> tạo thành một cơ sở
+		cho không gian con hai chiều <m>W</m>, vectơ bất kỳ
+		<m>\wvec</m> TRONG <m>W</m> có thể được viết dưới dạng tuyến tính
+		sự kết hợp
+		<me>
+		  \wvec = c_1\wvec_1 + c_2\wvec_2\text{.}
+		</me>
+		Nếu như <m>\xvec</m> trực giao với cả hai <m>\wvec_1</m>
+		Và <m>\wvec_2</m>, sử dụng tính chất phân phối của
+		tích vô hướng để giải thích tại sao <m>\xvec</m> là trực giao
+		để <m>\wvec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Đưa ra cơ sở của phép bù trực giao
+		<m>W^\perp</m> và nêu kích thước <m>\dim W^\perp</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Mô tả <m>(W^\perp)^\perp</m>, trực giao
+		sự bổ sung của <m>W^\perp</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Chúng ta có phương trình <m>\wvec_1\cdot\xvec = x_1 - 2x_3
+		= 0</m>. 
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Chúng ta có phương trình <m>\wvec_2\cdot\xvec = x_1+x_2 - x_3
+		= 0</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Hai phương trình này cho <m>B\xvec=\zerovec</m> Ở đâu
+		<me>
+		  B = \begin{bmatrix}
+		  1 \amp 0 \amp -2 \\
+		  1 \amp 1 \amp -1 \\
+		  \end{bmatrix}
+		  \sim
+		  \begin{bmatrix}
+		  1 \amp 0 \amp -2 \\
+		  0 \amp 1 \amp 1 \\
+		  \end{bmatrix}\text{,}
+		</me>
+		nghiệm của nó có dạng tham số
+		<m>\xvec=x_3\threevec2{-1}1</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Bằng cách phân phối,
+		<m>(c_1\wvec_1+c_2\wvec_2)\cdot\xvec=
+		c_1\wvec_1\cdot\xvec + c_2\wvec_2\cdot\xvec = 0</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>W^\perp</m> là không gian nghiệm của phương trình
+		<m>B\xvec=\zerovec</m>.  Do đó, một cơ sở bao gồm
+		của vectơ đơn
+		<m>\threevec2{-1}1</m>, Và <m>W^\perp</m> là
+		một chiều.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Vì mọi vectơ trong <m>W^\perp</m> trực giao với
+		mọi vectơ trong <m>W</m>, phần bù trực giao của
+		<m>W^\perp</m> là <m>W</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\wvec_1\cdot\xvec = x_1 - 2x_3
+		= 0</m>. 
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\wvec_2\cdot\xvec = x_1+x_2 - x_3
+		= 0</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>
+		  B = \begin{bmatrix}
+		  1 \amp 0 \amp -2 \\
+		  1 \amp 1 \amp -1 \\
+		  \end{bmatrix}
+		</m>
+		Vì thế
+		<m>\xvec=x_3\threevec2{-1}1</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Bằng cách phân phối,
+		<m>(c_1\wvec_1+c_2\wvec_2)\cdot\xvec=
+		c_1\wvec_1\cdot\xvec + c_2\wvec_2\cdot\xvec = 0</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Một cơ sở bao gồm
+		<m>\threevec1{-1}1</m>, Và <m>W^\perp</m> là
+		một chiều.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Phần bù trực giao của
+		<m>W^\perp</m> là <m>W</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+    </activity>
+
+    <example xml:id="example-orthog-comp-line">
+      <statement>
+	<p>
+	  Nếu như <m>L</m> là dòng 
+	  được xác định bởi <m>\vvec=\threevec1{-2}3</m> TRONG <m>\real^3</m>,
+	  chúng ta sẽ mô tả phần bù trực giao <m>L^\perp</m>,
+	  tập hợp các vectơ trực giao với <m>L</m>.
+	</p>
+
+	<p>
+	  Nếu như <m>\xvec</m> trực giao với <m>L</m>, nó phải là
+	  trực giao với <m>\vvec</m> vì vậy chúng ta có
+	  <me>
+	    \vvec\cdot\xvec = x_1-2x_2+3x_3 = 0\text{.}
+	  </me>
+	</p>
+
+	<p>
+	  Chúng ta có thể mô tả nghiệm của phương trình này
+	  tham số như
+	<me>
+	  \xvec=\threevec{x_1}{x_2}{x_3} =
+	  \cthreevec{2x_2-3x_3}{x_2}{x_3} = 
+	  x_2\threevec210+x_3\threevec{-3}01\text{.}
+	</me>
+	Do đó, phần bù trực giao <m>L^\perp</m> là một
+	mặt phẳng, một không gian con hai chiều của <m>\real^3</m>,
+	kéo dài bởi các vectơ <m>\threevec210</m> Và
+	<m>\threevec{-3}01</m>. 
+	</p>
+      </statement>
+    </example>
+
+    <example xml:id="example-orthog-comp-gen">
+      <statement>
+	<p>
+	  Giả sử rằng <m>W</m> là <m>2</m>không gian con chiều
+	  của <m>\real^5</m> có cơ sở
+	  <me>
+	    \wvec_1=\fivevec{-1}{-2}23{-4},\hspace{24pt}
+	    \wvec_2=\fivevec24202\text{.}
+	  </me>
+	  Chúng ta sẽ đưa ra mô tả về phần bù trực giao
+	  <m>W^\perp</m>.
+	</p>
+
+	<p>
+	  Nếu như <m>\xvec</m> đang ở trong <m>W^\perp</m>, chúng ta biết điều đó
+	  <m>\xvec</m> trực giao với cả hai <m>\wvec_1</m> Và
+	  <m>\wvec_2</m>.  Vì thế,
+	  <md>
+	    <mrow>
+	      \wvec_1\cdot\xvec \amp {}={}-x_1-2x_2+2x_3+3x_4-4x_5
+	      \amp {}={} 0
+	    </mrow>
+	    <mrow>
+	      \wvec_2\cdot\xvec \amp {}={} 2x_1+4x_2+2x_3+0x_4+2x_5
+	      \amp {}={} 0
+	    </mrow>
+	  </md>
+	  Nói cách khác, <m>B\xvec=\zerovec</m> Ở đâu
+	<me>
+	  B = 
+	  \begin{bmatrix}
+	  -1 \amp -2 \amp 2 \amp 3 \amp -4 \\
+	  2 \amp 4 \amp 2 \amp 0 \amp 2
+	  \end{bmatrix}
+	  \sim
+	  \begin{bmatrix}
+	  1 \amp 2 \amp 0 \amp -1 \amp 2 \\
+	  0 \amp 0 \amp 1 \amp 1 \amp -1
+	  \end{bmatrix}\text{.}
+	</me>
+	Các nghiệm có thể được mô tả một cách tham số như
+	<me>
+	  \xvec=\fivevec{x_1}{x_2}{x_3}{x_4}{x_5}
+	  =x_2\fivevec{-2}1000 + x_4\fivevec10{-1}10 +
+	  x_5\fivevec{-2}0101\text{.}
+	</me>
+	Thuộc tính phân phối của tích số chấm ngụ ý rằng bất kỳ
+	vectơ trực giao với cả hai <m>\wvec_1</m> Và
+	<m>\wvec_2</m> cũng trực giao với mọi tổ hợp tuyến tính của
+	<m>\wvec_1</m> và <m>\wvec_2</m> từ
+	<me>
+	  (c_1\wvec_1 + c_2\wvec_2)\cdot\xvec = c_1\wvec_1\cdot\xvec +
+	  c_2\wvec_2\cdot\xvec = 0\text{.}
+	</me>
+	Vì thế, <m>W^\perp</m> là một <m>3</m>không gian con chiều
+	của <m>\real^5</m> có cơ sở
+	<me>
+	  \vvec_1=\fivevec{-2}1000, \hspace{24pt}
+	  \vvec_2=\fivevec10{-1}10, \hspace{24pt}
+	  \vvec_3=\fivevec{-2}0101\text{.}
+	</me>
+	Người ta có thể kiểm tra xem các vectơ <m>\vvec_1</m>, <m>\vvec_2</m>,
+	Và <m>\vvec_3</m> mỗi cái đều trực giao với cả hai <m>\wvec_1</m>
+	Và <m>\wvec_2</m>.
+	</p>
+      </statement>
+    </example>
+
+  </subsection>
+  
+  <subsection>
+    <title> ma trận chuyển vị </title>
+
+    <p>
+      Hoạt động và ví dụ trước đây cho thấy cách chúng ta có thể mô tả
+      phần bù trực giao của một không gian con là tập nghiệm của một
+      hệ tuyến tính cụ thể.  Chúng ta sẽ làm cho kết nối này nhiều hơn
+      rõ ràng bằng cách định nghĩa một phép toán ma trận mới gọi là
+      <em>chuyển đổi</em>.
+    </p>
+
+    <definition>
+      <idx>chuyển đổi</idx>
+      <statement>
+	<p> các <term>chuyển đổi</term> của <m>m\times n</m> ma trận
+	<m>A</m> là <m>n\times m</m> ma trận <m>A^T</m> hàng của ai
+	là các cột của <m>A</m>.
+	</p>
+      </statement>
+    </definition>
+
+    <example>
+      <statement>
+	<p> Nếu như
+	<m>A=\begin{bmatrix}
+	4 \amp -3 \amp 0 \amp 5 \\
+	-1 \amp 2 \amp 1 \amp 3 \\
+	\end{bmatrix}
+	</m>,
+	sau đó
+	<m>A^T=\begin{bmatrix}
+	4 \amp -1 \\
+	-3 \amp 2 \\
+	0 \amp 1 \\
+	5 \amp 3 \\
+	\end{bmatrix}
+	</m></p>
+      </statement>
+    </example>
+
+    <activity>
+      <statement>
+	<p> Hoạt động này minh họa cách nhân một vectơ với
+	<m>A^T</m> có liên quan đến việc tính tích số chấm với các cột
+	của <m>A</m>.  Bạn sẽ phát triển sự hiểu biết tốt hơn về điều này
+	mối quan hệ nếu bạn tính tích số chấm và tích ma trận
+	trong hoạt động này mà không sử dụng công nghệ.
+	<ol marker="a.">
+	  <li><p> Nếu như
+	  <m>B =
+	  \begin{bmatrix}
+	  3 \amp 4 \\
+	  -1 \amp 2 \\
+	  0 \amp -2 \\
+	  \end{bmatrix}
+	  </m>, viết ma trận <m>B^T</m>.
+	  </p></li>
+
+	  <li><p> Giả sử rằng
+	  <me>
+	    \vvec_1=\threevec20{-2},\hspace{24pt}
+	    \vvec_2=\threevec112,\hspace{24pt}
+	    \wvec=\threevec{-2}23\text{.}
+	  </me>
+	  Tìm các tích vô hướng <m>\vvec_1\cdot\wvec</m> Và
+	  <m>\vvec_2\cdot\wvec</m>.
+	  </p></li>
+
+	  <li><p> Bây giờ hãy viết ma trận
+	  <m>A = \begin{bmatrix} \vvec_1 \amp \vvec_2 \end{bmatrix}</m> và
+	  chuyển vị của nó <m>A^T</m>.  Tìm sản phẩm <m>A^T\wvec</m> và
+	  mô tả cách sản phẩm này tính toán cả hai tích vô hướng
+	  <m>\vvec_1\cdot\wvec</m> và <m>\vvec_2\cdot\wvec</m>.
+	  </p></li>
+
+	  <li><p> Giả sử rằng <m>\xvec</m> là một vectơ đó là
+	  trực giao với cả hai <m>\vvec_1</m> và <m>\vvec_2</m>.  cái gì
+	  điều này có nói về tích số chấm không <m>\vvec_1\cdot\xvec</m>
+	  Và <m>\vvec_2\cdot\xvec</m>?  Điều này nói gì về
+	  sản phẩm <m>A^T\xvec</m>?
+	  </p></li>
+
+	  <li><p> Sử dụng ma trận <m>A^T</m> để đưa ra một tham số
+	  mô tả tất cả các vectơ <m>\xvec</m> đó là
+	  trực giao với <m>\vvec_1</m>
+	  Và <m>\vvec_2</m>.  
+	  </p></li>
+
+	  <li>
+	    <p>
+	      Hãy nhớ điều đó <m>\nul(A^T)</m>, không gian nghiệm thuần nhất của
+	      <m>A^T</m>, là tập nghiệm của phương trình
+	      <m>A^T\xvec=\zerovec</m>.  Nếu như <m>\xvec</m> là một vectơ trong
+	      <m>\nul(A^T)</m>, giải thích tại sao <m>\xvec</m> phải là
+	      trực giao với cả hai <m>\vvec_1</m> và <m>\vvec_2</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Hãy nhớ điều đó <m>\col(A)</m>, không gian cột của <m>A</m>,
+	      là tập hợp các tổ hợp tuyến tính của các cột của
+	      <m>A</m>.  Do đó, bất kỳ vectơ nào trong <m>\col(A)</m> có thể
+	      viết như <m>c_1\vvec_1+c_2\vvec_2</m>.
+	      Nếu như <m>\xvec</m> là một vectơ trong <m>\nul(A^T)</m>, giải thích
+	      tại sao <m>\xvec</m> trực giao với mọi vectơ trong
+	      <m>\col(A)</m>.
+	    </p>
+	  </li>
+	</ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>A^T = \begin{bmatrix}
+		3 \amp -1 \amp 0 \\
+		4 \amp 2 \amp -2
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<md>
+		  <mrow>
+		    \vvec_1\cdot\wvec \amp{}={} 2(-2) + 0(2) + (-2)3
+		    \amp{}={} -10
+		  </mrow>
+		  <mrow>
+		    \vvec_2\cdot\wvec \amp{}={} 1(-2) + 1(2) + 2(3)
+		    \amp{}={} 6
+		  </mrow>
+		</md>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<me>A^T\wvec =
+		\twovec{2(-2)+0(2)+(-2)3}{1(-2)+1(2)+2(3)} =
+		\twovec{-10}{6}
+		=\twovec{\vvec_1\cdot\wvec}{\vvec_2\cdot\wvec}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Cả hai tích vô hướng đều bằng 0 nên ta có <m>A^T\xvec =
+		\zerovec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p> Chúng ta cần giải phương trình <m>A^T\xvec =
+	      \zerovec</m> vì vậy chúng ta tìm thấy dạng cấp bậc hàng giảm 
+	      <me>A^T \sim \begin{bmatrix}
+		1 \amp 0 \amp -1 \\
+		0 \amp 1 \amp 3\\
+		\end{bmatrix}\text{.}
+	      </me>
+	      Các vectơ trực giao với cả hai <m>\vvec_1</m> Và
+	      <m>\vvec_2</m> có hình thức
+	      <m>\xvec=x_3\threevec1{-3}1</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A^T\xvec =
+		\twovec{\vvec_1\cdot\xvec}{\vvec_2\cdot\xvec} =
+		\twovec00</m> nói với chúng ta rằng <m>\vvec_1\cdot\xvec=0</m>
+		Và <m>\vvec_2\cdot\xvec=0</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Từ <m>\xvec</m> trực giao với cả hai
+		<m>\vvec_1</m> và <m>\vvec_2</m>, chúng ta có
+		<me>
+		  (c_1\vvec_1+c_2\vvec_2)\cdot\xvec =
+		  c_1\vvec_1\cdot\xvec + c_2\vvec_2\cdot\xvec = 0
+		</me>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>A^T = \begin{bmatrix}
+		3 \amp -1 \amp 0 \\
+		4 \amp 2 \amp -2
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\vvec_1\cdot\wvec =-10</m>,
+		<m>\vvec_2\cdot\wvec =6</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<me>A^T\wvec 
+		=\twovec{\vvec_1\cdot\wvec}{\vvec_2\cdot\wvec}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A^T\xvec =
+		\zerovec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\xvec=x_3\threevec1{-3}1</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A^T\xvec =
+		\twovec{\vvec_1\cdot\xvec}{\vvec_2\cdot\xvec} =
+		\twovec00</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Áp dụng tính chất phân phối của tích số chấm.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		    
+    </activity>
+
+    <p>
+      Hoạt động trước đó thể hiện một kết nối quan trọng
+      giữa ma trận chuyển vị và tích số chấm.  Thêm
+      Đặc biệt, thành phần của sản phẩm <m>A^T\xvec</m> là
+      chỉ đơn giản là tích vô hướng của các cột của <m>A</m> với
+      <m>\xvec</m>.  Chúng ta sẽ sử dụng thường xuyên quan sát này
+      vì vậy hãy ghi lại nó như một mệnh đề.
+    </p>
+
+    <proposition xml:id="prop-chuyển vị-multiplication">
+      <statement>
+	<p>
+	  Nếu như <m>A</m> là ma trận có các cột là
+	  <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m>, sau đó <me>A^T\xvec =
+	  \begin{bmatrix}
+	  \vvec_1\cdot\xvec \\
+	  \vvec_2\cdot\xvec \\
+	  \vdots \\
+	  \vvec_n\cdot\xvec \\
+	  \end{bmatrix}
+	</me>
+	</p>
+      </statement>
+    </proposition>
+	  
+    <example>
+      <statement>
+	<p>
+	  Giả sử rằng <m>W</m> là một không gian con của <m>\real^4</m> có
+	  cơ sở 
+	  <me>
+	    \wvec_1=\fourvec1021,\hspace{24pt}
+	    \wvec_2=\fourvec2134\text{,}
+	  </me>
+	  và rằng chúng ta muốn mô tả phần bù trực giao
+	  <m>W^\perp</m>.
+	</p>
+
+	<p>
+	  Nếu như <m>A</m> là 
+	  ma trận <m>A = \begin{bmatrix}\wvec_1 \amp
+	  \wvec_2\end{bmatrix}</m> và <m>\xvec</m> đang ở trong
+	  <m>W^\perp</m>, chúng ta có
+	  <me>
+	    A^T\xvec = \twovec{\wvec_1\cdot\xvec}{\wvec_2\cdot\xvec} =
+	    \twovec00\text{.}
+	  </me>
+	  Mô tả vectơ <m>\xvec</m> trực giao với cả hai
+	  <m>\wvec_1</m> và <m>\wvec_2</m> do đó tương đương với
+	  nhiệm vụ quen thuộc hơn là mô tả bộ nghiệm
+	  <m>A^T\xvec = \zerovec</m>.  Để làm như vậy, chúng ta tìm thấy giảm
+	  hình thức cấp bậc hàng của <m>A^T</m> và viết bộ nghiệm
+	  tham số như
+	  <me>
+	    \xvec = x_3\fourvec{-2}{1}10 +
+	    x_4\fourvec{-1}{-2}01\text{.}
+	  </me>
+	  Một lần nữa, tính chất phân phối của tích số chấm cho biết
+	  chúng ta rằng một vectơ như vậy cũng trực giao với bất kỳ tuyến tính nào
+	  sự kết hợp của <m>\wvec_1</m> và <m>\wvec_2</m> vậy cái này
+	  trên thực tế, tập nghiệm là phần bù trực giao
+	  <m>W^\perp</m>.  Thật vậy, chúng ta thấy rằng các vectơ
+	  <me>
+	    \vvec_1=\fourvec{-2}110,\hspace{24pt}
+	    \vvec_2=\fourvec{-1}{-2}01
+	  </me>
+	  tạo cơ sở cho <m>W^\perp</m>, đó là một hai chiều
+	  không gian con của <m>\real^4</m>.
+	</p>
+      </statement>
+    </example>
+
+    <p>
+      Để đặt ví dụ này vào một bối cảnh tổng quát hơn một chút, hãy lưu ý rằng
+      <m>\wvec_1</m> và <m>\wvec_2</m>, các cột của
+      <m>A</m>, tạo thành một cơ sở của <m>W</m>.  Từ <m>\col(A)</m>, cái
+      không gian cột của <m>A</m> là không gian con của tổ hợp tuyến tính
+      của các cột của <m>A</m>, chúng ta có <m>W=\col(A)</m>.
+    </p>
+    
+    <p>
+      Ví dụ này cũng cho thấy rằng phần bù trực giao
+      <m>W^\perp = \col(A)^\perp</m> được mô tả bởi bộ nghiệm
+      của <m>A^T\xvec = \zerovec</m>.  Bộ nghiệm này là những gì chúng ta
+      đã gọi <m>\nul(A^T)</m>, không gian nghiệm thuần nhất của <m>A^T</m>.  trong
+      Bằng cách này, chúng ta thấy mệnh đề sau đây, rất trực quan
+      đại diện ở <xref ref="fig-orthog-comp" />.
+    </p>
+
+    <proposition xml:id="prop-col-orthog">
+      <statement>
+	<p> Đối với bất kỳ ma trận nào <m>A</m>, phần bù trực giao của
+	<m>\col(A)</m> là 
+	<m>\nul(A^T)</m>; đó là,
+	<me>
+	  \col(A)^\perp = \nul(A^T)\text{.}
+	</me>
+	</p>
+      </statement>
+    </proposition>
+ 	
+    <figure xml:id="fig-orthog-comp">
+      <image width="45%">
+        <shortdescription>
+          không gian cột của ma trận và không gian nghiệm thuần nhất của ma trận
+          chuyển vị.
+        </shortdescription>
+        <description>
+          <p>không gian cột <m>\col(A)</m> của một ma trận là
+          được biểu diễn dưới dạng một mặt phẳng trong không gian ba chiều.  giá trị rỗng
+          không gian chuyển vị của nó <m>\nul(A^T)</m> được hiển thị dưới dạng một dòng
+          trực giao với <m>\col(A)</m> chứng minh rằng
+          <m>\col(A)</m> và <m>\nul(A^T)</m> trực giao
+          sự bổ sung của nhau.</p>
+        </description>
+        <prefigure xmlns="https://prefigure.org"
+                   label="pf-nul-at">
+          <xi:include href="prefigure/section6-2/nul-at.xml"/>
+        </prefigure>
+      </image>
+      <caption>
+	Phần bù trực giao của không gian cột của <m>A</m> là
+	không gian trống của <m>A^T</m>.
+      </caption>
+    </figure>
+	
+
+  </subsection>
+
+  <subsection>
+    <title> Thuộc tính của ma trận chuyển vị </title>
+ 
+    <p> Chuyển vị là một phép toán đại số đơn giản được thực hiện trên một
+    ma trận.  Hoạt động tiếp theo khám phá một số tính chất của nó.
+    </p>
+
+    <activity>
+      <statement>
+	<p> Trong Sage, phép chuyển vị của ma trận <c>A</c> được đưa ra bởi
+	<c>A.T</c>.  Xác định ma trận
+	<me>
+	  A =
+	  \begin{bmatrix}
+	  1 \amp 0 \amp -3 \\
+	  2 \amp -2 \amp 1 \\
+	  \end{bmatrix},
+	  \hspace{6pt}
+	  B =
+	  \begin{bmatrix}
+	  3 \amp -4 \amp 1 \\
+	  0 \amp 1 \amp 2 \\
+	  \end{bmatrix},
+	  \hspace{6pt}
+	  C=
+	  \begin{bmatrix}
+	  1 \amp 0 \amp -3 \\
+	  2 \amp -2 \amp 1 \\
+	  3 \amp 2 \amp 0 \\
+	  \end{bmatrix}\text{.}
+	</me>
+	<sage>
+	  <input>
+	  </input>
+	</sage>
+	<ol marker="a.">
+	  <li><p> Đánh giá <m>(A+B)^T</m> và <m>A^T+B^T</m>.  làm gì
+	  bạn có để ý về mối quan hệ giữa hai ma trận này không?
+	  </p></li>
+
+	  <li><p> Điều gì xảy ra nếu bạn hoán vị một ma trận hai lần;  đó
+	  là, cái gì là <m>(A^T)^T</m>?
+	  </p></li>
+
+	  <li><p> Tìm thấy <m>\det(C)</m> và <m>\det(C^T)</m>.  bạn làm gì
+	  nhận thấy mối quan hệ giữa các yếu tố quyết định này?
+	  </p></li>
+
+	  <li><p>
+	    <ol marker="1."> 
+	      <li><p> Tìm sản phẩm <m>AC</m> và chuyển vị của nó
+	      <m>(AC)^T</m>.
+	      </p></li>
+	      <li><p> Có thể tính được sản phẩm không <m>A^TC^T</m>?
+	      Giải thích tại sao hoặc tại sao không.
+	      </p></li>
+	      <li><p> Tìm sản phẩm <m>C^TA^T</m> và so sánh nó với
+	      <m>(AC)^T</m>.  Bạn nhận thấy điều gì về mối quan hệ
+	      giữa hai ma trận này?
+	      </p></li>
+	  </ol> </p></li>
+
+	  <li><p> Chuyển vị của ma trận nhận dạng là gì
+	  <m>I</m>?
+	  </p></li>
+
+	  <li><p> Nếu ma trận vuông <m>D</m> nghịch đảo, giải thích tại sao
+	  bạn có thể đảm bảo rằng <m>D^T</m> là khả nghịch và tại sao
+	  <m>(D^T)^{-1} = (D^{-1})^T</m>.
+	  </p></li>
+
+	</ol></p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>(A+B)^T = A^T + B^T</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>(A^T)^T = A</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\det(C^T) = \det(C)</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m> AC = \begin{bmatrix}
+		      -8 \amp -6 \amp -3 \\
+		      1 \amp 6 \amp -8
+		      \end{bmatrix}
+		      </m> Và
+		      <m>(AC)^T = \begin{bmatrix}
+		      -8 \amp 1 \\
+		      -6 \amp 6 \\
+		      -3 \amp -8
+		      \end{bmatrix}
+		      </m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      Sản phẩm <m>A^TC^T</m> không được xác định bởi vì
+		      <m>A^T</m> có hai cột và <m>C^T</m> có
+		      ba hàng.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>(AC)^T=C^TA^T</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>I^T=I</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		chúng ta có <m>DD^{-1} = I</m> Vì thế <m>(DD^{-1})^T =
+		(D^{-1})^TD^T = 
+		I^T=I</m>.  Điều này có nghĩa là <m>(D^T)^{-1} =
+		(D^{-1})^T</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+	    
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>(A+B)^T = A^T + B^T</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>(A^T)^T = A</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\det(C^T) = \det(C)</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>(AC)^T=C^TA^T</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>I^T=I</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>(D^T)^{-1} = (D^{-1})^T</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		      
+    </activity>
+	
+    <p> Mặc dù thực tế là chúng ta đang xem xét một số vấn đề cụ thể
+    ví dụ, hoạt động này thể hiện những ý kiến chung sau đây
+    các thuộc tính của chuyển vị, có thể được xác minh bằng một chút
+    nỗ lực. 
+    </p>
+
+    <assemblage xml:id="assemblage-prop-chuyển vị">
+      <title> Thuộc tính của chuyển vị </title>
+
+      <p> Dưới đây là một số tính chất của ma trận
+      chuyển vị, thể hiện dưới dạng ma trận tổng quát <m>A</m>,
+      <m>B</m>, Và <m>C</m>.  Chúng ta cho rằng <m>C</m> là một hình vuông
+      ma trận. 
+
+      <ul>
+	<li><p> Nếu như <m>A+B</m> được xác định thì <m>(A+B)^T =
+	A^T+B^T</m>.
+	</p></li>
+
+	<li><p> <m>(sA)^T = sA^T</m>.</p></li>
+
+	<li><p> <m>(A^T)^T = A</m>.
+	</p></li>
+
+	<li><p> <m>\det(C) = \det(C^T)</m>.
+	</p></li>
+
+	<li><p> Nếu như <m>AB</m> được xác định thì <m>(AB)^T = B^TA^T</m>.
+	Chú ý rằng thứ tự của phép nhân bị đảo ngược.
+	</p></li>
+
+	<li><p> Nếu như <m>C</m> thì nghịch đảo được <m>(C^T)^{-1} =
+	(C^{-1})^T</m>.
+	</p></li>
+
+      </ul></p>
+    </assemblage>
+
+    <p>
+      Có một đặc tính cuối cùng mà chúng ta muốn ghi lại mặc dù chúng ta sẽ
+      đợi cho đến khi <xref ref="sec-svd-intro" /> để giải thích tại sao lại như vậy
+      đúng.
+    </p>
+
+    <proposition xml:id="prop-col-row-rank">
+      <statement>
+	Đối với bất kỳ ma trận nào <m>A</m>, chúng ta có
+	<me>\rank(A) = \rank(A^T)\text{.}</me>
+      </statement>
+    </proposition>
+
+    <p>
+      Mệnh đề này rất quan trọng vì nó hàm ý một mối quan hệ
+      giữa kích thước của một không gian con và trực giao của nó
+      bổ sung.  Ví dụ, nếu <m>A</m> là một <m>m\times n</m>
+      ma trận, chúng ta đã thấy trong <xref ref="sec-subspaces" /> cái đó
+      <m>\dim\col(A) = \rank(A)</m> và <m>\dim\nul(A) =
+      n-\rank(A)</m>.
+    </p>
+
+    <p>
+      Bây giờ giả sử rằng <m>W</m> là một <m>n</m>không gian con chiều của
+      <m>\real^m</m> có cơ sở
+      <m>\wvec_1,\wvec_2,\ldots,\wvec_n</m>.  Nếu chúng ta hình thành
+      <m>m\times n</m> ma trận <m>A=\begin{bmatrix}\wvec_1 \amp \wvec_2
+      \amp \ldots \amp \wvec_n\end{bmatrix}</m>, sau đó <m>\col(A) = W</m> để có thể
+      <me>
+	\rank(A) = \dim\col(A) = \dim W = n\text{.}
+      </me>
+    </p>
+
+    <p>
+      Chuyển vị <m>A^T</m> là một <m>n\times m</m> ma trận có
+      <m>\rank(A^T) = \rank(A)= n</m>.  Từ <m>W^\perp =
+      \nul(A^T)</m>, chúng ta có
+      <me>
+	\dim W^\perp = \dim\nul(A^T) = m - \rank(A^T) = m-n =
+	m-\dim W\text{.}
+      </me>
+      Điều này giải thích mệnh đề sau.
+    </p>
+
+    <proposition xml:id="prop-orthog-dim">
+      <statement>
+	<p> Nếu như <m>W</m> là một không gian con của <m>\real^m</m>, sau đó
+	<me>
+	  \dim W + \dim W^\perp = m\text{.}
+	</me>
+	</p>
+      </statement>
+    </proposition>
+
+    <example>
+      <statement>
+	<p> TRONG <xref ref="example-orthog-comp-line"/>, chúng ta
+	đã xây dựng phần bù trực giao của một đường trong
+	<m>\real^3</m>.  Kích thước của phần bù trực giao
+	nên <m>3 - 1 = 2</m>, điều này giải thích tại sao chúng ta tìm thấy
+	phần bù trực giao là một mặt phẳng.
+	</p>
+      </statement>
+    </example>
+
+    <example>
+      <statement>
+	<p> TRONG <xref ref="example-orthog-comp-gen" />, chúng ta đã xem xét
+	<m>W</m>, Một <m>2</m>không gian con chiều của <m>\real^5</m>
+	và tìm thấy phần bù trực giao của nó <m>W^\perp</m> trở thành một
+	<m>5-2=3</m>không gian con chiều của <m>\real^5</m>.
+	</p>
+      </statement>
+    </example>
+
+    <activity>
+      <statement>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Giả sử rằng <m>W</m> là một <m>5</m>-chiều
+		không gian con của <m>\real^9</m> và đó <m>A</m> là một ma trận có
+		các cột tạo thành cơ sở cho <m>W</m>;  đó là, <m>\col(A) =
+		W</m>.
+		<ol marker="1.">
+		  <li><p> Hình dạng của là gì <m>A</m>? </p></li>
+		  
+		  <li><p> Thứ hạng của là gì <m>A</m>? </p></li>
+		  
+		  <li><p> Hình dạng của là gì <m>A^T</m>? </p></li>
+		  
+		  <li><p> Thứ hạng của là gì <m>A^T</m>? </p></li>
+		  
+		  <li><p> Là gì <m>\dim\nul(A^T)</m>?  </p></li>
+		  
+		  <li><p> Là gì <m>\dim W^\perp</m>? </p></li>
+		  
+		  <li><p> kích thước của nó như thế nào <m>W</m> Và
+		  <m>W^\perp</m> có liên quan? </p></li>
+		</ol>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Giả sử rằng <m>W</m> là một không gian con của <m>\real^4</m>
+		có cơ sở
+		<me>
+		  \wvec_1 = \fourvec102{-1},\hspace{24pt}
+		  \wvec_2 = \fourvec{-1}2{-6}3.
+		</me>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Tìm kích thước <m>\dim W</m> và <m>\dim
+		      W^\perp</m>.
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Tìm cơ sở cho <m>W^\perp</m>.  Nó có thể là
+		      hữu ích khi biết rằng lệnh Sage
+		      <c>A.right_kernel()</c> tạo cơ sở cho
+		      <m>\nul(A)</m>.
+		      <sage>
+			<input>
+			</input>
+		      </sage>
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Xác minh rằng mỗi vectơ cơ sở bạn tìm thấy
+		      cho <m>W^\perp</m> là trực giao với cơ sở
+		      vectơ cho <m>W</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>A</m> là <m>9\times 5</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\rank(A) = 5</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>A^T</m> là <m>5\times 9</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\rank(A^T) = 5</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\dim \nul(A^T) = 9 - 5 = 4</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\dim W^\perp = \dim\nul(A^T) = 4</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\dim W + \dim W^\perp = 9 </m> kể từ khi
+		      không gian con tồn tại trong <m>\real^9</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>\dim W = 2</m> Vì thế <m>\dim W^\perp =
+		      4-2=2</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>Một cơ sở là
+		    <m>\vvec_1=\fourvec1{-1}01</m> Và
+		    <m>\vvec_2=\fourvec0012</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>Bạn có thể xác minh bằng cách tính bốn dấu chấm
+		    sản phẩm.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>9\times 5</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>5</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>5\times 9</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>5</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>4</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>4</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\dim W + \dim W^\perp = 9 </m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>2</m> 
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		    <m>\fourvec1{-1}01</m> Và
+		    <m>\fourvec0012</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>Xác minh bằng cách tính bốn dấu chấm
+		    sản phẩm.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+    </activity>
+
+  </subsection>
+
+  <subsection>
+    <title> Bản tóm tắt </title>
+
+    <p>
+      Phần này đã giới thiệu về ma trận chuyển vị, kết nối của nó
+      để chấm các sản phẩm và cách sử dụng nó trong việc mô tả trực giao
+      phần bù của một không gian con.
+      <ul>
+	<li>
+	  <p>
+	    Các cột của ma trận <m>A</m> là các hàng của
+	    chuyển vị ma trận <m>A^T</m>.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    Các thành phần của sản phẩm <m>A^T\xvec</m> là dấu chấm
+	    sản phẩm của <m>\xvec</m> với các cột của <m>A</m>.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    Phần bù trực giao của không gian cột của
+	    <m>A</m> bằng không gian nghiệm thuần nhất của <m>A^T</m>;  đó là,
+	    <m>\col(A)^\perp = \nul(A^T)</m>.
+	  </p>
+	</li>
+
+	<li>
+	  <p> Nếu như <m>W</m> là một không gian con của <m>\real^p</m>, sau đó
+	  <me>
+	    \dim W + \dim W^\perp = p.
+	  </me>
+	  </p>
+	</li>
+      </ul>
+    </p>
+
+    <exercise component="proteus"
+              label="ula-proteus-6-2-reasoning-with-chuyển vị-orthog-comp">
+      <title>Lý luận về chuyển vị ma trận và
+      tính trực giao</title>
+      <statement>
+        <p>
+          <ul>
+            <li>
+              <p>Nếu như <m>A</m> là một <m>5\times 7</m> ma trận thì
+              <m>A^T</m> có
+              <fillin answer="7" width="1"/> hàng và
+              <fillin answer="5" width="1"/> cột.
+              </p>
+            </li>
+            <li>
+              <p>Nếu như <m>W</m> là một <m>5</m>không gian con chiều của
+              <m>\real^7</m>, sau đó <m>W^\perp</m> là một
+              <fillin answer="2" width="1"/>không gian con chiều của
+              <m>\real^k</m> vì <m>k=</m>
+              <fillin answer="7" width="1"/>.
+              </p>
+            </li>
+            <li>
+              <p>Nếu như <m>\xvec=\threevec{x_1}{x_2}{x_3}</m> là trực giao
+              để <m>\threevec{-2}13</m>, sau đó <m>-2x_1+x_2+3x_3 =</m>
+              <fillin answer="0" width="1"/>.
+              </p>
+            </li>
+            <li>
+              <p>Nếu như <m>A=\begin{bmatrix}\vvec_1 \amp \vvec_2
+              \end{bmatrix}</m> và <m>A^T\xvec = \twovec{-2}4</m>,
+              sau đó
+              <m>\vvec_1\cdot\xvec = </m>
+              <fillin answer="-2" width="1"/>
+              Và <m>\vvec_2\cdot\xvec = </m>
+              <fillin answer="4" width="1"/>.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </statement>
+      <evaluation>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+      </evaluation>
+    </exercise>
+
+    <exercise component="proteus"
+              label="ula-proteus-6-2-vectors_in_W_and_W_perp">
+      <title>Xác định xem vectơ có nằm trong <m>W</m> hoặc
+      <m>W^\perp</m></title>
+      <statement>
+        <p>Đặt <m>W =
+        \laspan{\threevec{-1}{4}{-1}}</m>. Trận đấu
+        các vectơ sau đây với các phản ứng. </p>
+      </statement>
+      <cardsort>
+        <match>
+          <premise>
+            <m>\threevec{2}{-8}{2}</m>
+          </premise>
+          <premise>
+            <m>\threevec{-18}{72}{-18}</m>
+          </premise>
+          <response>
+            TRONG <m>W</m> nhưng không <m>W^\perp</m>.
+          </response>
+        </match>
+        <match>
+          <premise>
+            <m>\threevec{0}{1}{4}</m>
+          </premise>
+          <premise>
+            <m>\threevec{200}{100}{200}</m>
+          </premise>
+          <response>
+            TRONG <m>W^\perp</m> nhưng không <m>W</m>.
+          </response>
+        </match>
+        <match>
+          <premise>
+            <m>\threevec{1}{0}{1}</m>
+          </premise>
+          <response>
+            Trong cả hai đều không <m>W</m> cũng không <m>W^\perp</m>.
+          </response>
+        </match>
+        <match>
+          <premise>
+            <m>\threevec{0}{0}{0}</m>
+          </premise>
+          <response>
+            Ở cả hai <m>W</m> và <m>W^\perp</m>.
+          </response>
+        </match>
+      </cardsort>
+    </exercise>
+
+    <exercise label="ula-proteus-6-2-intesectionorth-v1">
+      <title>Vectơ trong <m>W</m> và <m>W^\perp</m></title>
+      <statement>
+        <p>Liệu một vectơ khác 0 có thể ở cả hai không? <m>W</m> Và
+        <m>W^\perp</m>? Giải thích suy nghĩ của bạn.</p>
+      </statement>
+      <response />
+    </exercise>
+
+    <!--
+    <exercise label="ula-proteus-6-2-complementofplane-v1">
+      <title>Phần bù của một mặt phẳng</title>
+      <statement>
+        <p>Nhìn vào <xref ref="fig-orthog-comps"/> và giải thích tại sao
+        phần bù trực giao
+        của một dòng trong <m>\real^2</m> là một đường thẳng nhưng trực giao
+        phần bù của một mặt phẳng trong <m>\real^3</m> là một dòng (và không phải là một
+        mặt phẳng).
+        </p>
+        <p>Bạn đang nói chuyện với một người bạn đang học trung học và
+        họ thấy <xref ref="fig-orthog-comps" />. Bạn giải thích thế nào
+        với bạn của bạn rằng sự bổ sung của <m>W</m> là một dòng trong
+        <m>\real^3</m> và không có một chiếc máy bay nào trong <m>\real^3</m>?</p>
+
+      </statement>
+      <response/>
+    </exercise>
+    -->
+    <exercise component="proteus"
+              label="ula-proteus-6-2-determining-dims-of-col-and-nul">
+      <title>Kích thước của không gian cột và không gian nghiệm thuần nhất</title>
+      <statement>
+        <p>
+          Giả sử rằng <m>A</m> là một <m>4\times 7</m> ma trận với
+          <m>\rank(A)=3</m>.
+          <ul>
+            <li>
+              <p>
+                <m>\col(A)</m> là một không gian con của
+                <m>\real^k</m> vì <m>k = </m>
+                <fillin answer="4" width="1" />
+                Và <m>\dim \col(A) = </m>
+                <fillin answer="3"  width="1" />.
+              </p>
+            </li>
+            <li>
+              <p>
+                <m>\nul(A)</m> là một không gian con của
+                <m>\real^k</m> vì <m>k = </m>
+                <fillin answer="7"  width="1" />
+                Và <m>\dim \nul(A) = </m>
+                <fillin answer="4"  width="1" />.
+              </p>
+            </li>
+            <li>
+              <p>
+                <m>\col(A^T)</m> là một không gian con của
+                <m>\real^k</m> vì <m>k = </m>
+                <fillin answer="7"  width="1" />
+                Và <m>\dim \col(A^T) = </m>
+                <fillin answer="3"  width="1" />.
+              </p>
+            </li>
+            <li>
+              <p>
+                <m>\nul(A^T)</m> là một không gian con của
+                <m>\real^k</m> vì <m>k = </m>
+                <fillin answer="4"  width="1" />
+                Và <m>\dim \nul(A^T) = </m>
+                <fillin answer="1"  width="1" />.
+              </p>
+            </li>
+          </ul>
+        </p>
+      </statement>
+      <evaluation>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+      </evaluation>
+    </exercise>
+
+    <exercise component="proteus"
+              label="ula-proteus-6-2-matching-vectors-col-nul">
+      <title>Đặt vectơ vào không gian con</title>
+
+      <statement>
+        <p>Giả sử rằng
+        <m>A=\begin{bmatrix}
+        2 \amp -1 \amp 4 \\
+        1 \amp -2 \amp 5 \\
+        2 \amp 1 \amp 0 \\
+        \end{bmatrix}
+        </m>.  Đặt mỗi vectơ bên trái vào không gian con thích hợp của nó
+        ở bên phải.
+        </p>
+      </statement>
+
+      <cardsort>
+        <match>
+          <premise><m>\threevec1{-2}{-1}</m></premise>
+          <premise><m>\threevec{-5}{10}{5}</m></premise>
+          <response><m>\nul(A)</m></response>
+        </match>
+
+        <match>
+          <premise><m>\threevec{15}{-12}{-9}</m></premise>
+          <response><m>\nul(A^T)</m></response>
+        </match>
+
+        <match>
+          <premise><m>\threevec12{-1}</m></premise>
+          <premise><m>\threevec{-15}{-24}7</m></premise>
+          <response><m>\col(A)</m></response>
+        </match>
+        <match>
+          <premise><m>\threevec2{-1}4</m></premise>
+          <response>Không có không gian con nào trong số này</response>
+        </match>
+      </cardsort>
+    </exercise>
+
+  </subsection>
+
+  <xi:include href="exercises/exercises6-2.xml" />
+
+</section>
+
+
+===== section6-3.xml =====
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-orthogonal-bases"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title> Cơ sở và hình chiếu trực giao  </title>
+
+  <introduction>
+    <p>
+      Chúng ta biết rằng một hệ thống tuyến tính <m>A\xvec=\bvec</m> không tương thích
+      khi nào <m>\bvec</m> không có trong <m>\col(A)</m>, không gian cột của
+      <m>A</m>.  Ở phần sau của chương này, chúng ta sẽ phát triển một
+      Chiến lược giải quyết các hệ thống không tương thích bằng cách tìm kiếm
+      <m>\bhat</m>, vectơ trong <m>\col(A)</m> điều đó giảm thiểu
+      khoảng cách đến
+      <m>\bvec</m>.  phương trình <m>A\xvec=\bhat</m> do đó là
+      tương thích và bộ nghiệm của nó có thể cung cấp cho chúng ta những thông tin hữu ích
+      thông tin về hệ thống ban đầu <m>A\xvec=\bvec</m>.
+    </p>
+
+    <p>
+      Trong phần này và phần tiếp theo, chúng ta sẽ phát triển một số kỹ thuật
+      đặt chúng ta tìm thấy <m>\bhat</m>, vectơ trong một không gian con nhất định
+      <m>W</m> gần nhất với một vectơ nhất định <m>\bvec</m>.  
+    </p>
+
+    <exploration xml:id="preview-orthogonal-basis"
+                 label="ula-preview-6-3">
+      <introduction>
+        <p>
+	  Đối với hoạt động này, sẽ rất hữu ích khi nhớ lại
+	  tính chất phân phối của tích số chấm:
+	  <me>
+	    \vvec\cdot(c_1\wvec_1+c_2\wvec_2) = c_1\vvec\cdot\wvec_1 +
+	    c_2\vvec\cdot\wvec_2\text{.}
+	  </me>
+	  Chúng ta sẽ làm việc với cơ sở <m>\real^2</m> được hình thành bởi các vectơ
+	  <me>
+	    \wvec_1=\twovec12,\hspace{24pt}
+	    \wvec_2=\twovec{-2}1
+	  </me>.
+        </p>
+      </introduction>
+
+      <task label="ula-preview-6-3-a">
+        <statement>
+	  <p>
+	    Chứng minh rằng các vectơ <m>\wvec_1</m> Và
+	    <m>\wvec_2</m> là trực giao.
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    Chúng ta có thể tính toán điều đó <m>\wvec_1\cdot\wvec_2 = 0</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-3-b">
+        <statement>
+	  <p>
+	    Giả sử rằng <m>\bvec =\twovec74</m> và tìm dấu chấm
+	    sản phẩm <m>\wvec_1\cdot\bvec</m> Và
+	    <m>\wvec_2\cdot\bvec</m>.
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    <m>\bvec\cdot\wvec_1 = 15</m> Và
+	    <m>\bvec\cdot\wvec_2 = -10</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-3-c">
+        <statement>
+	  <p>
+	    Chúng ta muốn bày tỏ <m>\bvec</m> như một tuyến tính
+	    sự kết hợp của <m>\wvec_1</m> và <m>\wvec_2</m>, cái nào
+	    có nghĩa là chúng ta cần tìm trọng lượng <m>c_1</m> Và
+	    <m>c_2</m> như vậy
+	    <me>
+	      \bvec = c_1\wvec_1 + c_2\wvec_2
+	    </me>.
+	    Để tìm trọng lượng <m>c_1</m>, chấm cả hai bên của cái này
+	    biểu hiện với <m>\wvec_1</m>:
+	    <me>
+	      \bvec\cdot\wvec_1 = (c_1\wvec_1 +
+	      c_2\wvec_2)\cdot\wvec_1
+	    </me>.
+	    và áp dụng tính chất phân phối.
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    <m>c_1 = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}
+	    = 3</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-3-d">
+        <statement>
+	  <p>
+	    Tương tự, tìm trọng lượng <m>c_2</m>.
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p>
+	    <m>c_2 = \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}
+	    = -2</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task label="ula-preview-6-3-e">
+        <statement>
+	  <p>
+	    Xác minh rằng <m>\bvec = c_1\wvec_1+c_2\wvec_2</m> sử dụng
+	    trọng lượng bạn đã tìm thấy.
+	  </p>
+        </statement>
+        <response component="rs-preview"/>
+        <solution>
+	  <p> <m>\bvec = 3\wvec_1 - 2\wvec_2</m>.
+	  </p>
+        </solution>
+      </task>
+
+      <task component="rs-preview">
+        <query label="ula-preview-6-3-poll" visibility="instructor">
+          <statement>
+            <p>Tôi cảm thấy tự tin với tài liệu của hoạt động này.</p>
+          </statement>
+          <choices>
+            <choice><p>Rất đồng ý</p></choice>
+            <choice><p>Đồng ý</p></choice>
+            <choice><p>Trung lập</p></choice>
+            <choice><p>Không đồng ý</p></choice>
+            <choice><p>Rất không đồng ý</p></choice>
+          </choices>
+        </query>
+      </task>
+
+      <task component="rs-preview"
+            label="ula-preview-6-3-what-else">
+        <statement>
+          <p>Bạn cần biết điều gì để cảm nhận
+          tự tin hơn về tài liệu này?</p>
+        </statement>
+        <response/>
+      </task>
+    </exploration>
+
+    <p>
+      Chúng ta thường yêu cầu viết một vectơ cho trước dưới dạng tuyến tính
+      sự kết hợp của các vectơ cơ sở đã cho.  Trong quá khứ, chúng ta đã làm
+      điều này bằng cách giải một hệ thống tuyến tính.  Bản xem trước
+      hoạt động minh họa cách nhiệm vụ này có thể được đơn giản hóa khi
+      các vectơ cơ sở trực giao với nhau.  Chúng ta sẽ khám phá
+      điều này và các ứng dụng khác của cơ số trực giao trong phần này.
+    </p>
+
+  </introduction>
+	
+  <subsection>
+    <title> Bộ trực giao </title>
+
+    <p>
+      Hoạt động xem trước được xử lý trên cơ sở <m>\real^2</m> hình thành
+      bởi hai vectơ trực giao.  Tổng quát hơn, chúng ta sẽ xem xét một 
+      tập hợp các vectơ trực giao, như được mô tả trong định nghĩa tiếp theo.
+    </p>
+
+    <definition>
+      <idx> tập trực giao </idx>
+	
+      <statement>
+	<p>
+	  Bởi một <em> tập trực giao</em> của các vectơ, chúng ta muốn nói đến một tập hợp các
+	  các vectơ khác 0, mỗi vectơ trực giao với các vectơ khác.
+	</p>
+      </statement>
+    </definition>
+
+    <example xml:id="example-orthogonal-basis">
+      <statement>
+	<p>
+	  Các vectơ 3 chiều
+	  <me>
+	    \wvec_1 = \threevec1{-1}1,\hspace{24pt}
+	    \wvec_2 = \threevec1{1}0,\hspace{24pt}
+	    \wvec_3 = \threevec1{-1}{-2}.
+	  </me>
+	  tạo thành một tập trực giao, có thể được xác minh bằng tính toán
+	  <me>
+	    \begin{array}{rcl}
+	    \wvec_1\cdot\wvec_2 \amp {}={} \amp 0 \\
+	    \wvec_1\cdot\wvec_3 \amp {}={} \amp 0 \\
+	    \wvec_2\cdot\wvec_3 \amp {}={} \amp 0\text{.} \\
+	    \end{array}
+	  </me>
+	  Lưu ý rằng tập hợp các vectơ này tạo thành cơ sở cho
+	  <m>\real^3</m>.
+	</p>
+      </statement>
+    </example>
+
+    <example xml:id="example-orthogonal-set">
+      <statement>
+	<p>
+	  Các vectơ
+	  <me>
+	    \wvec_1 = \fourvec1111,\hspace{24pt}
+	    \wvec_2 = \fourvec11{-1}{-1},\hspace{24pt}
+	    \wvec_3 = \fourvec1{-1}1{-1}
+	  </me>
+	  tạo thành một tập hợp trực giao các vectơ 4 chiều.  Từ đó
+	  chỉ có ba vectơ, tập hợp này không tạo thành cơ sở cho
+	  <m>\real^4</m>.  Tuy nhiên, nó tạo cơ sở cho một
+	  không gian con 3 chiều <m>W</m> của <m>\real^4</m>.
+	</p>
+      </statement>
+    </example>
+
+    <p>
+      Giả sử rằng một vectơ <m>\bvec</m> là sự kết hợp tuyến tính
+      của một tập vectơ trực giao
+      <m>\wvec_1,\wvec_2,\ldots,\wvec_n</m>;  đó là, 
+      giả sử rằng
+      <me>
+	c_1\wvec_1 + c_2\wvec_2 + \cdots + c_n\wvec_n = \bvec.
+      </me>
+      Giống như trong hoạt động xem trước, chúng ta có thể tìm thấy trọng số
+      <m>c_1</m> bằng cách chấm cả hai bên với <m>\wvec_1</m> và
+      áp dụng tính chất phân phối của tích số chấm:
+      <md>
+	<mrow>
+	  (c_1\wvec_1 + c_2\wvec_2 + \cdots + c_n\wvec_n)\cdot\wvec_1
+	  \amp = \bvec\cdot\wvec_1
+	</mrow>
+	<mrow>
+	  c_1\wvec_1\cdot\wvec_1 + c_2\wvec_2\cdot\wvec_1 +\cdots +
+	  c_n\wvec_n\cdot\wvec_1  \amp = \bvec\cdot\wvec_1
+	</mrow>
+	<mrow>
+	  c_1\wvec_1\cdot\wvec_1 \amp = \bvec\cdot\wvec_1
+	</mrow>
+	<mrow>
+	  c_1 \amp = 
+	  \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\text{.}
+	</mrow>
+      </md>
+      Lưu ý sự hiện diện của một tập hợp trực giao gây ra hầu hết
+      của các số hạng trong tổng biến mất.  Theo cách tương tự, chúng ta tìm thấy
+      đó
+      <me>
+	c_i = \frac{\bvec\cdot\wvec_i}{\wvec_i\cdot\wvec_i}
+      </me>
+      để có thể
+      <me>
+	\bvec = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+	\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
+	\cdots +
+	\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n\text{.}
+      </me>
+    </p>
+
+    <p>
+      Chúng ta sẽ ghi lại thực tế này trong mệnh đề sau.
+    </p>
+
+    <proposition xml:id="prop-orthog-lincomb">
+      <statement>
+	<p>
+	  Nếu một vectơ <m>\bvec</m> là sự kết hợp tuyến tính của một
+	  tập vectơ trực giao
+	  <m>\wvec_1,\wvec_2,\ldots,\wvec_n</m>, sau đó
+	  <me>
+	    \bvec = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+	    \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
+	    \cdots +
+	    \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n\text{.}
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+      
+    <p>
+      Sử dụng mệnh đề này, chúng ta có thể thấy rằng một tập trực giao của
+      vectơ phải độc lập tuyến tính.  Giả sử, chẳng hạn,
+      đó <m>\wvec_1,\wvec_2,\ldots,\wvec_n</m> là một tập hợp khác không
+      vectơ trực giao và một trong các vectơ là tuyến tính
+      sự kết hợp của những người khác, nói,
+      <me>
+	\wvec_3 = c_1\wvec_1 + c_2\wvec_2\text{.}
+      </me>
+      Vì thế chúng ta biết rằng
+      <me>
+	\wvec_3 =
+	\frac{\wvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+	\frac{\wvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2
+	= \zerovec\text{,}
+      </me>
+      điều đó không thể xảy ra vì chúng ta biết điều đó <m>\wvec_3</m> là khác không.
+      Điều này cho chúng ta biết rằng
+    </p>
+
+    <proposition xml:id="prop-orthog-lin-indep">
+      <statement>
+	<p>
+	  Một tập hợp các vectơ trực giao
+	  <m>\wvec_1,\wvec_2,\ldots,\wvec_n</m>
+	  là độc lập tuyến tính.
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      Nếu các vectơ trong một tập trực giao có thứ nguyên <m>m</m>, họ
+      tạo thành một tập hợp độc lập tuyến tính trong <m>\real^m</m> và đang
+      do đó một cơ sở cho không gian con
+      <m>W=\laspan{\wvec_1,\wvec_2,\ldots,\wvec_n}</m>.  Nếu có
+      <m>m</m> các vectơ trong tập trực giao, chúng tạo thành cơ sở cho
+      <m>\real^m</m>. 
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Xét các vectơ
+	  <me>
+	    \wvec_1 = \threevec1{-1}1,\hspace{24pt}
+	    \wvec_2 = \threevec1{1}0,\hspace{24pt}
+	    \wvec_3 = \threevec1{-1}{-2}.
+	  </me>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Xác minh rằng tập hợp này tạo thành một
+		tập hợp trực giao của <m>3</m>vectơ -chiều.
+	      </p>
+	      <sage>
+		<input>
+		</input>
+	      </sage>
+	    </li>
+
+	    <li>
+	      <p>
+		Giải thích tại sao chúng ta biết rằng tập hợp các vectơ này tạo thành một
+		cơ sở cho <m>\real^3</m>.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		Giả sử rằng <m>\bvec=\threevec24{-4}</m>.  Tìm
+		trọng lượng <m>c_1</m>, <m>c_2</m>, Và <m>c_3</m> thể hiện
+		<m>\bvec</m> dưới dạng tổ hợp tuyến tính
+		<m>\bvec=c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3
+		</m>
+		sử dụng <xref ref="prop-orthog-lincomb" />.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Nếu chúng ta nhân một vectơ <m>\vvec</m> bởi một sự tích cực
+		vô hướng <m>s</m>, chiều dài của <m>\vvec</m> cũng là
+		nhân với <m>s</m>;  đó là,
+		<m>\len{s\vvec} = s\len{\vvec}</m>.
+	      </p>
+
+	      <p>
+		<idx>vectơ đơn vị</idx>
+		Sử dụng quan sát này, hãy tìm một vectơ <m>\uvec_1</m>
+		đó là song song với <m>\wvec_1</m> và có độ dài 1.
+		Các vectơ như vậy được gọi là <em>vectơ đơn vị</em>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    <li>
+	      <p> Tương tự, tìm một
+	      vectơ đơn vị <m>\uvec_2</m> đó là song song với
+	      <m>\wvec_2</m> và một vectơ đơn vị <m>\uvec_3</m> đó là
+	      song song với <m>\wvec_3</m>. 
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Xây dựng ma trận
+		<m>Q=\begin{bmatrix}
+		\uvec_1 \amp \uvec_2 \amp \uvec_3
+		\end{bmatrix}
+		</m> và tìm sản phẩm <m>Q^TQ</m>.  Sử dụng <xref
+		ref="prop-chuyển vị-multiplication" /> để giải thích của bạn
+		kết quả. 
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Chúng ta tính toán các tích vô hướng
+		<m>\wvec_1\cdot\wvec_2=0</m>,
+		<m>\wvec_1\cdot\wvec_3=0</m>, Và
+		<m>\wvec_2\cdot\wvec_3=0</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Chúng ta biết rằng một tập vectơ trực giao là tuyến tính
+		độc lập.  Vì vậy, chúng ta có một bộ ba
+		vectơ độc lập tuyến tính trong <m>\real^3</m> vì vậy họ
+		phải tạo cơ sở cho <m>\real^3</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Chúng ta thấy rằng <m>\bvec = -2\wvec_1 + 3\wvec_2 +
+		\wvec_3</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Từ <m>\len{\wvec_1} = \sqrt{3}</m>, chúng ta tìm thấy
+		<me>
+		  \uvec_1 = \frac{1}{\sqrt{3}}\wvec_1 =
+		  \threevec{1/\sqrt{3}}{-1/\sqrt{3}}{1/\sqrt{3}}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Chúng ta thấy rằng
+		<me>
+		  \uvec_2 =
+		  \threevec{1/\sqrt{2}}{1/\sqrt{2}}0,\hspace{24pt}
+		  \uvec_3 =
+		  \threevec{1/\sqrt{6}}{-1/\sqrt{6}}{-2/\sqrt{6}}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Chúng ta tìm thấy <m>Q^TQ=I</m> vì mỗi mục trong ma trận này
+		sản phẩm là tích vô hướng của hai cột của <m>Q</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+		  
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Chúng ta tính toán các tích vô hướng
+		<m>\wvec_1\cdot\wvec_2=0</m>,
+		<m>\wvec_1\cdot\wvec_3=0</m>, Và
+		<m>\wvec_2\cdot\wvec_3=0</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Một tập hợp vectơ trực giao là tuyến tính
+		độc lập.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\bvec = -2\wvec_1 + 3\wvec_2 +
+		\wvec_3</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>
+		  \uvec_1 = \frac{1}{\sqrt{3}}\wvec_1 =
+		  \threevec{1/\sqrt{3}}{-1/\sqrt{3}}{1/\sqrt{3}}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Chúng ta thấy rằng
+		<me>
+		  \uvec_2 =
+		  \threevec{1/\sqrt{2}}{1/\sqrt{2}}0,\hspace{24pt}
+		  \uvec_3 =
+		  \threevec{1/\sqrt{6}}{-1/\sqrt{6}}{-2/\sqrt{6}}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>Q^TQ=I</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		
+    </activity>
+
+    <p>
+      Hoạt động này giới thiệu một cách quan trọng để sửa đổi một
+      tập trực giao sao cho các vectơ trong tập hợp có độ dài đơn vị.
+      Hãy nhớ lại rằng chúng ta có thể nhân bất kỳ vectơ nào khác 0
+      <m>\wvec</m> bằng vô hướng sao cho vectơ mới có độ dài bằng 1.
+      Ví dụ, chúng ta biết rằng nếu <m>s</m> là một đại lượng vô hướng dương,
+      sau đó <m>\len{s\wvec} = s\len{\wvec}</m>.  Để có được một vectơ
+      <m>\uvec</m> có đơn vị chiều dài, chúng ta muốn
+      <me>
+	\len{\uvec} = \len{s\wvec} = s\len{\wvec} = 1
+      </me>
+      để có thể <m>s=1/\len{\wvec}</m>.  Vì thế,
+      <me>
+	\uvec = \frac{1}{\len{\wvec}}\wvec
+      </me>
+      trở thành một vectơ đơn vị song song với <m>\wvec</m>.
+    </p>
+
+    <p>
+      Các tập trực giao trong đó các vectơ có độ dài đơn vị được gọi là
+      <em>trực giao</em> và đặc biệt thuận tiện.
+    </p>
+
+    <definition>
+      <idx> bộ khác thường </idx>
+      <statement>
+	<p>
+	  MỘT <em>trực giao</em> tập hợp là tập hợp trực giao của các vectơ
+	  mỗi cái đều có đơn vị chiều dài.
+	</p>
+      </statement>
+    </definition>
+
+    <example>
+      <statement>
+	<p>
+	  Các vectơ
+	  <me>
+	    \uvec_1=\twovec{1/\sqrt{2}}{1/\sqrt{2}},\hspace{24pt}
+	    \uvec_2=\twovec{-1/\sqrt{2}}{1/\sqrt{2}}
+	  </me>
+	  là một tập vectơ trực chuẩn trong <m>\real^2</m> và
+	  tạo thành một cơ sở trực chuẩn cho <m>\real^2</m>.
+	</p>
+
+	<p>
+	  Nếu chúng ta tạo thành ma trận
+	  <me>
+	    Q=\begin{bmatrix}
+	    \uvec_1 \amp \uvec_2
+	    \end{bmatrix}
+	    = \begin{bmatrix}
+	    1/\sqrt{2} \amp -1/\sqrt{2} \\
+	    1/\sqrt{2} \amp 1/\sqrt{2} \\
+	    \end{bmatrix}\text{,}
+	  </me>
+	  chúng ta tìm thấy điều đó <m>Q^TQ = I</m> từ <xref
+	  ref="prop-chuyển vị-multiplication" /> nói với chúng ta rằng
+	  <me>
+	    Q^TQ = \begin{bmatrix}
+	    \uvec_1\cdot\uvec_1 \amp \uvec_1\cdot\uvec_2 \\
+	    \uvec_2\cdot\uvec_1 \amp \uvec_2\cdot\uvec_2 \\
+	    \end{bmatrix}
+	    =
+	    \begin{bmatrix}
+	    1 \amp 0 \\
+	    0 \amp 1 \\
+	    \end{bmatrix}
+	  </me>
+	</p>
+      </statement>
+    </example>
+
+    <p>
+      Hoạt động trước và ví dụ minh họa cho hoạt động tiếp theo
+      đề xuất. 
+    </p>
+
+    <proposition xml:id="prop-orthonormal-QTQ">
+      <statement>
+	<p>
+	  Nếu các cột của <m>m\times n</m> ma trận <m>Q</m> hình thức
+	  một tập trực chuẩn thì 
+	  <m>Q^TQ = I_n</m>, cái <m>n\times n</m> ma trận nhận dạng.
+	</p>
+      </statement>
+    </proposition>
+  </subsection>
+
+  <subsection>
+    <title> Hình chiếu trực giao </title>
+
+    <p>
+      Bây giờ chúng ta chuyển sang một vấn đề quan trọng sẽ xuất hiện trong nhiều
+      hình thành trong phần còn lại của cuộc khám phá của chúng ta.  Giả sử, như thể hiện trong
+      <xref ref="fig-3d-orthog-proj" />, rằng chúng ta có một không gian con
+      <m>W</m> của <m>\real^m</m> và một vectơ <m>\bvec</m> đó không phải là
+      trong không gian con đó.  Chúng ta muốn tìm vectơ <m>\bhat</m>
+      TRONG <m>W</m> đó là gần nhất <m>\bvec</m>, nghĩa là
+      khoảng cách giữa <m>\bhat</m> và <m>\bvec</m> nhỏ như
+      có thể. 
+    </p>
+
+    <figure xml:id="fig-3d-orthog-proj">
+      <image width="55%">
+        <shortdescription>
+          Một mặt phẳng trong ba chiều, một vectơ không có trong mặt phẳng,
+          và hình chiếu trực giao của vectơ đó.
+        </shortdescription>
+        <description>
+          <p>Hai vectơ ba chiều <m>\wvec_1</m> Và
+          <m>\wvec_2</m> và mặt phẳng mà chúng xác định.  có
+          một vectơ khác <m>\bvec</m> cái đó không có trong máy bay.  các
+          phép chiếu trực giao <m>\bhat</m> của <m>\bvec</m> là
+          được biểu diễn dưới dạng vectơ trong mặt phẳng gần nhất với
+          vectơ <m>\bvec</m>.</p>
+        </description>
+        <prefigure xmlns="https://prefigure.org"
+                   label="pf-3d-orthog-proj-3">
+          <xi:include href="prefigure/section6-3/3d-orthog-proj-3.xml"/>
+        </prefigure>
+      </image>
+      <caption>
+	Cho một chiếc máy bay ở <m>\real^3</m> và một vectơ <m>\bvec</m> không
+	trong mặt phẳng, chúng ta muốn tìm vector <m>\bhat</m> trong
+	máy bay gần nhất <m>\bvec</m>.
+      </caption>
+    </figure>
+
+    <p>
+      Để bắt đầu, hãy xem xét một vấn đề đơn giản hơn trong đó chúng ta có
+      một dòng <m>L</m> TRONG <m>\real^2</m>, được xác định bởi vectơ
+      <m>\wvec</m>, và một vectơ khác <m>\bvec</m> cái đó không có trên
+      dòng, như được hiển thị bên trái của <xref ref="fig-projection-line-a"
+      />.  Chúng ta mong muốn tìm thấy <m>\bhat</m>, vectơ trên đường thẳng đó 
+      gần nhất với <m>\bvec</m>, như được minh họa ở bên phải của
+      <xref ref="fig-projection-line-a" />.
+    </p>
+
+    <figure xml:id="fig-projection-line-a">
+      <sidebyside widths="45% 45%">
+	<image>
+          <shortdescription>
+            Một đường thẳng có hai chiều được xác định bởi một vectơ và một chiều khác
+            vectơ không nằm trên đường thẳng.
+          </shortdescription>
+          <description>
+            <p>Một vectơ hai chiều <m>\wvec</m> và dòng
+            <m>L</m> mà nó định nghĩa.  Có một vectơ khác
+            <m>\bvec</m> cái đó không có trên mạng.</p>
+          </description>
+          <prefigure xmlns="https://prefigure.org"
+                     label="pf-projection-line-1">
+            <xi:include href="prefigure/section6-3/projection-line-1.xml"/>
+          </prefigure>
+        </image>
+	<image>
+          <shortdescription>
+            Một đường thẳng có hai chiều, một vectơ không nằm trên đường thẳng đó và
+            hình chiếu trực giao của vectơ đó lên đường thẳng.
+          </shortdescription>
+          <description>
+            <p>Một vectơ hai chiều <m>\wvec</m> xác định một dòng
+            <m>L</m>.  Có một vectơ <m>\bvec</m> cái đó không bật
+            đường thẳng và hình chiếu trực giao của nó <m>\bhat</m> lên
+            dòng <m>L</m>.  Vectơ <m>\bvec-\bhat</m> được hiển thị
+            như là trực giao với dòng.</p>
+          </description>
+          <prefigure xmlns="https://prefigure.org"
+                     label="pf-projection-line-4">
+            <xi:include href="prefigure/section6-3/projection-line-4.xml"/>
+          </prefigure>
+        </image>
+      </sidebyside>
+      <caption>
+	Cho một dòng <m>L</m> và một vectơ <m>\bvec</m>, chúng ta tìm kiếm
+	vectơ <m>\bhat</m> TRÊN <m>L</m> đó là gần nhất
+	<m>\bvec</m>.  
+      </caption>
+    </figure>
+
+    <p>
+      Để tìm <m>\bhat</m>, chúng ta yêu cầu 
+      đó <m>\bvec-\bhat</m> trực giao với <m>L</m>.  cho
+      ví dụ, nếu <m>\yvec</m> là một vectơ khác trên đường thẳng, như được hiển thị
+      trong <xref ref="fig-projection-line-b" />, thì
+      Định lý Pythagore ngụ ý rằng
+      <me>
+	\len{\bvec-\yvec}^2 = |\bvec-\bhat|^2 +
+	|\bhat-\yvec|^2
+      </me>
+      điều đó có nghĩa là <m>\len{\bvec-\yvec}\geq|\bvec-\bhat|</m>.
+      Vì thế, <m>\bhat</m> gần hơn với <m>\bvec</m> hơn bất kỳ khác
+      vectơ trên dòng <m>L</m>.
+    </p>
+
+    <figure xml:id="fig-projection-line-b">
+      <image width="50%">
+        <shortdescription>
+          Sơ đồ hai chiều thể hiện tính trực giao
+          xác định hình chiếu trực giao.
+        </shortdescription>
+        <description>
+          <p>một dòng <m>L</m> được hiển thị cùng với một vectơ
+          <m>\bvec</m>, cái này không bật <m>L</m>, và trực giao của nó
+          phép chiếu <m>\bhat</m>, nằm trên <m>L</m>.  có
+          một vectơ khác <m>\yvec</m> TRÊN <m>L</m>, và các vectơ
+          <m>\bvec-\bhat</m> và <m>\bvec-\yvec</m> được hiển thị.
+          Bởi vì <m>\bvec-\bhat</m> trực giao với <m>L</m>,
+          có một tam giác vuông được tạo thành bởi <m>\bvec-\bhat</m>,
+          <m>\yvec-\bhat</m>, Và <m>\bvec-\yvec</m>.  Từ
+          <m>\bvec-\yvec</m> là cạnh huyền của quyền này
+          tam giác thì chiều dài của nó lớn hơn chiều dài của
+          <m>\bvec-\bhat</m>.</p>
+        </description>
+        <prefigure xmlns="https://prefigure.org"
+                   label="pf-projection-line-3">
+          <xi:include href="prefigure/section6-3/projection-line-3.xml"/>
+        </prefigure>
+      </image>
+      <caption>
+	Vectơ <m>\bhat</m> gần hơn với <m>\bvec</m> hơn
+	<m>\yvec</m> bởi vì <m>\bvec-\bhat</m> trực giao với
+	<m>L</m>. 
+      </caption>
+    </figure>
+
+    <definition>
+      <idx>phép chiếu trực giao</idx>
+      <statement>
+	<p>
+	  Cho một vectơ <m>\bvec</m> TRONG <m>\real^m</m> và một không gian con
+	  <m>W</m> của <m>\real^m</m>, cái <em>trực giao
+	  phép chiếu</em> của <m>\bvec</m> lên <m>W</m> là vectơ
+	  <m>\bhat</m> TRONG <m>W</m> đó là gần nhất <m>\bvec</m>.
+	  Nó được đặc trưng bởi tính chất <m>\bvec-\bhat</m>
+	  trực giao với <m>W</m>.
+	</p>
+      </statement>
+    </definition>
+
+    <activity>
+      <statement>
+	<p>
+	  Hoạt động này trình bày cách xác định trực giao
+	  hình chiếu của một vectơ lên không gian con của <m>\real^m</m>.
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Hãy bắt đầu bằng cách xem xét một dòng <m>L</m>, được xác định bởi
+		vectơ <m>\wvec=\twovec21</m>, và một vectơ
+		<m>\bvec=\twovec24</m> không bật <m>L</m>, như được minh họa trong
+		<xref ref="fig-projection-line-c" />.  
+	      </p>
+	      
+	      <figure xml:id="fig-projection-line-c">
+                <sidebyside widths="45% 45%">
+		  <image>
+                    <shortdescription>
+                      Một đường hai chiều, một vectơ không nằm trên
+                      đường thẳng và phần bù trực giao của nó.
+                    </shortdescription>
+                    <description>
+                      <p>Một vectơ hai chiều <m>\wvec</m> định nghĩa
+                      một dòng <m>L</m>.  Có một vectơ <m>\bvec</m>
+                      không bật <m>L</m> cũng như trực giao của nó
+                      phép chiếu <m>\bhat</m> trên đường dây và
+                      sự khác biệt <m>\bvec-\bhat</m>.</p>
+                    </description>
+                    <prefigure xmlns="https://prefigure.org"
+                               label="pf-projection-line-4-1">
+                      <xi:include href="prefigure/section6-3/projection-line-4.xml"/>
+                    </prefigure>
+                  </image>
+		  <image>
+                    <shortdescription>
+                      Hình chiếu trực giao bây giờ được biểu diễn dưới dạng
+                      bội số vô hướng của một vectơ cơ sở cho
+                      dòng.
+                    </shortdescription>
+                    <description>
+                      <p>Sơ đồ này chứa hầu hết các khóa giống nhau
+                      các tính năng như sơ đồ trước.  có một
+                      vectơ <m>\wvec</m> xác định dòng
+                      <m>L</m>, một vectơ <m>\bvec</m> không trực tuyến và
+                      hình chiếu trực giao của <m>\bvec</m> lên
+                      <m>L</m>.  Sự khác biệt chính là ở chỗ
+                      phép chiếu trực giao <m>\bhat</m> được viết là
+                      <m>s\wvec</m>, bội số vô hướng của
+                      <m>\wvec</m>.  Bằng cách này, vectơ
+                      <m>\bvec-\bhat = \bvec-s\wvec</m> là trực giao
+                      để <m>L</m>, cung cấp một phương tiện để tìm
+                      <m>s</m> và do đó <m>\bhat</m>.</p>
+                    </description>
+                    <prefigure xmlns="https://prefigure.org"
+                               label="pf-projection-line-2">
+                      <xi:include href="prefigure/section6-3/projection-line-2.xml"/>
+                    </prefigure>
+                  </image>
+		</sidebyside>
+		<caption>
+		  Tìm hình chiếu trực giao của <m>\bvec</m> lên
+		  dòng được xác định bởi <m>\wvec</m>.
+		</caption>
+	      </figure>
+
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Để tìm <m>\bhat</m>, đầu tiên hãy chú ý rằng <m>\bhat =
+		      s\wvec</m> đối với một số vô hướng <m>s</m>.
+		      Từ <m>\bvec-\bhat = \bvec -
+		      s\wvec</m> trực giao với 
+		      <m>\wvec</m>, chúng ta biết gì về dấu chấm
+		      sản phẩm 
+		      <me>
+			(\bvec-s\wvec)\cdot\wvec\text{?}
+		      </me>
+		    </p>
+		  </li>
+		  
+		  <li>
+		    <p>
+		      Áp dụng tính chất phân phối của tích số chấm cho
+		      tìm vô hướng <m>s</m>.  Vectơ là gì
+		      <m>\bhat</m>, hình chiếu trực giao của
+		      <m>\bvec</m> lên 
+		      <m>L</m>? 
+		    </p>
+		  </li>
+		  
+		  <li>
+		    <p>
+		      Tổng quát hơn, giải thích tại sao trực giao
+		      hình chiếu của  
+		      <m>\bvec</m> trên dòng được xác định bởi
+		      <m>\wvec</m> là 
+		      <me>
+			\bhat=
+			\frac{\bvec\cdot\wvec}{\wvec\cdot\wvec}~\wvec\text{.} 
+		      </me>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Những ý tưởng tương tự được áp dụng tổng quát hơn.  Giả sử chúng ta có một
+		tập vectơ trực giao <m>\wvec_1=\threevec22{-1}</m>
+		Và <m>\wvec_2=\threevec102</m> đó
+		xác định một mặt phẳng <m>W</m> TRONG <m>\real^3</m>.
+		Nếu như <m>\bvec=\threevec396</m>
+		một vectơ khác trong <m>\real^3</m>, chúng ta tìm kiếm vectơ
+		<m>\bhat</m> trên máy bay <m>W</m> gần nhất với <m>\bvec</m>.
+		Như trước đây, vectơ <m>\bvec-\bhat</m> sẽ được
+		trực giao với 
+		<m>W</m>, như được minh họa trong <xref
+		ref="fig-3d-orthog" />.
+	      </p>
+	      
+	      <figure xml:id="fig-3d-orthog">
+                <image width="55%">
+                  <shortdescription>
+                    Tìm hình chiếu trực giao trong ba
+                    kích thước.
+                  </shortdescription>
+                  <description>
+                    <p>Hai vectơ ba chiều trực giao
+                    <m>\wvec_1</m>
+                    Và <m>\wvec_2</m> xác định một mặt phẳng <m>W</m>.
+                    có một
+                    vectơ <m>\bvec</m> không có trên máy bay và nó
+                    phép chiếu trực giao <m>\bhat</m> lên
+                    <m>W</m>.  Vectơ <m>\bvec-\bhat</m> là
+                    được vẽ dưới dạng vectơ trực giao với <m>W</m>.</p>
+                  </description>
+                  <prefigure xmlns="https://prefigure.org"
+                             label="pf-3d-orthog-proj-2">
+                    <xi:include href="prefigure/section6-3/3d-orthog-proj-2.xml"/>
+                  </prefigure>
+                </image>
+		<caption>
+		  Cho một chiếc máy bay <m>W</m> được xác định bởi các vectơ trực giao
+		  <m>\wvec_1</m> và <m>\wvec_2</m> và một vectơ khác
+		  <m>\bvec</m>, chúng ta tìm kiếm vectơ <m>\bhat</m> TRÊN <m>W</m>
+		  gần nhất với <m>\bvec</m>.
+		</caption>
+	      </figure>
+
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Vectơ <m>\bvec-\bhat</m> trực giao với <m>W</m>.
+		      Điều này nói gì về tích số chấm:
+		      <m>(\bvec-\bhat)\cdot\wvec_1</m> Và
+		      <m>(\bvec-\bhat)\cdot\wvec_2</m>?
+		    </p>
+		  </li>
+		  
+		  <li>
+		    <p>
+		      Từ <m>\bhat</m> đang ở trên máy bay
+		      <m>W</m>, chúng ta có thể viết nó dưới dạng tổ hợp tuyến tính
+		      <m>\bhat = c_1\wvec_1 + c_2\wvec_2</m>.
+		      Sau đó
+		      <me>
+			\bvec-\bhat = \bvec - (c_1\wvec_1+c_2\wvec_2)\text{.}
+		      </me>
+		      Tìm trọng lượng <m>c_1</m> bằng cách chấm
+		      <m>\bvec-\bhat</m> với 
+		      <m>\wvec_1</m> và áp dụng phép phân phối
+		      tính chất của tích số chấm.  Tương tự, tìm trọng lượng
+		      <m>c_2</m>.
+		    </p>
+		  </li>
+		  
+		  <li>
+		    <p>
+		      Vectơ là gì <m>\bhat</m>, trực giao
+		      hình chiếu của <m>\bvec</m> lên máy bay <m>W</m>?
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		Giả sử rằng <m>W</m> là một không gian con của <m>\real^m</m>
+		với cơ sở trực giao
+		<m>\wvec_1,\wvec_2,\ldots,\wvec_n</m> và đó
+		<m>\bvec</m> là một vectơ trong <m>\real^m</m>.  Giải thích tại sao
+		hình chiếu trực giao của <m>\bvec</m> lên <m>W</m>
+		là vectơ
+		<me>
+		  \bhat =
+		  \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
+		  \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
+		  \cdots + 
+		  \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.} 
+		</me>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Giả sử rằng <m>\uvec_1,\uvec_2,\ldots,\uvec_n</m> là
+		một <em>trực giao</em> cơ sở cho <m>W</m>;  đó là,
+		các vectơ trực giao với nhau và có đơn vị
+		chiều dài.  Giải thích 
+		tại sao hình chiếu trực giao là
+		<me>
+		  \bhat=
+		  (\bvec\cdot\uvec_1)~\uvec_1 + 
+		  (\bvec\cdot\uvec_2)~\uvec_2 +
+		  \cdots +
+		  (\bvec\cdot\uvec_n)~\uvec_n\text{.}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Nếu như <m>Q=\begin{bmatrix}
+		\uvec_1 \amp \uvec_2 \amp \ldots \amp \uvec_n
+		\end{bmatrix}
+		</m> là ma trận có các cột trực giao
+		cơ sở của <m>W</m>, sử dụng <xref
+		ref="prop-chuyển vị-multiplication" /> để giải thích tại sao
+		<m>\bhat = QQ^T\bvec</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Tích số chấm này phải bằng 0 vì các vectơ
+		      là trực giao.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\bhat=\frac{b\cdot\wvec}{\wvec\cdot\wvec}\wvec
+		      = \twovec{16/5}{8/5}</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      Như trước đây, <m>\bhat=
+		      \frac{\bvec\cdot\wvec}{\wvec\cdot\wvec}\wvec</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Những tích số chấm này là 0.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>c_1=\frac{\bvec\cdot\wvec_1}
+		      {\wvec_1\cdot\wvec_1} = 2</m>
+		    </p>
+		    <p>
+		      <m>c_2=\frac{\bvec\cdot\wvec_2}
+		      {\wvec_2\cdot\wvec_2}  = 3</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\bhat = \threevec744</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Chúng ta biết <m>\bhat=c_1\wvec_1 + c_2\wvec_2 + \cdots +
+		c_n\wvec_n</m> và chúng ta có thể tìm thấy
+		<m>c_i=\frac{\bvec\cdot\wvec_i}{\wvec_i\cdot\wvec_i}</m>
+		bằng cách yêu cầu điều đó <m>\bvec-\bhat</m> trực giao với
+		mọi vectơ <m>\wvec_i</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Các vectơ <m>\uvec_i</m> tạo thành một tập hợp trực giao và
+		kể từ khi <m>\uvec_i\cdot\uvec_i = \len{\uvec_i}^2 =
+		1</m>, trọng số là
+		<m>c_i=\frac{\bvec\cdot\uvec_i}{\uvec_i\cdot\uvec_i} =
+		\bvec\cdot\uvec_i</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		chúng ta có <m>Q^T\bvec =
+		\cthreevec{\bvec\cdot\uvec_1}{\vdots}{\bvec\cdot\uvec_n}</m>
+		để có thể
+		<me>QQ^T\bvec = 
+		  (\bvec\cdot\uvec_1)~\uvec_1 + 
+		  (\bvec\cdot\uvec_2)~\uvec_2 +
+		  \cdots +
+		  (\bvec\cdot\uvec_n)~\uvec_n=\bhat\text{.}
+		</me>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      0
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\bhat = \twovec{16/5}{8/5}</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\bhat=
+		      \frac{\bvec\cdot\wvec}{\wvec\cdot\wvec}\wvec</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      0
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>c_1= 2</m>
+		    </p>
+		    <p>
+		      <m>c_2=3</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\bhat = \threevec744</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Chúng ta yêu cầu điều đó <m>\bvec-\bhat</m> trực giao với
+		mọi vectơ <m>\wvec_i</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>c_i=\frac{\bvec\cdot\uvec_i}{\uvec_i\cdot\uvec_i} =
+		\bvec\cdot\uvec_i</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Sử dụng thực tế rằng <m>Q^T\bvec =
+		\threevec{\bvec\cdot\uvec_1}{\vdots}{\bvec\cdot\uvec_n}</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		      
+    </activity>
+
+    <p>
+      Trong tất cả các trường hợp được xem xét trong hoạt động này, chúng ta đang tìm kiếm
+      cho <m>\bhat</m>, vectơ trong không gian con <m>W</m> gần nhất với một 
+      vectơ <m>\bvec</m>, được tìm thấy bằng cách yêu cầu rằng
+      <m>\bvec-\bhat</m> trực giao với <m>W</m>.  Điều này có nghĩa
+      đó <m>(\bvec-\bhat)\cdot\wvec = 0</m> với mọi vectơ
+      <m>\wvec</m> TRONG <m>W</m>.
+    </p>
+
+    <p>
+      Nếu chúng ta có một cơ sở trực giao
+      <m>\wvec_1,\wvec_2,\ldots,\wvec_n</m> vì <m>W</m>, sau đó
+      <m>\bhat = c_1\wvec_1+c_w\wvec_2+\cdots+c_n\wvec_n</m>.  Vì thế, 
+      <md>
+	<mrow>
+	  (\bvec-\bhat)\cdot\wvec_i \amp = 0
+	</mrow>
+	<mrow>
+	  \bvec\cdot\wvec_i \amp = \bhat\cdot\wvec_i
+	</mrow>
+	<mrow>
+	  \bvec\cdot\wvec_i \amp =
+	  (c_1\wvec_1+c_2\wvec_2+\cdots + c_n\wvec_n)\cdot\wvec_i
+	</mrow>
+	<mrow>
+	  \bvec\cdot\wvec_i \amp = c_i\wvec_i\cdot\wvec_i
+	</mrow>
+	<mrow>
+	  c_i \amp = \frac{\bvec\cdot\wvec_i}{\wvec_i\cdot\wvec_i}.
+	</mrow>
+      </md>
+      Điều này dẫn đến công thức chiếu:
+    </p>
+
+    <proposition xml:id="prop-proj-formula">
+      <title> Công thức chiếu </title>
+      <statement>
+	<p>
+	  Nếu như <m>W</m> là một không gian con của <m>\real^m</m> có
+	  một cơ sở trực giao <m>\wvec_1,\wvec_2,\ldots, \wvec_n</m>
+	  Và <m>\bvec</m> là một vectơ trong <m>\real^m</m>, sau đó
+	  cái
+	  hình chiếu trực giao của <m>\bvec</m> lên <m>W</m> là
+	  <me>
+	    \bhat=
+	    \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
+	    \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
+	    \cdots +
+	    \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.}
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+
+    <assemblage>
+      <title> Thận trọng </title>
+      <p>
+	Hãy nhớ rằng công thức chiếu được đưa ra trong <xref
+	ref="prop-proj-formula" /> chỉ áp dụng khi có căn cứ
+	<m>\wvec_1,\wvec_2,\cdots,\wvec_n</m> của <m>W</m> là
+	<em>trực giao</em>.
+      </p>
+    </assemblage>
+
+    <p>
+      Nếu chúng ta có một cơ sở trực chuẩn
+      <m>\uvec_1,\uvec_2,\ldots,\uvec_n</m> vì <m>W</m>, cái
+      công thức chiếu đơn giản hóa thành
+      <me>
+	\bhat=
+	(\bvec\cdot\uvec_1)~\uvec_1 + 
+	(\bvec\cdot\uvec_2)~\uvec_2 +
+	\cdots + 
+	(\bvec\cdot\uvec_n)~\uvec_n\text{.}
+      </me>
+      Nếu sau đó chúng ta tạo thành ma trận
+      <me>
+	Q =
+	\begin{bmatrix}
+	\uvec_1 \amp \uvec_2 \amp \ldots \amp \uvec_n 
+	\end{bmatrix}\text{,}
+      </me>
+      biểu thức này có thể được viết ngắn gọn
+      <md>
+	<mrow>
+	  \bhat \amp {}={}
+	  (\bvec\cdot\uvec_1)~\uvec_1 + 
+	  (\bvec\cdot\uvec_2)~\uvec_2 +
+	  \cdots + 
+	  (\bvec\cdot\uvec_n)~\uvec_n
+	</mrow>
+	<mrow>
+	  \amp {}={}
+	  \begin{bmatrix}
+	  \uvec_1\amp\uvec_2\amp\ldots\amp\uvec_n
+	  \end{bmatrix}
+	  \begin{bmatrix}
+	  \uvec_1\cdot\bvec \\
+	  \uvec_2\cdot\bvec \\
+	  \vdots \\
+	  \uvec_n\cdot\bvec \\
+	  \end{bmatrix}
+	</mrow>
+	<mrow>
+	  \amp {}={} QQ^T\bvec
+	</mrow>
+      </md>
+    </p>
+
+    <p>
+      Điều này dẫn đến mệnh đề sau.
+    </p>
+
+    <proposition xml:id="prop-proj-orthonormal">
+      <statement>
+	<p> Nếu như <m>\uvec_1,\uvec_2,\ldots,\uvec_n</m> là một trực chuẩn
+	cơ sở cho một không gian con <m>W</m> của <m>\real^m</m>, sau đó 
+	sự chuyển đổi ma trận mà dự án
+	vectơ trong <m>\real^m</m> trực giao lên <m>W</m> là
+	được biểu diễn bằng ma trận <m>P=QQ^T</m> Ở đâu 
+	<me>
+	  Q =
+	  \begin{bmatrix}
+	  \uvec_1 \amp \uvec_2 \amp \ldots \amp \uvec_n \\
+	  \end{bmatrix}\text{.}
+	</me>
+	</p>
+      </statement>
+    </proposition>
+
+    <example xml:id="example-projection-matrix">
+      <statement>
+	<p>
+	  Trong hoạt động trước, chúng ta đã quan sát chiếc máy bay <m>W</m>
+	  được xác định bởi hai vectơ trực giao
+	  <me>
+	    \wvec_1=\threevec22{-1},\hspace{24pt}
+	    \wvec_2=\threevec102\text{.}
+	  </me>
+	  Chúng ta có thể hình thành một cơ sở trực chuẩn bằng cách nhân vô hướng những
+	  vectơ có độ dài đơn vị:
+	  <me>
+	    \uvec_1=\frac13\threevec22{-1} =
+	    \threevec{2/3}{2/3}{-1/3},\hspace{24pt}
+	    \uvec_2=\frac1{\sqrt{5}}\threevec102 =
+	    \threevec{1/\sqrt{5}}0{2/\sqrt{5}}\text{.}
+	  </me>
+	  Sử dụng các vectơ này, chúng ta tạo thành ma trận
+	  <me>
+	    Q =
+	    \begin{bmatrix}
+	    2/3 \amp 1/\sqrt{5} \\
+	    2/3 \amp 0 \\
+	    -1/3 \amp 2/\sqrt{5} \\
+	    \end{bmatrix}\text{.}
+	  </me>
+	  Hình chiếu lên mặt phẳng <m>W</m> sau đó được cho bởi
+	  ma trận
+	  <me>
+	    QQ^T =
+	    \begin{bmatrix}
+	    2/3 \amp 1/\sqrt{5} \\
+	    2/3 \amp 0 \\
+	    -1/3 \amp 2/\sqrt{5} \\
+	    \end{bmatrix}
+	    \begin{bmatrix}
+	    2/3 \amp 2/3 \amp -1/3 \\
+	    1/\sqrt{5} \amp 0 \amp 2/\sqrt{5} \\
+	    \end{bmatrix}
+	    =
+	    \begin{bmatrix}
+	    {29}/{45} \amp {4}/{9} \amp {8}/{45} \\
+	    {4}/{9} \amp {4}/{9} \amp -{2}/{9} \\
+	    {8}/{45} \amp -{2}/{9} \amp {41}/{45}
+	    \end{bmatrix}\text{.}
+	  </me>
+	</p>
+
+	<p>
+	  Hãy kiểm tra xem điều này có hiệu quả hay không bằng cách xem xét vectơ
+	  <m>\bvec=\threevec100</m> và tìm kiếm <m>\bhat</m>, nó
+	  phép chiếu trực giao 
+	  lên máy bay <m>W</m>.  Xét về cơ sở ban đầu
+	  <m>\wvec_1</m> và <m>\wvec_2</m>, công thức chiếu
+	  từ <xref ref="prop-proj-formula" /> nói với chúng ta rằng
+	  <me>
+	    \bhat=\frac{\bvec\cdot\wvec_1}
+	    {\wvec_1\cdot\wvec_1}~\wvec_1 + 
+	    \frac{\bvec\cdot\wvec_2}
+	    {\wvec_2\cdot\wvec_2}~\wvec_2 
+	    =
+	    \cthreevec{{29}/{45}}{4/9}{8/{45}} \\
+	  </me>
+	</p>
+
+	<p>
+	  Ngoài ra, chúng ta sử dụng ma trận <m>QQ^T</m>,
+	  như trong <xref ref="prop-proj-orthonormal" />, để tìm thấy điều đó
+	  <me>
+	    \bhat = QQ^T\bvec = 
+	    \begin{bmatrix}
+	    {29}/{45} \amp {4}/{9} \amp {8}/{45} \\
+	    {4}/{9} \amp {4}/{9} \amp -{2}/{9} \\
+	    {8}/{45} \amp -{2}/{9} \amp {41}/{45}
+	    \end{bmatrix}\threevec100
+	    =
+	    \cthreevec{{29}/{45}}{4/9}{8/{45}}\text{.}
+	  </me>
+	</p>
+      </statement>
+    </example>
+
+    <activity>
+      <statement>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Giả sử rằng <m>L</m> là dòng trong <m>\real^3</m>
+		được xác định bởi vectơ
+		<m>\wvec=\threevec{1}{2}{-2}</m>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Tìm cơ sở trực chuẩn <m>\uvec</m> vì
+		      <m>L</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      Xây dựng ma trận
+		      <m>Q = \begin{bmatrix}\uvec\end{bmatrix}</m> và
+		      sử dụng nó để xây dựng ma trận <m>P</m> đó
+		      chiếu các vectơ trực giao lên <m>L</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      Sử dụng ma trận của bạn để tìm <m>\bhat</m>, cái
+		      phép chiếu trực giao 
+		      của <m>\bvec=\threevec111</m> lên <m>L</m>.
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Tìm thấy <m>\rank(P)</m> và giải thích hình học của nó
+		      ý nghĩa.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Các vectơ
+		<me>
+		  \wvec_1 = \fourvec1111,\hspace{24pt}
+		  \wvec_2 = \fourvec011{-2}
+		</me>
+		tạo thành một cơ sở trực giao của <m>W</m>, hai chiều
+		không gian con 
+		của <m>\real^4</m>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Sử dụng công thức chiếu từ <xref
+		      ref="prop-proj-formula" /> để tìm <m>\bhat</m>,
+		      hình chiếu trực giao của
+		      <m>\bvec=\fourvec92{-2}3</m> lên <m>W</m>.
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Tìm cơ sở trực chuẩn <m>\uvec_1</m> Và
+		      <m>\uvec_2</m> vì <m>W</m> và sử dụng nó để
+		      xây dựng ma trận 
+		      <m>P</m> chiếu các vectơ trực giao lên
+		      <m>W</m>.  Kiểm tra xem <m>P\bvec = \bhat</m>, cái
+		      phép chiếu trực giao bạn đã tìm thấy ở phần trước
+		      một phần của hoạt động này.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      Tìm thấy <m>\rank(P)</m> và giải thích hình học của nó
+		      ý nghĩa.
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Tìm cơ sở cho <m>W^\perp</m>.
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Tìm một vectơ <m>\bvec^\perp</m> TRONG <m>W^\perp</m>
+		      như vậy
+		      <me>
+			\bvec = \bhat + \bvec^\perp.
+		      </me>
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Nếu như <m>Q</m> là ma trận có các cột là
+		      <m>\uvec_1</m> và <m>\uvec_2</m>, tìm
+		      sản phẩm <m>Q^TQ</m> và giải thích kết quả của bạn.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>\uvec=\threevec{1/3}{2/3}{-2/3}</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>QQ^T = \begin{bmatrix}
+		      1/9 \amp 2/9 \amp -2/9 \\
+		      2/9 \amp 4/9 \amp -4/9 \\
+		      -2/9 \amp -4/9 \amp 4/9
+		      \end{bmatrix}</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\bhat=\threevec{1/9}{2/9}{-2/9}</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      Chúng ta thấy rằng <m>\rank(P)</m>, điều đó có ý nghĩa
+		      bởi vì <m>\col(P) = L</m>, 1 chiều
+		      không gian con của <m>\real^3</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>\bhat = \fourvec3225</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>P = \begin{bmatrix}
+		      1/4 \amp 1/4 \amp 1/4 \amp 1/4 \\
+		      1/4 \amp 5/12 \amp 5/12 \amp -1/12 \\
+		      1/4 \amp 5/12 \amp 5/12 \amp 1/12 \\
+		      1/4 \amp -1/12 \amp -1/12 \amp 11/12
+		      \end{bmatrix}
+		      </m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\rank(P)=2</m> từ <m>\col(P) = W</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      Từ <m>W=\col(P)</m>, sau đó <m>W^\perp =
+		      \nul(P)</m>, mang lại
+		      <m>\vvec_1=\fourvec0{-1}10</m> Và
+		      <m>\vvec_2=\fourvec{-3}{-2}01</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      Chúng ta có thể tìm thấy <m>\bvec^\perp = \bvec - \bhat =
+		      \fourvec60{-4}{-2}</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>Q^TQ = \begin{bmatrix}
+		      1 \amp 0 \\
+		      0 \amp 1
+		      \end{bmatrix}
+		      </m> vì sản phẩm này tính toán dấu chấm
+		      sản phẩm giữa các cột của <m>Q</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>\uvec=\threevec{1/3}{2/3}{-2/3}</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>QQ^T = \begin{bmatrix}
+		      1/9 \amp 2/9 \amp -2/9 \\
+		      2/9 \amp 4/9 \amp -4/9 \\
+		      -2/9 \amp -4/9 \amp 4/9
+		      \end{bmatrix}</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\bhat=\threevec{1/9}{2/9}{-2/9}</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\rank(P)=1</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>\bhat = \fourvec3235</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>P = \begin{bmatrix}
+		      1/4 \amp 1/4 \amp 1/4 \amp 1/4 \\
+		      1/4 \amp 5/12 \amp 5/12 \amp -1/12 \\
+		      1/4 \amp 5/12 \amp 5/12 \amp 1/12 \\
+		      1/4 \amp -1/12 \amp -1/12 \amp 11/12
+		      \end{bmatrix}
+		      </m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\rank(P)=2</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\vvec_1=\fourvec0{-1}10</m> Và
+		      <m>\vvec_2=\fourvec{-3}{-2}01</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\bvec^\perp = 
+		      \fourvec60{-4}{-2}</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>Q^TQ = \begin{bmatrix}
+		      1 \amp 0 \\
+		      0 \amp 1
+		      \end{bmatrix}</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		
+    </activity>
+
+    <p>
+      Hoạt động này thể hiện một vấn đề cần lưu ý.  Chúng ta đã tìm thấy
+      <m>\bhat</m>, hình chiếu trực giao của <m>\bvec</m> lên
+      <m>W</m>, bằng cách yêu cầu rằng <m>\bvec-\bhat</m> trực giao với
+      <m>W</m>.  Nói cách khác, <m>\bvec-\bhat</m> là một vectơ trong
+      phần bù trực giao
+      <m>W^\perp</m>, mà chúng ta có thể biểu thị <m>\bvec^\perp</m>.  Cái này
+      giải thích mệnh đề sau đây, được minh họa trong
+      <xref ref="fig-orthog-decomp" />
+    </p>
+
+    <proposition xml:id="prop-orthog-decomp">
+      <statement>
+        <p>
+	  Nếu như <m>W</m> là một không gian con của <m>\real^n</m> với trực giao
+	  bổ sung <m>W^\perp</m>, thì bất kỳ <m>n</m>-chiều
+	  vectơ <m>\bvec</m> có thể được viết duy nhất là
+	  <me>
+	    \bvec = \bhat + \bvec^\perp
+	  </me>
+	  Ở đâu <m>\bhat</m> đang ở trong <m>W</m> và <m>\bvec^\perp</m> đang ở trong
+	  <m>W^\perp</m>.  Vectơ <m>\bhat</m> là trực giao
+	  hình chiếu của <m>\bvec</m> lên <m>W</m> Và
+	  <m>\bvec^\perp</m> là hình chiếu trực giao của
+	  <m>\bvec</m> lên <m>W^\perp</m>.
+        </p>
+      </statement>
+    </proposition>
+
+    <figure xml:id="fig-orthog-decomp">
+      <image width="45%">
+        <shortdescription>
+          Một vectơ hai chiều được chiếu trực giao lên một
+          đường thẳng và phần bù trực giao của đường thẳng.
+        </shortdescription>
+        <description>
+          <p>Một đường hai chiều <m>L</m> và trực giao của nó
+          bổ sung <m>L^\perp</m>, đó là hai cái khác
+          đường chiều.  Có một vectơ <m>\bvec</m> và nó
+          phép chiếu trực giao <m>\bhat</m> lên <m>L</m> và nó
+          phép chiếu trực giao <m>\bvec^\perp</m> lên
+          <m>L^\perp</m>.  Điều này cho thấy rằng <m>\bvec=\bhat +
+          \bvec^\perp</m>.</p>
+        </description>
+        <prefigure xmlns="https://prefigure.org"
+                   label="pf-orthog-decomp">
+          <xi:include href="prefigure/section6-3/orthog-decomp.xml"/>
+        </prefigure>
+      </image>
+      <caption>
+	Một vectơ <m>\bvec</m> cùng với <m>\bhat</m>, nó trực giao
+	chiếu lên đường thẳng <m>L</m>, Và <m>\bvec^\perp</m>, nó
+	phép chiếu trực giao lên phần bù trực giao
+	<m>L^\perp</m>.
+      </caption>
+    </figure>
+    
+    <p>
+      Hãy tóm tắt những gì chúng ta đã tìm thấy.  Nếu như <m>Q</m> là một ma trận có
+      cột <m>\uvec_1, \uvec_2,\ldots,\uvec_n</m> hình thành một
+      thiết lập trực giao trong <m>\real^m</m>, sau đó
+      <ul>
+	<li>
+	  <p>
+	    <m>Q^TQ = I_n</m>, cái <m>n\times n</m> danh tính
+	    ma trận, bởi vì sản phẩm này tính toán các tích vô hướng
+	    giữa các cột của <m>Q</m>.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    <m>QQ^T</m> là ma trận các vectơ dự án
+	    trực giao lên <m>W</m>, không gian con của <m>\real^m</m>
+	    kéo dài bởi <m>\uvec_1,\ldots,\uvec_n</m>.
+	  </p>
+	</li>
+      </ul>
+      Như chúng ta đã nói trước đây, phép nhân ma trận phụ thuộc vào thứ tự
+      trong đó chúng ta nhân các ma trận, và chúng ta thấy rõ điều này ở đây.
+    </p>
+
+    <p>
+      Bởi vì <m>Q^TQ=I</m>, có một sự cám dỗ để nói rằng
+      <m>Q</m> là không thể đảo ngược.  Tuy nhiên, điều này thường không xảy ra.
+      Hãy nhớ rằng ma trận khả nghịch phải là ma trận vuông và
+      ma trận <m>Q</m> sẽ chỉ là hình vuông nếu <m>n=m</m>.  Trong này
+      trường hợp, có <m>m</m> các vectơ trong tập trực chuẩn nên
+      không gian con <m>W</m> kéo dài bởi các vectơ
+      <m>\uvec_1,\uvec_2,\ldots,\uvec_m</m> là <m>\real^m</m>.  Nếu như
+      <m>\bvec</m> là một vectơ trong <m>\real^m</m>, sau đó
+      <m>\bhat=QQ^T\bvec</m> là hình chiếu trực giao của
+      <m>\bvec</m> lên <m>\real^m</m>.  Nói cách khác,
+      <m>QQ^T\bvec</m> là vectơ gần nhất trong <m>\real^m</m> ĐẾN
+      <m>\bvec</m>, và vectơ gần nhất này phải là <m>\bvec</m>
+      chính nó.  Vì thế, <m>QQ^T\bvec = \bvec</m>, có nghĩa là
+      <m>QQ^T=I</m>.  Trong trường hợp này, <m>Q</m> là một ma trận khả nghịch.
+    </p>
+
+    <example>
+      <statement>
+	<p>
+	  Xét tập vectơ trực chuẩn
+	  <me>
+	    \uvec_1=\threevec{1/\sqrt{3}}{-1/\sqrt{3}}{1/\sqrt{3}},
+	    \hspace{24pt}
+	    \uvec_2=\threevec{1/\sqrt{2}}{1/\sqrt{2}}0
+	  </me>
+	  và ma trận mà họ xác định
+	  <me>
+	    Q = \begin{bmatrix}
+	    1/\sqrt{3} \amp 1/\sqrt{2} \\
+	    -1/\sqrt{3} \amp 1/\sqrt{2} \\
+	    1/\sqrt{3} \amp 0 \\
+	    \end{bmatrix}\text{.}
+	  </me>
+	  Trong trường hợp này, <m>\uvec_1</m> và <m>\uvec_2</m> trải dài một
+	  mặt phẳng, không gian con 2 chiều của <m>\real^3</m>.  Chúng ta biết
+	  đó <m>Q^TQ = I_2</m> và <m>QQ^T</m> vectơ dự án
+	  vuông góc với mặt phẳng.  Tuy nhiên, <m>Q</m> không phải là một
+	  ma trận vuông nên không khả nghịch được.
+	</p>
+      </statement>
+    </example>
+	
+    <example>
+      <statement>
+	<p>
+	  Bây giờ xét tập vectơ trực chuẩn
+	  <me>
+	    \uvec_1=\threevec{1/\sqrt{3}}{-1/\sqrt{3}}{1/\sqrt{3}},
+	    \hspace{24pt}
+	    \uvec_2=\threevec{1/\sqrt{2}}{1/\sqrt{2}}0,
+	    \hspace{24pt}
+	    \uvec_3=\threevec{1/\sqrt{6}}{-1/\sqrt{6}}{-2/\sqrt{6}}
+	  </me>
+	  và ma trận mà họ xác định
+	  <me>
+	    Q = \begin{bmatrix}
+	    1/\sqrt{3} \amp 1/\sqrt{2} \amp 1/\sqrt{6} \\
+	    -1/\sqrt{3} \amp 1/\sqrt{2} \amp -1/\sqrt{6} \\
+	    1/\sqrt{3} \amp 0 \amp -2/\sqrt{6} \\
+	    \end{bmatrix}\text{.}
+	  </me>
+	  Đây, <m>\uvec_1</m>, <m>\uvec_2</m>, Và <m>\uvec_3</m>
+	  tạo cơ sở cho <m>\real^3</m> thế là cả hai <m>Q^TQ=I_3</m>
+	  Và <m>QQ^T=I_3</m>.  Vì thế, <m>Q</m> là một ma trận vuông
+	  và có thể đảo ngược.
+	</p>
+
+	<p>
+	  Hơn nữa, kể từ khi <m>Q^TQ = I</m>, chúng ta thấy điều đó <m>Q^{-1} =
+	  Q^T</m> vì vậy tìm nghịch đảo của <m>Q</m> đơn giản như
+	  viết chuyển vị của nó.  Ma trận có tính chất này rất
+	  đặc biệt và sẽ đóng một vai trò quan trọng trong tương lai của chúng ta
+	  làm việc.  Vì vậy chúng ta sẽ đặt cho chúng một cái tên đặc biệt.
+	</p>
+      </statement>
+    </example>
+
+    <definition>
+      <statement>
+	<idx> ma trận trực giao </idx>
+	<p>
+	  một hình vuông <m>m\times m</m> ma trận <m>Q</m> cột của họ tạo thành
+	  một cơ sở trực chuẩn cho <m>\real^m</m> được gọi là <em>
+	  trực giao</em>.  
+	</p>
+      </statement>
+    </definition>
+
+    <p>
+      Thuật ngữ này có thể hơi khó hiểu.  Chúng ta gọi một cơ sở
+      trực giao nếu các vectơ cơ sở trực giao với nhau.
+      Tuy nhiên, ma trận là trực giao nếu các cột trực giao với
+      nhau và có độ dài đơn vị.  Nó trả tiền để giữ
+      điều này trong tâm trí
+      khi đọc các phát biểu về cơ số trực giao và trực giao
+      ma trận.  Trong khi đó, chúng ta ghi lại những điều sau đây
+      đề xuất. 
+    </p>
+
+    <proposition xml:id="prop-orthog-matrix">
+      <statement>
+	<p>
+	  Một ma trận trực giao <m>Q</m> là nghịch đảo và nghịch đảo của nó
+	  <m>Q^{-1} = Q^T</m>.
+	</p>
+      </statement>
+    </proposition>
+  </subsection>
+  
+  <subsection>
+    <title> Bản tóm tắt </title>
+
+    <p>
+      Phần này giới thiệu các tập trực giao và phép chiếu
+      công thức đặt chúng ta chiếu các vectơ trực giao lên một
+      không gian con.
+      <ul>
+	<li>
+	  <p>
+	    Cho một tập trực giao <m>\wvec_1,\wvec_2,\ldots,\wvec_n</m>
+	    trải dài một <m>n</m>-chiều
+	    không gian con <m>W</m> của <m>\real^m</m>, trực giao 
+	    hình chiếu của <m>\bvec</m> lên <m>W</m> là vectơ trong <m>W</m>
+	    gần nhất với <m>\bvec</m> và có thể được viết là
+	    <me>
+	      \bhat =
+	      \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
+	      \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
+	      \cdots + 
+	      \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.}
+	    </me>
+	  </p>
+	</li>
+	  
+	<li>
+	  <p>
+	    Nếu như <m>\uvec_1,\uvec_2,\ldots,\uvec_n</m> là một
+	    cơ sở trực chuẩn của <m>W</m> và <m>Q</m> là ma trận
+	    cột của ai <m>\uvec_i</m>, thì ma trận <m>P=QQ^T</m>
+	    chiếu các vectơ trực giao lên <m>W</m>. 
+	  </p>
+	</li>
+	
+	<li>
+	  <p>
+	    Nếu các cột của <m>Q</m> tạo thành một cơ sở trực chuẩn cho
+	    một <m>n</m>không gian con chiều của <m>\real^m</m>, sau đó
+	    <m>Q^TQ=I_n</m>.  
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    Một ma trận trực giao <m>Q</m> là một ma trận vuông có
+	    các cột tạo thành một cơ sở trực giao.  Trong trường hợp này,
+	    <m>QQ^T=Q^TQ = I</m> để có thể <m>Q^{-1} = Q^T</m>.
+	  </p>
+	</li>
+	
+      </ul>
+    </p>
+
+    <exercise component="proteus"
+              label="ula-proteus-6-3-determining-weights-from-dot-products">
+      <title>Xác định trọng số từ tích số chấm</title>
+      <statement>
+        <p>
+          Giả sử rằng <m>\{\vvec_1,\vvec_2,\vvec_3\}</m> là một
+          cơ sở trực giao của <m>\real^3</m>
+          và đó <m>|\vvec_1|=5</m>, <m>|\vvec_2|=2</m>, Và
+          <m>|\vvec_3|=3</m>.
+          Giả sử rằng <m>\xvec</m> là một vectơ trong <m>\real^3</m>
+          thỏa mãn <m>\xvec\cdot \vvec_1=50</m>, <m>\xvec\cdot
+          \vvec_2=12</m>,
+          Và <m>\xvec\cdot \vvec_3=-9</m>.
+        </p>
+        <p>
+          Điền vào các trọng số:
+          <blockquote>
+            <m>\xvec =</m>
+            <fillin answer="2"  width="1" /> <m>\vvec_1+</m>
+            <fillin answer="3"  width="1" /> <m>\vvec_2+</m>
+            <fillin answer="-1"  width="1" />  <m> \vvec_3</m>.
+          </blockquote>
+        </p>
+      </statement>
+      <evaluation>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+        <evaluate>
+          <test correct = "yes">
+            <numcmp use-answer="yes" />
+          </test>
+        </evaluate>
+      </evaluation>
+    </exercise>
+
+    <exercise component="proteus"
+              label="ula-proteus-6-3-reasoning-orthog-basis">
+      <title>Suy luận về cơ sở trực giao</title>
+
+      <statement>
+        <p>Giả sử rằng <m>\wvec_1,\wvec_2,\ldots,\wvec_6</m> là một
+        tập trực giao bao trùm một <m>6</m>không gian con chiều
+        <m>W</m> của
+        <m>\real^9</m> và đó
+        <me>
+          P = \begin{bmatrix}
+          \wvec_1 \amp \wvec_2 \amp \ldots \amp \wvec_6
+          \end{bmatrix}
+        </me>.
+        Xác định xem mỗi câu sau đây có phải là Luôn luôn không
+        Đúng, Không bao giờ đúng hoặc Đôi khi đúng.
+        </p>
+      </statement>
+
+      <cardsort>
+        <match>
+          <premise><m>P^TP</m> là ma trận đường chéo.</premise>
+          <premise>Nếu như <m>P^TP=I</m>, sau đó
+          <m>\wvec_1,\ldots,\wvec_6</m> là một tập trực chuẩn.
+          </premise>
+          <premise><m>\dim\nul(P^T)=3</m>.</premise>
+          <response>Luôn đúng</response>
+        </match>
+        <match>
+          <premise><m>PP^T\bvec</m> là hình chiếu trực giao của
+          <m>\bvec</m> lên <m>W</m>.</premise>
+          <response>Đôi khi đúng</response>
+        </match>
+        <match>
+          <premise><m>PP^T=I.</m></premise>
+          <premise><m>P</m> là không thể đảo ngược.</premise>
+          <premise><m>\dim\col(P)=3</m>.</premise>
+          <premise><m>P^T\wvec_1=\zerovec</m>.</premise>
+          <response>Không bao giờ đúng</response>
+        </match>
+      </cardsort>
+    </exercise>
+
+    <exercise componene="proteus"
+        label="ula-proteus-6-1-othogonalsort-v1">
+      <title>Xác định tính trực giao</title>
+      <statement>
+        <p>Hãy xác định xem mỗi tập hợp vectơ sau đây có phải là
+        trực giao, trực giao nhưng không trực giao, tuyến tính
+        độc lập nhưng không trực giao hoặc không tuyến tính
+        độc lập.</p>
+      </statement>
+      <cardsort>
+        <match>
+          <premise><m>\threevec{1}{2}{-1}, \threevec{-2}{1}{0},
+          \threevec{0}{1}{2}</m></premise>
+          <premise><m>\threevec{1/\sqrt{3}}{1/\sqrt{3}}{1/\sqrt{3}},
+          \threevec{1/\sqrt{2}}{-1/\sqrt{2}}{0},
+          \threevec{0}{-1/\sqrt{2}}{1/\sqrt{2}}</m></premise>
+          <response><p>độc lập tuyến tính, không trực giao</p></response>
+        </match>
+        <match>
+          <premise><m>\threevec{1}{1}{0}, \threevec{-1}{1}{0},
+          \threevec{0}{0}{2}</m></premise>
+          <response><p>trực giao, không trực giao</p></response>
+        </match>
+        <match>
+          <premise><m>\threevec{1}{0}{0}, \threevec{0}{1}{0},
+          \threevec{0}{0}{1}</m></premise>
+          <premise><m>\threevec{1/\sqrt{2}}{0}{1/\sqrt{2}},
+          \threevec{1/\sqrt{2}}{0}{-1/\sqrt{2}},
+          \threevec{0}{1}{0}</m></premise>
+          <response><p>trực chuẩn</p></response>
+        </match>
+        <match>
+          <premise><m>\threevec{1}{0}{-1}, \threevec{1}{0}{1},
+          \threevec{0}{0}{0}</m></premise>
+          <response><p>Không độc lập tuyến tính</p></response>
+        </match>
+      </cardsort>
+    </exercise>
+
+    <exercise component="proteus"
+              label="ula-proteus-6-3-matching-orthog-proj">
+      <title>Lý luận về hình chiếu trực giao</title>
+
+      <statement>
+        <p>Giả sử rằng <m>W</m> là một <m>3</m>không gian con chiều của
+        <m>\real^5</m>, cái đó <m>\bvec</m> là một vectơ khác 0 trong
+        <m>\real^5</m>, và đó <m>\bhat</m> là trực giao
+        hình chiếu của <m>\bvec</m> lên <m>W</m>. Giả sử cũng vậy
+        <m>Q</m> là một ma trận có các cột tạo thành cơ sở trực chuẩn
+        cho <m>W</m>.
+        Xác định xem
+        mỗi phát biểu sau đây luôn đúng, không bao giờ đúng,
+        hoặc Đôi khi Đúng.</p>
+      </statement>
+
+      <cardsort>
+        <match>
+          <premise><m>\bhat</m> là vectơ trong <m>W</m> đó là
+          gần nhất với <m>\bvec</m>.</premise>
+          <premise><m>\bhat</m> đang ở trong <m>W</m>.</premise>
+          <premise><m>Q^T(\bvec-\bhat) = \zerovec</m>.</premise>
+          <premise>Nếu như <m>Q^T\bhat=\zerovec</m>, sau đó <m>\bvec</m> là
+          trong <m>W^\perp</m>.</premise>
+          <premise><m>QQ^T\bhat = \bhat</m>.</premise>
+          <response>Luôn đúng</response>
+        </match>
+
+        <match>
+          <premise>Nếu như <m>\bhat=\zerovec</m>, sau đó <m>\bvec</m> đang ở trong
+          <m>W</m>. </premise>
+          <premise><m>Q^TQ\bvec=\bhat</m>.</premise>
+          <premise>Nếu như <m>\bvec=\bhat</m>, sau đó <m>\bvec</m> đang ở trong
+          <m>W^\perp</m>.</premise>
+          <response>Không bao giờ đúng</response>
+        </match>
+
+        <match>
+          <response>Đôi khi đúng</response>
+        </match>
+      </cardsort>
+    </exercise>
+
+    <exercise component="proteus"
+              label="ula-proteus-6-3-process-for-decomposing-a-vector">
+      <title>Viết một vectơ dưới dạng tổng của một vectơ trong <m>W</m> và một
+      vectơ trực giao với <m>W</m></title>
+      <statement>
+        <p>
+          Giả định <m>\{\wvec_1,\wvec_2,\wvec_3\}</m> là một trực giao
+          cơ sở của một không gian con <m>W</m> của <m>\real^n</m>.  Tạo một
+          danh sách các bước sẽ viết một vector <m>\xvec</m> TRONG
+          <m>\real^n</m> BẰNG <m>\xvec = \uvec+\vvec</m> Ở đâu
+          <m>\uvec</m> đang ở trong <m>W</m> và <m>\vvec</m> đang ở trong
+          <m>W^\perp</m>.  Lưu ý rằng không phải tất cả các khối sẽ được sử dụng.
+        </p>
+      </statement>
+
+      <blocks>
+        <block>
+          <p>Chia mỗi vectơ <m>\wvec_1</m>,
+          <m>\wvec_2</m>, Và <m>\wvec_3</m>
+          theo chiều dài của nó để đưa ra một cơ sở trực chuẩn
+          <m>\{\uvec_1,\uvec_2,\uvec_3\}</m> của <m>W</m>.</p>
+        </block>
+        <block>
+          <p>Đặt <m>Q = \begin{bmatrix} \uvec_1 &amp; \uvec_2 &amp; \uvec_3 \end{bmatrix}</m>.</p>
+        </block>
+        <block>
+          <p>Tìm thấy <m>P = QQ^T</m>.</p>
+        </block>
+        <block>
+          <p>Tính toán <m>\uvec = P\xvec</m>.</p>
+        </block>
+        <block>
+          <p>Tính toán <m>\vvec = \wvec - \uvec</m>.</p>
+        </block>
+        <block>
+          <p>Kiểm tra xem <m>\wvec = \uvec + \vvec</m>, <m>\uvec</m> là
+          trong <m>W</m>,
+          Và <m>\vvec</m> đang ở trong <m>W^\perp</m>.</p>
+        </block>
+        <block correct="no">
+          <p>Đặt <m>Q = \begin{bmatrix} \wvec_1 &amp; \wvec_2 &amp; \wvec_3 \end{bmatrix}</m>.</p>
+        </block>
+        <block correct="no">
+          <p>Tìm thấy <m>P = Q^TQ</m>.</p>
+        </block>
+        <block correct="no">
+          <p>Tính toán <m>\uvec = \xvec P</m>.</p>
+        </block>
+      </blocks>
+    </exercise>
+
+  </subsection>
+
+  <xi:include href="exercises/exercises6-3.xml" />
+	      
+</section>
+
